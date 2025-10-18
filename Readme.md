@@ -48,3 +48,28 @@ YDS-Lab/
 ## 许可证
 
 许可证待定。
+
+## 离线安装与二进制文件管理
+
+为避免仓库被大体积安装包或归档文件污染，统一约定：
+
+- 不将安装包、压缩包等二进制文件提交到仓库。
+- 如需离线安装或本地保留，请统一放置在 downloads/ 目录（该目录已在 .gitignore 中忽略）。
+- 提交前本项目的 pre-commit 钩子与 auto_push.py 会拦截 >10MB 且扩展名在 {exe, zip, 7z, tar, iso} 的文件，防止误提交。
+
+示例：在 Windows 下获取 Git 安装包并保存在本地（不会被提交）
+
+PowerShell：
+
+1) 创建目录并下载
+```
+$dl = "downloads"
+New-Item -ItemType Directory -Force -Path $dl | Out-Null
+$uri = "https://github.com/git-for-windows/git/releases/latest/download/Git-64-bit.exe"
+$dest = Join-Path $dl "Git-installer.exe"
+Invoke-WebRequest -Uri $uri -OutFile $dest
+```
+
+2) 安装或保留离线安装包。该文件位于 downloads/，默认不会被 Git 跟踪。
+
+如确需将二进制纳入版本管理，请按团队约定启用 Git LFS（需要协作者安装 LFS 并可能影响历史）。

@@ -62,6 +62,9 @@ class YDSLabAutoPush:
             '.yml': '配置文件',
             '.txt': '文本文件'
         }
+        # 大文件与黑名单后缀保护阈值（>10MB + 黑名单后缀则阻止提交）
+        self.large_file_threshold = 10 * 1024 * 1024
+        self.blacklist_exts = {'.exe', '.zip', '.7z', '.tar', '.iso'}
         
     def setup_logging(self):
         """设置日志系统"""
@@ -236,6 +239,24 @@ class YDSLabAutoPush:
             return stdout.strip()
         else:
             return 'main'  # 默认分支
+
+    def scan_blocking_files(self, status: Dict[str, List[str]]) -> List[Tuple[str, int, str]]:
+        """扫描将要提交的文件列表，找出超过阈值且在黑名单后缀中的文件。
+        返回 [(relative_path, size_bytes, ext), ...]
+        """
+        candidates: List[Tuple[str, int, str]] = []
+        check_keys = ['untracked', 'added', 'modified']
+        for key in check_keys:
+            for rel in status.get(key, []):
+                p = self.project_root / rel
+                ext = p.suffix.lower()
+                try:
+                    size = p.stat().st_size if p.exists() else 0
+                except Exception:
+                    size = 0
+                if ext in self.blacklist_exts and size > self.large_file_threshold:
+                    candidates.append((rel, size, ext))
+        return candidates
     
     def auto_push(self, message: str = None, remote: str = 'origin', 
                   push: bool = True) -> bool:
@@ -255,6 +276,18 @@ class YDSLabAutoPush:
             for status_type, files in status.items():
                 if files:
                     self.logger.info(f"  {status_type}: {len(files)} 个文件")
+            # 安全保护：提交前检查大文件/黑名单后缀
+            blocked = self.scan_blocking_files(status)
+            if blocked:
+                self.logger.error("检测到超限或黑名单后缀的大文件，已阻止提交：")
+                for rel, size, ext in blocked:
+                    try:
+                        mb = size / 1024 / 1024
+                    except Exception:
+                        mb = 0
+                    self.logger.error(f"  - {rel} ({ext}, {mb:.1f} MB)")
+                self.logger.error("请将安装包/归档文件移至 downloads/ 目录（该目录已在 .gitignore 中被忽略），或改用 Git LFS 管理。")
+                return False
             
             # 添加变更
             if not self.add_all_changes():
