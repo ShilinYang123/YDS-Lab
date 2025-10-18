@@ -1,0 +1,46 @@
+exclude_dirs:
+- .git
+- .vscode
+- .idea
+- __pycache__
+- .pytest_cache
+- node_modules
+- .env
+- .venv
+- venv
+- env
+- .DS_Store
+- Thumbs.db
+- '*.tmp'
+- '*.temp'
+exclude_files:
+- '*.pyc'
+- '*.pyo'
+- '*.pyd'
+- '*.so'
+- '*.dll'
+- '*.log'
+- '*.tmp'
+- '*.temp'
+- '*.bak'
+- '*.swp'
+- .DS_Store
+- Thumbs.db
+- desktop.ini
+special_handling:
+  archive:
+    max_depth: 1
+    show_files: false
+  bak:
+    max_depth: 2
+    show_files: false
+  logs:
+    max_depth: 2
+    show_files: false
+
+# 结构清单治理与审批配置
+archive_dir: Struc/GeneralOffice/logs/structure
+governance:
+  require_approval: true
+  env_flag: YDS_APPROVE_STRUCTURE
+  sentinel_file: Docs/YDS-AI-组织与流程/APPROVE_UPDATE_STRUCTURE

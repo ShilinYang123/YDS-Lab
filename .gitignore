@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Sensitive data
+*.key
+*.pem
+config/secrets.json
+.env
+# Local secrets (do not commit)
+models/config/secret_vars.local.json
+models/config/api_keys.local.json
+.env.*
+*.env.local
+
+# Backup files
+*.bak
+bak/
+backup/
+
+# Coverage
+.coverage

@@ -1,0 +1,5 @@
+{
+  "OPENAI_API_KEY": "sk-EXAMPLE",
+  "GITHUB_TOKEN": "ghp-EXAMPLE",
+  "OTHER_SERVICE_KEY": "example-key"
+}

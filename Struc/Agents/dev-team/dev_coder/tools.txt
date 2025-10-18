@@ -1,0 +1,41 @@
+
+### Tools（请保存为 `S:\YDS-Lab\Struc\Agents\dev_team\dev_coder\tools.py`）
+```python
+def generate_tauri_ui(spec: dict) -> str:
+    """生成Tauri前端代码"""
+    return """
+// frontend/src/App.jsx
+import React, { useState } from 'react';
+const VideoUploader = () => {
+  const [file, setFile] = useState(null);
+  return (
+    <div>
+      <input type="file" accept=".mp4,.mov" onChange={(e) => setFile(e.target.files[0])} />
+      {file && <video src={URL.createObjectURL(file)} controls width="600" />}
+    </div>
+  );
+};
+export default VideoUploader;
+"""
+
+def generate_python_backend(mode: str) -> str:
+    """生成Python后端处理脚本"""
+    if mode == "local":
+        return """
+# backend/process.py
+import subprocess
+def remove_watermark_local(video_path):
+    result = subprocess.run(["python", "models/shimmy/infer.py", video_path], capture_output=True)
+    if result.returncode == 0:
+        return "✅ 处理成功"
+    else:
+        return f"❌ 失败: {result.stderr.decode()}"
+"""
+    else:
+        return "# 云加速模式待对接阿里云百炼API"
+
+def validate_code_security(code: str) -> str:
+    """代码安全检查（模拟）"""
+    if "os.system" in code or "__import__" in code:
+        return "⚠️ 安全风险：禁止使用危险函数"
+    return "✅ 代码安全"
