@@ -27,7 +27,7 @@ class YDSLabStructureUpdater:
     
     def __init__(self, project_root: str = "s:/YDS-Lab"):
         self.project_root = Path(project_root)
-        self.config_file = self.project_root / "tools" / "structure_config.yaml"
+        self.config_file = self.project_root / "config" / "structure_config.yaml"
         # 正式与候选清单路径
         self.formal_file = self.project_root / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程" / "《动态目录结构清单》.md"
         self.candidate_file = self.project_root / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程" / "《动态目录结构清单（候选）》.md"
@@ -270,7 +270,7 @@ CrewAI多智能体协作系统：
 
 ## ⚙️ 配置说明
 
-目录结构扫描配置文件: `tools/structure_config.yaml`
+目录结构扫描配置文件: `config/structure_config.yaml`
 
 ### 排除规则
 - **目录排除**: {', '.join(self.default_config['exclude_dirs'])}

@@ -39,7 +39,7 @@ class YDSLabStartupChecker:
         self.setup_logging()
         
         # 配置文件路径
-        self.config_file = self.tools_dir / "startup_config.yaml"
+        self.config_file = self.project_root / "config" / "startup_config.yaml"
         self.mcp_config_candidates = [
             self.project_root / "claude_desktop_config.json",
             Path(os.path.expandvars(r"%APPDATA%\Claude\claude_desktop_config.json")),

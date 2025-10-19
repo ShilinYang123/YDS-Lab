@@ -29,7 +29,7 @@ class YDSLabStructureChecker:
     
     def __init__(self, project_root: str = "s:/YDS-Lab"):
         self.project_root = Path(project_root)
-        self.config_file = self.project_root / "tools" / "structure_config.yaml"
+        self.config_file = self.project_root / "config" / "structure_config.yaml"
         # 正式与候选结构清单
         self.formal_file = self.project_root / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程" / "《动态目录结构清单》.md"
         self.candidate_file = self.project_root / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程" / "《动态目录结构清单（候选）》.md"
@@ -117,10 +117,10 @@ class YDSLabStructureChecker:
                                 self.default_config[key] = value
                 self.logger.info("配置文件加载成功")
             else:
-                self.logger.warning("配置文件不存在，使用默认配置")
+                # 创建默认配置文件
                 self.save_config()
         except Exception as e:
-            self.logger.error(f"配置文件加载失败: {e}")
+            self.logger.error(f"配置文件加载失败，使用默认配置: {e}")
             
     def save_config(self):
         """保存配置文件"""
@@ -129,7 +129,6 @@ class YDSLabStructureChecker:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 yaml.dump(self.default_config, f, default_flow_style=False, 
                          allow_unicode=True, indent=2)
-            self.logger.info("默认配置文件已创建")
         except Exception as e:
             self.logger.error(f"配置文件保存失败: {e}")
             
@@ -181,9 +180,9 @@ class YDSLabStructureChecker:
         special = self.default_config.get('special_handling', {})
         return special.get(dir_name.lower())
         
-    def scan_current_structure(self, path: Path, max_depth: int = None, 
-                              show_files: bool = True, current_depth: int = 0) -> List[str]:
-        """扫描当前目录结构"""
+    def scan_directory(self, path: Path, max_depth: int = None, 
+                      show_files: bool = True, current_depth: int = 0) -> List[str]:
+        """扫描目录结构"""
         items = []
         
         if max_depth is not None and current_depth >= max_depth:
@@ -212,7 +211,7 @@ class YDSLabStructureChecker:
                     items.append(f"{indent}{entry.name}/")
                     
                     # 递归扫描子目录
-                    sub_items = self.scan_current_structure(
+                    sub_items = self.scan_directory(
                         entry, sub_max_depth, sub_show_files, current_depth + 1
                     )
                     items.extend(sub_items)
@@ -225,11 +224,9 @@ class YDSLabStructureChecker:
                     items.append(f"{indent}{entry.name}")
                     
         except PermissionError:
-            self.logger.warning(f"权限不足，无法访问: {path}")
             indent = "  " * current_depth
             items.append(f"{indent}[权限不足]")
         except Exception as e:
-            self.logger.error(f"扫描目录时出错 {path}: {e}")
             indent = "  " * current_depth
             items.append(f"{indent}[错误: {str(e)}]")
             
@@ -458,7 +455,7 @@ class YDSLabStructureChecker:
                 
             # 扫描当前结构
             self.logger.info("扫描当前目录结构...")
-            current_items = self.scan_current_structure(self.project_root)
+            current_items = self.scan_directory(self.project_root)
             
             # 结构对比
             comparison_result = self.compare_structures(standard_items, current_items)

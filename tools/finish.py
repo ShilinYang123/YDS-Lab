@@ -81,7 +81,7 @@ class YDSLabFinishProcessor:
         self.setup_logging()
         
         # 配置文件路径
-        self.config_file = self.tools_dir / "finish_config.yaml"
+        self.config_file = self.project_root / "config" / "finish_config.yaml"
         
         # 默认配置
         self.default_config = {
@@ -556,7 +556,7 @@ class YDSLabFinishProcessor:
             
             if status.get('has_changes', False):
                 # 自动提交更改
-                commit_message = f"{self.default_config['git']['commit_prefix']} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+                commit_message = f"chore: {self.default_config['git']['commit_prefix']} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
                 
                 if self.git_helper.commit(commit_message, auto_add=True):
                     self.logger.info(f"自动提交完成: {commit_message}")

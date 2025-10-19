@@ -62,3 +62,6 @@ backup/
 
 # Coverage
 .coverage
+
+# Legacy tools (暂存的老项目工具，不推送到git)
+tools/-sub/
