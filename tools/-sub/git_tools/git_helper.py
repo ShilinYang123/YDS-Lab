@@ -107,6 +107,9 @@ class GitHelper:
         
         # 加载配置
         self.load_git_config()
+        
+        # 自动检查和设置Git用户配置
+        self.ensure_git_user_config()
     
     def load_git_config(self) -> Dict[str, Any]:
         """加载Git配置"""
@@ -923,6 +926,73 @@ exit 0
             
         except Exception as e:
             print(f"❌ 设置Git钩子失败: {e}")
+            return False
+    
+    def ensure_git_user_config(self) -> bool:
+        """确保Git用户配置正确设置"""
+        try:
+            # 检查全局配置
+            global_name = None
+            global_email = None
+            
+            try:
+                result = self.run_git_command(['config', '--global', 'user.name'], check=False)
+                if result.returncode == 0 and result.stdout.strip():
+                    global_name = result.stdout.strip()
+            except:
+                pass
+            
+            try:
+                result = self.run_git_command(['config', '--global', 'user.email'], check=False)
+                if result.returncode == 0 and result.stdout.strip():
+                    global_email = result.stdout.strip()
+            except:
+                pass
+            
+            # 如果全局配置不存在或不正确，设置默认值
+            if not global_name or global_name != "ShilinYang123":
+                print("⚠️ 设置Git全局用户名...")
+                self.run_git_command(['config', '--global', 'user.name', 'ShilinYang123'])
+                print("✅ Git全局用户名已设置为: ShilinYang123")
+            
+            if not global_email or global_email != "yslwin@139.com":
+                print("⚠️ 设置Git全局邮箱...")
+                self.run_git_command(['config', '--global', 'user.email', 'yslwin@139.com'])
+                print("✅ Git全局邮箱已设置为: yslwin@139.com")
+            
+            # 验证本地仓库配置
+            local_name = None
+            local_email = None
+            
+            try:
+                result = self.run_git_command(['config', 'user.name'], check=False)
+                if result.returncode == 0 and result.stdout.strip():
+                    local_name = result.stdout.strip()
+            except:
+                pass
+            
+            try:
+                result = self.run_git_command(['config', 'user.email'], check=False)
+                if result.returncode == 0 and result.stdout.strip():
+                    local_email = result.stdout.strip()
+            except:
+                pass
+            
+            # 如果本地配置存在但不正确，修正它
+            if local_name and local_name != "ShilinYang123":
+                print("⚠️ 修正本地仓库用户名...")
+                self.run_git_command(['config', 'user.name', 'ShilinYang123'])
+                print("✅ 本地仓库用户名已修正为: ShilinYang123")
+            
+            if local_email and local_email != "yslwin@139.com":
+                print("⚠️ 修正本地仓库邮箱...")
+                self.run_git_command(['config', 'user.email', 'yslwin@139.com'])
+                print("✅ 本地仓库邮箱已修正为: yslwin@139.com")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ 设置Git用户配置失败: {e}")
             return False
 
 def main():
