@@ -21,6 +21,7 @@ wheels/
 *.egg
 
 # Virtual environments
+.venv/
 venv/
 env/
 ENV/
@@ -59,6 +60,7 @@ models/config/api_keys.local.json
 *.bak
 bak/
 backup/
+Struc/GeneralOffice/bak/daily/
 
 # Coverage
 .coverage
