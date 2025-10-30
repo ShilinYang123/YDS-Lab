@@ -27,36 +27,49 @@ from typing import Dict, List, Optional, Tuple
 import yaml
 import argparse
 
-# 添加 tools 目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent))
-# 修复导入路径，使用相对导入
-try:
-    from pathlib import Path
-    import importlib.util
-    git_helper_path = Path(__file__).parent / "-sub" / "git_tools" / "git_helper.py"
-    if git_helper_path.exists():
-        spec = importlib.util.spec_from_file_location("git_helper", git_helper_path)
-        git_helper_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(git_helper_module)
-        GitHelper = git_helper_module.GitHelper
-    else:
-        # 如果文件不存在，创建一个简单的替代类
-        class GitHelper:
-            def __init__(self, *args, **kwargs):
-                pass
-            def commit_changes(self, *args, **kwargs):
-                return True
-            def push_changes(self, *args, **kwargs):
-                return True
-except Exception as e:
-    # 创建一个简单的替代类
-    class GitHelper:
-        def __init__(self, *args, **kwargs):
-            pass
-        def commit_changes(self, *args, **kwargs):
-            return True
-        def push_changes(self, *args, **kwargs):
-            return True
+# 简化的Git辅助类
+class SimpleGitHelper:
+    """简化的Git辅助类，直接使用系统Git命令"""
+    
+    def __init__(self, repo_path: str = "."):
+        self.repo_path = Path(repo_path)
+        
+    def run_git_command(self, command: List[str]) -> Tuple[bool, str]:
+        """运行Git命令"""
+        try:
+            result = subprocess.run(
+                ['git'] + command,
+                cwd=self.repo_path,
+                capture_output=True,
+                text=True,
+                encoding='utf-8'
+            )
+            return result.returncode == 0, result.stdout.strip() if result.returncode == 0 else result.stderr.strip()
+        except Exception as e:
+            return False, str(e)
+    
+    def get_status(self) -> Dict[str, any]:
+        """获取Git状态"""
+        success, output = self.run_git_command(['status', '--porcelain'])
+        if success:
+            has_changes = bool(output.strip())
+            return {'has_changes': has_changes, 'output': output}
+        return {'has_changes': False, 'error': output}
+    
+    def commit(self, message: str, auto_add: bool = True) -> bool:
+        """提交更改"""
+        if auto_add:
+            success, _ = self.run_git_command(['add', '.'])
+            if not success:
+                return False
+        
+        success, _ = self.run_git_command(['commit', '-m', message])
+        return success
+    
+    def push(self, remote: str = 'origin', branch: str = 'main') -> bool:
+        """推送到远程仓库"""
+        success, _ = self.run_git_command(['push', remote, branch])
+        return success
 
 class YDSLabFinishProcessor:
     """YDS-Lab工作完成处理器"""
@@ -69,19 +82,8 @@ class YDSLabFinishProcessor:
         self.logs_dir = self.project_root / "Struc" / "GeneralOffice" / "logs"
         self.bak_dir = self.project_root / "Struc" / "GeneralOffice" / "bak"
         
-        # 初始化 Git Helper
-        try:
-            self.git_helper = GitHelper(str(self.project_root))
-            print(f"✅ GitHelper 初始化成功")
-        except Exception as e:
-            print(f"❌ GitHelper 初始化失败: {e}")
-            self.git_helper = None
-        
-        # 设置日志
-        self.setup_logging()
-        
         # 配置文件路径
-        self.config_file = self.project_root / "config" / "finish_config.yaml"
+        self.config_file = self.project_root / "tools" / "-sub" / "finish_config.yaml"
         
         # 默认配置
         self.default_config = {
@@ -110,8 +112,15 @@ class YDSLabFinishProcessor:
             }
         }
         
-        self.load_config()
+        # 初始化Git辅助工具
+        self.git_helper = SimpleGitHelper(self.project_root)
         
+        # 设置日志
+        self.setup_logging()
+        
+        # 加载配置
+        self.load_config()
+
     def setup_logging(self):
         """设置日志系统"""
         try:
@@ -188,74 +197,44 @@ class YDSLabFinishProcessor:
         self.logger.info("获取当日Git提交记录...")
         
         try:
-            # 检查 GitHelper 是否可用
-            if not self.git_helper:
-                self.logger.warning("GitHelper 不可用，跳过Git提交记录获取")
-                return {
-                    'success': False,
-                    'commits': [],
-                    'total_commits': 0,
-                    'error': 'GitHelper 不可用'
-                }
-            
             today = datetime.now().strftime("%Y-%m-%d")
             
-            # 使用 GitHelper 获取提交记录
-            try:
-                commits_result = self.git_helper.get_commits(
-                    since=f"{today} 00:00:00",
-                    until=f"{today} 23:59:59"
-                )
-                
-                if commits_result and commits_result.get('success', False):
-                    return {
-                        'success': True,
-                        'commits': commits_result.get('commits', []),
-                        'total_commits': len(commits_result.get('commits', []))
-                    }
-                else:
-                    # 如果 GitHelper 失败，回退到系统命令
-                    raise Exception("GitHelper 获取提交记录失败")
-                    
-            except Exception as git_error:
-                self.logger.warning(f"GitHelper 获取提交记录失败: {git_error}，回退到系统命令")
-                
-                # 回退到系统 Git 命令
-                cmd = [
-                    "git", "log", 
-                    f"--after={today} 00:00:00",
-                    f"--before={today} 23:59:59",
-                    "--pretty=format:%h|%s|%an|%ad",
-                    "--date=format:%H:%M",
-                    "--no-merges"
-                ]
-                
-                result = subprocess.run(
-                    cmd,
-                    capture_output=True,
-                    text=True,
-                    encoding='utf-8',
-                    cwd=str(self.project_root),
-                    timeout=30
-                )
-                
-                commits = []
-                if result.returncode == 0 and result.stdout.strip():
-                    for line in result.stdout.strip().split('\n'):
-                        parts = line.split('|')
-                        if len(parts) >= 4:
-                            commits.append({
-                                'hash': parts[0],
-                                'message': parts[1],
-                                'author': parts[2],
-                                'time': parts[3]
-                            })
-                            
-                return {
-                    'success': True,
-                    'commits': commits,
-                    'total_commits': len(commits)
-                }
+            # 使用系统 Git 命令
+            cmd = [
+                "git", "log", 
+                f"--after={today} 00:00:00",
+                f"--before={today} 23:59:59",
+                "--pretty=format:%h|%s|%an|%ad",
+                "--date=format:%H:%M",
+                "--no-merges"
+            ]
+            
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                encoding='utf-8',
+                cwd=str(self.project_root),
+                timeout=30
+            )
+            
+            commits = []
+            if result.returncode == 0 and result.stdout.strip():
+                for line in result.stdout.strip().split('\n'):
+                    parts = line.split('|')
+                    if len(parts) >= 4:
+                        commits.append({
+                            'hash': parts[0],
+                            'message': parts[1],
+                            'author': parts[2],
+                            'time': parts[3]
+                        })
+                        
+            return {
+                'success': True,
+                'commits': commits,
+                'total_commits': len(commits)
+            }
             
         except Exception as e:
             self.logger.error(f"获取Git提交记录失败: {e}")
@@ -271,17 +250,6 @@ class YDSLabFinishProcessor:
         self.logger.info("分析文件变更情况...")
         
         try:
-            # 检查 GitHelper 是否可用
-            if not self.git_helper:
-                self.logger.warning("GitHelper 不可用，跳过文件变更分析")
-                return {
-                    'modified': [],
-                    'added': [],
-                    'deleted': [],
-                    'untracked': [],
-                    'total_changes': 0
-                }
-            
             # 使用 GitHelper 获取工作目录状态
             status_result = self.git_helper.get_status()
             
@@ -294,7 +262,6 @@ class YDSLabFinishProcessor:
             }
             
             if status_result:
-                # 直接使用 GitHelper 返回的数据结构
                 changes['modified'] = status_result.get('modified', [])
                 changes['added'] = status_result.get('added', [])
                 changes['deleted'] = status_result.get('deleted', [])
@@ -589,16 +556,16 @@ class YDSLabFinishProcessor:
          self.logger.info("生成工作报告...")
          
          report = f"""# YDS-Lab 工作完成报告
- 
+
  > 生成时间: {session_info['formatted_date']} {session_info['weekday']} {session_info['end_time']}  
  > 项目根目录: `{self.project_root}`
- 
+
  ## 📊 工作会话概览
- 
+
  ### 时间信息
  - **结束时间**: {session_info['end_time']}
  - **工作日期**: {session_info['formatted_date']} {session_info['weekday']}
- 
+
  ### Git提交记录
  """
          
@@ -615,7 +582,7 @@ class YDSLabFinishProcessor:
          # 添加 Git 推送状态
          if push_info:
              report += f"""
- 
+
  ### Git 推送状态
  """
              if push_info.get('success'):
@@ -628,14 +595,14 @@ class YDSLabFinishProcessor:
                  report += f"- **推送状态**: ❌ 失败 ({reason})\n"
                  
          report += f"""
- 
+
  ### 文件变更统计
  - **总变更数**: {file_changes['total_changes']} 个文件
  - **修改文件**: {len(file_changes['modified'])} 个
  - **新增文件**: {len(file_changes['added'])} 个
  - **删除文件**: {len(file_changes['deleted'])} 个
  - **未跟踪文件**: {len(file_changes['untracked'])} 个
- 
+
  """
          
          # 显示具体变更文件（限制数量）
@@ -656,20 +623,20 @@ class YDSLabFinishProcessor:
                          report += f"- ... 还有 {len(files) - 5} 个文件\n"
                          
          report += f"""
- 
+
  ## 🤖 AI智能协作状态
- 
+
  ### CrewAI多智能体系统
  - **Agent状态**: {'✅ 活跃' if ai_status['agents_active'] else '⚠️ 未激活'}
  - **Agent数量**: {ai_status['total_agents']} 个
  - **完成任务**: {ai_status['completed_tasks']} 个
  - **记忆条目**: {ai_status['memory_entries']} 条
- 
+
  ### 会话摘要
  {ai_status['session_summary']}
- 
+
  ## 💾 备份与维护
- 
+
  ### 项目备份
  """
          
@@ -685,7 +652,7 @@ class YDSLabFinishProcessor:
              report += f"- **备份状态**: ❌ 失败 ({reason})\n"
              
          report += f"""
- 
+
  ### 系统维护
  - **临时文件清理**: {'✅ 已执行' if self.default_config['cleanup']['auto_cleanup_temp'] else '⚠️ 已跳过'}
  - **日志文件管理**: {'✅ 已执行' if self.default_config['cleanup']['cleanup_old_logs'] else '⚠️ 已跳过'}
@@ -697,9 +664,9 @@ class YDSLabFinishProcessor:
              report += f"- **Git 推送**: {push_status}\n"
              
          report += f"""
- 
+
  ## 📋 工作总结
- 
+
  ### 本次会话成果
  """
          
@@ -723,7 +690,7 @@ class YDSLabFinishProcessor:
              report += "- 📝 本次会话主要进行了项目维护和状态检查\n"
              
          report += f"""
- 
+
  ### 下次工作建议
  """
          
@@ -745,18 +712,18 @@ class YDSLabFinishProcessor:
              report += "- ✅ 项目状态良好，继续保持当前工作节奏\n"
              
          report += f"""
- 
+
  ## 🔧 系统配置
- 
+
  ### 当前配置
  - **自动备份**: {'启用' if self.default_config['backup']['enable_auto_backup'] else '禁用'}
  - **Git自动提交**: {'启用' if self.default_config['git']['auto_commit'] else '禁用'}
  - **Git推送到远程**: {'启用' if self.default_config['git']['push_to_remote'] else '禁用'}
  - **临时文件清理**: {'启用' if self.default_config['cleanup']['auto_cleanup_temp'] else '禁用'}
  - **备份保留天数**: {self.default_config['backup']['backup_retention_days']} 天
- 
+
  ---
- 
+
  *YDS-Lab AI智能协作系统 - 工作完成处理报告*  
  *生成时间: {session_info['end_time']}*
  """

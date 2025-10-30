@@ -99,7 +99,8 @@ class GitHelper:
         
         # 配置目录
         self.config_dir = self.project_root / "Struc" / "GeneralOffice" / "config"
-        self.logs_dir = self.project_root / "logs" / "git"
+        # 统一日志目录到 Struc/GeneralOffice/logs 下
+        self.logs_dir = self.project_root / "Struc" / "GeneralOffice" / "logs" / "git"
         self.logs_dir.mkdir(parents=True, exist_ok=True)
         
         # Git配置
