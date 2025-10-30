@@ -1,0 +1,78 @@
+# 项目元信息文件
+# 用于YDS-Lab项目管理系统的标准化信息记录
+
+project:
+  # 项目基本信息
+  id: "001"
+  name: "dewatermark-ai"
+  full_name: "001-dewatermark-ai"
+  display_name: "AI去水印工具"
+  
+  # 项目分类
+  category: "core-product"  # 核心产品 (001-099)
+  type: "desktop-app"
+  technology_stack: ["Tauri", "Python", "AI", "React", "TypeScript", "Rust"]
+  
+  # 项目状态
+  status: "active"
+  phase: "development"
+  priority: "high"
+  
+  # 项目描述
+  description: "基于Tauri的跨平台AI去水印桌面应用，集成深度学习模型实现智能图像处理"
+  
+  # 技术架构
+  architecture:
+    frontend: "Tauri + React + TypeScript"
+    backend: "Rust + Python"
+    ai_models: ["LaMa", "Shimmy"]
+    deployment: "Desktop Application"
+  
+  # 项目路径信息
+  paths:
+    root: "projects/001-dewatermark-ai"
+    assets: "projects/001-dewatermark-ai/assets"
+    models: "projects/001-dewatermark-ai/assets/models"
+    output: "projects/001-dewatermark-ai/output"
+    docs: "projects/001-dewatermark-ai/docs"
+  
+  # 团队信息
+  team:
+    owner: "YDS-Lab"
+    lead_developer: "dev_team"
+    contributors: []
+  
+  # 项目时间线
+  timeline:
+    created: "2024-12-01"
+    renamed: "2024-12-22"
+    last_updated: "2024-12-22"
+  
+  # 依赖和要求
+  requirements:
+    python_version: ">=3.8"
+    node_version: ">=16.0"
+    rust_version: ">=1.70"
+    gpu_support: true
+  
+  # 项目标签
+  tags: ["AI", "图像处理", "去水印", "桌面应用", "深度学习"]
+  
+  # 相关链接
+  links:
+    repository: ""
+    documentation: "docs/"
+    issues: ""
+  
+# 编号规范说明
+numbering_scheme:
+  range: "001-099"
+  category: "核心产品"
+  description: "YDS-Lab的主要商业产品和核心技术项目"
+  
+# 重命名历史
+rename_history:
+  - from: "dewatermark-ai"
+    to: "001-dewatermark-ai"
+    date: "2024-12-22"
+    reason: "实施项目编号标准化，提升企业级管理效率"

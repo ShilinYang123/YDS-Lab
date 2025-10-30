@@ -1,0 +1,82 @@
+# Rust/Tauri 项目 .gitignore
+
+# Rust 编译产物
+/target/
+/Cargo.lock
+*.pdb
+
+# Node.js 依赖
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# 构建输出
+/dist/
+/build/
+/out/
+
+# 开发工具
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
+temp/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 备份文件
+*.bak
+backup/
+
+# 大文件和安装程序（防止Git卡壳）
+*.exe
+*.msi
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.zip
+*.tar.gz
+*.7z
+*.rar
+
+# 下载目录（存放安装程序等）
+downloads/
+
+# 模型文件（通常很大）
+*.bin
+*.onnx
+*.pt
+*.pth
+*.safetensors
+assets/models/*.bin
+assets/models/*.onnx
+assets/models/*.pt
+assets/models/*.pth
+assets/models/*.safetensors
+
+# 调试和输出目录
+debug/
+output/
+backups/
+
+# Tauri 特定
+src-tauri/target/
+src-tauri/Cargo.lock
