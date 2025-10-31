@@ -45,6 +45,29 @@ logs/
 *.temp
 temp/
 
+# Executable files and installers (禁止推送可执行文件)
+*.exe
+*.msi
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.appimage
+*.snap
+
+# Downloaded files and installers
+downloads/
+Downloads/
+installers/
+Installers/
+**/rustup-init.exe
+**/node-*
+**/python-*
+**/git-*
+**/vscode-*
+**/chrome-*
+**/firefox-*
+
 # Sensitive data
 *.key
 *.pem
@@ -62,8 +85,49 @@ bak/
 backup/
 Struc/GeneralOffice/bak/daily/
 
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.npm
+
 # Coverage
 .coverage
+
+# AI Models and related files (AI模型文件，禁止推送)
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.bin
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.pkl
+*.pickle
+*.joblib
+*.model
+*.gguf
+*.ggml
+
+# Model directories and caches (模型目录和缓存)
+assets/models/
+models/
+YDS-GPU-Backup/
+**/model/
+**/models/
+**/.cache/huggingface/
+**/.cache/transformers/
+**/.cache/torch/
+**/.cache/diffusers/
+
+# Model configuration files that may contain sensitive info
+**/model_config.json
+**/tokenizer_config.json
+**/generation_config.json
 
 # Legacy tools (暂存的老项目工具，不推送到git)
 tools/-sub/
