@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - jinja2
+  - docker
+  - mcp
+  environment: development
+  python_version: 3.11+
+server_info:
+  capabilities:
+  - code_generation
+  - automated_building
+  - deployment_management
+  name: Builder MCP Server
+  protocol: stdio
+  version: 1.0.0

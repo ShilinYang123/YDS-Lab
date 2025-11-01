@@ -1,0 +1,17 @@
+communication_guidelines:
+  daily_standup: 每日9:00晨会
+  documentation: 共享文档系统
+  urgent_matters: Trae即时消息
+decision_process:
+  ceo_authority:
+  - 战略决策
+  - 人事变动
+  - 紧急事项
+  consensus_items:
+  - 项目启动
+  - 技术选型
+  - 预算调整
+  department_authority:
+  - 日常运营
+  - 技术细节
+  - 执行计划

@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - figma-api
+  - requests
+  - mcp
+  environment: development
+  python_version: 3.11+
+server_info:
+  capabilities:
+  - design_collaboration
+  - prototype_management
+  - asset_export
+  name: Figma MCP Server
+  protocol: stdio
+  version: 1.0.0

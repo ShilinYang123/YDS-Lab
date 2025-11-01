@@ -1,0 +1,1624 @@
+{
+  "base_name": "MTG-RTM-20251028-234136-ce28fc1f",
+  "created_at": "2025-10-28 23:41:36",
+  "type": "realtime_meeting",
+  "sections": {
+    "会议信息": {
+      "会议类型": "实时会议",
+      "项目": "JS001-meetingroom",
+      "参会角色": [
+        "总经理(CEO)",
+        "企划总监",
+        "财务总监",
+        "开发总监",
+        "市场总监",
+        "资源与行政"
+      ],
+      "议程": [
+        "部门进展",
+        "关键决策",
+        "风险与阻塞",
+        "下步计划"
+      ],
+      "项目目录": "projects/JS001-meetingroom",
+      "模型": "tinyllama:latest",
+      "Sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+      "开始时间": "2025-10-28 23:41:36",
+      "结束时间": "2025-10-28 23:51:46"
+    },
+    "逐字稿": {
+      "items": [
+        {
+          "role": "总经理(CEO)",
+          "text": "[/api/generate 调用失败] HTTPConnectionPool(host='127.0.0.1', port=11434): Read timed out. (read timeout=60)",
+          "topic": "部门进展",
+          "ts": 1761666217.5826428
+        },
+        {
+          "role": "企划总监",
+          "text": "【企划总监】（对方）：“我觉得部分项目需要调整，以下提出意见：\n\n1. 根据客户反馈，将部分项目转移到新的业务线。\n2. 将一些可能卖力活动继续运行，并在审慎之下重构其内容和功能。\n3. 使用更新的投资模型，为部分项目做出更大的改进（例如: 将部分项目转移到新的业务线）。\n4. 对部分项目采取更加简单和专注的方式，并在其中培育一些新战略性功能（例如: 建立新的服务类型或新的业务模式）。\n5. 将部分项目转移到新的市场领域，并在其中创造更多新客户的空间。\n6. 使用新技术和方法进行深入调研，以改善与客户相关的不可或缺的部分项目（例如: 推广一个新的产品）。\n7. 将部分项目转移到更加重要的市场领域，并进行深入调研以检查是否能维持其业务模式（例如: 对于一些新技术进行追求）。\n8. 将部分项目转移到更高的阶段，并在这里培育成为稳定的业务。”",
+          "topic": "部门进展",
+          "ts": 1761666272.8092437
+        },
+        {
+          "role": "财务总监",
+          "text": "【财务总监】\n\n谈谈当前商业部部长的工作状况，我们已经培育了良好的工作经验和人事势力。但是，为了保持总部进一步发展，我们需要重新调整部门结构以及创建更多的组织实践机制，这些建议与具体意图相矛盾。\n\n首先，我们应该开始设立一个专门于“投资”的部门，以促进业务发展并增加生态系统的合作机构。此项目不仅会有吸引力和推动经济发展，还能为我们提供更多增长空间。\n\n其次，我们需要创建专门的“财务管理”岗位，这是商业部所有人员需要承担购物、销售和产品经营等重要工作。我们将对此项目进行深入实施，并在繁华岗位中发挥更广泛的影响力，为组织和优化商业部管理相关的系统性问题而设立。\n\n最后，我们应该考虑在我们现有的“技能建设”方面实施更加深入的“人事改革”，以增加员工劳动力价值和稳定性。\n\n我们愿意在此议题中，积极地表达出自身意图和尽可能的约定。",
+          "topic": "部门进展",
+          "ts": 1761666336.260665
+        },
+        {
+          "role": "开发总监",
+          "text": "助人者，我是“部门进展”的参与者。\n\n【部分进展】\n\n部门作为重要产品/服务生产公司，在今年出售业绩率达到了80%以上、产品/服务在市场中的位置横竖正，有机理财经部分进展。\n\n【建议】\n\n1. 为目标优化拓尽新销：为目标优化和市场发展，我们需要更有效地在产品/服务上、竞争力的领域和供应商领域进行拓尽。\n\n2. 技术支持：我们需要更有效地实现对内部及外部维系、保持机构和系统高质量，以及具体的技术增长和发展。\n\n3. 市场策划：我们需要更有效地进行新销升品、闲置销售和批量消费商品具体的市场策划，以及普通销售业务的优化。\n\n4. 新商业发展：我们需要在其他绿外产商业范围内进行发展，尤其是在市场中横竖正的基金、汇金经营、非适合培训等。\n\n【结论】\n\n部门作为重要产品/服务生产公司，在今年出售业绩率达到了80%以上、产品/服务在市场中的位置横竖正，有机理财经部分进展。我们需要更有效地拓尽新销，技术支持，市场策划和基金、汇金经营等。\n\n【建议】\n\n在此基础上，我们需要进一步加大对于产品/服务的市场策划及新销售业务的支持和发展。",
+          "topic": "部门进展",
+          "ts": 1761666455.6101103
+        },
+        {
+          "role": "市场总监",
+          "text": "市场总监：\n\n1. 为了提高员工参与度，可以开展“彩蛋积分”活动，对每一个员工进行积分计分。我认为这样的办法是可以增加员工的兴趣和敬业度，同时也是有潜在的提高员工沟通能力的。\n\n结论：建议“彩蛋积分”活动为部门进行大量实验，并且将这些经验转交给一小组员工，以此提高员工参与度。\n\n2. 需要重新审视部门的“工作流程”和“人力资源管理”方案。我认为部门的工作流程不太合理，并且有可能引起员工的疑惑或不信任，这种问题往往会导致人力资源管理方针的审查和调查。\n\n结论：部门首先可以重新组织工作流程，确保员工能够更容易地了解所有的步骤。然后，应该在人力资源管理方面进行一些调查和研究，并且根据此调查结果进行改变。\n\n3. 部门需要更多审核员工的合法性备选人才。这是为了竭力保证一定能为组织提供优秀的、高素质的人才。\n\n结论：部门可以根据经营效率，员工成长和人力资源管理方面的需求，将一定程度上增加合法性备选人才批准审查。\n\n4. 部门在“人力资源管理”方面可以将所有的员工信息都放入积分计分轴上，这样就能为每一个员工提供积分的计算。\n\n结论：部门可以在人力资源管理方面增加相同员工信息的积分计分轴，并将总统积分计分轴和实际员工积分计分轴一起使用。\n\n5. 部门需要更好地建立与员工保持良好的关系的机制。我认为这是为了促进员工的沟通能力，同时也可以降低工作繁忙的情况。\n\n结论：部门应该为员工建立更好的与员工保持良好的关系机制，并将其在“人力资源管理”方面进行一些调查和研究，以此来实现更好的与员工保持良好的关系。",
+          "topic": "部门进展",
+          "ts": 1761666511.285207
+        },
+        {
+          "role": "资源与行政",
+          "text": "(主持人): 您好，我是会议参与者，请稍后回答谈到的部门进展问题。\n\n资源与行政具体建议：\n1. 对部门进展有哪些影响？为什么会导致成本扩张和竞争力下降？\n2. 将不受到影响的部门，请稳定地进行重大业务。\n3. 合并部门或分区会对部门进展有什么影响？如何评估相关影响？\n4. 部门已经扩张，将在未来3年内需要加入更多人，请考虑新方法。\n\n结论：我认为部门进展的受到影响比较大，应该注意重大业务以及合并部门或分区会对部门进展有什么影响。我建议将部门进展放在未来3年内的新方法。",
+          "topic": "部门进展",
+          "ts": 1761666533.0353572
+        }
+      ]
+    },
+    "行动项与决策": [],
+    "markdown": ""
+  },
+  "rtm_events": [
+    {
+      "event": "start_meeting",
+      "data": {
+        "roles": [
+          "总经理(CEO)",
+          "企划总监",
+          "财务总监",
+          "开发总监",
+          "市场总监",
+          "资源与行政"
+        ],
+        "agenda": [
+          "部门进展",
+          "关键决策",
+          "风险与阻塞",
+          "下步计划"
+        ],
+        "model": "tinyllama:latest",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666096.2999773
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "总经理(CEO)",
+        "partial": "[/api/generate 调用失败] HTTPConnectionPool(host='127.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666216.3303413
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "总经理(CEO)",
+        "partial": "0.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666216.5807586
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "总经理(CEO)",
+        "partial": "0.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666216.8312345
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "总经理(CEO)",
+        "partial": "1', port=11434): Read timed out.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666217.081664
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "总经理(CEO)",
+        "partial": " (read timeout=60)",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666217.3321376
+      }
+    },
+    {
+      "event": "agent_say_done",
+      "data": {
+        "role": "总经理(CEO)",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666217.5826428
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "【企划总监】（对方）：“我觉得部分项目需要调整，以下提出意见：\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666266.2719107
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666266.5221286
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "1.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666266.7725968
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 根据客户反馈，将部分项目转移到新的业务线。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666267.0231104
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666267.2736506
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "2.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666267.5246992
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 将一些可能卖力活动继续运行，并在审慎之下重构其内容和功能。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666267.7756975
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666268.027884
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "3.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666268.2787554
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 使用更新的投资模型，为部分项目做出更大的改进（例如: 将部分项目转移到新的业务线）。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666268.52895
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666268.7832391
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "4.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666269.0334506
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 对部分项目采取更加简单和专注的方式，并在其中培育一些新战略性功能（例如: 建立新的服务类型或新的业务模式）。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666269.2838829
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666269.5347672
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "5.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666269.7853332
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 将部分项目转移到新的市场领域，并在其中创造更多新客户的空间。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666270.0357828
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666270.286272
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "6.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666270.5367703
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 使用新技术和方法进行深入调研，以改善与客户相关的不可或缺的部分项目（例如: 推广一个新的产品）。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666270.7872756
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666271.0432613
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "7.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666271.2945201
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 将部分项目转移到更加重要的市场领域，并进行深入调研以检查是否能维持其业务模式（例如: 对于一些新技术进行追求）。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666271.5446541
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666271.8016546
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "8.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666272.052532
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": " 将部分项目转移到更高的阶段，并在这里培育成为稳定的业务。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666272.3072472
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "企划总监",
+        "partial": "”",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666272.5574446
+      }
+    },
+    {
+      "event": "agent_say_done",
+      "data": {
+        "role": "企划总监",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666272.8092437
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "【财务总监】\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666331.7455301
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666331.9959936
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "谈谈当前商业部部长的工作状况，我们已经培育了良好的工作经验和人事势力。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666332.2465966
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "但是，为了保持总部进一步发展，我们需要重新调整部门结构以及创建更多的组织实践机制，这些建议与具体意图相矛盾。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666332.496972
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666332.7474313
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666332.9979234
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "首先，我们应该开始设立一个专门于“投资”的部门，以促进业务发展并增加生态系统的合作机构。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666333.248399
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "此项目不仅会有吸引力和推动经济发展，还能为我们提供更多增长空间。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666333.4990685
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666333.7542052
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666334.00628
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "其次，我们需要创建专门的“财务管理”岗位，这是商业部所有人员需要承担购物、销售和产品经营等重要工作。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666334.2567601
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "我们将对此项目进行深入实施，并在繁华岗位中发挥更广泛的影响力，为组织和优化商业部管理相关的系统性问题而设立。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666334.5072405
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666334.7577186
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666335.0082
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "最后，我们应该考虑在我们现有的“技能建设”方面实施更加深入的“人事改革”，以增加员工劳动力价值和稳定性。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666335.258695
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666335.509197
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666335.7596426
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "财务总监",
+        "partial": "我们愿意在此议题中，积极地表达出自身意图和尽可能的约定。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666336.010141
+      }
+    },
+    {
+      "event": "agent_say_done",
+      "data": {
+        "role": "财务总监",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666336.260665
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "助人者，我是“部门进展”的参与者。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666446.8454866
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666447.0955558
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666447.3458178
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "【部分进展】\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666447.5963507
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666447.8465607
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "部门作为重要产品/服务生产公司，在今年出售业绩率达到了80%以上、产品/服务在市场中的位置横竖正，有机理财经部分进展。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666448.0968344
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666448.3474479
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666448.5978847
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "【建议】\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666448.8484478
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666449.0989056
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "1.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666449.3493724
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": " 为目标优化拓尽新销：为目标优化和市场发展，我们需要更有效地在产品/服务上、竞争力的领域和供应商领域进行拓尽。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666449.5997767
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666449.850087
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666450.1005347
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "2.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666450.351105
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": " 技术支持：我们需要更有效地实现对内部及外部维系、保持机构和系统高质量，以及具体的技术增长和发展。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666450.601617
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666450.8520722
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666451.1026402
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "3.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666451.352999
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": " 市场策划：我们需要更有效地进行新销升品、闲置销售和批量消费商品具体的市场策划，以及普通销售业务的优化。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666451.6034937
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666451.8538368
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666452.1043944
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "4.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666452.354539
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": " 新商业发展：我们需要在其他绿外产商业范围内进行发展，尤其是在市场中横竖正的基金、汇金经营、非适合培训等。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666452.605565
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666452.8561308
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666453.1066933
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "【结论】\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666453.3569734
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666453.6072404
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "部门作为重要产品/服务生产公司，在今年出售业绩率达到了80%以上、产品/服务在市场中的位置横竖正，有机理财经部分进展。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666453.857568
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "我们需要更有效地拓尽新销，技术支持，市场策划和基金、汇金经营等。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666454.1079013
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666454.358314
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666454.6085026
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "【建议】\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666454.8590028
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666455.1093476
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "开发总监",
+        "partial": "在此基础上，我们需要进一步加大对于产品/服务的市场策划及新销售业务的支持和发展。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666455.359776
+      }
+    },
+    {
+      "event": "agent_say_done",
+      "data": {
+        "role": "开发总监",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666455.6101103
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "市场总监：\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666501.0171943
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666501.2679596
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "1.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666501.5181935
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": " 为了提高员工参与度，可以开展“彩蛋积分”活动，对每一个员工进行积分计分。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666501.7686024
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "我认为这样的办法是可以增加员工的兴趣和敬业度，同时也是有潜在的提高员工沟通能力的。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666502.0187242
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666502.2692056
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666502.5197458
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "结论：建议“彩蛋积分”活动为部门进行大量实验，并且将这些经验转交给一小组员工，以此提高员工参与度。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666502.7702608
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666503.0207493
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666503.2711403
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "2.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666503.5213249
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": " 需要重新审视部门的“工作流程”和“人力资源管理”方案。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666503.7715356
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "我认为部门的工作流程不太合理，并且有可能引起员工的疑惑或不信任，这种问题往往会导致人力资源管理方针的审查和调查。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666504.022144
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666504.2727113
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666504.5232272
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "结论：部门首先可以重新组织工作流程，确保员工能够更容易地了解所有的步骤。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666504.7734716
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "然后，应该在人力资源管理方面进行一些调查和研究，并且根据此调查结果进行改变。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666505.02409
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666505.2751489
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666505.5255551
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "3.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666505.776126
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": " 部门需要更多审核员工的合法性备选人才。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666506.0263472
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "这是为了竭力保证一定能为组织提供优秀的、高素质的人才。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666506.2765152
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666506.5271325
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666506.7774632
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "结论：部门可以根据经营效率，员工成长和人力资源管理方面的需求，将一定程度上增加合法性备选人才批准审查。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666507.027777
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666507.277985
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666507.5283275
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "4.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666507.7788224
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": " 部门在“人力资源管理”方面可以将所有的员工信息都放入积分计分轴上，这样就能为每一个员工提供积分的计算。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666508.0295186
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666508.2799606
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666508.5305722
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "结论：部门可以在人力资源管理方面增加相同员工信息的积分计分轴，并将总统积分计分轴和实际员工积分计分轴一起使用。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666508.7810998
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666509.031321
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666509.2822387
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "5.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666509.5324605
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": " 部门需要更好地建立与员工保持良好的关系的机制。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666509.7826478
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "我认为这是为了促进员工的沟通能力，同时也可以降低工作繁忙的情况。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666510.032867
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666510.283324
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666510.5338128
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "结论：部门应该为员工建立更好的与员工保持良好的关系机制，并将其在“人力资源管理”方面进行一些调查和研究，以此来实现更好的",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666510.7842543
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "市场总监",
+        "partial": "与员工保持良好的关系。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666511.0347369
+      }
+    },
+    {
+      "event": "agent_say_done",
+      "data": {
+        "role": "市场总监",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666511.285207
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "(主持人): 您好，我是会议参与者，请稍后回答谈到的部门进展问题。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666527.7761254
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666528.0265572
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666528.277087
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "资源与行政具体建议：\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666528.5275078
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "1.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666528.7781603
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": " 对部门进展有哪些影响？",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666529.028817
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "为什么会导致成本扩张和竞争力下降？",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666529.2792614
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666529.5296662
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "2.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666529.7801626
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": " 将不受到影响的部门，请稳定地进行重大业务。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666530.0305748
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666530.2808404
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "3.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666530.5310025
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": " 合并部门或分区会对部门进展有什么影响？",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666530.7816358
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "如何评估相关影响？",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666531.0321302
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666531.2828457
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "4.",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666531.533355
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": " 部门已经扩张，将在未来3年内需要加入更多人，请考虑新方法。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666531.78367
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666532.034098
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "\n",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666532.2842941
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "结论：我认为部门进展的受到影响比较大，应该注意重大业务以及合并部门或分区会对部门进展有什么影响。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666532.534652
+      }
+    },
+    {
+      "event": "agent_say",
+      "data": {
+        "role": "资源与行政",
+        "partial": "我建议将部门进展放在未来3年内的新方法。",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666532.7851067
+      }
+    },
+    {
+      "event": "agent_say_done",
+      "data": {
+        "role": "资源与行政",
+        "topic": "部门进展",
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666533.0353572
+      }
+    },
+    {
+      "event": "end_meeting",
+      "data": {
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666533.035391
+      }
+    },
+    {
+      "event": "end_meeting",
+      "data": {
+        "sid": "ce28fc1fc6b448ea91eed0c8e268fa0d",
+        "ts": 1761666706.8224053
+      }
+    }
+  ]
+}

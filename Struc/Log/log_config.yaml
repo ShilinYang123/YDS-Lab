@@ -1,0 +1,230 @@
+# 统一日志管理配置
+# 集中管理所有智能体协作和系统日志
+
+# 全局日志配置
+global_config:
+  log_level: "INFO"  # DEBUG, INFO, WARN, ERROR, CRITICAL
+  log_format: "structured"  # structured, plain, json
+  timezone: "Asia/Shanghai"
+  encoding: "utf-8"
+  
+# 日志分类配置
+log_categories:
+  agent_collaboration:
+    description: "智能体协作日志"
+    directory: "./agent_collaboration/"
+    retention_days: 90
+    max_file_size: "100MB"
+    rotation_count: 10
+    compression: true
+    
+  system_events:
+    description: "系统事件日志"
+    directory: "./system_events/"
+    retention_days: 180
+    max_file_size: "50MB"
+    rotation_count: 20
+    compression: true
+    
+  performance_metrics:
+    description: "性能指标日志"
+    directory: "./performance_metrics/"
+    retention_days: 30
+    max_file_size: "200MB"
+    rotation_count: 5
+    compression: true
+    
+  audit_trails:
+    description: "审计跟踪日志"
+    directory: "./audit_trails/"
+    retention_days: 365  # 合规要求
+    max_file_size: "50MB"
+    rotation_count: 50
+    compression: true
+    encryption: true  # 审计日志需要加密
+
+# 智能体协作日志详细配置
+agent_collaboration_logs:
+  message_exchange:
+    enabled: true
+    log_level: "INFO"
+    include_content: true
+    max_content_length: 1000
+    
+  task_coordination:
+    enabled: true
+    log_level: "INFO"
+    track_task_lifecycle: true
+    include_performance_data: true
+    
+  decision_making:
+    enabled: true
+    log_level: "INFO"
+    track_decision_process: true
+    include_reasoning: true
+    
+  workflow_execution:
+    enabled: true
+    log_level: "INFO"
+    track_workflow_steps: true
+    include_timing_data: true
+    
+  error_handling:
+    enabled: true
+    log_level: "ERROR"
+    include_stack_trace: true
+    auto_escalate: true
+
+# 系统事件日志配置
+system_events_logs:
+  startup_shutdown:
+    enabled: true
+    log_level: "INFO"
+    include_system_state: true
+    
+  configuration_changes:
+    enabled: true
+    log_level: "WARN"
+    track_changes: true
+    include_diff: true
+    
+  security_events:
+    enabled: true
+    log_level: "WARN"
+    immediate_alert: true
+    include_context: true
+    
+  mcp_server_events:
+    enabled: true
+    log_level: "INFO"
+    track_server_lifecycle: true
+    include_health_status: true
+
+# 性能指标日志配置
+performance_metrics_logs:
+  response_times:
+    enabled: true
+    sampling_rate: 1.0  # 100%采样
+    percentiles: [50, 90, 95, 99]
+    
+  resource_usage:
+    enabled: true
+    collection_interval: "30s"
+    metrics: ["cpu", "memory", "disk", "network"]
+    
+  throughput:
+    enabled: true
+    measurement_window: "1m"
+    track_by_operation: true
+    
+  error_rates:
+    enabled: true
+    calculation_window: "5m"
+    alert_threshold: 0.05  # 5%错误率告警
+
+# 审计跟踪日志配置
+audit_trails_logs:
+  user_actions:
+    enabled: true
+    log_level: "INFO"
+    include_user_context: true
+    track_sensitive_operations: true
+    
+  data_access:
+    enabled: true
+    log_level: "INFO"
+    track_read_operations: false  # 性能考虑
+    track_write_operations: true
+    
+  permission_changes:
+    enabled: true
+    log_level: "WARN"
+    immediate_notification: true
+    include_approval_chain: true
+    
+  system_administration:
+    enabled: true
+    log_level: "WARN"
+    track_all_admin_actions: true
+    require_justification: true
+
+# 日志聚合和分析
+log_aggregation:
+  enabled: true
+  aggregation_interval: "1h"
+  storage_backend: "elasticsearch"  # 可选: file, database, elasticsearch
+  
+  analysis_rules:
+    error_pattern_detection:
+      enabled: true
+      pattern_threshold: 5  # 5次相同错误触发分析
+      
+    performance_anomaly_detection:
+      enabled: true
+      baseline_window: "7d"
+      sensitivity: "medium"
+      
+    security_threat_detection:
+      enabled: true
+      correlation_window: "1h"
+      threat_patterns: ["brute_force", "privilege_escalation", "data_exfiltration"]
+
+# 告警配置
+alerting:
+  enabled: true
+  channels: ["email", "webhook", "dashboard"]
+  
+  alert_rules:
+    critical_errors:
+      condition: "error_rate > 0.1"
+      severity: "critical"
+      notification_delay: "0s"
+      
+    performance_degradation:
+      condition: "response_time_p95 > 5s"
+      severity: "warning"
+      notification_delay: "5m"
+      
+    security_incidents:
+      condition: "security_event_count > 3"
+      severity: "high"
+      notification_delay: "0s"
+      
+    disk_space_warning:
+      condition: "log_disk_usage > 0.8"
+      severity: "warning"
+      notification_delay: "1h"
+
+# 日志导出和备份
+export_backup:
+  automated_backup: true
+  backup_frequency: "daily"
+  backup_retention: "1年"
+  backup_location: "../../../Backups/logs/"
+  
+  export_formats: ["json", "csv", "parquet"]
+  export_scheduling:
+    daily_summary: "02:00"
+    weekly_report: "Sunday 03:00"
+    monthly_archive: "1st 04:00"
+
+# 合规性配置
+compliance:
+  gdpr_compliance: true
+  data_anonymization: true
+  right_to_be_forgotten: true
+  audit_log_integrity: true
+  
+# 性能优化
+performance_optimization:
+  async_logging: true
+  buffer_size: "64KB"
+  flush_interval: "5s"
+  compression_level: 6
+  
+# 监控和健康检查
+monitoring:
+  log_health_check: true
+  check_interval: "1m"
+  disk_space_monitoring: true
+  log_rotation_monitoring: true
