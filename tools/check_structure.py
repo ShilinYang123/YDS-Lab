@@ -238,13 +238,31 @@ class YDSLabStructureChecker:
             with open(self.whitelist_file, 'r', encoding='utf-8') as f:
                 content = f.read()
                 
-            # 查找目录结构部分
-            structure_match = re.search(r'```\s*\n(.*?)\n```', content, re.DOTALL)
-            if not structure_match:
-                self.logger.error("无法在标准结构文档中找到目录结构")
+            # 查找目录结构部分 - 修复正则表达式以匹配完整的代码块
+            # 寻找第一个```后的内容，直到最后一个```
+            start_marker = content.find('```\n')
+            if start_marker == -1:
+                self.logger.error("无法在标准结构文档中找到目录结构开始标记")
                 return []
                 
-            structure_text = structure_match.group(1)
+            # 从开始标记后查找结束标记
+            start_pos = start_marker + 4  # 跳过'```\n'
+            
+            # 查找最后一个```标记（在## 维护说明之前）
+            maintenance_section = content.find('## 维护说明')
+            if maintenance_section != -1:
+                # 在维护说明之前查找最后一个```
+                end_marker = content.rfind('```', start_pos, maintenance_section)
+            else:
+                # 如果没有维护说明，查找最后一个```
+                end_marker = content.rfind('```', start_pos)
+                
+            if end_marker == -1 or end_marker <= start_pos:
+                self.logger.error("无法在标准结构文档中找到目录结构结束标记")
+                return []
+                
+            # 提取结构文本
+            structure_text = content[start_pos:end_marker]
             lines = structure_text.strip().split('\n')
             
             # 过滤和处理行
@@ -257,8 +275,43 @@ class YDSLabStructureChecker:
                 # 移除行首的YDS-Lab/前缀（如果存在）
                 if line.startswith('YDS-Lab/'):
                     line = line[9:]  # 移除'YDS-Lab/'
+                
+                # 过滤掉Markdown格式标记和无效项目
+                stripped_line = line.strip()
+                
+                # 跳过Markdown标题（以#开头）
+                if stripped_line.startswith('#'):
+                    continue
                     
-                structure_items.append(line)
+                # 跳过Markdown代码块标记
+                if stripped_line.startswith('```') or stripped_line == '```':
+                    continue
+                    
+                # 跳过以-开头的列表项（通常是说明文字）
+                if stripped_line.startswith('- '):
+                    continue
+                    
+                # 跳过纯数字或特殊格式的行
+                if stripped_line.isdigit():
+                    continue
+                    
+                # 跳过包含中文说明的行（通常不是目录结构）
+                if any(char in stripped_line for char in ['：', '。', '，', '（', '）', '！', '？']):
+                    continue
+                    
+                # 跳过bash命令行
+                if stripped_line.startswith('cd ') or stripped_line.startswith('python '):
+                    continue
+                    
+                # 只保留看起来像目录/文件路径的行
+                # 有效的项目应该：不为空，不是错误标记，包含有效字符
+                if (stripped_line and 
+                    not stripped_line.startswith('[') and  # 不是错误标记
+                    not stripped_line.startswith('目录结构扫描配置文件:') and  # 不是配置说明
+                    (stripped_line.endswith('/') or  # 是目录
+                     '.' in stripped_line or  # 是文件（有扩展名）
+                     not any(char in stripped_line for char in [':', '`']))):  # 不包含说明性字符
+                    structure_items.append(line)
                 
             self.logger.info(f"从标准结构文档解析出 {len(structure_items)} 个项目")
             return structure_items

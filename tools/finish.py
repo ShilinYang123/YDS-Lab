@@ -561,7 +561,27 @@ class YDSLabFinishProcessor:
             # 检查是否有未提交的更改
             status = self.git_helper.get_status()
             
-            if status.get('has_changes', False):
+            # 检查是否有任何类型的变更（包括未跟踪文件）
+            has_changes = (
+                not status.get('clean', True) or 
+                len(status.get('untracked', [])) > 0 or
+                len(status.get('modified', [])) > 0 or
+                len(status.get('added', [])) > 0 or
+                len(status.get('deleted', [])) > 0
+            )
+            
+            if has_changes:
+                # 记录检测到的变更
+                self.logger.info(f"检测到变更:")
+                if status.get('modified'):
+                    self.logger.info(f"  修改的文件: {status.get('modified')}")
+                if status.get('added'):
+                    self.logger.info(f"  新增的文件: {status.get('added')}")
+                if status.get('deleted'):
+                    self.logger.info(f"  删除的文件: {status.get('deleted')}")
+                if status.get('untracked'):
+                    self.logger.info(f"  未跟踪的文件: {status.get('untracked')}")
+                
                 # 自动提交更改
                 commit_message = f"chore: {self.default_config['git']['commit_prefix']} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
                 
