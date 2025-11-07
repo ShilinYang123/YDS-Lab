@@ -1,0 +1,25 @@
+agents:
+  collaboration_enabled: true
+  enabled: true
+  path: 01-struc/Agents
+deployment_date: '2025-11-06T15:41:17.023186'
+environment: production
+logging:
+  level: INFO
+  path: 01-struc/0B-general-manager/logs
+  retention: 30d
+  rotation: daily
+mcp_cluster:
+  auto_start: true
+  enabled: true
+  path: tools/mcp/servers
+monitoring:
+  enabled: true
+  health_check_interval: 60
+  performance_metrics: true
+platform: Trae
+security:
+  audit_logging: true
+  authentication: true
+  encryption: true
+version: 2.0.0

@@ -1,0 +1,291 @@
+# 权限控制清单
+# 统一管理系统各组件的访问权限和授权策略
+
+# 全局权限策略
+global_policy:
+  authentication_required: true
+  authorization_model: "role_based_access_control"  # RBAC
+  default_deny: true  # 默认拒绝策略
+  session_timeout: "8小时"
+  
+# 角色定义
+roles:
+  system_admin:
+    description: "系统管理员"
+    permissions:
+      - "system:*"
+      - "config:*"
+      - "user:*"
+      - "audit:read"
+    resource_access: "全部"
+    
+  project_manager:
+    description: "项目经理"
+    permissions:
+      - "project:*"
+      - "workflow:manage"
+      - "report:generate"
+      - "team:manage"
+    resource_access: "项目相关"
+    
+  developer:
+    description: "开发人员"
+    permissions:
+      - "code:read"
+      - "code:write"
+      - "build:execute"
+      - "test:run"
+    resource_access: "开发环境"
+    
+  analyst:
+    description: "数据分析师"
+    permissions:
+      - "data:read"
+      - "report:generate"
+      - "dashboard:view"
+      - "export:limited"
+    resource_access: "数据和报告"
+    
+  guest:
+    description: "访客用户"
+    permissions:
+      - "dashboard:view"
+      - "report:read"
+    resource_access: "只读访问"
+
+  # 会议系统角色（新增）
+  ceo:
+    description: "CEO会议角色（会议主席/决策汇总）"
+    permissions:
+      - "meetingroom:manage"
+      - "docs:share"
+      - "docs:approve"
+      - "vote:create"
+      - "vote:cast"
+      - "minutes:generate"
+    resource_access: "会议系统"
+
+  meeting_secretary:
+    description: "会议秘书（议程与纪要、附件管理）"
+    permissions:
+      - "meetingroom:organize"
+      - "docs:share"
+      - "docs:revoke"
+      - "minutes:generate"
+    resource_access: "会议系统"
+
+  finance_director:
+    description: "财务总监（财务顾问/风控与投票参与）"
+    permissions:
+      - "docs:read"
+      - "vote:cast"
+    resource_access: "会议系统只读+投票"
+
+  tech_representative:
+    description: "技术代表（技术讨论/语音参与/投票）"
+    permissions:
+      - "docs:read"
+      - "voice:stream"
+      - "vote:cast"
+    resource_access: "会议系统只读+语音+投票"
+
+  observer:
+    description: "观察员（只读与投票参与）"
+    permissions:
+      - "docs:read"
+      - "vote:cast"
+    resource_access: "会议系统只读"
+
+# 资源权限映射
+resource_permissions:
+  # 目录结构权限
+  directories:
+    "01-struc/":
+      system_admin: ["read", "write", "execute", "delete"]
+      project_manager: ["read", "write", "execute"]
+      developer: ["read", "write"]
+      analyst: ["read"]
+      guest: ["read"]
+      
+    "04-prod/":
+      system_admin: ["read", "write", "execute", "delete"]
+      project_manager: ["read", "execute"]
+      developer: ["read"]
+      analyst: []
+      guest: []
+      
+    "Backups/":
+      system_admin: ["read", "write", "execute", "delete"]
+      project_manager: []
+      developer: []
+      analyst: []
+      guest: []
+
+  # MCP服务器权限
+  mcp_servers:
+    github_mcp:
+      system_admin: ["manage", "configure", "monitor"]
+      project_manager: ["use", "monitor"]
+      developer: ["use"]
+      analyst: ["use"]
+      guest: []
+      
+    excel_mcp:
+      system_admin: ["manage", "configure", "monitor"]
+      project_manager: ["use", "monitor"]
+      developer: ["use"]
+      analyst: ["use", "advanced"]
+      guest: ["read"]
+      
+    database_mcp:
+      system_admin: ["manage", "configure", "monitor"]
+      project_manager: ["query", "report"]
+      developer: ["query", "schema_read"]
+      analyst: ["query", "report", "export"]
+      guest: []
+      
+    filesystem_mcp:
+      system_admin: ["manage", "configure", "monitor"]
+      project_manager: ["read", "write", "organize"]
+      developer: ["read", "write"]
+      analyst: ["read", "export"]
+      guest: ["read"]
+
+  # 会议室资源与路径限制（新增）
+  meetingroom:
+    docs:
+      whitelist_paths:
+        - "S:\\YDS-Lab\\01-struc\\SharedWorkspace\\Documents\\**"
+        - "S:\\YDS-Lab\\01-struc\\SharedWorkspace\\Collaboration\\**"
+        - "S:\\YDS-Lab\\01-struc\\docs\\YDS-AI-战略规划\\*.md"
+        - "S:\\YDS-Lab\\01-struc\\docs\\meetings\\**"
+      blacklist_paths:
+        - "S:\\YDS-Lab\\01-struc\\docs\\**\\合同\\**"
+      operations:
+        share:
+          allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary"]
+        revoke:
+          allowed_roles: ["system_admin", "ceo", "meeting_secretary"]
+        view:
+          allowed_roles: ["system_admin", "project_manager", "developer", "analyst", "guest", "ceo", "meeting_secretary", "finance_director", "tech_representative", "observer"]
+    voice:
+      operations:
+        stream:
+          allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary", "tech_representative"]
+    votes:
+      operations:
+        create:
+          allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary"]
+        cast:
+          allowed_roles: ["system_admin", "project_manager", "developer", "analyst", "ceo", "meeting_secretary", "finance_director", "tech_representative", "observer"]
+        finalize:
+          allowed_roles: ["system_admin", "ceo", "meeting_secretary"]
+
+# 智能体权限
+agent_permissions:
+  collaboration_agent:
+    allowed_operations:
+      - "message:send"
+      - "meeting:schedule"
+      - "document:share"
+      - "workflow:trigger"
+    resource_limits:
+      max_concurrent_sessions: 10
+      max_file_size: "100MB"
+      
+  analysis_agent:
+    allowed_operations:
+      - "data:query"
+      - "report:generate"
+      - "chart:create"
+      - "export:csv"
+    resource_limits:
+      max_query_complexity: "medium"
+      max_result_rows: 10000
+      
+  development_agent:
+    allowed_operations:
+      - "code:analyze"
+      - "build:trigger"
+      - "test:execute"
+      - "deploy:staging"
+    resource_limits:
+      max_build_time: "30分钟"
+      max_memory_usage: "4GB"
+
+# API访问控制
+api_access:
+  rate_limiting:
+    system_admin: "无限制"
+    project_manager: "1000/小时"
+    developer: "500/小时"
+    analyst: "300/小时"
+    guest: "50/小时"
+    
+  endpoint_restrictions:
+    "/admin/*":
+      allowed_roles: ["system_admin"]
+    "/api/config/*":
+      allowed_roles: ["system_admin", "project_manager"]
+    "/api/data/*":
+      allowed_roles: ["system_admin", "project_manager", "analyst"]
+    "/api/public/*":
+      allowed_roles: ["*"]
+    "/mcp/docs/*":
+      allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary"]
+    "/mcp/votes/*":
+      allowed_roles: ["system_admin", "project_manager", "developer", "analyst", "ceo", "meeting_secretary", "finance_director", "tech_representative", "observer"]
+    "/mcp/voice/*":
+      allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary", "tech_representative"]
+    "/mcp/lm/*":
+      allowed_roles: ["system_admin", "project_manager", "developer"]
+    "/mcp/audit/*":
+      allowed_roles: ["system_admin"]
+
+# 审计配置
+audit:
+  log_all_access: true
+  log_failed_attempts: true
+  retention_period: "2年"
+  # 审计输出目录统一到新结构：01-struc/0B-general-manager/logs/audit_trails
+  output_path: "01-struc/0B-general-manager/logs/audit_trails"
+  sensitive_operations:
+    - "config:modify"
+    - "user:create"
+    - "permission:change"
+    - "system:restart"
+    - "document:share"
+    - "document:revoke"
+    - "vote:create"
+    - "vote:finalize"
+    - "voice:stream"
+    
+# 安全策略
+security_policies:
+  password_policy:
+    min_length: 12
+    require_uppercase: true
+    require_lowercase: true
+    require_numbers: true
+    require_special_chars: true
+    expiry_days: 90
+    
+  session_policy:
+    max_concurrent_sessions: 3
+    idle_timeout: "30分钟"
+    absolute_timeout: "8小时"
+    require_reauth_for_sensitive: true
+    
+  access_policy:
+    max_failed_attempts: 5
+    lockout_duration: "15分钟"
+    require_mfa_for_admin: true
+    ip_whitelist_enabled: false
+
+# 紧急访问
+emergency_access:
+  enabled: true
+  break_glass_accounts: ["emergency_admin"]
+  approval_required: true
+  audit_immediately: true
+  auto_expire: "24小时"

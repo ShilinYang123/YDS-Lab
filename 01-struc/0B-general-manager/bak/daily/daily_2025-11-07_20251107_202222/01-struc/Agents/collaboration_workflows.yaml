@@ -1,0 +1,20 @@
+workflows:
+  daily_operations:
+    description: Daily operational collaboration across agents
+    steps:
+      - sync_status
+      - assign_tasks
+      - review_updates
+  project_development:
+    description: Collaboration for project development lifecycle
+    steps:
+      - plan
+      - implement
+      - test
+      - deploy
+  emergency_response:
+    description: Coordination for incident management and emergency response
+    steps:
+      - triage
+      - mitigate
+      - postmortem

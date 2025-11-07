@@ -1,0 +1,47 @@
+compliance_thresholds:
+  excellent: 100
+  minor: 95
+  severe: 70
+exclude_dirs:
+- .git
+- __pycache__
+- .venv
+- venv
+- env
+- bak
+- backup
+- backups
+- Backup
+- Backups
+- .vscode
+- .idea
+- .pytest_cache
+- node_modules
+- .env
+exclude_files:
+- '*.pyc'
+- '*.pyo'
+- '*.pyd'
+- '*.log'
+- '*.tmp'
+- '*.temp'
+- .DS_Store
+- Thumbs.db
+- '*.bak'
+- '*.swp'
+- desktop.ini
+- '*.so'
+- '*.dll'
+hidden_dirs_handling:
+  max_depth: 0
+  show_files: false
+special_handling:
+  Log:
+    max_depth: 2
+    show_files: false
+  archive:
+    max_depth: 1
+    show_files: false
+  logs:
+    max_depth: 2
+    show_files: false

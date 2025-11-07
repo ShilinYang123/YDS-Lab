@@ -1,0 +1,61 @@
+{
+  "services": [
+    {
+      "service_type": "stt",
+      "model": "whisper-base",
+      "endpoint": "http://localhost:11434/api/generate",
+      "api_key": null,
+      "timeout": 60,
+      "max_audio_length": 600,
+      "supported_formats": [
+        "wav",
+        "mp3",
+        "ogg"
+      ],
+      "language": "zh",
+      "enabled": true
+    },
+    {
+      "service_type": "stt",
+      "model": "whisper-small",
+      "endpoint": "http://localhost:11434/api/generate",
+      "api_key": null,
+      "timeout": 90,
+      "max_audio_length": 600,
+      "supported_formats": [
+        "wav",
+        "mp3",
+        "ogg"
+      ],
+      "language": "zh",
+      "enabled": true
+    },
+    {
+      "service_type": "tts",
+      "model": "coqui-tts",
+      "endpoint": "http://localhost:5002/api/tts",
+      "api_key": null,
+      "timeout": 30,
+      "max_audio_length": 300,
+      "supported_formats": [
+        "wav",
+        "mp3"
+      ],
+      "language": "zh",
+      "enabled": true
+    },
+    {
+      "service_type": "tts",
+      "model": "espeak-tts",
+      "endpoint": "http://localhost:5003/api/tts",
+      "api_key": null,
+      "timeout": 15,
+      "max_audio_length": 300,
+      "supported_formats": [
+        "wav"
+      ],
+      "language": "zh",
+      "enabled": true
+    }
+  ]
+}

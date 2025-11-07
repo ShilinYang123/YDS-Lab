@@ -1,0 +1,15 @@
+agent_info:
+  name: MarketingDirector
+  role: Marketing Director
+capabilities:
+  - campaign_management
+  - brand_strategy
+workspace:
+  shared: ../../SharedWorkspace
+tools:
+  - marketing_suite
+collaboration:
+  workflows:
+    - daily_operations
+    - project_development
+    - emergency_response

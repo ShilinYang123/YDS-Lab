@@ -1,0 +1,105 @@
+# Trae IDE 长效记忆系统集成配置
+project:
+  name: "JS-004-本地AI模型部署与Trae IDE集成"
+  version: "1.0.0"
+  description: "本地AI模型部署与Trae IDE集成项目的记忆系统配置"
+
+# 记忆系统配置
+memory_system:
+  # 引用主系统配置
+  base_config: "../memory-config.yaml"
+  
+  # 项目特定配置
+  project_specific:
+    # 记录AI模型部署操作
+    model_deployment:
+      track_downloads: true
+      track_installations: true
+      track_configurations: true
+      track_testing: true
+    
+    # 记录Trae IDE集成操作
+    trae_integration:
+      track_setup: true
+      track_configurations: true
+      track_testing: true
+      track_debugging: true
+    
+    # 记录集成测试
+    integration_testing:
+      track_test_cases: true
+      track_results: true
+      track_performance: true
+
+# 部署路径配置
+deployment:
+  base_path: "s:/YDS-Lab/projects/JS-004-本地AI模型部署与Trae IDE集成"
+  
+  # 目录结构
+  directories:
+    src: "src"
+    config: "config"
+    logs: "logs"
+    data: "data"
+    docs: "docs"
+    tests: "tests"
+  
+  # 记忆存储路径
+  memory_storage:
+    path: "data/memories"
+    backup_path: "data/backups"
+
+# 监控配置
+monitoring:
+  # 系统资源监控
+  system_resources:
+    enabled: true
+    interval: 30000  # 30秒
+    
+  # 模型性能监控
+  model_performance:
+    enabled: true
+    track_inference_time: true
+    track_memory_usage: true
+    
+  # API响应监控
+  api_response:
+    enabled: true
+    track_response_time: true
+    track_error_rates: true
+
+# 自动化配置
+automation:
+  # 自动备份
+  auto_backup:
+    enabled: true
+    interval: 3600000  # 1小时
+    retention_days: 30
+    
+  # 自动优化
+  auto_optimization:
+    enabled: true
+    memory_cleanup: true
+    performance_tuning: true
+    
+  # 自动报告
+  auto_reporting:
+    enabled: true
+    daily_summary: true
+    weekly_analysis: true
+
+# 集成配置
+integration:
+  # Trae IDE集成
+  trae_ide:
+    enabled: true
+    auto_record: true
+    intelligent_filtering: true
+    context_extraction: true
+    
+  # 长效记忆系统集成
+  long_term_memory:
+    enabled: true
+    auto_record_operations: true
+    context_preservation: true
+    usage_learning: true
