@@ -1,0 +1,42 @@
+{
+  "name": "yds-lab-memory-system",
+  "version": "1.0.0",
+  "description": "YDS-Lab 长效记忆系统与Trae IDE集成",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "test": "node test-auto-record-integration.js",
+    "deploy": "node scripts/deploy-trae-integration.js"
+  },
+  "keywords": [
+    "memory-system",
+    "trae-ide",
+    "ai",
+    "integration",
+    "long-term-memory"
+  ],
+  "author": "YDS-Lab",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/node": "^20.0.0",
+    "yaml": "^2.3.0",
+    "fs-extra": "^11.0.0",
+    "lodash": "^4.17.21",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.0",
+    "@types/lodash": "^4.14.0",
+    "@types/uuid": "^9.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

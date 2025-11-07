@@ -1,0 +1,215 @@
+{
+  "start_time": "2025-11-06T15:39:01.188168",
+  "tests": {
+    "环境完整性测试": {
+      "status": "PASS",
+      "duration": 0.02,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ 目录存在: Agents",
+          "✅ 目录存在: SharedWorkspace",
+          "✅ 目录存在: CEO",
+          "✅ 目录存在: dev_team",
+          "✅ 目录存在: resource_admin",
+          "✅ 目录存在: planning_director",
+          "✅ 目录存在: finance_director",
+          "✅ 目录存在: marketing_director",
+          "✅ MCP集群目录存在（新路径）: S:\\YDS-Lab\\tools\\mcp\\servers",
+          "✅ 配置文件存在: production.yaml",
+          "✅ 配置文件格式正确: production.yaml",
+          "✅ 配置文件存在: collaboration_workflows.yaml",
+          "✅ 配置文件格式正确: collaboration_workflows.yaml",
+          "✅ MCP集群配置存在: S:\\YDS-Lab\\tools\\mcp\\servers\\cluster_config.yaml",
+          "✅ MCP集群配置格式正确"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.210638"
+    },
+    "智能体配置测试": {
+      "status": "PASS",
+      "duration": 0.03,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ CEO/config 目录存在",
+          "✅ CEO/documents 目录存在",
+          "✅ CEO/logs 目录存在",
+          "✅ CEO/prompts 目录存在",
+          "✅ CEO/templates 目录存在",
+          "✅ CEO/tools 目录存在",
+          "✅ CEO 配置包含 agent_info",
+          "✅ CEO 配置包含 capabilities",
+          "✅ CEO 配置包含 workspace",
+          "✅ CEO 配置包含 tools",
+          "✅ CEO 配置包含 collaboration",
+          "✅ PlanningDirector/config 目录存在",
+          "✅ PlanningDirector/documents 目录存在",
+          "✅ PlanningDirector/logs 目录存在",
+          "✅ PlanningDirector/prompts 目录存在",
+          "✅ PlanningDirector/templates 目录存在",
+          "✅ PlanningDirector/tools 目录存在",
+          "✅ PlanningDirector 配置包含 agent_info",
+          "✅ PlanningDirector 配置包含 capabilities",
+          "✅ PlanningDirector 配置包含 workspace",
+          "✅ PlanningDirector 配置包含 tools",
+          "✅ PlanningDirector 配置包含 collaboration",
+          "✅ FinanceDirector/config 目录存在",
+          "✅ FinanceDirector/documents 目录存在",
+          "✅ FinanceDirector/logs 目录存在",
+          "✅ FinanceDirector/prompts 目录存在",
+          "✅ FinanceDirector/templates 目录存在",
+          "✅ FinanceDirector/tools 目录存在",
+          "✅ FinanceDirector 配置包含 agent_info",
+          "✅ FinanceDirector 配置包含 capabilities",
+          "✅ FinanceDirector 配置包含 workspace",
+          "✅ FinanceDirector 配置包含 tools",
+          "✅ FinanceDirector 配置包含 collaboration",
+          "✅ DevTeamLead/config 目录存在",
+          "✅ DevTeamLead/documents 目录存在",
+          "✅ DevTeamLead/logs 目录存在",
+          "✅ DevTeamLead/prompts 目录存在",
+          "✅ DevTeamLead/templates 目录存在",
+          "✅ DevTeamLead/tools 目录存在",
+          "✅ DevTeamLead 配置包含 agent_info",
+          "✅ DevTeamLead 配置包含 capabilities",
+          "✅ DevTeamLead 配置包含 workspace",
+          "✅ DevTeamLead 配置包含 tools",
+          "✅ DevTeamLead 配置包含 collaboration",
+          "✅ MarketingDirector/config 目录存在",
+          "✅ MarketingDirector/documents 目录存在",
+          "✅ MarketingDirector/logs 目录存在",
+          "✅ MarketingDirector/prompts 目录存在",
+          "✅ MarketingDirector/templates 目录存在",
+          "✅ MarketingDirector/tools 目录存在",
+          "✅ MarketingDirector 配置包含 agent_info",
+          "✅ MarketingDirector 配置包含 capabilities",
+          "✅ MarketingDirector 配置包含 workspace",
+          "✅ MarketingDirector 配置包含 tools",
+          "✅ MarketingDirector 配置包含 collaboration",
+          "✅ ResourceAdmin/config 目录存在",
+          "✅ ResourceAdmin/documents 目录存在",
+          "✅ ResourceAdmin/logs 目录存在",
+          "✅ ResourceAdmin/prompts 目录存在",
+          "✅ ResourceAdmin/templates 目录存在",
+          "✅ ResourceAdmin/tools 目录存在",
+          "✅ ResourceAdmin 配置包含 agent_info",
+          "✅ ResourceAdmin 配置包含 capabilities",
+          "✅ ResourceAdmin 配置包含 workspace",
+          "✅ ResourceAdmin 配置包含 tools",
+          "✅ ResourceAdmin 配置包含 collaboration"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.239641"
+    },
+    "协作机制测试": {
+      "status": "PASS",
+      "duration": 0.0,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ 工作流程存在: daily_operations",
+          "✅ 工作流程存在: project_development",
+          "✅ 工作流程存在: emergency_response",
+          "✅ 协作脚本存在: meeting_manager.py",
+          "✅ 协作脚本存在: task_coordinator.py",
+          "✅ 协作脚本存在: status_synchronizer.py"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.243915"
+    },
+    "工作空间测试": {
+      "status": "PASS",
+      "duration": 0.0,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ 工作空间目录存在: Projects",
+          "✅ 工作空间目录存在: Documents",
+          "✅ 工作空间目录存在: Templates",
+          "✅ 工作空间目录存在: Collaboration",
+          "✅ 工作空间目录存在: KnowledgeBase",
+          "✅ 工作空间写入权限正常",
+          "✅ 工作空间读取权限正常",
+          "✅ 工作空间删除权限正常"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.249213"
+    },
+    "MCP集群测试": {
+      "status": "PASS",
+      "duration": 0.02,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ MCP服务器配置存在: github_mcp",
+          "✅ MCP服务器配置存在: excel_mcp",
+          "✅ MCP服务器配置存在: figma_mcp",
+          "✅ MCP服务器配置存在: builder_mcp",
+          "✅ MCP服务器配置存在: filesystem_mcp",
+          "✅ MCP服务器配置存在: database_mcp",
+          "✅ MCP服务器目录存在: GitHub",
+          "✅ MCP服务器目录存在: Excel",
+          "✅ MCP服务器目录存在: Figma",
+          "✅ MCP服务器目录存在: Builder",
+          "✅ MCP服务器目录存在: FileSystem",
+          "✅ MCP服务器目录存在: Database"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.270448"
+    },
+    "性能基准测试": {
+      "status": "PASS",
+      "duration": 0.03,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ 文件写入性能: 0.001秒",
+          "✅ 文件读取性能: 0.000秒",
+          "✅ 配置加载性能: 0.027秒"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.299904"
+    },
+    "安全性测试": {
+      "status": "PASS",
+      "duration": 0.0,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ 敏感文件存在: production.yaml",
+          "✅ 文件权限检查: production.yaml",
+          "✅ 敏感文件存在: cluster_config.yaml",
+          "✅ 文件权限检查: cluster_config.yaml",
+          "✅ 认证配置存在",
+          "✅ 加密配置存在"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.304507"
+    },
+    "容错性测试": {
+      "status": "PASS",
+      "duration": 0.01,
+      "details": {
+        "success": true,
+        "checks": [
+          "✅ 配置文件备份创建成功",
+          "✅ 配置文件恢复成功",
+          "✅ 备份文件清理成功",
+          "✅ 目录创建容错正常",
+          "✅ 目录删除容错正常"
+        ]
+      },
+      "timestamp": "2025-11-06T15:39:01.316584"
+    }
+  },
+  "summary": {
+    "total_tests": 8,
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "success_rate": 100.0,
+    "total_duration": 0.11
+  },
+  "end_time": "2025-11-06T15:39:01.316860"
+}

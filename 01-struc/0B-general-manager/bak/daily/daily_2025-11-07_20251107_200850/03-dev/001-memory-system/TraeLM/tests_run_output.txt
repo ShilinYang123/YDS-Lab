@@ -1,0 +1,7 @@
+No tests found, exiting with code 1
+Run with `--passWithNoTests` to exit with code 0
+In S:\3AI\projets\JS003-Trae闀胯蹇嗗姛鑳藉疄鏂?  50 files checked.
+  testMatch: S:/3AI/projets/JS003-Trae闀胯蹇嗗姛鑳藉疄鏂?tests/**/*.test.ts, S:/3AI/projets/JS003-Trae闀胯蹇嗗姛鑳藉疄鏂?tests/**/*.spec.ts, S:/3AI/projets/JS003-Trae闀胯蹇嗗姛鑳藉疄鏂?src/**/__tests__/**/*.ts, S:/3AI/projets/JS003-Trae闀胯蹇嗗姛鑳藉疄鏂?src/**/*.test.ts, S:/3AI/projets/JS003-Trae闀胯蹇嗗姛鑳藉疄鏂?src/**/*.spec.ts - 7 matches
+  testPathIgnorePatterns: S:\\3AI\\projets\\JS003-Trae闀胯蹇嗗姛鑳藉疄鏂絓\node_modules\\, S:\\3AI\\projets\\JS003-Trae闀胯蹇嗗姛鑳藉疄鏂絓\dist\\, S:\\3AI\\projets\\JS003-Trae闀胯蹇嗗姛鑳藉疄鏂絓\coverage\\ - 43 matches
+  testRegex:  - 0 matches
+Pattern: tests\\integration\\memory-persistence.test.ts - 0 matches

@@ -1,0 +1,17 @@
+# Meetingroom Server 权限配置（运行时读取）
+# 仅包含本次验收所需的最小端点访问控制。
+
+api_access:
+  endpoint_restrictions:
+    "/mcp/lm/*":
+      allowed_roles: ["system_admin", "project_manager", "developer"]
+    "/mcp/voice/*":
+      allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary", "tech_representative"]
+    "/mcp/docs/*":
+      allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary"]
+
+audit:
+  log_all_access: true
+  log_failed_attempts: true
+  retention_period: "2年"
+output_path: "01-struc/0B-general-manager/logs/audit_trails"

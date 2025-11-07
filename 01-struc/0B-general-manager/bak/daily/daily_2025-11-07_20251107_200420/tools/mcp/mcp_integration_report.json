@@ -1,0 +1,88 @@
+{
+  "start_time": "2025-11-05T21:20:43.154801",
+  "checks": {
+    "paths_and_executables": {
+      "success": true,
+      "details": [
+        {
+          "server": "github_mcp",
+          "path": "S:\\YDS-Lab\\tools\\mcp\\servers\\GitHub",
+          "executable": "github_mcp_server.py",
+          "dir_exists": true,
+          "executable_exists": true
+        },
+        {
+          "server": "excel_mcp",
+          "path": "S:\\YDS-Lab\\tools\\mcp\\servers\\Excel",
+          "executable": "excel_mcp_server.py",
+          "dir_exists": true,
+          "executable_exists": true
+        },
+        {
+          "server": "figma_mcp",
+          "path": "S:\\YDS-Lab\\tools\\mcp\\servers\\Figma",
+          "executable": "figma_mcp_server.py",
+          "dir_exists": true,
+          "executable_exists": true
+        },
+        {
+          "server": "builder_mcp",
+          "path": "S:\\YDS-Lab\\tools\\mcp\\servers\\Builder",
+          "executable": "builder_mcp_server.py",
+          "dir_exists": true,
+          "executable_exists": true
+        },
+        {
+          "server": "filesystem_mcp",
+          "path": "S:\\YDS-Lab\\tools\\mcp\\servers\\FileSystem",
+          "executable": "filesystem_mcp_server.py",
+          "dir_exists": true,
+          "executable_exists": true
+        },
+        {
+          "server": "database_mcp",
+          "path": "S:\\YDS-Lab\\tools\\mcp\\servers\\Database",
+          "executable": "database_mcp_server.py",
+          "dir_exists": true,
+          "executable_exists": true
+        }
+      ]
+    },
+    "ports_unique": {
+      "success": true,
+      "details": []
+    },
+    "dependencies": {
+      "success": true,
+      "details": [
+        {
+          "server": "github_mcp",
+          "missing_dependencies": []
+        },
+        {
+          "server": "excel_mcp",
+          "missing_dependencies": []
+        },
+        {
+          "server": "figma_mcp",
+          "missing_dependencies": []
+        },
+        {
+          "server": "builder_mcp",
+          "missing_dependencies": []
+        },
+        {
+          "server": "filesystem_mcp",
+          "missing_dependencies": []
+        },
+        {
+          "server": "database_mcp",
+          "missing_dependencies": []
+        }
+      ]
+    }
+  },
+  "success": true,
+  "config_path": "S:\\YDS-Lab\\tools\\mcp\\servers\\cluster_config.yaml",
+  "end_time": "2025-11-05T21:20:45.866844"
+}

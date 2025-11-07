@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JS001 智能会议室</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="logo">🧠</span>
+        <h1>JS001 智能会议室</h1>
+      </div>
+      <div class="header-actions">
+        <button id="btn-rtm-start">开始会议（实时）</button>
+        <button id="btn-run">离线生成纪要</button>
+        <button id="btn-refresh">刷新会议列表</button>
+      </div>
+      <div class="health" id="health-indicator">健康检查中…</div>
+    </header>
+
+    <main class="container">
+      <!-- 实时会议室面板 - 移到顶部优先显示 -->
+      <section id="rtm-panel" class="panel" style="display:none;">
+        <div class="panel-head">
+          <h2>🎯 实时会议室</h2>
+          <div class="spacer"></div>
+          <span class="muted">SID：</span>
+          <span id="rtm-sid" class="chip">—</span>
+        </div>
+        <div class="actions">
+          <label style="display:flex; align-items:center; gap:6px;">
+            <input id="tts-enable" type="checkbox" />
+            <span class="muted">语音播报</span>
+          </label>
+          <button id="btn-voice-settings" class="secondary" style="margin-left: 10px;">音色设置</button>
+          <button id="btn-rtm-end" style="background:#39425a;color:var(--text);">结束会议</button>
+        </div>
+        <div class="rtm-composer">
+          <input id="user-say" type="text" placeholder="我来说两句…（回车发送）" />
+          <button id="btn-user-say" class="secondary">发送</button>
+        </div>
+        
+        <!-- 会议桌视图 -->
+        <div id="meeting-room" class="meeting-room">
+          <div class="meeting-table">
+            <div id="meeting-table-container" class="table-container">
+              <!-- 参会者座位将通过JavaScript动态生成 -->
+            </div>
+          </div>
+          <div class="subtitle-area">
+            <div class="subtitle-header">
+              <h3>当前发言</h3>
+              <span id="current-speaker" class="current-speaker">等待发言...</span>
+            </div>
+            <div id="subtitle-content" class="subtitle-content">
+              会议即将开始...
+            </div>
+          </div>
+        </div>
+        
+        <!-- 保留原有的时间线视图作为备选 -->
+        <div class="view-toggle">
+          <button id="btn-table-view" class="view-btn active">会议桌视图</button>
+          <button id="btn-timeline-view" class="view-btn">时间线视图</button>
+        </div>
+        <ul id="rtm-timeline" class="rtm-timeline" style="display:none;"></ul>
+      </section>
+
+      <!-- 文档共享治理面板 -->
+      <section id="docs-share-panel" class="panel">
+        <div class="panel-head">
+          <h2>📄 文档共享治理</h2>
+          <div class="spacer"></div>
+          <span class="muted">RBAC · 路径白名单/黑名单 · 审计</span>
+        </div>
+        <div class="grid grid-2">
+          <label>
+            <span>共享角色（RBAC）</span>
+            <select id="share-role">
+              <option value="meeting_secretary" selected>meeting_secretary（会议秘书）</option>
+              <option value="meeting_chair">meeting_chair（会议主席）</option>
+              <option value="meeting_assistant">meeting_assistant（会议助理）</option>
+            </select>
+          </label>
+          <label>
+            <span>文档标题（展示用，可选）</span>
+            <input id="share-title" type="text" placeholder="例如：周例会纪要（2025-11-03）" />
+          </label>
+          <label class="col-span-2">
+            <span>文档服务器路径（需在白名单内）</span>
+            <input id="share-path" type="text" placeholder="例如：S:\\YDS-Lab\\Struc\\GeneralOffice\\Docs\\JS001-meetingroom\\meeting-2025-11-03.md" />
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btn-docs-share">共享文档</button>
+          <button id="btn-docs-revoke" class="secondary">撤销最近共享</button>
+        </div>
+        <div id="docs-share-hint" class="muted" style="margin-top:10px;">提示：仅允许白名单路径且未命中黑名单目录；操作结果会写入审计日志</div>
+        <h3 style="margin-top:16px;">共享记录</h3>
+        <div id="docs-share-list" class="cards"></div>
+      </section>
+
+      <!-- 投票管理面板 -->
+      <section id="votes-panel" class="panel">
+        <div class="panel-head">
+          <h2>🗳️ 投票管理</h2>
+          <div class="spacer"></div>
+          <span class="muted">RBAC · 事件广播 · 实时状态</span>
+        </div>
+        <div class="grid grid-2">
+          <label>
+            <span>投票角色（RBAC）</span>
+            <select id="votes-role">
+              <option value="developer" selected>developer（开发）</option>
+              <option value="analyst">analyst（分析）</option>
+              <option value="meeting_chair">meeting_chair（会议主席）</option>
+              <option value="meeting_secretary">meeting_secretary（会议秘书）</option>
+              <option value="meeting_assistant">meeting_assistant（会议助理）</option>
+            </select>
+          </label>
+          <label>
+            <span>投票标题</span>
+            <input id="votes-title" type="text" placeholder="例如：是否采用方案A" />
+          </label>
+          <label class="col-span-2">
+            <span>选项（逗号分隔）</span>
+            <input id="votes-options" type="text" placeholder="例如：赞成, 反对, 弃权" />
+          </label>
+          <label>
+            <span>会议ID（可选）</span>
+            <input id="votes-meeting-id" type="text" placeholder="例如：JS001-2025-11-03" />
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btn-vote-create">创建投票</button>
+          <button id="btn-vote-finalize" class="secondary">结束最新投票</button>
+        </div>
+        <div id="votes-hint" class="muted" style="margin-top:10px;">提示：仅允许已授权角色执行对应操作；变更会通过 Socket.IO 广播并写入审计日志</div>
+        <h3 style="margin-top:16px;">投票列表</h3>
+        <div id="votes-list" class="cards"></div>
+      </section>
+
+      <!-- 语音管理面板 -->
+      <section id="voice-panel" class="panel">
+        <div class="panel-head">
+          <h2>🎙️ 语音管理</h2>
+          <div class="spacer"></div>
+          <span class="muted">RBAC · 引擎选择 · 事件广播</span>
+        </div>
+        <div class="grid grid-2">
+          <label>
+            <span>发言角色（RBAC）</span>
+            <select id="voice-role">
+              <option value="tech_representative" selected>tech_representative（技术代表）</option>
+              <option value="developer">developer（开发）</option>
+              <option value="analyst">analyst（分析）</option>
+              <option value="meeting_secretary">meeting_secretary（会议秘书）</option>
+            </select>
+          </label>
+          <label>
+            <span>语音引擎</span>
+            <select id="voice-engine">
+              <option value="responsivevoice" selected>ResponsiveVoice（在线）</option>
+              <option value="native">浏览器原生语音（本地）</option>
+            </select>
+          </label>
+          <label class="col-span-2">
+            <span>发言文本</span>
+            <textarea id="voice-text" rows="3" placeholder="请输入需要播报的文本…"></textarea>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="btn-voice-stream">推送语音流</button>
+        </div>
+        <div id="voice-hint" class="muted" style="margin-top:10px;">提示：成功后将通过 Socket.IO 广播到所有连接的客户端；可在“服务器日志”中查看事件</div>
+      </section>
+
+      <section class="panel">
+        <h2>快速生成会议</h2>
+        <div class="grid grid-2">
+          <label>
+            <span>会议类型</span>
+            <select id="meeting-type">
+              <option value="daily">每日例会</option>
+              <option value="emergency">紧急会议</option>
+            </select>
+          </label>
+          <label>
+            <span>项目名称</span>
+            <input id="project-name" type="text" placeholder="项目名称" value="DeWatermark AI" />
+          </label>
+          <label class="col-span-2">
+            <span>项目编号（用于定位项目目录）</span>
+            <input id="project-id" type="text" placeholder="例如：JS001-meetingroom" value="JS001-meetingroom" />
+          </label>
+          <label>
+            <span>调用模型</span>
+            <select id="model-select">
+              <option value="">加载中…</option>
+            </select>
+          </label>
+          <label>
+            <span>参会角色（逗号分隔）</span>
+            <input id="participants" type="text" value="总经理(CEO), 企划总监, 财务总监, 开发总监, 市场总监, 资源与行政" />
+          </label>
+          <label class="col-span-2">
+            <span>议程（逗号分隔）</span>
+            <input id="agenda" type="text" value="部门进展, 关键决策, 风险与阻塞, 下步计划" />
+          </label>
+        </div>
+        
+        <pre id="run-log" class="log" style="display:none;"></pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>最近会议</h2>
+          <div class="spacer"></div>
+          <input id="search-input" type="search" placeholder="搜索项目/议程/参与者…" />
+        </div>
+        <div id="meetings-list" class="cards"></div>
+      </section>
+
+      <section id="detail-section" class="panel" style="display:none;">
+        <div class="panel-head">
+          <h2 id="detail-title">会议详情</h2>
+          <div class="spacer"></div>
+          <a id="md-link" class="link" target="_blank">打开 Markdown</a>
+        </div>
+        <div id="meeting-info" class="info-grid"></div>
+        <h3>行动项与决策</h3>
+        <div class="table-wrap">
+          <table id="actions-table"></table>
+        </div>
+      </section>
+    </main>
+
+    <!-- 服务器日志显示区域 -->
+    <section class="panel log-panel">
+      <div class="panel-head">
+        <h2>服务器日志</h2>
+        <div class="spacer"></div>
+        <button id="btn-toggle-logs" class="secondary">显示日志</button>
+        <button id="btn-clear-logs" class="secondary">清空</button>
+      </div>
+      <div id="server-logs" class="server-logs" style="display:none;">
+        <div id="log-content" class="log-content"></div>
+      </div>
+    </section>
+
+    <footer class="app-footer">© YDS Lab · JS001 Meetingroom</footer>
+
+    <!-- 音色设置模态框 -->
+    <div id="voice-settings-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>音色设置</h3>
+          <button id="btn-close-voice-modal" class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="voice-settings-container">
+            <div class="voice-preview-section">
+              <h4>音色预览</h4>
+              <div class="voice-profiles-grid">
+                <!-- 音色配置将通过JavaScript动态生成 -->
+              </div>
+            </div>
+            <div class="role-assignment-section">
+              <h4>角色音色分配</h4>
+              <div id="role-voice-assignments" class="role-assignments">
+                <!-- 角色分配将通过JavaScript动态生成 -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btn-reset-voices" class="secondary">重置分配</button>
+          <button id="btn-save-voice-settings" class="primary">保存设置</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <!-- ResponsiveVoice.js TTS库 - 使用本地备用方案 -->
+    <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script> -->
+    <script>
+      // ResponsiveVoice备用实现，避免网络阻塞
+      window.responsiveVoice = {
+        isPlaying: () => speechSynthesis.speaking,
+        cancel: () => speechSynthesis.cancel(),
+        speak: (text, voice, options) => {
+          console.log('ResponsiveVoice备用实现，使用原生语音API，语音ID:', voice);
+          
+          // 使用原生语音API播放
+          const utterance = new SpeechSynthesisUtterance(text);
+          
+          // 设置语音参数
+          if (options) {
+            utterance.rate = options.rate || 1.0;
+            utterance.pitch = options.pitch || 1.0;
+            utterance.volume = options.volume || 0.8;
+            
+            // 设置事件回调
+            if (options.onstart) utterance.onstart = options.onstart;
+            if (options.onend) utterance.onend = options.onend;
+            if (options.onerror) utterance.onerror = options.onerror;
+          }
+          
+          // 获取可用语音
+          const voices = speechSynthesis.getVoices();
+          let selectedVoice = null;
+          
+          // 根据ResponsiveVoice的voiceId映射到原生语音
+          if (voice && typeof voice === 'string') {
+            console.log('尝试匹配语音ID:', voice, '可用语音数量:', voices.length);
+            
+            // 根据不同的ResponsiveVoice ID选择不同的原生语音
+            switch (voice) {
+              case 'Chinese Male':
+                // 寻找中文男声
+                selectedVoice = voices.find(v => 
+                  (v.lang.includes('zh') || v.lang.includes('CN')) && 
+                  (v.name.includes('Kangkang') || v.name.includes('Male') || v.name.includes('男'))
+                );
+                break;
+              case 'Chinese Female':
+                // 寻找中文女声
+                selectedVoice = voices.find(v => 
+                  (v.lang.includes('zh') || v.lang.includes('CN')) && 
+                  (v.name.includes('Huihui') || v.name.includes('Yaoyao') || v.name.includes('Female') || v.name.includes('女'))
+                );
+                break;
+              case 'Chinese Taiwan Female':
+                // 台湾女声，优先选择Yaoyao
+                selectedVoice = voices.find(v => 
+                  (v.lang.includes('zh') || v.lang.includes('CN')) && 
+                  v.name.includes('Yaoyao')
+                ) || voices.find(v => 
+                  (v.lang.includes('zh') || v.lang.includes('CN')) && 
+                  (v.name.includes('Female') || v.name.includes('女'))
+                );
+                break;
+              case 'Chinese (Hong Kong) Female':
+                // 香港女声，回退到中文女声
+                selectedVoice = voices.find(v => 
+                  (v.lang.includes('zh') || v.lang.includes('CN')) && 
+                  (v.name.includes('Huihui') || v.name.includes('Female') || v.name.includes('女'))
+                );
+                break;
+              case 'UK English Male':
+                // 英语男声
+                selectedVoice = voices.find(v => 
+                  v.lang.includes('en') && 
+                  (v.name.includes('Male') || v.name.includes('David') || v.name.includes('Mark'))
+                );
+                break;
+              case 'UK English Female':
+                // 英语女声
+                selectedVoice = voices.find(v => 
+                  v.lang.includes('en') && 
+                  (v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Hazel'))
+                );
+                break;
+              default:
+                // 默认选择中文语音
+                selectedVoice = voices.find(v => 
+                  (v.lang.includes('zh') || v.lang.includes('CN')) && v.localService
+                );
+            }
+            
+            // 如果没有找到特定语音，使用默认中文语音
+            if (!selectedVoice) {
+              selectedVoice = voices.find(v => 
+                (v.lang.includes('zh') || v.lang.includes('CN')) && v.localService
+              ) || voices.find(v => 
+                v.lang.includes('zh') || v.lang.includes('CN')
+              );
+            }
+          }
+          
+          if (selectedVoice) {
+            utterance.voice = selectedVoice;
+            console.log('选择的语音:', selectedVoice.name, '语言:', selectedVoice.lang);
+          } else {
+            console.log('未找到匹配的语音，使用默认语音');
+          }
+          
+          // 停止当前播放并开始新的播放
+          speechSynthesis.cancel();
+          speechSynthesis.speak(utterance);
+          
+          console.log('原生语音API播放:', text, '使用语音:', selectedVoice ? selectedVoice.name : '默认');
+        }
+      };
+    </script>
+    <script src="/assets/app.js"></script>
+  </body>
+</html>

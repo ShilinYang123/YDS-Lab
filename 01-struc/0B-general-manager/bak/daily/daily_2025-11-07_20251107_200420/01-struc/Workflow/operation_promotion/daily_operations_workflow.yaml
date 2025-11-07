@@ -1,0 +1,202 @@
+# 运营推广流程配置
+# 从 SharedWorkspace/Collaboration/workflows_config.yaml 迁移
+
+workflows:
+  daily_operations:
+    description: 每日例行工作协作流程
+    name: 日常运营工作流
+    participants:
+    - CEO
+    - PlanningDirector
+    - FinanceDirector
+    - DevTeamLead
+    - MarketingDirector
+    - ResourceAdmin
+    steps:
+    - actions:
+      - 收集各部门状态
+      - 准备会议议程
+      duration: 15分钟
+      name: 晨会准备
+      responsible: CEO
+      step: 1
+    - actions:
+      - 汇报工作进展
+      - 提出问题和需求
+      duration: 30分钟
+      name: 部门汇报
+      responsible: 各部门主管
+      step: 2
+    - actions:
+      - 分析问题
+      - 制定解决方案
+      - 分配任务
+      duration: 15分钟
+      name: 决策讨论
+      responsible: CEO
+      step: 3
+    - actions:
+      - 执行分配任务
+      - 更新进度状态
+      duration: 全天
+      name: 任务执行
+      responsible: 相关部门
+      step: 4
+    trigger: daily_schedule
+
+  emergency_response:
+    description: 紧急情况处理协作流程
+    name: 紧急响应工作流
+    participants:
+    - CEO
+    - 相关部门
+    priority: high
+    response_time: < 30分钟
+    steps:
+    - actions:
+      - 报告问题
+      - 评估影响
+      duration: 5分钟
+      name: 问题识别
+      responsible: 发现者
+      step: 1
+    - actions:
+      - 召集相关人员
+      - 分析问题
+      - 制定应对方案
+      duration: 15分钟
+      name: 紧急会议
+      responsible: CEO
+      step: 2
+    - actions:
+      - 执行应对措施
+      - 监控效果
+      duration: 根据情况
+      name: 执行响应
+      responsible: 相关部门
+      step: 3
+    trigger: emergency_alert
+
+# 运营相关的决策类型
+decision_types:
+  operational:
+    approval_required: false
+    authority: 部门主管
+    description: 日常运营决策
+    examples:
+    - 任务分配
+    - 工作计划调整
+    - 日常问题处理
+
+# 运营推广模板
+templates:
+  meeting_agenda:
+    template: |
+      # {meeting_type} - {date}
+      
+      ## 会议信息
+      - **时间**: {datetime}
+      - **主持人**: {host}
+      - **参与者**: {participants}
+      - **会议目标**: {objectives}
+      
+      ## 议程
+      1. **开场** (5分钟)
+         - 会议目标确认
+         - 议程介绍
+      
+      2. **部门汇报** (30分钟)
+         {department_reports}
+      
+      3. **问题讨论** (20分钟)
+         {discussion_items}
+      
+      4. **决策事项** (10分钟)
+         {decisions}
+      
+      5. **行动计划** (10分钟)
+         {action_items}
+      
+      6. **总结** (5分钟)
+         - 关键决策回顾
+         - 下次会议安排
+      
+      ## 会议记录
+      {meeting_notes}
+      
+      ## 行动项
+      {action_items_detail}
+    usage: 会议组织和记录
+
+  status_report:
+    template: |
+      # {department} 状态报告
+      
+      ## 报告信息
+      - **报告日期**: {report_date}
+      - **报告人**: {reporter}
+      - **报告周期**: {period}
+      
+      ## 工作概况
+      ### 已完成工作
+      {completed_work}
+      
+      ### 进行中工作
+      {ongoing_work}
+      
+      ### 计划工作
+      {planned_work}
+      
+      ## 关键指标
+      {key_metrics}
+      
+      ## 问题与风险
+      {issues_and_risks}
+      
+      ## 需要支持
+      {support_needed}
+      
+      ## 下期计划
+      {next_period_plan}
+    usage: 定期状态汇报
+
+# 监控配置
+monitoring:
+  alerts:
+    channels:
+    - console
+    - log_file
+    - workspace_notification
+    escalation:
+      level_1: 自动重试
+      level_2: 管理员通知
+      level_3: 紧急响应
+  health_checks:
+    agent_availability:
+      alert_condition: 连续3次失败
+      frequency: 每5分钟
+      method: ping测试
+    mcp_connectivity:
+      alert_condition: 任一服务器不可达
+      frequency: 每10分钟
+      method: MCP服务器连接测试
+    workspace_sync:
+      alert_condition: 同步延迟 > 1分钟
+      frequency: 每15分钟
+      method: 文件同步检查
+  performance_metrics:
+    collaboration_efficiency:
+      alert_threshold: < 80%
+      description: 协作效率
+      measurement: 成功协作次数/总协作次数
+      target: '> 85%'
+    response_time:
+      alert_threshold: '> 5秒'
+      description: 智能体响应时间
+      measurement: 平均响应时间
+      target: < 3秒
+    task_completion_rate:
+      alert_threshold: < 90%
+      description: 任务完成率
+      measurement: 完成任务数/总任务数
+      target: '> 95%'

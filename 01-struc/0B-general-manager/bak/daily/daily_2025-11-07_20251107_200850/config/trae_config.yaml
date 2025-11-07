@@ -1,0 +1,137 @@
+# YDS-Lab Trae平台配置文件
+# 版本: V2.0 - Trae适配版
+# 创建时间: 2025-11-01
+
+platform:
+  name: "YDS-Lab Trae Platform"
+  version: "2.0.0"
+  environment: "development"
+  
+# Trae智能体配置
+agents:
+  ceo:
+    name: "总经理智能体"
+    role: "CEO"
+    capabilities: ["战略决策", "团队协调", "业务规划"]
+    workspace: "01-struc/Agents/ceo"
+    
+  planning_director:
+    name: "企划总监智能体"
+    role: "PlanningDirector"
+    capabilities: ["项目规划", "需求分析", "方案设计"]
+    workspace: "01-struc/Agents/PlanningDirector"
+    
+  finance_director:
+    name: "财务总监智能体"
+    role: "FinanceDirector"
+    capabilities: ["财务分析", "预算管理", "成本控制"]
+    workspace: "01-struc/Agents/FinanceDirector"
+    
+  dev_team_lead:
+    name: "开发团队负责人智能体"
+    role: "DevTeamLead"
+    capabilities: ["技术架构", "代码审查", "团队管理"]
+    workspace: "01-struc/Agents/dev_team"
+    
+  marketing_director:
+    name: "市场总监智能体"
+    role: "MarketingDirector"
+    capabilities: ["市场分析", "推广策略", "用户研究"]
+    workspace: "01-struc/Agents/MarketingDirector"
+    
+  resource_admin:
+    name: "资源行政智能体"
+    role: "ResourceAdmin"
+    capabilities: ["资源管理", "行政支持", "文档管理"]
+    workspace: "01-struc/Agents/resource_admin"
+
+# 共享工作空间配置
+shared_workspace:
+  root: "01-struc/SharedWorkspace"
+  
+# 新增结构化目录配置
+structured_directories:
+  workflow:
+    root: "01-struc/Workflow"
+    project_delivery: "01-struc/Workflow/project_delivery"
+    operation_promotion: "01-struc/Workflow/operation_promotion"
+    finance_management: "01-struc/Workflow/finance_management"
+    
+  security:
+    root: "config/security"
+    encryption_config: "config/security/encryption.yaml"
+    permission_config: "config/security/permission.yaml"
+    main_config: "01-struc/Security/security_config.yaml"
+    
+  logging:
+    root: "01-struc/0B-general-manager/logs"
+    agent_collaboration: "01-struc/0B-general-manager/logs/agent_collaboration"
+    system_events: "01-struc/0B-general-manager/logs/system_events"
+    performance_metrics: "01-struc/0B-general-manager/logs/performance_metrics"
+  audit_trails: "01-struc/0B-general-manager/logs/audit_trails"
+    config: "01-struc/0B-general-manager/logs/log_config.yaml"
+  projects: "01-struc/SharedWorkspace/Projects"
+  documents: "01-struc/SharedWorkspace/Documents"
+  templates: "01-struc/SharedWorkspace/Templates"
+  collaboration: "01-struc/SharedWorkspace/Collaboration"
+  knowledge_base: "01-struc/SharedWorkspace/KnowledgeBase"
+
+# MCP服务器集群配置
+mcp_cluster:
+  root: "tools/mcp/servers"
+  servers:
+    github:
+      path: "tools/mcp/servers/GitHub"
+      port: 3001
+      capabilities: ["代码管理", "版本控制", "协作开发"]
+      
+    excel:
+      path: "tools/mcp/servers/Excel"
+      port: 3002
+      capabilities: ["数据处理", "报表生成", "财务分析"]
+      
+    figma:
+      path: "tools/mcp/servers/Figma"
+      port: 3003
+      capabilities: ["设计协作", "原型制作", "UI/UX设计"]
+      
+    builder:
+      path: "tools/mcp/servers/Builder"
+      port: 3004
+      capabilities: ["代码生成", "自动化构建", "部署管理"]
+      
+    filesystem:
+      path: "tools/mcp/servers/FileSystem"
+      port: 3005
+      capabilities: ["文件管理", "存储服务", "备份恢复"]
+      
+    database:
+      path: "tools/mcp/servers/Database"
+      port: 3006
+      capabilities: ["数据存储", "查询服务", "数据分析"]
+
+# 协作流程配置
+collaboration:
+  meeting_schedule: "daily_9am"
+  communication_channels: ["Trae内置聊天", "共享文档", "项目看板"]
+  decision_making: "共识决策"
+  
+# 系统集成配置
+integrations:
+  trae_ide: true
+  long_memory: true
+  mcp_protocol: true
+  
+# 监控和日志配置
+monitoring:
+  health_check_interval: 300  # 5分钟
+  log_level: "INFO"
+  log_rotation: "daily"
+  performance_metrics: true
+
+# 安全配置
+security:
+  authentication: "trae_native"
+  authorization: "role_based"
+  data_encryption: true
+  audit_logging: true

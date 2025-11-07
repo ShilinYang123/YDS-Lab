@@ -1,0 +1,27 @@
+智能监控系统补丁包
+版本: v1.0
+发布日期: 2025-11-03
+开发者: 雨俊
+适用系统: 3AI工作室 v1.0+
+
+更新内容:
+- 新增智能错误检测功能
+- 新增主动提醒系统
+- 新增学习引擎
+- 集成长记忆系统
+- 自动启动流程优化
+- 完整的安装和配置工具
+
+文件清单:
+- README.md (主要说明文档)
+- src/tools/start.py (修改后的启动脚本)
+- src/tools/LongMemory/ (智能监控系统文件)
+- scripts/install.py (自动安装脚本)
+- scripts/backup.py (备份脚本)
+- docs/ (完整文档)
+
+安装方法:
+python scripts/install.py
+
+技术支持:
+如有问题请查看 docs/故障排除.md

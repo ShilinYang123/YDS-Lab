@@ -1,0 +1,58 @@
+{
+  "dataPath": "./data/memories",
+  "logLevel": "debug",
+  "traeIDEIntegration": {
+    "enabled": true,
+    "config": {
+      "autoRecord": {
+        "enabled": true,
+        "batchSize": 10,
+        "flushInterval": 5000,
+        "maxRetries": 3
+      },
+      "intelligentFilter": {
+        "enabled": true,
+        "minImportance": 0.3,
+        "maxSimilarity": 0.8,
+        "contentFilters": {
+          "minLength": 10,
+          "maxLength": 10000,
+          "excludePatterns": [
+            "^console\\.log",
+            "^//",
+            "^\\s*$"
+          ]
+        }
+      },
+      "contentProcessor": {
+        "enabled": true,
+        "extractKeywords": true,
+        "generateSummary": false,
+        "analyzeCode": true,
+        "compressContent": false
+      },
+      "contextExtractor": {
+        "enabled": true,
+        "extractFileContext": true,
+        "extractProjectContext": true,
+        "extractGitContext": true,
+        "cache": {
+          "enabled": true,
+          "timeout": 300000,
+          "maxSize": 1000
+        }
+      }
+    }
+  },
+  "performanceMonitoring": {
+    "enabled": true,
+    "enableCPUMonitoring": true,
+    "enableMemoryMonitoring": true,
+    "monitoringInterval": 5000,
+    "alertThresholds": {
+      "cpuUsage": 80,
+      "memoryUsage": 85,
+      "responseTime": 5000
+    }
+  }
+}

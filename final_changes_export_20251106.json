@@ -1,0 +1,173 @@
+{
+  "version": "v1.0",
+  "generated_time": "2025-11-06T20:22:30",
+  "port_strategy": {
+    "strategy": "A",
+    "stable_port": 8020,
+    "validation_port": 8023,
+    "closed_ports": [8021]
+  },
+  "changes": [
+    {
+      "type": "doc_update",
+      "path": "04-prod/001-memory-system/docs/快速部署指南.md",
+      "description": "统一配置路径为 config/yds_ai_config.yaml 并添加兼容性说明",
+      "old_to_new": {
+        "tools/servers/yds_ai_config.yaml": "config/yds_ai_config.yaml"
+      },
+      "compatibility_note": "代码保留旧路径回退读取"
+    },
+    {
+      "type": "doc_update",
+      "path": "04-prod/001-memory-system/docs/reports/项目总结报告.md",
+      "description": "更新配置路径与兼容性说明",
+      "old_to_new": {
+        "tools/servers/yds_ai_config.yaml": "config/yds_ai_config.yaml"
+      }
+    },
+    {
+      "type": "doc_update",
+      "path": "04-prod/001-memory-system/docs/JS003-Trae长记忆功能使用说明书.md",
+      "description": "更新配置路径与兼容性说明",
+      "old_to_new": {
+        "tools/servers/yds_ai_config.yaml": "config/yds_ai_config.yaml"
+      }
+    },
+    {
+      "type": "doc_update",
+      "path": "03-dev/docs/MIGRATION_REPORT-03DEV-PATH-MIGRATION.md",
+      "description": "补充配置路径统一与目录清理说明，更新报告时间",
+      "notes": [
+        "统一使用 config/yds_ai_config.yaml",
+        "tools/servers/ 遗留文件归档到 backups/legacy",
+        "确认 tools/servers 目录已清空"
+      ]
+    },
+    {
+      "type": "doc_update",
+      "path": "03-dev/README.md",
+      "description": "修正为 03-dev 并更新路径治理与兼容性说明；明确会议室服务与 UI 新路径；保留旧路径回退读取",
+      "notes": [
+        "servers: 03-dev/JS001-meetingroom/servers",
+        "ui: 03-dev/JS001-meetingroom/ui"
+      ]
+    },
+    {
+      "type": "cleanup",
+      "path": "backups/legacy/tools-servers-config-20251106_201920/README.md",
+      "description": "创建归档说明，标注 tools/servers 配置与报告已归档且不再被依赖"
+    },
+    {
+      "type": "rename_move",
+      "from": "tools/servers/document_governance_config.json",
+      "to": "backups/legacy/tools-servers-config-20251106_201920/document_governance_config.json",
+      "reason": "避免误用旧路径，统一配置在仓库根或 config/ 目录"
+    },
+    {
+      "type": "rename_move",
+      "from": "tools/servers/voice_service_config.json",
+      "to": "backups/legacy/tools-servers-config-20251106_201920/voice_service_config.json",
+      "reason": "语音服务历史配置归档，统一路径"
+    },
+    {
+      "type": "rename_move",
+      "from": "tools/servers/system_analysis_report.md",
+      "to": "backups/legacy/tools-servers-config-20251106_201920/system_analysis_report.md",
+      "reason": "清理 tools/servers 目录"
+    },
+    {
+      "type": "code_fix",
+      "path": "03-dev/JS001-meetingroom/servers/meetingroom_server.py",
+      "description": "修正 REPO_ROOT 计算为 parents[3]，确保 UI 访问路径正确；增强静态资源加载日志；移除对旧配置路径 tools/servers/yds_ai_config.yaml 的回退读取，仅使用 config/yds_ai_config.yaml",
+      "impact": "修复 03-dev 重复嵌套导致找不到 ui/index.html 的问题；消除‘转弯路径’依赖"
+    },
+    {
+      "type": "code_fix",
+      "path": "03-dev/JS001-meetingroom/servers/test_yds_ai_system.py",
+      "description": "与服务器保持一致的 REPO_ROOT 修正与路径引用更新",
+      "impact": "端到端测试通过"
+    },
+    {
+      "type": "script_update",
+      "path": "tools/scripts/start_meetingroom_server.ps1",
+      "description": "修正工作目录定位与 REPO_ROOT 指向 S:\\YDS-Lab",
+      "impact": "启动脚本与服务路径一致"
+    },
+    {
+      "type": "ops",
+      "path": "ports",
+      "description": "执行端口策略 A：保留 8020 稳定服务与 8023 验证服务，停止 8021",
+      "status": "已应用"
+    },
+    {
+      "type": "doc_update",
+      "path": "final_validation_report.md",
+      "description": "补充路径迁移收尾与端口策略章节，记录验证摘要"
+    },
+    {
+      "type": "doc_update",
+      "path": "final_validation_report.json",
+      "description": "新增 update_time、port_strategy、path_migration_summary 字段"
+    }
+    ,
+    {
+      "type": "doc_update",
+      "path": "tools/README.md",
+      "description": "将完成入口从 tools/finish.py 更新为根目录 fi.py，新增兼容入口清理说明（2025-11-06）",
+      "old_to_new": {
+        "tools/finish.py": "fi.py"
+      }
+    },
+    {
+      "type": "doc_update",
+      "path": "02-task/DIRECTORY_MAINTENANCE_GUIDE.md",
+      "description": "维护指南将完成命令更新为 fi.py（替代旧兼容入口 tools/finish.py）",
+      "old_to_new": {
+        "tools/finish.py": "fi.py"
+      }
+    },
+    {
+      "type": "code_fix",
+      "path": "st.py",
+      "description": "启动提示中的完成命令由 python tools/finish.py 替换为 python fi.py",
+      "impact": "减少误用旧入口"
+    },
+    {
+      "type": "code_fix",
+      "path": "tools/check/env_ready.py",
+      "description": "移除对 tools/finish.py 的必需检查，改为检查根目录 fi.py",
+      "impact": "与兼容入口清理一致"
+    },
+    {
+      "type": "cleanup",
+      "path": "tools/finish.py",
+      "description": "删除旧兼容入口包装器，统一使用 fi.py 作为执行入口",
+      "status": "已删除"
+    }
+    ,
+    {
+      "type": "doc_update",
+      "path": "tools/README.md",
+      "description": "更新配置读取策略为零容忍：强制从 /config 读取，禁止旧路径回退",
+      "impact": "避免新增脚本引入回退逻辑，确保路径直达"
+    },
+    {
+      "type": "code_fix",
+      "path": "tools/check/env_ready.py",
+      "description": "移除 03-dev 缺失时回退到 projects 的逻辑，改为必须存在 03-dev",
+      "impact": "目录结构检查从根本上杜绝回退路径"
+    },
+    {
+      "type": "code_fix",
+      "path": "ch.py",
+      "description": "统一使用新路径，移除 tools/structure_config.yaml 与 Struc/GeneralOffice 的回退",
+      "impact": "结构检查工具不再走旧路径"
+    },
+    {
+      "type": "code_fix",
+      "path": "up.py",
+      "description": "统一使用新路径并移除旧审批哨兵回退逻辑，仅检查新路径哨兵",
+      "impact": "结构更新工具执行过程不再依赖旧路径"
+    }
+  ]
+}

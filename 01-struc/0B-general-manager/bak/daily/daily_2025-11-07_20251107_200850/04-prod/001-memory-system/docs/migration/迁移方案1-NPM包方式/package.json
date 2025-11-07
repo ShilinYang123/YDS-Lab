@@ -1,0 +1,115 @@
+{
+  "name": "@your-org/trae-long-term-memory",
+  "version": "1.0.0",
+  "description": "Trae长记忆功能系统 - 包含规则系统和知识图谱记忆，为智能体提供持久化的上下文记忆能力",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "examples/**/*",
+    "docs/**/*",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "prepublishOnly": "npm run build && npm run test",
+    "prepack": "npm run build",
+    "docs": "typedoc src/index.ts",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "trae",
+    "memory",
+    "knowledge-graph",
+    "rules-engine",
+    "ai-assistant",
+    "long-term-memory",
+    "typescript",
+    "semantic-search",
+    "context-management"
+  ],
+  "author": {
+    "name": "高级软件专家",
+    "email": "expert@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/trae-long-term-memory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/trae-long-term-memory/issues"
+  },
+  "homepage": "https://github.com/your-org/trae-long-term-memory#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "yaml": "^2.3.4",
+    "uuid": "^9.0.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/uuid": "^9.0.7",
+    "@types/lodash": "^4.14.202",
+    "@types/jest": "^29.5.8",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.1",
+    "typedoc": "^0.25.4",
+    "typescript": "^5.3.2"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.5.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./config": {
+      "import": "./dist/config/index.js",
+      "require": "./dist/config/index.js",
+      "types": "./dist/config/index.d.ts"
+    },
+    "./services": {
+      "import": "./dist/services/index.js",
+      "require": "./dist/services/index.js",
+      "types": "./dist/services/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "config": ["dist/config/index.d.ts"],
+      "services": ["dist/services/index.d.ts"],
+      "utils": ["dist/utils/index.d.ts"]
+    }
+  }
+}

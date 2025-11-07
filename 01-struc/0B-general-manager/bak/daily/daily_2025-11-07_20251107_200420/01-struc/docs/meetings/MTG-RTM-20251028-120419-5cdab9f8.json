@@ -1,0 +1,68 @@
+{
+  "base_name": "MTG-RTM-20251028-120419-5cdab9f8",
+  "created_at": "2025-10-28 12:04:19",
+  "type": "realtime_meeting",
+  "sections": {
+    "会议信息": {
+      "会议类型": "实时会议",
+      "项目": "JS001-meetingroom",
+      "参会角色": [
+        "???",
+        "????"
+      ],
+      "议程": [
+        "QA ????"
+      ],
+      "项目目录": "projects/JS001-meetingroom",
+      "模型": "qwen2-0_5b-instruct-q4_0",
+      "Sid": "5cdab9f889a741c18fa3d3e2e65d1103",
+      "开始时间": "2025-10-28 12:04:19",
+      "结束时间": "2025-10-28 12:04:22"
+    },
+    "逐字稿": {
+      "items": [
+        {
+          "role": "user",
+          "text": "???,?????????????",
+          "topic": null,
+          "ts": 1761624260.146585
+        }
+      ]
+    },
+    "行动项与决策": [],
+    "markdown": ""
+  },
+  "rtm_events": [
+    {
+      "event": "start_meeting",
+      "data": {
+        "roles": [
+          "???",
+          "????"
+        ],
+        "agenda": [
+          "QA ????"
+        ],
+        "model": "qwen2-0_5b-instruct-q4_0",
+        "sid": "5cdab9f889a741c18fa3d3e2e65d1103",
+        "ts": 1761624259.951326
+      }
+    },
+    {
+      "event": "user_say",
+      "data": {
+        "role": "user",
+        "text": "???,?????????????",
+        "sid": "5cdab9f889a741c18fa3d3e2e65d1103",
+        "ts": 1761624260.146585
+      }
+    },
+    {
+      "event": "end_meeting",
+      "data": {
+        "sid": "5cdab9f889a741c18fa3d3e2e65d1103",
+        "ts": 1761624262.2475865
+      }
+    }
+  ]
+}

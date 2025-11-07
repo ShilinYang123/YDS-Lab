@@ -1,0 +1,14 @@
+alerts:
+  agent_offline: immediate
+  collaboration_bottleneck: info
+  high_resource_usage: warning
+  mcp_server_down: immediate
+reporting:
+  daily_summary: true
+  monthly_analysis: true
+  weekly_report: true
+system_monitoring:
+  agents_health: true
+  mcp_servers_status: true
+  performance_metrics: true
+  resource_usage: true

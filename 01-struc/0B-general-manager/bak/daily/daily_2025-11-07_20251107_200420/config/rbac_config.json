@@ -1,0 +1,287 @@
+{
+  "roles": [
+    {
+      "name": "CEO",
+      "display_name": "首席执行官",
+      "description": "公司最高管理者，拥有所有权限",
+      "permissions": [
+        "manage_roles",
+        "create_meeting",
+        "view_audit",
+        "access_lm",
+        "join_meeting",
+        "admin_system",
+        "moderate_meeting",
+        "manage_users",
+        "manage_lm",
+        "read_docs",
+        "share_docs",
+        "write_docs",
+        "delete_docs",
+        "view_vote_results",
+        "end_meeting",
+        "create_vote",
+        "participate_vote"
+      ],
+      "resource_access": {
+        "meeting": [
+          "*"
+        ],
+        "document": [
+          "*"
+        ],
+        "vote": [
+          "*"
+        ],
+        "system": [
+          "*"
+        ],
+        "lm_component": [
+          "*"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303638",
+      "updated_at": null
+    },
+    {
+      "name": "CFO",
+      "display_name": "首席财务官",
+      "description": "财务负责人，拥有财务相关权限",
+      "permissions": [
+        "create_meeting",
+        "access_lm",
+        "view_audit",
+        "join_meeting",
+        "moderate_meeting",
+        "read_docs",
+        "share_docs",
+        "write_docs",
+        "view_vote_results",
+        "create_vote",
+        "participate_vote"
+      ],
+      "resource_access": {
+        "meeting": [
+          "financial",
+          "strategic"
+        ],
+        "document": [
+          "financial",
+          "strategic"
+        ],
+        "vote": [
+          "financial",
+          "strategic"
+        ],
+        "lm_component": [
+          "financial_analysis"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303665",
+      "updated_at": null
+    },
+    {
+      "name": "CTO",
+      "display_name": "首席技术官",
+      "description": "技术负责人，拥有技术相关权限",
+      "permissions": [
+        "create_meeting",
+        "access_lm",
+        "view_audit",
+        "join_meeting",
+        "moderate_meeting",
+        "manage_lm",
+        "read_docs",
+        "share_docs",
+        "write_docs",
+        "delete_docs",
+        "view_vote_results",
+        "create_vote",
+        "participate_vote"
+      ],
+      "resource_access": {
+        "meeting": [
+          "technical",
+          "strategic"
+        ],
+        "document": [
+          "technical",
+          "strategic"
+        ],
+        "vote": [
+          "technical",
+          "strategic"
+        ],
+        "lm_component": [
+          "*"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303672",
+      "updated_at": null
+    },
+    {
+      "name": "项目协调者",
+      "display_name": "项目协调者",
+      "description": "项目管理和协调角色",
+      "permissions": [
+        "create_meeting",
+        "access_lm",
+        "join_meeting",
+        "moderate_meeting",
+        "read_docs",
+        "share_docs",
+        "write_docs",
+        "view_vote_results",
+        "create_vote",
+        "participate_vote"
+      ],
+      "resource_access": {
+        "meeting": [
+          "technical",
+          "operational"
+        ],
+        "document": [
+          "technical",
+          "operational"
+        ],
+        "vote": [
+          "technical",
+          "operational"
+        ],
+        "lm_component": [
+          "project_management"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303678",
+      "updated_at": null
+    },
+    {
+      "name": "前端开发智能体",
+      "display_name": "前端开发智能体",
+      "description": "前端开发专用智能体",
+      "permissions": [
+        "access_lm",
+        "join_meeting",
+        "read_docs",
+        "write_docs",
+        "participate_vote"
+      ],
+      "resource_access": {
+        "meeting": [
+          "technical"
+        ],
+        "document": [
+          "technical"
+        ],
+        "vote": [
+          "technical"
+        ],
+        "lm_component": [
+          "frontend_development"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303682",
+      "updated_at": null
+    },
+    {
+      "name": "后端开发智能体",
+      "display_name": "后端开发智能体",
+      "description": "后端开发专用智能体",
+      "permissions": [
+        "access_lm",
+        "join_meeting",
+        "read_docs",
+        "write_docs",
+        "participate_vote"
+      ],
+      "resource_access": {
+        "meeting": [
+          "technical"
+        ],
+        "document": [
+          "technical"
+        ],
+        "vote": [
+          "technical"
+        ],
+        "lm_component": [
+          "backend_development"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303686",
+      "updated_at": null
+    },
+    {
+      "name": "会议秘书",
+      "display_name": "会议秘书",
+      "description": "会议记录和管理专用智能体",
+      "permissions": [
+        "join_meeting",
+        "read_docs",
+        "access_lm",
+        "write_docs"
+      ],
+      "resource_access": {
+        "meeting": [
+          "*"
+        ],
+        "document": [
+          "meeting_records"
+        ],
+        "lm_component": [
+          "meeting_assistant"
+        ]
+      },
+      "is_system_role": true,
+      "created_at": "2025-11-04T01:12:44.303691",
+      "updated_at": null
+    }
+  ],
+  "users": [
+    {
+      "user_id": "ceo_001",
+      "username": "ceo",
+      "display_name": "CEO智能体",
+      "email": "ceo@yds-ai.com",
+      "roles": [
+        "CEO"
+      ],
+      "is_active": true,
+      "created_at": "2025-11-04T01:12:44.303696",
+      "last_login": null,
+      "metadata": null
+    },
+    {
+      "user_id": "cfo_001",
+      "username": "cfo",
+      "display_name": "CFO智能体",
+      "email": "cfo@yds-ai.com",
+      "roles": [
+        "CFO"
+      ],
+      "is_active": true,
+      "created_at": "2025-11-04T01:12:44.303701",
+      "last_login": null,
+      "metadata": null
+    },
+    {
+      "user_id": "coordinator_001",
+      "username": "coordinator",
+      "display_name": "项目协调者",
+      "email": "coordinator@yds-ai.com",
+      "roles": [
+        "项目协调者"
+      ],
+      "is_active": true,
+      "created_at": "2025-11-04T01:12:44.303703",
+      "last_login": null,
+      "metadata": null
+    }
+  ]
+}

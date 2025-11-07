@@ -1,0 +1,10 @@
+YDS 内部 Agent 路径	CrewAI Agent 名称（简称）	说明
+01-struc/Agents/ceo/	CrewAI-CEO-ChiefExecutiveOfficer	CEO = Chief Executive Officer（总经理）
+01-struc/Agents/planning_director/	CrewAI-PL-PlanningDirector	PL = Planning
+01-struc/Agents/finance_director/	CrewAI-FN-FinanceDirector	FN = Finance
+01-struc/Agents/resource_admin/	CrewAI-RA-ResourceAdmin	RA = Resource & Admin
+01-struc/Agents/marketing_director/	CrewAI-MK-MarketingDirector	MK = Marketing
+01-struc/Agents/dev_team/dev_director/	CrewAI-DV-DevDirector	DV = Development
+01-struc/Agents/dev_team/dev_architect/	CrewAI-DV-Architect	开发架构角色
+01-struc/Agents/dev_team/dev_coder/	CrewAI-DV-Coder	开发
+01-struc/Agents/dev_team/dev_tester/	CrewAI-DV-Tester	测试

@@ -1,0 +1,26 @@
+capabilities:
+- file_operations
+- directory_management
+- file_search
+- backup_restore
+dependencies:
+- pathlib
+- shutil
+logging:
+  backup_count: 5
+  file: logs/filesystem_mcp.log
+  level: INFO
+  max_size: 10MB
+performance:
+  max_connections: 100
+  retry_attempts: 3
+  timeout: 30
+security:
+  authentication: true
+  encryption: true
+  rate_limiting: true
+server_info:
+  name: FileSystem MCP Server
+  port: 3005
+  protocol: stdio
+  version: 1.0.0

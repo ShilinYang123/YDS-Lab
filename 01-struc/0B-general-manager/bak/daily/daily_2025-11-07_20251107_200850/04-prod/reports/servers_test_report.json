@@ -1,0 +1,128 @@
+{
+  "summary": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "details": [
+    {
+      "test": "MCP消息构建与验证",
+      "success": true,
+      "message": "消息ID: msg-1762431469-6f95a6b4",
+      "timestamp": 1762431469.963309
+    },
+    {
+      "test": "获取智能体角色",
+      "success": true,
+      "message": "发现5个角色",
+      "timestamp": 1762431469.9640338
+    },
+    {
+      "test": "角色权限检查",
+      "success": true,
+      "message": "CEO具有会议主持权限",
+      "timestamp": 1762431469.9642465
+    },
+    {
+      "test": "智能体分配",
+      "success": true,
+      "message": "成功分配CEO到测试会议",
+      "timestamp": 1762431469.9643886
+    },
+    {
+      "test": "创建分级会议",
+      "success": true,
+      "message": "会议ID: meeting.a.1762431469",
+      "timestamp": 1762431469.9649093
+    },
+    {
+      "test": "开始会议",
+      "success": true,
+      "message": "会议meeting.a.1762431469已开始",
+      "timestamp": 1762431469.9651487
+    },
+    {
+      "test": "智能议程生成",
+      "success": true,
+      "message": "生成10个议程项",
+      "timestamp": 1762431469.9660149
+    },
+    {
+      "test": "议程优化",
+      "success": true,
+      "message": "议程顺序优化完成",
+      "timestamp": 1762431469.9661965
+    },
+    {
+      "test": "文档访问权限检查",
+      "success": [
+        true,
+        "访问允许"
+      ],
+      "message": "CEO可访问战略规划文档",
+      "timestamp": 1762431469.9671843
+    },
+    {
+      "test": "审计日志记录",
+      "success": true,
+      "message": "审计日志记录成功",
+      "timestamp": 1762431469.9674063
+    },
+    {
+      "test": "用户认证",
+      "success": true,
+      "message": "管理员认证成功",
+      "timestamp": 1762431469.9714165
+    },
+    {
+      "test": "权限检查",
+      "success": true,
+      "message": "管理员具有会议创建权限",
+      "timestamp": 1762431469.9718676
+    },
+    {
+      "test": "JWT令牌验证",
+      "success": true,
+      "message": "令牌验证成功",
+      "timestamp": 1762431469.9722207
+    },
+    {
+      "test": "语音服务状态",
+      "success": true,
+      "message": "服务状态: {'shimmy_running': False, 'total_services': 4, 'enabled_services': 4, 'stt_services': 2, 'tts_services': 2}",
+      "timestamp": 1762431469.9732957
+    },
+    {
+      "test": "STT配置获取",
+      "success": true,
+      "message": "Shimmy STT配置获取成功",
+      "timestamp": 1762431469.9735024
+    },
+    {
+      "test": "TTS配置获取",
+      "success": true,
+      "message": "Shimmy TTS配置获取成功",
+      "timestamp": 1762431469.9736364
+    },
+    {
+      "test": "系统状态API",
+      "success": true,
+      "message": "状态码: 200",
+      "timestamp": 1762431472.0441835
+    },
+    {
+      "test": "智能体角色API",
+      "success": true,
+      "message": "状态码: 200",
+      "timestamp": 1762431474.0908432
+    },
+    {
+      "test": "健康检查API",
+      "success": true,
+      "message": "状态码: 200",
+      "timestamp": 1762431476.1359406
+    }
+  ],
+  "timestamp": 1762431476.1390998
+}

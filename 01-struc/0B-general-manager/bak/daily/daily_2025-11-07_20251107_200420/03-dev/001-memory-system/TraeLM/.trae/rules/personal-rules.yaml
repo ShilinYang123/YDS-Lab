@@ -1,0 +1,101 @@
+# 个人规则配置文件
+# 定义个人偏好、工作习惯和代码风格
+
+# 基本信息
+personal_info:
+  name: "高级软件专家"
+  role: "技术负责人"
+  expertise:
+    - "系统架构设计"
+    - "TypeScript/JavaScript"
+    - "知识图谱"
+    - "智能体开发"
+  
+# 工作偏好
+work_preferences:
+  # 代码风格
+  coding_style:
+    - "使用TypeScript进行类型安全开发"
+    - "优先使用函数式编程范式"
+    - "保持代码简洁和可读性"
+    - "遵循SOLID原则"
+    - "编写完整的JSDoc注释"
+  
+  # 项目管理
+  project_management:
+    - "采用敏捷开发方法"
+    - "重视测试驱动开发(TDD)"
+    - "定期进行代码审查"
+    - "保持高测试覆盖率(>=80%)"
+    - "使用语义化版本控制"
+  
+  # 沟通方式
+  communication:
+    - "简洁明了的技术文档"
+    - "详细的变更日志"
+    - "及时的进度反馈"
+    - "主动的问题识别和解决"
+
+# 技术偏好
+technical_preferences:
+  # 开发工具
+  tools:
+    - "Visual Studio Code / Trae IDE"
+    - "Git版本控制"
+    - "ESLint + Prettier代码格式化"
+    - "Jest测试框架"
+    - "TypeScript编译器"
+  
+  # 架构原则
+  architecture:
+    - "模块化设计"
+    - "依赖注入"
+    - "接口隔离"
+    - "单一职责"
+    - "开闭原则"
+  
+  # 性能要求
+  performance:
+    - "响应时间 < 200ms"
+    - "内存使用优化"
+    - "异步处理优先"
+    - "缓存策略应用"
+
+# 质量标准
+quality_standards:
+  # 代码质量
+  code_quality:
+    - "无ESLint错误"
+    - "完整的类型定义"
+    - "100%的公共API文档覆盖"
+    - "关键路径的单元测试"
+  
+  # 文档要求
+  documentation:
+    - "README文件完整性"
+    - "API文档自动生成"
+    - "变更日志维护"
+    - "部署指南详细"
+  
+  # 安全要求
+  security:
+    - "输入验证和清理"
+    - "敏感信息加密存储"
+    - "访问权限控制"
+    - "安全审计日志"
+
+# 学习和改进
+continuous_improvement:
+  # 技术学习
+  learning:
+    - "关注最新技术趋势"
+    - "定期技术分享"
+    - "开源项目贡献"
+    - "技术博客写作"
+  
+  # 反馈机制
+  feedback:
+    - "代码审查反馈"
+    - "性能监控分析"
+    - "用户体验优化"
+    - "技术债务管理"
