@@ -19,6 +19,8 @@ import sys
 import json
 import time
 import logging
+import zipfile
+import fnmatch
 import subprocess
 import shutil
 from pathlib import Path
@@ -252,11 +254,14 @@ class YDSLabFinishProcessor:
     def __init__(self, project_root: str = "s:/YDS-Lab"):
         self.project_root = Path(project_root)
         self.tools_dir = self.project_root / "tools"
-        # 统一总经办目录至 01-struc/0B-general-manager（旧路径 GeneralOffice 仅作为历史记录，不再回退使用）
-        self.docs_dir = self.project_root / "01-struc" / "0B-general-manager" / "Docs"
+        # 文档与日志统一归档至顶层 docs 目录，符合《文档治理规范与流程》
+        # 系统维护文档目录
+        self.docs_dir = self.project_root / "docs" / "系统维护"
         self.ai_dir = self.project_root / "ai"
-        self.logs_dir = self.project_root / "01-struc" / "0B-general-manager" / "logs"
-        self.bak_dir = self.project_root / "01-struc" / "0B-general-manager" / "bak"
+        # 顶层日志目录
+        self.logs_dir = self.project_root / "docs" / "logs"
+        # 顶层备份目录（可由环境变量 YDS_BACKUPS_ROOT 覆盖）
+        self.bak_dir = Path(os.environ.get('YDS_BACKUPS_ROOT', str(self.project_root / "backups")))
         
         # 初始化 Git Helper
         try:
@@ -558,79 +563,132 @@ class YDSLabFinishProcessor:
         return status
         
     def perform_project_backup(self) -> Dict[str, any]:
-        """执行项目备份"""
+        """执行项目备份（统一备份到顶层 backups，并生成ZIP包）"""
         if not self.default_config['backup']['enable_auto_backup']:
             self.logger.info("自动备份已禁用")
             return {'success': False, 'reason': 'disabled'}
-            
-        self.logger.info("开始执行项目备份...")
-        
+
+        self.logger.info("开始执行项目备份（ZIP）...")
+
         try:
-            # 根据当前时间确定备份类型和目录
+            # 当前时间与命名
             now = datetime.now()
             timestamp = now.strftime("%Y%m%d_%H%M%S")
             date_str = now.strftime("%Y-%m-%d")
-            
-            # 确定备份类型：工作日备份到 daily，项目完成备份到 projects
+
+            # 目录与文件名（daily为默认）
             backup_type = self.default_config['backup'].get('backup_type', 'daily')
-            
             if backup_type == 'weekly':
                 backup_dir = self.bak_dir / "weekly"
-                backup_name = f"weekly_{now.strftime('%Y_W%U')}_{timestamp}"
+                zip_name = f"weekly_{now.strftime('%Y_W%U')}_{timestamp}.zip"
             elif backup_type == 'projects':
                 backup_dir = self.bak_dir / "projects"
-                backup_name = f"project_{timestamp}"
-            else:  # daily
+                zip_name = f"project_{timestamp}.zip"
+            else:
                 backup_dir = self.bak_dir / "daily"
-                backup_name = f"daily_{date_str}_{timestamp}"
-            
-            backup_path = backup_dir / backup_name
-            
-            # 确保备份目录存在
+                zip_name = f"daily_{date_str}_{timestamp}.zip"
+
             backup_dir.mkdir(parents=True, exist_ok=True)
-            
-            # 排除模式
-            exclude_patterns = self.default_config['backup']['exclude_patterns']
-            
-            # 复制项目文件
-            def should_exclude(path: Path) -> bool:
-                for pattern in exclude_patterns:
-                    if pattern in str(path):
+            zip_path = backup_dir / zip_name
+
+            # 载入备份配置
+            backup_cfg_path = self.project_root / "config" / "backup_config.json"
+            backup_cfg = {}
+            if backup_cfg_path.exists():
+                try:
+                    with open(backup_cfg_path, 'r', encoding='utf-8') as f:
+                        backup_cfg = json.load(f)
+                except Exception as ce:
+                    self.logger.warning(f"读取 backup_config.json 失败，使用默认策略: {ce}")
+
+            # 排除集合
+            global_exclude_dirs = set(backup_cfg.get('globalExcludeDirs', []))
+            global_exclude_files = backup_cfg.get('globalExcludeFiles', [])
+            exclude_patterns = self.default_config['backup'].get('exclude_patterns', [])
+
+            # 备份源
+            sources = backup_cfg.get('sources', [])
+            if not sources:
+                # 回退：按顶层主要目录备份
+                sources = [{"path": str(self.project_root / d)} for d in [
+                    "01-struc", "02-task", "03-dev", "04-prod", "docs", "config"
+                ]]
+
+            def should_dir_exclude(name: str) -> bool:
+                return name in global_exclude_dirs
+
+            def should_file_exclude(rel_path: str) -> bool:
+                # 按通配符匹配全局文件排除
+                for pat in global_exclude_files:
+                    if fnmatch.fnmatch(rel_path, pat):
+                        return True
+                # 兼容旧的字符串包含式排除
+                for pat in exclude_patterns:
+                    if pat in rel_path:
                         return True
                 return False
-                
+
             copied_files = 0
             skipped_files = 0
-            
-            for item in self.project_root.rglob("*"):
-                if item.is_file() and not should_exclude(item):
-                    relative_path = item.relative_to(self.project_root)
-                    target_path = backup_path / relative_path
-                    
-                    # 创建目标目录
-                    target_path.parent.mkdir(parents=True, exist_ok=True)
-                    
-                    # 复制文件
-                    shutil.copy2(item, target_path)
-                    copied_files += 1
-                else:
-                    skipped_files += 1
-                    
+
+            with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
+                for src in sources:
+                    src_path = Path(src.get('path'))
+                    if not src_path.exists():
+                        self.logger.warning(f"备份源不存在，跳过: {src_path}")
+                        continue
+
+                    # 计算归档根相对路径（相对于项目根），保证ZIP内路径以顶层目录开始
+                    try:
+                        arc_root = src_path.relative_to(self.project_root)
+                    except ValueError:
+                        # 不在项目根下，使用其名称作为根
+                        arc_root = Path(src_path.name)
+
+                    for root, dirs, files in os.walk(src_path):
+                        # 过滤目录
+                        dirs[:] = [d for d in dirs if not should_dir_exclude(d)]
+
+                        for fname in files:
+                            fpath = Path(root) / fname
+                            # 相对路径（用于排除匹配和归档）
+                            rel_path = fpath.relative_to(src_path)
+                            rel_str = str(rel_path).replace('\\', '/')
+                            if should_file_exclude(rel_str):
+                                skipped_files += 1
+                                continue
+
+                            # 构造归档路径：arc_root/rel_path
+                            arcname = str((arc_root / rel_path).as_posix())
+                            try:
+                                zf.write(fpath, arcname)
+                                copied_files += 1
+                            except Exception as we:
+                                skipped_files += 1
+                                self.logger.warning(f"写入ZIP失败，跳过: {fpath} - {we}")
+
             # 清理旧备份
             self.cleanup_old_backups()
-            
+
+            # 计算ZIP大小
+            try:
+                zip_size_bytes = zip_path.stat().st_size
+                backup_size = self.format_bytes(zip_size_bytes)
+            except Exception:
+                backup_size = "未知"
+
             backup_info = {
                 'success': True,
-                'backup_path': str(backup_path),
-                'backup_name': backup_name,
+                'backup_path': str(zip_path),
+                'backup_name': zip_name,
                 'copied_files': copied_files,
                 'skipped_files': skipped_files,
-                'backup_size': self.get_directory_size(backup_path)
+                'backup_size': backup_size
             }
-            
-            self.logger.info(f"项目备份完成: {backup_path}")
+
+            self.logger.info(f"项目备份完成: {zip_path}")
             return backup_info
-            
+
         except Exception as e:
             self.logger.error(f"项目备份失败: {e}")
             return {
@@ -639,34 +697,41 @@ class YDSLabFinishProcessor:
             }
             
     def cleanup_old_backups(self):
-        """清理旧备份"""
+        """清理旧备份（按ZIP文件保留期删除）"""
         try:
             if not self.bak_dir.exists():
                 return
-                
+
+            # 读备份配置中的保留天数，回退到默认配置
+            backup_cfg_path = self.project_root / "config" / "backup_config.json"
             retention_days = self.default_config['backup']['backup_retention_days']
+            if backup_cfg_path.exists():
+                try:
+                    with open(backup_cfg_path, 'r', encoding='utf-8') as f:
+                        cfg = json.load(f)
+                        retention_days = int(cfg.get('retentionDays', retention_days))
+                except Exception:
+                    pass
+
             cutoff_date = datetime.now() - timedelta(days=retention_days)
-            
+
             removed_count = 0
-            for backup_dir in self.bak_dir.iterdir():
-                if backup_dir.is_dir() and backup_dir.name.startswith('backup_'):
-                    # 从目录名提取时间戳
+            for sub in [self.bak_dir / "daily", self.bak_dir / "weekly", self.bak_dir / "projects"]:
+                if not sub.exists():
+                    continue
+                for f in sub.glob("*.zip"):
                     try:
-                        timestamp_str = backup_dir.name.replace('backup_', '')
-                        backup_date = datetime.strptime(timestamp_str, '%Y%m%d_%H%M%S')
-                        
-                        if backup_date < cutoff_date:
-                            shutil.rmtree(backup_dir)
+                        mtime = datetime.fromtimestamp(f.stat().st_mtime)
+                        if mtime < cutoff_date:
+                            f.unlink()
                             removed_count += 1
-                            self.logger.info(f"删除过期备份: {backup_dir.name}")
-                            
-                    except ValueError:
-                        # 无法解析时间戳，跳过
+                            self.logger.info(f"删除过期备份: {f.name}")
+                    except Exception:
                         continue
-                        
+
             if removed_count > 0:
-                self.logger.info(f"清理了 {removed_count} 个过期备份")
-                
+                self.logger.info(f"清理了 {removed_count} 个过期 ZIP 备份")
+
         except Exception as e:
             self.logger.error(f"清理旧备份失败: {e}")
             
@@ -984,8 +1049,8 @@ class YDSLabFinishProcessor:
     def save_work_report(self, report_content: str) -> str:
         """保存工作报告"""
         try:
-            # 创建报告目录
-            reports_dir = self.logs_dir / "工作记录"
+            # 创建报告目录（顶层 docs/系统维护）
+            reports_dir = self.docs_dir
             reports_dir.mkdir(parents=True, exist_ok=True)
             
             # 生成报告文件名
@@ -1003,6 +1068,18 @@ class YDSLabFinishProcessor:
         except Exception as e:
             self.logger.error(f"保存工作报告失败: {e}")
             return ""
+
+    def format_bytes(self, size_bytes: int) -> str:
+        """将字节数格式化成人类可读字符串"""
+        try:
+            size = float(size_bytes)
+            for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+                if size < 1024.0:
+                    return f"{size:.1f} {unit}"
+                size /= 1024.0
+            return f"{size:.1f} PB"
+        except Exception:
+            return "未知"
             
     def perform_finish_process(self) -> Tuple[bool, str]:
         """执行完整的工作完成流程"""
