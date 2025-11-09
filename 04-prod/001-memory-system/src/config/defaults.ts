@@ -11,6 +11,11 @@ import {
   MemoryType,
   RuleCategory
 } from '../types/base';
+import * as path from 'path';
+
+// 顶层备份根路径，允许环境变量覆盖
+// 使用索引访问避免 TS4111：process.env 是索引签名类型
+const DEFAULT_BACKUPS_ROOT = process.env['YDS_BACKUPS_ROOT'] || 'S\\\\YDS-Lab\\\\backups';
 
 export const DEFAULT_SYSTEM_CONFIG: SystemConfiguration = {
   database: {
@@ -202,7 +207,8 @@ export const DEFAULT_FILE_PATHS = {
   knowledgeGraphFile: '.trae/knowledge-graph.json',
   configFile: '.trae/config.json',
   logsDirectory: '.trae/logs',
-  backupDirectory: '.trae/backups'
+  // 统一使用顶层备份目录，避免在项目内生成 backups/
+  backupDirectory: path.join(DEFAULT_BACKUPS_ROOT, 'memory-system')
 };
 
 export const DEFAULT_API_SETTINGS = {

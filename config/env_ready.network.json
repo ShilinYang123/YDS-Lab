@@ -1,0 +1,10 @@
+﻿{
+  "env_ready": {
+    "network_endpoints": [
+      { "host": "baidu.com", "port": 80 },
+      { "host": "bing.com", "port": 443 },
+      { "host": "github.com", "port": 443 }
+    ]
+  },
+  "meta": { "created_by": "env_ready_setup", "created_at": "2025-11-09" }
+}

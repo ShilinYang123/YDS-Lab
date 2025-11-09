@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-08-DOCUMENT-GOVERNANCE",
+  "name_cn": "文档治理",
+  "module_dir": "01-struc/Agents/08-document_governance",
+  "description_cn": "统一文档命名、路径治理、版本与归档策略。",
+  "responsibilities": ["文档命名治理", "路径治理", "版本与归档"],
+  "interfaces": {
+    "tools": ["01-struc/Agents/08-document_governance/tools.py"],
+    "configs": ["document_governance_config.json"],
+    "depends_on": ["Docs/**", "01-struc/docs/**"],
+    "deliverables": ["治理报告", "修正建议", "自动归档记录"]
+  },
+  "inputs": ["项目文档", "归档规则", "目录结构"],
+  "outputs": ["治理报告", "修正建议"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

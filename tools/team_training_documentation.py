@@ -1,8 +1,6 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
-团队培训和文档更新工具
-为Trae平台智能体系统创建完整的培训材料和文档
-"""
+鍥㈤槦鍩硅鍜屾枃妗ｆ洿鏂板伐鍏?涓篢rae骞冲彴鏅鸿兘浣撶郴缁熷垱寤哄畬鏁寸殑鍩硅鏉愭枡鍜屾枃妗?"""
 
 import os
 import json
@@ -17,10 +15,10 @@ class TrainingDocumentationManager:
         self.training_path = self.base_path / "Training"
         
     def create_documentation_structure(self):
-        """创建文档结构"""
-        print("📚 创建文档结构...")
+        """鍒涘缓鏂囨。缁撴瀯"""
+        print("馃摎 鍒涘缓鏂囨。缁撴瀯...")
         
-        # 创建主要文档目录
+        # 鍒涘缓涓昏鏂囨。鐩綍
         directories = [
             self.docs_path / "UserGuides",
             self.docs_path / "TechnicalDocs", 
@@ -35,363 +33,279 @@ class TrainingDocumentationManager:
         
         for directory in directories:
             directory.mkdir(parents=True, exist_ok=True)
-            print(f"📁 创建目录: {directory.relative_to(self.base_path)}")
+            print(f"馃搧 鍒涘缓鐩綍: {directory.relative_to(self.base_path)}")
         
         return True
     
     def create_user_guide(self):
-        """创建用户指南"""
-        print("📖 创建用户指南...")
+        """鍒涘缓鐢ㄦ埛鎸囧崡"""
+        print("馃摉 鍒涘缓鐢ㄦ埛鎸囧崡...")
         
-        user_guide_content = """# Trae平台智能体系统用户指南
+        user_guide_content = """# Trae骞冲彴鏅鸿兘浣撶郴缁熺敤鎴锋寚鍗?
+## 鐩綍
+1. [绯荤粺姒傝堪](#绯荤粺姒傝堪)
+2. [蹇€熷紑濮媇(#蹇€熷紑濮?
+3. [鏅鸿兘浣撲粙缁峕(#鏅鸿兘浣撲粙缁?
+4. [鍗忎綔宸ヤ綔娴乚(#鍗忎綔宸ヤ綔娴?
+5. [MCP宸ュ叿浣跨敤](#MCP宸ュ叿浣跨敤)
+6. [甯歌闂](#甯歌闂)
 
-## 目录
-1. [系统概述](#系统概述)
-2. [快速开始](#快速开始)
-3. [智能体介绍](#智能体介绍)
-4. [协作工作流](#协作工作流)
-5. [MCP工具使用](#MCP工具使用)
-6. [常见问题](#常见问题)
+## 绯荤粺姒傝堪
 
-## 系统概述
+Trae骞冲彴鏄竴涓熀浜庢櫤鑳戒綋鐨勫崗浣滅郴缁燂紝鍖呭惈浠ヤ笅鏍稿績缁勪欢锛?
+### 鏅鸿兘浣撹鑹?- **CEO**: 鎴樼暐鍐崇瓥鍜屽洟闃熷崗璋?- **DevTeamLead**: 寮€鍙戝洟闃熺鐞?- **ResourceAdmin**: 璧勬簮绠＄悊鍜屽垎閰?
+### MCP宸ュ叿闆嗙兢
+- **GitHub MCP**: 浠ｇ爜浠撳簱绠＄悊
+- **Excel MCP**: 鏁版嵁澶勭悊鍜屽垎鏋?- **FileSystem MCP**: 鏂囦欢绯荤粺鎿嶄綔
+- **Database MCP**: 鏁版嵁搴撶鐞?- **Builder MCP**: 鏋勫缓鍜岄儴缃?- **Figma MCP**: 璁捐鍗忎綔
 
-Trae平台是一个基于智能体的协作系统，包含以下核心组件：
-
-### 智能体角色
-- **CEO**: 战略决策和团队协调
-- **DevTeamLead**: 开发团队管理
-- **ResourceAdmin**: 资源管理和分配
-
-### MCP工具集群
-- **GitHub MCP**: 代码仓库管理
-- **Excel MCP**: 数据处理和分析
-- **FileSystem MCP**: 文件系统操作
-- **Database MCP**: 数据库管理
-- **Builder MCP**: 构建和部署
-- **Figma MCP**: 设计协作
-
-## 快速开始
-
-### 1. 启动系统
+## 蹇€熷紑濮?
+### 1. 鍚姩绯荤粺
 ```bash
-# 启动标准化生产环境
-cd S:/YDS-Lab/tools/scripts
+# 鍚姩鏍囧噯鍖栫敓浜х幆澧?cd S:/YDS-Lab/tools/scripts
 start_production.bat
 
-# 启动协作工作流（如需单独启动）
-python start_collaboration.py
+# 鍚姩鍗忎綔宸ヤ綔娴侊紙濡傞渶鍗曠嫭鍚姩锛?python start_collaboration.py
 ```
 
-### 2. 访问智能体
-- CEO智能体: 通过Trae IDE访问
-- DevTeamLead: 开发团队专用接口
-- ResourceAdmin: 资源管理界面
+### 2. 璁块棶鏅鸿兘浣?- CEO鏅鸿兘浣? 閫氳繃Trae IDE璁块棶
+- DevTeamLead: 寮€鍙戝洟闃熶笓鐢ㄦ帴鍙?- ResourceAdmin: 璧勬簮绠＄悊鐣岄潰
 
-### 3. 基本操作
-1. 登录系统
-2. 选择智能体角色
-3. 开始协作任务
+### 3. 鍩烘湰鎿嶄綔
+1. 鐧诲綍绯荤粺
+2. 閫夋嫨鏅鸿兘浣撹鑹?3. 寮€濮嬪崗浣滀换鍔?
+## 鏅鸿兘浣撲粙缁?
+### CEO鏅鸿兘浣?**鑱岃矗**: 鎴樼暐鍐崇瓥銆佸洟闃熷崗璋冦€侀」鐩洃鐫?**鑳藉姏**:
+- 鍒跺畾椤圭洰鎴樼暐
+- 鍗忚皟鍚勯儴闂ㄥ伐浣?- 鐩戞帶椤圭洰杩涘害
+- 鍐崇瓥鏀寔
 
-## 智能体介绍
+**浣跨敤鍦烘櫙**:
+- 椤圭洰鍚姩鍜岃鍒?- 閲嶈鍐崇瓥鍒跺畾
+- 鍥㈤槦鍗忚皟浼氳
+- 缁╂晥璇勪及
 
-### CEO智能体
-**职责**: 战略决策、团队协调、项目监督
-**能力**:
-- 制定项目战略
-- 协调各部门工作
-- 监控项目进度
-- 决策支持
+### DevTeamLead鏅鸿兘浣?**鑱岃矗**: 寮€鍙戝洟闃熺鐞嗐€佹妧鏈喅绛栥€佷唬鐮佸鏌?**鑳藉姏**:
+- 鎶€鏈灦鏋勮璁?- 浠ｇ爜璐ㄩ噺绠＄悊
+- 鍥㈤槦浠诲姟鍒嗛厤
+- 寮€鍙戞祦绋嬩紭鍖?
+**浣跨敤鍦烘櫙**:
+- 鎶€鏈柟妗堣璁?- 浠ｇ爜瀹℃煡
+- 寮€鍙戜换鍔＄鐞?- 鎶€鏈棶棰樿В鍐?
+### ResourceAdmin鏅鸿兘浣?**鑱岃矗**: 璧勬簮绠＄悊銆佺幆澧冮厤缃€佺郴缁熺淮鎶?**鑳藉姏**:
+- 绯荤粺璧勬簮鐩戞帶
+- 鐜閰嶇疆绠＄悊
+- 鏉冮檺鎺у埗
+- 绯荤粺缁存姢
 
-**使用场景**:
-- 项目启动和规划
-- 重要决策制定
-- 团队协调会议
-- 绩效评估
+**浣跨敤鍦烘櫙**:
+- 绯荤粺閮ㄧ讲
+- 璧勬簮鍒嗛厤
+- 鏉冮檺绠＄悊
+- 绯荤粺鐩戞帶
 
-### DevTeamLead智能体
-**职责**: 开发团队管理、技术决策、代码审查
-**能力**:
-- 技术架构设计
-- 代码质量管理
-- 团队任务分配
-- 开发流程优化
+## 鍗忎綔宸ヤ綔娴?
+### 鏃ュ父杩愯惀宸ヤ綔娴?1. **鏅ㄤ細鍗忚皟** (CEO涓诲)
+   - 鍚勬櫤鑳戒綋鐘舵€佹眹鎶?   - 褰撴棩浠诲姟鍒嗛厤
+   - 浼樺厛绾х‘瀹?
+2. **浠诲姟鎵ц** (鍚勬櫤鑳戒綋鍗忎綔)
+   - 骞惰浠诲姟澶勭悊
+   - 瀹炴椂鐘舵€佸悓姝?   - 闂鍙婃椂涓婃姤
 
-**使用场景**:
-- 技术方案设计
-- 代码审查
-- 开发任务管理
-- 技术问题解决
+3. **杩涘害妫€鏌?* (瀹氭湡鍚屾)
+   - 浠诲姟瀹屾垚鎯呭喌
+   - 闂璇嗗埆鍜岃В鍐?   - 璧勬簮闇€姹傝瘎浼?
+### 椤圭洰寮€鍙戝伐浣滄祦
+1. **闇€姹傚垎鏋?* (CEO + DevTeamLead)
+2. **鎶€鏈璁?* (DevTeamLead涓诲)
+3. **璧勬簮鍑嗗** (ResourceAdmin)
+4. **寮€鍙戝疄鏂?* (DevTeamLead鐩戠潱)
+5. **娴嬭瘯閮ㄧ讲** (鍗忎綔瀹屾垚)
+6. **涓婄嚎缁存姢** (ResourceAdmin)
 
-### ResourceAdmin智能体
-**职责**: 资源管理、环境配置、系统维护
-**能力**:
-- 系统资源监控
-- 环境配置管理
-- 权限控制
-- 系统维护
+### 搴旀€ュ搷搴斿伐浣滄祦
+1. **闂璇嗗埆** (浠绘剰鏅鸿兘浣?
+2. **绱ф€ラ€氱煡** (鑷姩瑙﹀彂)
+3. **蹇€熷搷搴?* (鐩稿叧鏅鸿兘浣?
+4. **闂瑙ｅ喅** (鍗忎綔澶勭悊)
+5. **鎬荤粨鏀硅繘** (CEO涓诲)
 
-**使用场景**:
-- 系统部署
-- 资源分配
-- 权限管理
-- 系统监控
-
-## 协作工作流
-
-### 日常运营工作流
-1. **晨会协调** (CEO主导)
-   - 各智能体状态汇报
-   - 当日任务分配
-   - 优先级确定
-
-2. **任务执行** (各智能体协作)
-   - 并行任务处理
-   - 实时状态同步
-   - 问题及时上报
-
-3. **进度检查** (定期同步)
-   - 任务完成情况
-   - 问题识别和解决
-   - 资源需求评估
-
-### 项目开发工作流
-1. **需求分析** (CEO + DevTeamLead)
-2. **技术设计** (DevTeamLead主导)
-3. **资源准备** (ResourceAdmin)
-4. **开发实施** (DevTeamLead监督)
-5. **测试部署** (协作完成)
-6. **上线维护** (ResourceAdmin)
-
-### 应急响应工作流
-1. **问题识别** (任意智能体)
-2. **紧急通知** (自动触发)
-3. **快速响应** (相关智能体)
-4. **问题解决** (协作处理)
-5. **总结改进** (CEO主导)
-
-## MCP工具使用
+## MCP宸ュ叿浣跨敤
 
 ### GitHub MCP
-**功能**: 代码仓库管理、版本控制、协作开发
-
-**基本操作**:
+**鍔熻兘**: 浠ｇ爜浠撳簱绠＄悊銆佺増鏈帶鍒躲€佸崗浣滃紑鍙?
+**鍩烘湰鎿嶄綔**:
 ```python
-# 创建仓库
+# 鍒涘缓浠撳簱
 github_mcp.create_repository("project-name")
 
-# 提交代码
+# 鎻愪氦浠ｇ爜
 github_mcp.commit_changes("feat: add new feature")
 
-# 创建PR
+# 鍒涘缓PR
 github_mcp.create_pull_request("feature-branch", "main")
 ```
 
 ### Excel MCP
-**功能**: 数据处理、报表生成、数据分析
-
-**基本操作**:
+**鍔熻兘**: 鏁版嵁澶勭悊銆佹姤琛ㄧ敓鎴愩€佹暟鎹垎鏋?
+**鍩烘湰鎿嶄綔**:
 ```python
-# 读取数据
+# 璇诲彇鏁版嵁
 data = excel_mcp.read_excel("data.xlsx")
 
-# 数据处理
+# 鏁版嵁澶勭悊
 processed = excel_mcp.process_data(data)
 
-# 生成报表
+# 鐢熸垚鎶ヨ〃
 excel_mcp.generate_report(processed, "report.xlsx")
 ```
 
 ### FileSystem MCP
-**功能**: 文件操作、目录管理、文件同步
-
-**基本操作**:
+**鍔熻兘**: 鏂囦欢鎿嶄綔銆佺洰褰曠鐞嗐€佹枃浠跺悓姝?
+**鍩烘湰鎿嶄綔**:
 ```python
-# 文件操作
+# 鏂囦欢鎿嶄綔
 filesystem_mcp.create_file("path/to/file.txt", content)
 filesystem_mcp.copy_file("source.txt", "destination.txt")
 
-# 目录管理
+# 鐩綍绠＄悊
 filesystem_mcp.create_directory("new_folder")
 filesystem_mcp.list_directory("path")
 ```
 
-## 常见问题
+## 甯歌闂
 
-### Q: 如何重启智能体？
-A: 使用标准化启动脚本重新启动：
+### Q: 濡備綍閲嶅惎鏅鸿兘浣擄紵
+A: 浣跨敤鏍囧噯鍖栧惎鍔ㄨ剼鏈噸鏂板惎鍔細
 ```bash
 cd S:/YDS-Lab/tools/scripts
 start_production.bat
 ```
 
-### Q: MCP服务无响应怎么办？
-A: 进入对应MCP服务目录并手动启动，或重新运行生产环境启动脚本：
+### Q: MCP鏈嶅姟鏃犲搷搴旀€庝箞鍔烇紵
+A: 杩涘叆瀵瑰簲MCP鏈嶅姟鐩綍骞舵墜鍔ㄥ惎鍔紝鎴栭噸鏂拌繍琛岀敓浜х幆澧冨惎鍔ㄨ剼鏈細
 ```bash
-# 重新运行生产环境脚本以启动全部MCP服务
+# 閲嶆柊杩愯鐢熶骇鐜鑴氭湰浠ュ惎鍔ㄥ叏閮∕CP鏈嶅姟
 cd S:/YDS-Lab/tools/scripts
 start_production.bat
 
-# 或进入单个MCP服务目录，手动运行Python服务器（示例：GitHub MCP）
-cd S:/YDS-Lab/01-struc/MCPCluster/GitHub
+# 鎴栬繘鍏ュ崟涓狹CP鏈嶅姟鐩綍锛屾墜鍔ㄨ繍琛孭ython鏈嶅姟鍣紙绀轰緥锛欸itHub MCP锛?cd S:/YDS-Lab/01-struc/MCPCluster/GitHub
 python github_mcp_server.py
 ```
 
-### Q: 如何查看系统日志？
-A: 日志文件位置：
-- 系统日志: `S:/YDS-Lab/01-struc/0B-general-manager/logs/system.log`
-- 智能体日志: `S:/YDS-Lab/01-struc/0B-general-manager/logs/agents/`
-- MCP日志: `S:/YDS-Lab/01-struc/0B-general-manager/logs/tools/mcp/`
+### Q: 濡備綍鏌ョ湅绯荤粺鏃ュ織锛?A: 鏃ュ織鏂囦欢浣嶇疆锛?- 绯荤粺鏃ュ織: `S:/YDS-Lab/01-struc/0B-general-manager/logs/system.log`
+- 鏅鸿兘浣撴棩蹇? `S:/YDS-Lab/01-struc/0B-general-manager/logs/agents/`
+- MCP鏃ュ織: `S:/YDS-Lab/01-struc/0B-general-manager/logs/tools/mcp/`
 
-### Q: 如何备份系统？
-A: 使用自动备份脚本：
-```bash
+### Q: 濡備綍澶囦唤绯荤粺锛?A: 浣跨敤鑷姩澶囦唤鑴氭湰锛?```bash
 cd S:/YDS-Lab/tools/backup
 python daily_snapshot.py
 ```
 
-## 技术支持
-
-如有技术问题，请联系：
-- 系统管理员: admin@yds-lab.com
-- 技术支持: support@yds-lab.com
-- 紧急联系: emergency@yds-lab.com
+## 鎶€鏈敮鎸?
+濡傛湁鎶€鏈棶棰橈紝璇疯仈绯伙細
+- 绯荤粺绠＄悊鍛? admin@yds-lab.com
+- 鎶€鏈敮鎸? support@yds-lab.com
+- 绱ф€ヨ仈绯? emergency@yds-lab.com
 
 ---
-*文档版本: v2.0*
-*最后更新: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*
+*鏂囨。鐗堟湰: v2.0*
+*鏈€鍚庢洿鏂? {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*
 """
         
         user_guide_path = self.docs_path / "UserGuides" / "trae_platform_user_guide.md"
         with open(user_guide_path, 'w', encoding='utf-8') as f:
             f.write(user_guide_content)
         
-        print(f"✅ 用户指南创建完成: {user_guide_path.relative_to(self.base_path)}")
+        print(f"鉁?鐢ㄦ埛鎸囧崡鍒涘缓瀹屾垚: {user_guide_path.relative_to(self.base_path)}")
         return True
     
     def create_technical_documentation(self):
-        """创建技术文档"""
-        print("🔧 创建技术文档...")
+        """鍒涘缓鎶€鏈枃妗?""
+        print("馃敡 鍒涘缓鎶€鏈枃妗?..")
         
-        # 系统架构文档
-        architecture_doc = """# Trae平台系统架构文档
+        # 绯荤粺鏋舵瀯鏂囨。
+        architecture_doc = """# Trae骞冲彴绯荤粺鏋舵瀯鏂囨。
 
-## 系统架构概览
+## 绯荤粺鏋舵瀯姒傝
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Trae平台智能体系统                        │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │     CEO     │  │ DevTeamLead │  │ResourceAdmin│        │
-│  │   智能体    │  │    智能体   │  │    智能体   │        │
-│  └─────────────┘  └─────────────┘  └─────────────┘        │
-├─────────────────────────────────────────────────────────────┤
-│                    协作工作流引擎                           │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌───────┐ │
-│  │ GitHub  │ │  Excel  │ │FileSystem│ │Database │ │Builder│ │
-│  │   MCP   │ │   MCP   │ │   MCP   │ │   MCP   │ │  MCP  │ │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────┘ └───────┘ │
-├─────────────────────────────────────────────────────────────┤
-│                    基础设施层                               │
-└─────────────────────────────────────────────────────────────┘
-```
+鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?                   Trae骞冲彴鏅鸿兘浣撶郴缁?                       鈹?鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?       鈹?鈹? 鈹?    CEO     鈹? 鈹?DevTeamLead 鈹? 鈹俁esourceAdmin鈹?       鈹?鈹? 鈹?  鏅鸿兘浣?   鈹? 鈹?   鏅鸿兘浣?  鈹? 鈹?   鏅鸿兘浣?  鈹?       鈹?鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?       鈹?鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?                   鍗忎綔宸ヤ綔娴佸紩鎿?                          鈹?鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹? 鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹屸攢鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?鈹? 鈹?GitHub  鈹?鈹? Excel  鈹?鈹侳ileSystem鈹?鈹侱atabase 鈹?鈹侭uilder鈹?鈹?鈹? 鈹?  MCP   鈹?鈹?  MCP   鈹?鈹?  MCP   鈹?鈹?  MCP   鈹?鈹? MCP  鈹?鈹?鈹? 鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?鈹溾攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?鈹?                   鍩虹璁炬柦灞?                              鈹?鈹斺攢鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹€鈹?```
 
-## 核心组件
+## 鏍稿績缁勪欢
 
-### 1. 智能体层
-- **CEO智能体**: 战略决策和协调
-- **DevTeamLead智能体**: 开发管理
-- **ResourceAdmin智能体**: 资源管理
+### 1. 鏅鸿兘浣撳眰
+- **CEO鏅鸿兘浣?*: 鎴樼暐鍐崇瓥鍜屽崗璋?- **DevTeamLead鏅鸿兘浣?*: 寮€鍙戠鐞?- **ResourceAdmin鏅鸿兘浣?*: 璧勬簮绠＄悊
 
-### 2. 协作层
-- 工作流引擎
-- 消息通信
-- 状态同步
-- 决策机制
+### 2. 鍗忎綔灞?- 宸ヤ綔娴佸紩鎿?- 娑堟伅閫氫俊
+- 鐘舵€佸悓姝?- 鍐崇瓥鏈哄埗
 
-### 3. MCP工具层
-- GitHub集成
-- Excel处理
-- 文件系统
-- 数据库管理
-- 构建部署
+### 3. MCP宸ュ叿灞?- GitHub闆嗘垚
+- Excel澶勭悊
+- 鏂囦欢绯荤粺
+- 鏁版嵁搴撶鐞?- 鏋勫缓閮ㄧ讲
 
-### 4. 基础设施层
-- 配置管理
-- 日志系统
-- 监控告警
-- 备份恢复
+### 4. 鍩虹璁炬柦灞?- 閰嶇疆绠＄悊
+- 鏃ュ織绯荤粺
+- 鐩戞帶鍛婅
+- 澶囦唤鎭㈠
 
-## 部署架构
+## 閮ㄧ讲鏋舵瀯
 
-### 生产环境结构（标准化目录）
-```
+### 鐢熶骇鐜缁撴瀯锛堟爣鍑嗗寲鐩綍锛?```
 Struc/
-├── TraeAgents/          # 智能体配置
-├── MCPCluster/          # MCP服务集群
-├── SharedWorkspace/     # 共享工作区
-config/                  # 配置文件
-01-struc/0B-general-manager/logs/  # 日志文件（统一日志输出目录）
-tools/scripts/           # 运行脚本
+鈹溾攢鈹€ TraeAgents/          # 鏅鸿兘浣撻厤缃?鈹溾攢鈹€ MCPCluster/          # MCP鏈嶅姟闆嗙兢
+鈹溾攢鈹€ SharedWorkspace/     # 鍏变韩宸ヤ綔鍖?config/                  # 閰嶇疆鏂囦欢
+01-struc/0B-general-manager/logs/  # 鏃ュ織鏂囦欢锛堢粺涓€鏃ュ織杈撳嚭鐩綍锛?tools/scripts/           # 杩愯鑴氭湰
 ```
 
-### 配置管理
-- 环境配置: `production_config.yaml`
-- 智能体配置: `agent_config.yaml`
-- MCP配置: `cluster_config.yaml`
-- 协作配置: `collaboration_workflows.yaml`
+### 閰嶇疆绠＄悊
+- 鐜閰嶇疆: `production_config.yaml`
+- 鏅鸿兘浣撻厤缃? `agent_config.yaml`
+- MCP閰嶇疆: `cluster_config.yaml`
+- 鍗忎綔閰嶇疆: `collaboration_workflows.yaml`
 
-## 安全架构
+## 瀹夊叏鏋舵瀯
 
-### 访问控制
-- 基于角色的权限控制
-- API密钥管理
-- 会话管理
-- 审计日志
+### 璁块棶鎺у埗
+- 鍩轰簬瑙掕壊鐨勬潈闄愭帶鍒?- API瀵嗛挜绠＄悊
+- 浼氳瘽绠＄悊
+- 瀹¤鏃ュ織
 
-### 数据安全
-- 敏感数据加密
-- 安全传输(HTTPS/TLS)
-- 数据备份
-- 灾难恢复
+### 鏁版嵁瀹夊叏
+- 鏁忔劅鏁版嵁鍔犲瘑
+- 瀹夊叏浼犺緭(HTTPS/TLS)
+- 鏁版嵁澶囦唤
+- 鐏鹃毦鎭㈠
 
-## 性能优化
+## 鎬ц兘浼樺寲
 
-### 系统性能
-- 智能体并发处理
-- MCP连接池
-- 缓存机制
-- 负载均衡
+### 绯荤粺鎬ц兘
+- 鏅鸿兘浣撳苟鍙戝鐞?- MCP杩炴帴姹?- 缂撳瓨鏈哄埗
+- 璐熻浇鍧囪　
 
-### 监控指标
-- 响应时间
-- 吞吐量
-- 错误率
-- 资源使用率
-
+### 鐩戞帶鎸囨爣
+- 鍝嶅簲鏃堕棿
+- 鍚炲悙閲?- 閿欒鐜?- 璧勬簮浣跨敤鐜?
 ---
-*技术文档版本: v2.0*
-*维护者: YDS-Lab技术团队*
+*鎶€鏈枃妗ｇ増鏈? v2.0*
+*缁存姢鑰? YDS-Lab鎶€鏈洟闃?
 """
         
         arch_doc_path = self.docs_path / "TechnicalDocs" / "system_architecture.md"
         with open(arch_doc_path, 'w', encoding='utf-8') as f:
             f.write(architecture_doc)
         
-        # API参考文档
-        api_doc = """# Trae平台API参考文档
+        # API鍙傝€冩枃妗?        api_doc = """# Trae骞冲彴API鍙傝€冩枃妗?
+## 鏅鸿兘浣揂PI
 
-## 智能体API
+### CEO鏅鸿兘浣揂PI
 
-### CEO智能体API
-
-#### 获取智能体状态
-```http
-GET /api/agents/ceo/status
+#### 鑾峰彇鏅鸿兘浣撶姸鎬?```http
+GET /api/Agents/01-ceo/status
 ```
 
-**响应示例**:
+**鍝嶅簲绀轰緥**:
 ```json
 {
   "status": "active",
@@ -404,27 +318,26 @@ GET /api/agents/ceo/status
 }
 ```
 
-#### 创建决策任务
+#### 鍒涘缓鍐崇瓥浠诲姟
 ```http
-POST /api/agents/ceo/decisions
+POST /api/Agents/01-ceo/decisions
 Content-Type: application/json
 
 {
   "decision_type": "strategic",
-  "context": "项目优先级调整",
+  "context": "椤圭洰浼樺厛绾ц皟鏁?,
   "stakeholders": ["dev_team", "resource_admin"],
   "deadline": "2024-11-02T10:00:00Z"
 }
 ```
 
-### DevTeamLead智能体API
+### DevTeamLead鏅鸿兘浣揂PI
 
-#### 获取开发任务
-```http
+#### 鑾峰彇寮€鍙戜换鍔?```http
 GET /api/agents/devteam/tasks
 ```
 
-#### 创建代码审查
+#### 鍒涘缓浠ｇ爜瀹℃煡
 ```http
 POST /api/agents/devteam/code-review
 Content-Type: application/json
@@ -437,14 +350,14 @@ Content-Type: application/json
 }
 ```
 
-### ResourceAdmin智能体API
+### ResourceAdmin鏅鸿兘浣揂PI
 
-#### 获取系统资源
+#### 鑾峰彇绯荤粺璧勬簮
 ```http
 GET /api/agents/resource/system-status
 ```
 
-#### 配置环境
+#### 閰嶇疆鐜
 ```http
 POST /api/agents/resource/environment
 Content-Type: application/json
@@ -459,40 +372,40 @@ Content-Type: application/json
 }
 ```
 
-## MCP工具API
+## MCP宸ュ叿API
 
 ### GitHub MCP API
 
-#### 创建仓库
+#### 鍒涘缓浠撳簱
 ```http
 POST /api/mcp/github/repositories
 Content-Type: application/json
 
 {
   "name": "new-project",
-  "description": "项目描述",
+  "description": "椤圭洰鎻忚堪",
   "private": true,
   "auto_init": true
 }
 ```
 
-#### 获取提交历史
+#### 鑾峰彇鎻愪氦鍘嗗彶
 ```http
 GET /api/mcp/github/repositories/{repo}/commits
 ```
 
 ### Excel MCP API
 
-#### 处理Excel文件
+#### 澶勭悊Excel鏂囦欢
 ```http
 POST /api/mcp/excel/process
 Content-Type: multipart/form-data
 
-file: [Excel文件]
+file: [Excel鏂囦欢]
 operations: ["read", "analyze", "report"]
 ```
 
-#### 生成报表
+#### 鐢熸垚鎶ヨ〃
 ```http
 POST /api/mcp/excel/generate-report
 Content-Type: application/json
@@ -504,25 +417,24 @@ Content-Type: application/json
 }
 ```
 
-## 协作工作流API
+## 鍗忎綔宸ヤ綔娴丄PI
 
-### 创建工作流
-```http
+### 鍒涘缓宸ヤ綔娴?```http
 POST /api/workflows
 Content-Type: application/json
 
 {
-  "name": "项目开发流程",
+  "name": "椤圭洰寮€鍙戞祦绋?,
   "type": "project_development",
   "participants": ["ceo", "devteam", "resource_admin"],
   "steps": [
     {
-      "name": "需求分析",
+      "name": "闇€姹傚垎鏋?,
       "assignee": "ceo",
       "duration": "2h"
     },
     {
-      "name": "技术设计",
+      "name": "鎶€鏈璁?,
       "assignee": "devteam",
       "duration": "4h"
     }
@@ -530,778 +442,655 @@ Content-Type: application/json
 }
 ```
 
-### 获取工作流状态
-```http
+### 鑾峰彇宸ヤ綔娴佺姸鎬?```http
 GET /api/workflows/{workflow_id}/status
 ```
 
-## 错误代码
+## 閿欒浠ｇ爜
 
-| 代码 | 描述 | 解决方案 |
+| 浠ｇ爜 | 鎻忚堪 | 瑙ｅ喅鏂规 |
 |------|------|----------|
-| 1001 | 智能体未响应 | 检查智能体状态，重启服务 |
-| 1002 | MCP服务不可用 | 检查MCP集群状态 |
-| 1003 | 权限不足 | 验证API密钥和权限 |
-| 1004 | 配置错误 | 检查配置文件格式 |
-| 1005 | 资源不足 | 检查系统资源使用情况 |
+| 1001 | 鏅鸿兘浣撴湭鍝嶅簲 | 妫€鏌ユ櫤鑳戒綋鐘舵€侊紝閲嶅惎鏈嶅姟 |
+| 1002 | MCP鏈嶅姟涓嶅彲鐢?| 妫€鏌CP闆嗙兢鐘舵€?|
+| 1003 | 鏉冮檺涓嶈冻 | 楠岃瘉API瀵嗛挜鍜屾潈闄?|
+| 1004 | 閰嶇疆閿欒 | 妫€鏌ラ厤缃枃浠舵牸寮?|
+| 1005 | 璧勬簮涓嶈冻 | 妫€鏌ョ郴缁熻祫婧愪娇鐢ㄦ儏鍐?|
 
-## 认证和授权
-
-### API密钥认证
+## 璁よ瘉鍜屾巿鏉?
+### API瀵嗛挜璁よ瘉
 ```http
 Authorization: Bearer YOUR_API_KEY
 ```
 
-### 权限级别
-- **admin**: 完全访问权限
-- **operator**: 操作权限
-- **viewer**: 只读权限
+### 鏉冮檺绾у埆
+- **admin**: 瀹屽叏璁块棶鏉冮檺
+- **operator**: 鎿嶄綔鏉冮檺
+- **viewer**: 鍙鏉冮檺
 
 ---
-*API文档版本: v2.0*
-*最后更新: {datetime.now().strftime('%Y-%m-%d')}*
+*API鏂囨。鐗堟湰: v2.0*
+*鏈€鍚庢洿鏂? {datetime.now().strftime('%Y-%m-%d')}*
 """
         
         api_doc_path = self.docs_path / "APIReference" / "api_reference.md"
         with open(api_doc_path, 'w', encoding='utf-8') as f:
             f.write(api_doc)
         
-        print(f"✅ 技术文档创建完成")
+        print(f"鉁?鎶€鏈枃妗ｅ垱寤哄畬鎴?)
         return True
     
     def create_training_materials(self):
-        """创建培训材料"""
-        print("🎓 创建培训材料...")
+        """鍒涘缓鍩硅鏉愭枡"""
+        print("馃帗 鍒涘缓鍩硅鏉愭枡...")
         
-        # 培训大纲
-        training_outline = """# Trae平台智能体系统培训大纲
+        # 鍩硅澶х翰
+        training_outline = """# Trae骞冲彴鏅鸿兘浣撶郴缁熷煿璁ぇ绾?
+## 鍩硅鐩爣
+閫氳繃鏈煿璁紝瀛﹀憳灏嗚兘澶燂細
+1. 鐞嗚ВTrae骞冲彴鐨勬牳蹇冩蹇靛拰鏋舵瀯
+2. 鐔熺粌浣跨敤鍚勪釜鏅鸿兘浣撶殑鍔熻兘
+3. 鎺屾彙MCP宸ュ叿鐨勬搷浣滄柟娉?4. 鑳藉澶勭悊甯歌闂鍜屾晠闅?5. 鍏峰绯荤粺缁存姢鍜屼紭鍖栬兘鍔?
+## 鍩硅妯″潡
 
-## 培训目标
-通过本培训，学员将能够：
-1. 理解Trae平台的核心概念和架构
-2. 熟练使用各个智能体的功能
-3. 掌握MCP工具的操作方法
-4. 能够处理常见问题和故障
-5. 具备系统维护和优化能力
+### 妯″潡1: 绯荤粺姒傝堪 (2灏忔椂)
+**瀛︿範鐩爣**: 浜嗚ВTrae骞冲彴鏁翠綋鏋舵瀯鍜屾牳蹇冩蹇?
+**鍐呭澶х翰**:
+1. Trae骞冲彴浠嬬粛
+   - 绯荤粺鑳屾櫙鍜岀洰鏍?   - 鏍稿績浠峰€煎拰浼樺娍
+   - 搴旂敤鍦烘櫙
 
-## 培训模块
+2. 绯荤粺鏋舵瀯
+   - 鏁翠綋鏋舵瀯璁捐
+   - 缁勪欢鍏崇郴鍥?   - 鏁版嵁娴佸悜
 
-### 模块1: 系统概述 (2小时)
-**学习目标**: 了解Trae平台整体架构和核心概念
+3. 鏅鸿兘浣撴蹇?   - 鏅鸿兘浣撳畾涔夊拰鐗圭偣
+   - 瑙掕壊鍒嗗伐
+   - 鍗忎綔鏈哄埗
 
-**内容大纲**:
-1. Trae平台介绍
-   - 系统背景和目标
-   - 核心价值和优势
-   - 应用场景
+**瀹炶返娲诲姩**:
+- 绯荤粺婕旂ず
+- 鏋舵瀯鍥捐В璇?- Q&A鐜妭
 
-2. 系统架构
-   - 整体架构设计
-   - 组件关系图
-   - 数据流向
+### 妯″潡2: 鏅鸿兘浣撴搷浣?(4灏忔椂)
+**瀛︿範鐩爣**: 鎺屾彙鍚勬櫤鑳戒綋鐨勪娇鐢ㄦ柟娉?
+**鍐呭澶х翰**:
+1. CEO鏅鸿兘浣?   - 鍔熻兘浠嬬粛
+   - 鎿嶄綔鐣岄潰
+   - 鍐崇瓥娴佺▼
+   - 鍗忚皟鏈哄埗
 
-3. 智能体概念
-   - 智能体定义和特点
-   - 角色分工
-   - 协作机制
+2. DevTeamLead鏅鸿兘浣?   - 寮€鍙戠鐞嗗姛鑳?   - 浠ｇ爜瀹℃煡娴佺▼
+   - 浠诲姟鍒嗛厤
+   - 鎶€鏈喅绛?
+3. ResourceAdmin鏅鸿兘浣?   - 璧勬簮鐩戞帶
+   - 鐜閰嶇疆
+   - 鏉冮檺绠＄悊
+   - 绯荤粺缁存姢
 
-**实践活动**:
-- 系统演示
-- 架构图解读
-- Q&A环节
+**瀹炶返娲诲姩**:
+- 鏅鸿兘浣撴搷浣滄紨缁?- 瑙掕壊鎵紨缁冧範
+- 鍗忎綔鍦烘櫙妯℃嫙
 
-### 模块2: 智能体操作 (4小时)
-**学习目标**: 掌握各智能体的使用方法
+### 妯″潡3: MCP宸ュ叿浣跨敤 (3灏忔椂)
+**瀛︿範鐩爣**: 鐔熺粌浣跨敤MCP宸ュ叿闆嗙兢
 
-**内容大纲**:
-1. CEO智能体
-   - 功能介绍
-   - 操作界面
-   - 决策流程
-   - 协调机制
-
-2. DevTeamLead智能体
-   - 开发管理功能
-   - 代码审查流程
-   - 任务分配
-   - 技术决策
-
-3. ResourceAdmin智能体
-   - 资源监控
-   - 环境配置
-   - 权限管理
-   - 系统维护
-
-**实践活动**:
-- 智能体操作演练
-- 角色扮演练习
-- 协作场景模拟
-
-### 模块3: MCP工具使用 (3小时)
-**学习目标**: 熟练使用MCP工具集群
-
-**内容大纲**:
+**鍐呭澶х翰**:
 1. GitHub MCP
-   - 代码仓库管理
-   - 版本控制操作
-   - 协作开发流程
-
+   - 浠ｇ爜浠撳簱绠＄悊
+   - 鐗堟湰鎺у埗鎿嶄綔
+   - 鍗忎綔寮€鍙戞祦绋?
 2. Excel MCP
-   - 数据处理功能
-   - 报表生成
-   - 数据分析
+   - 鏁版嵁澶勭悊鍔熻兘
+   - 鎶ヨ〃鐢熸垚
+   - 鏁版嵁鍒嗘瀽
 
-3. 其他MCP工具
+3. 鍏朵粬MCP宸ュ叿
    - FileSystem MCP
    - Database MCP
    - Builder MCP
 
-**实践活动**:
-- 工具操作练习
-- 实际项目演练
-- 问题解决练习
+**瀹炶返娲诲姩**:
+- 宸ュ叿鎿嶄綔缁冧範
+- 瀹為檯椤圭洰婕旂粌
+- 闂瑙ｅ喅缁冧範
 
-### 模块4: 协作工作流 (2小时)
-**学习目标**: 理解和使用协作工作流
+### 妯″潡4: 鍗忎綔宸ヤ綔娴?(2灏忔椂)
+**瀛︿範鐩爣**: 鐞嗚В鍜屼娇鐢ㄥ崗浣滃伐浣滄祦
 
-**内容大纲**:
-1. 工作流概念
-   - 工作流类型
-   - 流程设计
-   - 执行机制
+**鍐呭澶х翰**:
+1. 宸ヤ綔娴佹蹇?   - 宸ヤ綔娴佺被鍨?   - 娴佺▼璁捐
+   - 鎵ц鏈哄埗
 
-2. 标准工作流
-   - 日常运营流程
-   - 项目开发流程
-   - 应急响应流程
+2. 鏍囧噯宸ヤ綔娴?   - 鏃ュ父杩愯惀娴佺▼
+   - 椤圭洰寮€鍙戞祦绋?   - 搴旀€ュ搷搴旀祦绋?
+3. 鑷畾涔夊伐浣滄祦
+   - 娴佺▼璁捐鍘熷垯
+   - 閰嶇疆鏂规硶
+   - 浼樺寲鎶€宸?
+**瀹炶返娲诲姩**:
+- 宸ヤ綔娴侀厤缃粌涔?- 娴佺▼浼樺寲璁ㄨ
+- 鏈€浣冲疄璺靛垎浜?
+### 妯″潡5: 鏁呴殰鎺掗櫎 (2灏忔椂)
+**瀛︿範鐩爣**: 鍏峰鍩烘湰鐨勬晠闅滆瘖鏂拰澶勭悊鑳藉姏
 
-3. 自定义工作流
-   - 流程设计原则
-   - 配置方法
-   - 优化技巧
+**鍐呭澶х翰**:
+1. 甯歌闂
+   - 绯荤粺鍚姩闂
+   - 鏅鸿兘浣撴棤鍝嶅簲
+   - MCP鏈嶅姟鏁呴殰
+   - 鎬ц兘闂
 
-**实践活动**:
-- 工作流配置练习
-- 流程优化讨论
-- 最佳实践分享
+2. 璇婃柇鏂规硶
+   - 鏃ュ織鍒嗘瀽
+   - 鐘舵€佹鏌?   - 鎬ц兘鐩戞帶
+   - 缃戠粶璇婃柇
 
-### 模块5: 故障排除 (2小时)
-**学习目标**: 具备基本的故障诊断和处理能力
+3. 瑙ｅ喅鏂规
+   - 閲嶅惎鏈嶅姟
+   - 閰嶇疆淇
+   - 璧勬簮璋冩暣
+   - 鍗囩骇鏇存柊
 
-**内容大纲**:
-1. 常见问题
-   - 系统启动问题
-   - 智能体无响应
-   - MCP服务故障
-   - 性能问题
+**瀹炶返娲诲姩**:
+- 鏁呴殰妯℃嫙缁冧範
+- 璇婃柇宸ュ叿浣跨敤
+- 瑙ｅ喅鏂规瀹炴柦
 
-2. 诊断方法
-   - 日志分析
-   - 状态检查
-   - 性能监控
-   - 网络诊断
+### 妯″潡6: 绯荤粺缁存姢 (1灏忔椂)
+**瀛︿範鐩爣**: 鎺屾彙鏃ュ父缁存姢鎿嶄綔
 
-3. 解决方案
-   - 重启服务
-   - 配置修复
-   - 资源调整
-   - 升级更新
+**鍐呭澶х翰**:
+1. 鏃ュ父缁存姢
+   - 绯荤粺鐩戞帶
+   - 鏃ュ織绠＄悊
+   - 澶囦唤鎭㈠
+   - 鎬ц兘浼樺寲
 
-**实践活动**:
-- 故障模拟练习
-- 诊断工具使用
-- 解决方案实施
+2. 瀹夊叏绠＄悊
+   - 鏉冮檺鎺у埗
+   - 瀵嗛挜绠＄悊
+   - 瀹夊叏鏇存柊
+   - 瀹¤鏃ュ織
 
-### 模块6: 系统维护 (1小时)
-**学习目标**: 掌握日常维护操作
+**瀹炶返娲诲姩**:
+- 缁存姢鎿嶄綔婕旂粌
+- 瀹夊叏妫€鏌ョ粌涔?- 鏈€浣冲疄璺佃璁?
+## 鍩硅鏂瑰紡
+- **鐞嗚璁茶В**: 40%
+- **瀹炶返鎿嶄綔**: 50%
+- **璁ㄨ浜ゆ祦**: 10%
 
-**内容大纲**:
-1. 日常维护
-   - 系统监控
-   - 日志管理
-   - 备份恢复
-   - 性能优化
+## 鍩硅璧勬簮
+- 鍩硅PPT
+- 鎿嶄綔鎵嬪唽
+- 瑙嗛鏁欑▼
+- 鍦ㄧ嚎鏂囨。
+- 缁冧範鐜
 
-2. 安全管理
-   - 权限控制
-   - 密钥管理
-   - 安全更新
-   - 审计日志
+## 鑰冩牳鏂瑰紡
+1. **鐞嗚鑰冭瘯** (30%)
+   - 閫夋嫨棰? 20棰?   - 绠€绛旈: 5棰?
+2. **瀹炶返鎿嶄綔** (50%)
+   - 鏅鸿兘浣撴搷浣?   - MCP宸ュ叿浣跨敤
+   - 鏁呴殰澶勭悊
 
-**实践活动**:
-- 维护操作演练
-- 安全检查练习
-- 最佳实践讨论
+3. **椤圭洰浣滀笟** (20%)
+   - 宸ヤ綔娴佽璁?   - 闂瑙ｅ喅鏂规
 
-## 培训方式
-- **理论讲解**: 40%
-- **实践操作**: 50%
-- **讨论交流**: 10%
-
-## 培训资源
-- 培训PPT
-- 操作手册
-- 视频教程
-- 在线文档
-- 练习环境
-
-## 考核方式
-1. **理论考试** (30%)
-   - 选择题: 20题
-   - 简答题: 5题
-
-2. **实践操作** (50%)
-   - 智能体操作
-   - MCP工具使用
-   - 故障处理
-
-3. **项目作业** (20%)
-   - 工作流设计
-   - 问题解决方案
-
-## 认证标准
-- 总分≥80分: 获得认证证书
-- 总分60-79分: 获得参与证书
-- 总分<60分: 需要重新培训
-
+## 璁よ瘉鏍囧噯
+- 鎬诲垎鈮?0鍒? 鑾峰緱璁よ瘉璇佷功
+- 鎬诲垎60-79鍒? 鑾峰緱鍙備笌璇佷功
+- 鎬诲垎<60鍒? 闇€瑕侀噸鏂板煿璁?
 ---
-*培训大纲版本: v1.0*
-*制定日期: {datetime.now().strftime('%Y-%m-%d')}*
+*鍩硅澶х翰鐗堟湰: v1.0*
+*鍒跺畾鏃ユ湡: {datetime.now().strftime('%Y-%m-%d')}*
 """
         
         outline_path = self.training_path / "Materials" / "training_outline.md"
         with open(outline_path, 'w', encoding='utf-8') as f:
             f.write(training_outline)
         
-        # 创建练习题
-        exercises = """# Trae平台培训练习题
+        # 鍒涘缓缁冧範棰?        exercises = """# Trae骞冲彴鍩硅缁冧範棰?
+## 鐞嗚鐭ヨ瘑缁冧範
 
-## 理论知识练习
+### 閫夋嫨棰?
+1. Trae骞冲彴鍖呭惈鍑犱釜鏍稿績鏅鸿兘浣擄紵
+   A. 2涓? B. 3涓? C. 4涓? D. 5涓?   **绛旀: B**
 
-### 选择题
+2. CEO鏅鸿兘浣撶殑涓昏鑱岃矗鏄粈涔堬紵
+   A. 浠ｇ爜寮€鍙? B. 鎴樼暐鍐崇瓥  C. 绯荤粺缁存姢  D. 鏁版嵁鍒嗘瀽
+   **绛旀: B**
 
-1. Trae平台包含几个核心智能体？
-   A. 2个  B. 3个  C. 4个  D. 5个
-   **答案: B**
+3. MCP宸ュ叿闆嗙兢鍖呭惈鍝簺宸ュ叿锛?   A. GitHub, Excel  B. GitHub, Excel, FileSystem  
+   C. GitHub, Excel, FileSystem, Database, Builder  D. 浠ヤ笂閮戒笉瀵?   **绛旀: C**
 
-2. CEO智能体的主要职责是什么？
-   A. 代码开发  B. 战略决策  C. 系统维护  D. 数据分析
-   **答案: B**
+4. 鍗忎綔宸ヤ綔娴佺殑绫诲瀷鍖呮嫭锛?   A. 鏃ュ父杩愯惀  B. 椤圭洰寮€鍙? C. 搴旀€ュ搷搴? D. 浠ヤ笂閮芥槸
+   **绛旀: D**
 
-3. MCP工具集群包含哪些工具？
-   A. GitHub, Excel  B. GitHub, Excel, FileSystem  
-   C. GitHub, Excel, FileSystem, Database, Builder  D. 以上都不对
-   **答案: C**
+5. 绯荤粺鏃ュ織鏂囦欢浣嶄簬鍝釜鐩綍锛?   A. /logs  B. /03-proc/logs  C. /system/logs  D. /var/logs
+   **绛旀: A**
 
-4. 协作工作流的类型包括：
-   A. 日常运营  B. 项目开发  C. 应急响应  D. 以上都是
-   **答案: D**
+### 绠€绛旈
 
-5. 系统日志文件位于哪个目录？
-   A. /logs  B. /03-proc/logs  C. /system/logs  D. /var/logs
-   **答案: A**
+1. **璇风畝杩癟rae骞冲彴鐨勭郴缁熸灦鏋?*
+   **鍙傝€冪瓟妗?*: 
+   Trae骞冲彴閲囩敤鍒嗗眰鏋舵瀯璁捐锛屽寘鍚洓涓富瑕佸眰娆★細
+   - 鏅鸿兘浣撳眰锛欳EO銆丏evTeamLead銆丷esourceAdmin涓変釜鏅鸿兘浣?   - 鍗忎綔灞傦細宸ヤ綔娴佸紩鎿庛€佹秷鎭€氫俊銆佺姸鎬佸悓姝?   - MCP宸ュ叿灞傦細GitHub銆丒xcel銆丗ileSystem绛夊伐鍏烽泦缇?   - 鍩虹璁炬柦灞傦細閰嶇疆绠＄悊銆佹棩蹇楃郴缁熴€佺洃鎺у憡璀?
+2. **鎻忚堪CEO鏅鸿兘浣撶殑涓昏鍔熻兘**
+   **鍙傝€冪瓟妗?*:
+   CEO鏅鸿兘浣撲富瑕佽礋璐ｏ細
+   - 鎴樼暐鍐崇瓥鍒跺畾
+   - 鍥㈤槦鍗忚皟绠＄悊
+   - 椤圭洰鐩戠潱鎺у埗
+   - 缁╂晥璇勪及鍒嗘瀽
+   - 璧勬簮鍒嗛厤鍐崇瓥
 
-### 简答题
+3. **濡備綍澶勭悊MCP鏈嶅姟鏃犲搷搴旂殑闂锛?*
+   **鍙傝€冪瓟妗?*:
+   澶勭悊姝ラ锛?   1. 妫€鏌CP闆嗙兢鐘舵€?   2. 鏌ョ湅鐩稿叧鏃ュ織鏂囦欢
+   3. 閲嶅惎瀵瑰簲鐨凪CP鏈嶅姟
+   4. 楠岃瘉鏈嶅姟鎭㈠鐘舵€?   5. 濡傞棶棰樻寔缁紝妫€鏌ラ厤缃拰渚濊禆
 
-1. **请简述Trae平台的系统架构**
-   **参考答案**: 
-   Trae平台采用分层架构设计，包含四个主要层次：
-   - 智能体层：CEO、DevTeamLead、ResourceAdmin三个智能体
-   - 协作层：工作流引擎、消息通信、状态同步
-   - MCP工具层：GitHub、Excel、FileSystem等工具集群
-   - 基础设施层：配置管理、日志系统、监控告警
+## 瀹炶返鎿嶄綔缁冧範
 
-2. **描述CEO智能体的主要功能**
-   **参考答案**:
-   CEO智能体主要负责：
-   - 战略决策制定
-   - 团队协调管理
-   - 项目监督控制
-   - 绩效评估分析
-   - 资源分配决策
+### 缁冧範1: 鏅鸿兘浣撳熀鏈搷浣?**鐩爣**: 鐔熸倝鏅鸿兘浣撶殑鍩烘湰鎿嶄綔鐣岄潰
 
-3. **如何处理MCP服务无响应的问题？**
-   **参考答案**:
-   处理步骤：
-   1. 检查MCP集群状态
-   2. 查看相关日志文件
-   3. 重启对应的MCP服务
-   4. 验证服务恢复状态
-   5. 如问题持续，检查配置和依赖
+**姝ラ**:
+1. 鍚姩Trae骞冲彴
+2. 鐧诲綍CEO鏅鸿兘浣?3. 鏌ョ湅褰撳墠浠诲姟鍒楄〃
+4. 鍒涘缓涓€涓柊鐨勫喅绛栦换鍔?5. 鍒囨崲鍒癉evTeamLead鏅鸿兘浣?6. 鏌ョ湅寮€鍙戜换鍔＄姸鎬?
+**楠岃瘉鐐?*:
+- [ ] 鎴愬姛鍚姩绯荤粺
+- [ ] 姝ｇ‘鐧诲綍鏅鸿兘浣?- [ ] 鑳藉鏌ョ湅鍜屽垱寤轰换鍔?- [ ] 鏅鸿兘浣撳垏鎹㈡甯?
+### 缁冧範2: MCP宸ュ叿浣跨敤
+**鐩爣**: 鎺屾彙MCP宸ュ叿鐨勫熀鏈搷浣?
+**姝ラ**:
+1. 浣跨敤GitHub MCP鍒涘缓鏂颁粨搴?2. 鎻愪氦涓€涓祴璇曟枃浠?3. 浣跨敤Excel MCP澶勭悊鏁版嵁鏂囦欢
+4. 鐢熸垚鏁版嵁鍒嗘瀽鎶ヨ〃
+5. 浣跨敤FileSystem MCP绠＄悊鏂囦欢
 
-## 实践操作练习
+**楠岃瘉鐐?*:
+- [ ] 鎴愬姛鍒涘缓GitHub浠撳簱
+- [ ] 鏂囦欢鎻愪氦鎴愬姛
+- [ ] Excel鏁版嵁澶勭悊姝ｇ‘
+- [ ] 鎶ヨ〃鐢熸垚瀹屾暣
+- [ ] 鏂囦欢鎿嶄綔鏃犺
 
-### 练习1: 智能体基本操作
-**目标**: 熟悉智能体的基本操作界面
+### 缁冧範3: 鍗忎綔宸ヤ綔娴侀厤缃?**鐩爣**: 瀛︿細閰嶇疆鍜屼娇鐢ㄥ崗浣滃伐浣滄祦
 
-**步骤**:
-1. 启动Trae平台
-2. 登录CEO智能体
-3. 查看当前任务列表
-4. 创建一个新的决策任务
-5. 切换到DevTeamLead智能体
-6. 查看开发任务状态
+**姝ラ**:
+1. 璁捐涓€涓畝鍗曠殑椤圭洰宸ヤ綔娴?2. 閰嶇疆宸ヤ綔娴佸弬鏁?3. 鍚姩宸ヤ綔娴佹墽琛?4. 鐩戞帶鎵ц鐘舵€?5. 澶勭悊寮傚父鎯呭喌
 
-**验证点**:
-- [ ] 成功启动系统
-- [ ] 正确登录智能体
-- [ ] 能够查看和创建任务
-- [ ] 智能体切换正常
+**楠岃瘉鐐?*:
+- [ ] 宸ヤ綔娴佽璁″悎鐞?- [ ] 閰嶇疆鍙傛暟姝ｇ‘
+- [ ] 鎵ц杩囩▼椤虹晠
+- [ ] 鐘舵€佺洃鎺ф湁鏁?- [ ] 寮傚父澶勭悊寰楀綋
 
-### 练习2: MCP工具使用
-**目标**: 掌握MCP工具的基本操作
+### 缁冧範4: 鏁呴殰璇婃柇
+**鐩爣**: 鍩瑰吇鏁呴殰璇婃柇鍜屽鐞嗚兘鍔?
+**妯℃嫙鏁呴殰**:
+1. 鏅鸿兘浣撴湇鍔″仠姝?2. MCP杩炴帴瓒呮椂
+3. 閰嶇疆鏂囦欢閿欒
+4. 纾佺洏绌洪棿涓嶈冻
 
-**步骤**:
-1. 使用GitHub MCP创建新仓库
-2. 提交一个测试文件
-3. 使用Excel MCP处理数据文件
-4. 生成数据分析报表
-5. 使用FileSystem MCP管理文件
+**澶勭悊瑕佹眰**:
+1. 蹇€熻瘑鍒棶棰?2. 鍒嗘瀽闂鍘熷洜
+3. 鍒跺畾瑙ｅ喅鏂规
+4. 瀹炴柦淇鎺柦
+5. 楠岃瘉淇鏁堟灉
 
-**验证点**:
-- [ ] 成功创建GitHub仓库
-- [ ] 文件提交成功
-- [ ] Excel数据处理正确
-- [ ] 报表生成完整
-- [ ] 文件操作无误
+**璇勫垎鏍囧噯**:
+- 闂璇嗗埆閫熷害 (25%)
+- 鍘熷洜鍒嗘瀽鍑嗙‘鎬?(25%)
+- 瑙ｅ喅鏂规鍚堢悊鎬?(25%)
+- 淇鏁堟灉 (25%)
 
-### 练习3: 协作工作流配置
-**目标**: 学会配置和使用协作工作流
+## 椤圭洰浣滀笟
 
-**步骤**:
-1. 设计一个简单的项目工作流
-2. 配置工作流参数
-3. 启动工作流执行
-4. 监控执行状态
-5. 处理异常情况
+### 浣滀笟1: 宸ヤ綔娴佽璁?**瑕佹眰**: 涓轰竴涓疄闄呴」鐩璁″畬鏁寸殑鍗忎綔宸ヤ綔娴?
+**浜や粯鐗?*:
+1. 宸ヤ綔娴佽璁℃枃妗?2. 閰嶇疆鏂囦欢
+3. 娴嬭瘯鎶ュ憡
+4. 浼樺寲寤鸿
 
-**验证点**:
-- [ ] 工作流设计合理
-- [ ] 配置参数正确
-- [ ] 执行过程顺畅
-- [ ] 状态监控有效
-- [ ] 异常处理得当
+**璇勫垎鏍囧噯**:
+- 璁捐鍚堢悊鎬?(30%)
+- 鍙搷浣滄€?(30%)
+- 鏂囨。瀹屾暣鎬?(20%)
+- 鍒涙柊鎬?(20%)
 
-### 练习4: 故障诊断
-**目标**: 培养故障诊断和处理能力
+### 浣滀笟2: 闂瑙ｅ喅鏂规
+**瑕佹眰**: 閽堝缁欏畾鐨勭郴缁熼棶棰橈紝鎻愪緵瀹屾暣鐨勮В鍐虫柟妗?
+**闂鍦烘櫙**:
+"绯荤粺鍦ㄩ珮璐熻浇鎯呭喌涓嬶紝鏅鸿兘浣撳搷搴旂紦鎱紝閮ㄥ垎MCP鏈嶅姟鍑虹幇瓒呮椂"
 
-**模拟故障**:
-1. 智能体服务停止
-2. MCP连接超时
-3. 配置文件错误
-4. 磁盘空间不足
+**浜や粯鐗?*:
+1. 闂鍒嗘瀽鎶ュ憡
+2. 瑙ｅ喅鏂规璁捐
+3. 瀹炴柦璁″垝
+4. 椋庨櫓璇勪及
 
-**处理要求**:
-1. 快速识别问题
-2. 分析问题原因
-3. 制定解决方案
-4. 实施修复措施
-5. 验证修复效果
-
-**评分标准**:
-- 问题识别速度 (25%)
-- 原因分析准确性 (25%)
-- 解决方案合理性 (25%)
-- 修复效果 (25%)
-
-## 项目作业
-
-### 作业1: 工作流设计
-**要求**: 为一个实际项目设计完整的协作工作流
-
-**交付物**:
-1. 工作流设计文档
-2. 配置文件
-3. 测试报告
-4. 优化建议
-
-**评分标准**:
-- 设计合理性 (30%)
-- 可操作性 (30%)
-- 文档完整性 (20%)
-- 创新性 (20%)
-
-### 作业2: 问题解决方案
-**要求**: 针对给定的系统问题，提供完整的解决方案
-
-**问题场景**:
-"系统在高负载情况下，智能体响应缓慢，部分MCP服务出现超时"
-
-**交付物**:
-1. 问题分析报告
-2. 解决方案设计
-3. 实施计划
-4. 风险评估
-
-**评分标准**:
-- 问题分析深度 (25%)
-- 解决方案可行性 (35%)
-- 实施计划详细程度 (25%)
-- 风险控制措施 (15%)
+**璇勫垎鏍囧噯**:
+- 闂鍒嗘瀽娣卞害 (25%)
+- 瑙ｅ喅鏂规鍙鎬?(35%)
+- 瀹炴柦璁″垝璇︾粏绋嬪害 (25%)
+- 椋庨櫓鎺у埗鎺柦 (15%)
 
 ---
-*练习题版本: v1.0*
-*出题日期: {datetime.now().strftime('%Y-%m-%d')}*
+*缁冧範棰樼増鏈? v1.0*
+*鍑洪鏃ユ湡: {datetime.now().strftime('%Y-%m-%d')}*
 """
         
         exercises_path = self.training_path / "Exercises" / "training_exercises.md"
         with open(exercises_path, 'w', encoding='utf-8') as f:
             f.write(exercises)
         
-        print(f"✅ 培训材料创建完成")
+        print(f"鉁?鍩硅鏉愭枡鍒涘缓瀹屾垚")
         return True
     
     def create_troubleshooting_guide(self):
-        """创建故障排除指南"""
-        print("🔧 创建故障排除指南...")
+        """鍒涘缓鏁呴殰鎺掗櫎鎸囧崡"""
+        print("馃敡 鍒涘缓鏁呴殰鎺掗櫎鎸囧崡...")
         
-        troubleshooting_guide = """# Trae平台故障排除指南
+        troubleshooting_guide = """# Trae骞冲彴鏁呴殰鎺掗櫎鎸囧崡
 
-## 快速诊断检查清单
+## 蹇€熻瘖鏂鏌ユ竻鍗?
+### 绯荤粺鍚姩闂
+- [ ] 妫€鏌ython鐜鏄惁姝ｇ‘
+- [ ] 楠岃瘉渚濊禆鍖呮槸鍚﹀畬鏁村畨瑁?- [ ] 纭閰嶇疆鏂囦欢鏍煎紡姝ｇ‘
+- [ ] 妫€鏌ョ鍙ｆ槸鍚﹁鍗犵敤
+- [ ] 楠岃瘉鏂囦欢鏉冮檺璁剧疆
 
-### 系统启动问题
-- [ ] 检查Python环境是否正确
-- [ ] 验证依赖包是否完整安装
-- [ ] 确认配置文件格式正确
-- [ ] 检查端口是否被占用
-- [ ] 验证文件权限设置
+### 鏅鸿兘浣撴棤鍝嶅簲
+- [ ] 妫€鏌ユ櫤鑳戒綋杩涚▼鐘舵€?- [ ] 鏌ョ湅鏅鸿兘浣撴棩蹇楁枃浠?- [ ] 楠岃瘉閰嶇疆鏂囦欢瀹屾暣鎬?- [ ] 妫€鏌ュ唴瀛樺拰CPU浣跨敤鐜?- [ ] 娴嬭瘯缃戠粶杩炴帴
 
-### 智能体无响应
-- [ ] 检查智能体进程状态
-- [ ] 查看智能体日志文件
-- [ ] 验证配置文件完整性
-- [ ] 检查内存和CPU使用率
-- [ ] 测试网络连接
+### MCP鏈嶅姟鏁呴殰
+- [ ] 妫€鏌CP鏈嶅姟杩涚▼
+- [ ] 楠岃瘉MCP閰嶇疆鏂囦欢
+- [ ] 娴嬭瘯MCP杩炴帴
+- [ ] 妫€鏌ヤ緷璧栨湇鍔＄姸鎬?- [ ] 鏌ョ湅MCP鏃ュ織
 
-### MCP服务故障
-- [ ] 检查MCP服务进程
-- [ ] 验证MCP配置文件
-- [ ] 测试MCP连接
-- [ ] 检查依赖服务状态
-- [ ] 查看MCP日志
+## 璇︾粏鏁呴殰鎺掗櫎
 
-## 详细故障排除
+### 1. 绯荤粺鍚姩澶辫触
 
-### 1. 系统启动失败
+#### 鐥囩姸鎻忚堪
+- 绯荤粺鏃犳硶鍚姩
+- 鍚姩杩囩▼涓嚭鐜伴敊璇?- 鏈嶅姟鍚姩鍚庣珛鍗抽€€鍑?
+#### 鍙兘鍘熷洜
+1. **Python鐜闂**
+   - Python鐗堟湰涓嶅吋瀹?   - 铏氭嫙鐜鏈縺娲?   - 璺緞閰嶇疆閿欒
 
-#### 症状描述
-- 系统无法启动
-- 启动过程中出现错误
-- 服务启动后立即退出
+2. **渚濊禆鍖呴棶棰?*
+   - 蹇呴渶鍖呮湭瀹夎
+   - 鍖呯増鏈啿绐?   - 鍖呮崯鍧?
+3. **閰嶇疆鏂囦欢闂**
+   - 閰嶇疆鏂囦欢鏍煎紡閿欒
+   - 蹇呴渶閰嶇疆椤圭己澶?   - 璺緞閰嶇疆閿欒
 
-#### 可能原因
-1. **Python环境问题**
-   - Python版本不兼容
-   - 虚拟环境未激活
-   - 路径配置错误
+#### 瑙ｅ喅姝ラ
 
-2. **依赖包问题**
-   - 必需包未安装
-   - 包版本冲突
-   - 包损坏
-
-3. **配置文件问题**
-   - 配置文件格式错误
-   - 必需配置项缺失
-   - 路径配置错误
-
-#### 解决步骤
-
-**步骤1: 检查Python环境**
+**姝ラ1: 妫€鏌ython鐜**
 ```bash
-# 检查Python版本
+# 妫€鏌ython鐗堟湰
 python --version
 
-# 检查虚拟环境
-which python
+# 妫€鏌ヨ櫄鎷熺幆澧?which python
 pip list
 
-# 激活虚拟环境
-cd S:/YDS-Lab
+# 婵€娲昏櫄鎷熺幆澧?cd S:/YDS-Lab
 .venv/Scripts/activate
 ```
 
-**步骤2: 验证依赖包**
+**姝ラ2: 楠岃瘉渚濊禆鍖?*
 ```bash
-# 检查依赖包
+# 妫€鏌ヤ緷璧栧寘
 pip check
 
-# 重新安装依赖
+# 閲嶆柊瀹夎渚濊禆
 pip install -r requirements.txt
 
-# 检查特定包
+# 妫€鏌ョ壒瀹氬寘
 pip show package_name
 ```
 
-**步骤3: 验证配置文件**
+**姝ラ3: 楠岃瘉閰嶇疆鏂囦欢**
 ```bash
-# 检查配置文件语法
-python -c "import yaml; yaml.safe_load(open('config.yaml'))"
+# 妫€鏌ラ厤缃枃浠惰娉?python -c "import yaml; yaml.safe_load(open('config.yaml'))"
 
-# 验证配置完整性
-python tools/check_config.py
+# 楠岃瘉閰嶇疆瀹屾暣鎬?python tools/check_config.py
 ```
 
-### 2. 智能体无响应
+### 2. 鏅鸿兘浣撴棤鍝嶅簲
 
-#### 症状描述
-- 智能体不响应请求
-- 操作界面无反应
-- 任务执行卡住
+#### 鐥囩姸鎻忚堪
+- 鏅鸿兘浣撲笉鍝嶅簲璇锋眰
+- 鎿嶄綔鐣岄潰鏃犲弽搴?- 浠诲姟鎵ц鍗′綇
 
-#### 可能原因
-1. **进程问题**
-   - 智能体进程崩溃
-   - 进程僵死
-   - 内存不足
+#### 鍙兘鍘熷洜
+1. **杩涚▼闂**
+   - 鏅鸿兘浣撹繘绋嬪穿婧?   - 杩涚▼鍍垫
+   - 鍐呭瓨涓嶈冻
 
-2. **配置问题**
-   - 智能体配置错误
-   - 权限设置问题
-   - 网络配置错误
+2. **閰嶇疆闂**
+   - 鏅鸿兘浣撻厤缃敊璇?   - 鏉冮檺璁剧疆闂
+   - 缃戠粶閰嶇疆閿欒
 
-3. **资源问题**
-   - CPU使用率过高
-   - 内存不足
-   - 磁盘空间不足
+3. **璧勬簮闂**
+   - CPU浣跨敤鐜囪繃楂?   - 鍐呭瓨涓嶈冻
+   - 纾佺洏绌洪棿涓嶈冻
 
-#### 解决步骤
+#### 瑙ｅ喅姝ラ
 
-**步骤1: 检查进程状态**
+**姝ラ1: 妫€鏌ヨ繘绋嬬姸鎬?*
 ```bash
-# 检查智能体进程
+# 妫€鏌ユ櫤鑳戒綋杩涚▼
 Get-Process | Where-Object {$_.ProcessName -like "*agent*"}
 
-# 检查端口占用
-netstat -ano | findstr :8000
+# 妫€鏌ョ鍙ｅ崰鐢?netstat -ano | findstr :8000
 
-# 检查系统资源
-Get-WmiObject -Class Win32_Processor | Measure-Object -Property LoadPercentage -Average
+# 妫€鏌ョ郴缁熻祫婧?Get-WmiObject -Class Win32_Processor | Measure-Object -Property LoadPercentage -Average
 ```
 
-**步骤2: 重启智能体**
+**姝ラ2: 閲嶅惎鏅鸿兘浣?*
 ```bash
-# 停止智能体
-cd S:/YDS-Lab/tools/scripts
+# 鍋滄鏅鸿兘浣?cd S:/YDS-Lab/tools/scripts
 ./stop_agents.bat
 
-# 启动智能体
-./start_agents.bat
+# 鍚姩鏅鸿兘浣?./start_agents.bat
 
-# 检查启动状态
-./check_agent_status.bat
+# 妫€鏌ュ惎鍔ㄧ姸鎬?./check_agent_status.bat
 ```
 
-**步骤3: 检查日志**
+**姝ラ3: 妫€鏌ユ棩蹇?*
 ```bash
-# 查看智能体日志
-Get-Content S:/YDS-Lab/01-struc/0B-general-manager/logs/agents/ceo.log -Tail 50
+# 鏌ョ湅鏅鸿兘浣撴棩蹇?Get-Content S:/YDS-Lab/01-struc/0B-general-manager/logs/Agents/01-ceo.log -Tail 50
 
-# 查看系统日志
+# 鏌ョ湅绯荤粺鏃ュ織
 Get-Content S:/YDS-Lab/01-struc/0B-general-manager/logs/system.log -Tail 50
 ```
 
-### 3. MCP服务故障
+### 3. MCP鏈嶅姟鏁呴殰
 
-#### 症状描述
-- MCP工具无法使用
-- 连接超时错误
-- 功能执行失败
+#### 鐥囩姸鎻忚堪
+- MCP宸ュ叿鏃犳硶浣跨敤
+- 杩炴帴瓒呮椂閿欒
+- 鍔熻兘鎵ц澶辫触
 
-#### 可能原因
-1. **服务问题**
-   - MCP服务未启动
-   - 服务配置错误
-   - 依赖服务故障
+#### 鍙兘鍘熷洜
+1. **鏈嶅姟闂**
+   - MCP鏈嶅姟鏈惎鍔?   - 鏈嶅姟閰嶇疆閿欒
+   - 渚濊禆鏈嶅姟鏁呴殰
 
-2. **网络问题**
-   - 端口被占用
-   - 防火墙阻止
-   - 网络连接问题
+2. **缃戠粶闂**
+   - 绔彛琚崰鐢?   - 闃茬伀澧欓樆姝?   - 缃戠粶杩炴帴闂
 
-3. **认证问题**
-   - API密钥错误
-   - 权限不足
-   - 认证过期
+3. **璁よ瘉闂**
+   - API瀵嗛挜閿欒
+   - 鏉冮檺涓嶈冻
+   - 璁よ瘉杩囨湡
 
-#### 解决步骤
+#### 瑙ｅ喅姝ラ
 
-**步骤1: 检查MCP服务**
+**姝ラ1: 妫€鏌CP鏈嶅姟**
 ```bash
-# 检查MCP进程
+# 妫€鏌CP杩涚▼
 Get-Process | Where-Object {$_.ProcessName -like "*mcp*"}
 
-# 检查MCP配置
+# 妫€鏌CP閰嶇疆
 python tools/check_mcp_config.py
 
-# 测试MCP连接
+# 娴嬭瘯MCP杩炴帴
 python tools/test_mcp_connection.py
 ```
 
-**步骤2: 重启MCP服务**
+**姝ラ2: 閲嶅惎MCP鏈嶅姟**
 ```bash
-# 停止MCP集群
+# 鍋滄MCP闆嗙兢
 cd S:/YDS-Lab/01-struc/MCPCluster
 ./stop_mcp_cluster.bat
 
-# 启动MCP集群
+# 鍚姩MCP闆嗙兢
 ./start_mcp_cluster.bat
 
-# 验证服务状态
-./check_mcp_status.bat
+# 楠岃瘉鏈嶅姟鐘舵€?./check_mcp_status.bat
 ```
 
-**步骤3: 验证配置**
+**姝ラ3: 楠岃瘉閰嶇疆**
 ```bash
-# 检查GitHub MCP配置
+# 妫€鏌itHub MCP閰嶇疆
 cd S:/YDS-Lab/01-struc/MCPCluster/GitHub
 python github_mcp_server.py --check-config
 
-# 检查Excel MCP配置
+# 妫€鏌xcel MCP閰嶇疆
 cd S:/YDS-Lab/01-struc/MCPCluster/Excel
 python excel_mcp_server.py --check-config
 ```
 
-### 4. 性能问题
+### 4. 鎬ц兘闂
 
-#### 症状描述
-- 系统响应缓慢
-- 操作延迟严重
-- 资源使用率高
+#### 鐥囩姸鎻忚堪
+- 绯荤粺鍝嶅簲缂撴參
+- 鎿嶄綔寤惰繜涓ラ噸
+- 璧勬簮浣跨敤鐜囬珮
 
-#### 可能原因
-1. **资源不足**
-   - CPU使用率过高
-   - 内存不足
-   - 磁盘I/O瓶颈
+#### 鍙兘鍘熷洜
+1. **璧勬簮涓嶈冻**
+   - CPU浣跨敤鐜囪繃楂?   - 鍐呭瓨涓嶈冻
+   - 纾佺洏I/O鐡堕
 
-2. **配置问题**
-   - 并发设置不当
-   - 缓存配置错误
-   - 超时设置过短
+2. **閰嶇疆闂**
+   - 骞跺彂璁剧疆涓嶅綋
+   - 缂撳瓨閰嶇疆閿欒
+   - 瓒呮椂璁剧疆杩囩煭
 
-3. **数据问题**
-   - 数据量过大
-   - 查询效率低
-   - 缓存失效
+3. **鏁版嵁闂**
+   - 鏁版嵁閲忚繃澶?   - 鏌ヨ鏁堢巼浣?   - 缂撳瓨澶辨晥
 
-#### 解决步骤
+#### 瑙ｅ喅姝ラ
 
-**步骤1: 性能监控**
+**姝ラ1: 鎬ц兘鐩戞帶**
 ```bash
-# 监控系统资源
+# 鐩戞帶绯荤粺璧勬簮
 Get-Counter "\Processor(_Total)\% Processor Time"
 Get-Counter "\Memory\Available MBytes"
 
-# 监控进程资源
+# 鐩戞帶杩涚▼璧勬簮
 Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
 ```
 
-**步骤2: 优化配置**
+**姝ラ2: 浼樺寲閰嶇疆**
 ```yaml
-# 调整并发设置
+# 璋冩暣骞跺彂璁剧疆
 performance:
   max_concurrent_tasks: 10
   worker_threads: 4
   connection_pool_size: 20
 
-# 优化缓存配置
+# 浼樺寲缂撳瓨閰嶇疆
 cache:
   enabled: true
   max_size: 1000
   ttl: 3600
 ```
 
-**步骤3: 数据优化**
+**姝ラ3: 鏁版嵁浼樺寲**
 ```bash
-# 清理日志文件
+# 娓呯悊鏃ュ織鏂囦欢
 cd S:/YDS-Lab/01-struc/0B-general-manager/logs
 ./cleanup_logs.bat
 
-# 优化数据库
-python tools/optimize_database.py
+# 浼樺寲鏁版嵁搴?python tools/optimize_database.py
 
-# 重建索引
+# 閲嶅缓绱㈠紩
 python tools/rebuild_indexes.py
 ```
 
-## 常用诊断命令
+## 甯哥敤璇婃柇鍛戒护
 
-### 系统状态检查
-```bash
-# 检查系统整体状态
-python tools/system_health_check.py
+### 绯荤粺鐘舵€佹鏌?```bash
+# 妫€鏌ョ郴缁熸暣浣撶姸鎬?python tools/system_health_check.py
 
-# 检查服务状态
-python tools/service_status_check.py
+# 妫€鏌ユ湇鍔＄姸鎬?python tools/service_status_check.py
 
-# 检查配置完整性
-python tools/config_validation.py
+# 妫€鏌ラ厤缃畬鏁存€?python tools/config_validation.py
 ```
 
-### 日志分析
+### 鏃ュ織鍒嗘瀽
 ```bash
-# 查看错误日志
+# 鏌ョ湅閿欒鏃ュ織
 Get-Content S:/YDS-Lab/01-struc/0B-general-manager/logs/error.log | Select-String "ERROR"
 
-# 分析性能日志
+# 鍒嗘瀽鎬ц兘鏃ュ織
 python tools/analyze_performance_logs.py
 
-# 生成诊断报告
+# 鐢熸垚璇婃柇鎶ュ憡
 python tools/generate_diagnostic_report.py
 ```
 
-### 网络诊断
+### 缃戠粶璇婃柇
 ```bash
-# 测试网络连接
+# 娴嬭瘯缃戠粶杩炴帴
 Test-NetConnection localhost -Port 8000
 
-# 检查DNS解析
+# 妫€鏌NS瑙ｆ瀽
 nslookup github.com
 
-# 测试API连接
+# 娴嬭瘯API杩炴帴
 python tools/test_api_connectivity.py
 ```
 
-## 紧急联系信息
+## 绱ф€ヨ仈绯讳俊鎭?
+### 鎶€鏈敮鎸?- **绯荤粺绠＄悊鍛?*: admin@yds-lab.com
+- **鎶€鏈敮鎸?*: support@yds-lab.com
+- **绱ф€ョ儹绾?*: +86-xxx-xxxx-xxxx
 
-### 技术支持
-- **系统管理员**: admin@yds-lab.com
-- **技术支持**: support@yds-lab.com
-- **紧急热线**: +86-xxx-xxxx-xxxx
+### 鍗囩骇璺緞
+1. **涓€绾ф敮鎸?*: 鐜板満鎶€鏈汉鍛?2. **浜岀骇鏀寔**: 绯荤粺绠＄悊鍛?3. **涓夌骇鏀寔**: 寮€鍙戝洟闃?4. **绱ф€ユ敮鎸?*: 鎶€鏈€荤洃
 
-### 升级路径
-1. **一级支持**: 现场技术人员
-2. **二级支持**: 系统管理员
-3. **三级支持**: 开发团队
-4. **紧急支持**: 技术总监
-
-### 服务时间
-- **工作日**: 9:00-18:00
-- **紧急支持**: 24/7
-- **响应时间**: 
-  - 紧急问题: 30分钟内
-  - 一般问题: 2小时内
-  - 非紧急问题: 24小时内
-
+### 鏈嶅姟鏃堕棿
+- **宸ヤ綔鏃?*: 9:00-18:00
+- **绱ф€ユ敮鎸?*: 24/7
+- **鍝嶅簲鏃堕棿**: 
+  - 绱ф€ラ棶棰? 30鍒嗛挓鍐?  - 涓€鑸棶棰? 2灏忔椂鍐?  - 闈炵揣鎬ラ棶棰? 24灏忔椂鍐?
 ---
-*故障排除指南版本: v1.0*
-*最后更新: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*
+*鏁呴殰鎺掗櫎鎸囧崡鐗堟湰: v1.0*
+*鏈€鍚庢洿鏂? {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*
 """
         
         troubleshooting_path = self.docs_path / "Troubleshooting" / "troubleshooting_guide.md"
         with open(troubleshooting_path, 'w', encoding='utf-8') as f:
             f.write(troubleshooting_guide)
         
-        print(f"✅ 故障排除指南创建完成")
+        print(f"鉁?鏁呴殰鎺掗櫎鎸囧崡鍒涘缓瀹屾垚")
         return True
     
     def create_deployment_report(self):
-        """创建部署报告"""
-        print("📊 生成最终部署报告...")
+        """鍒涘缓閮ㄧ讲鎶ュ憡"""
+        print("馃搳 鐢熸垚鏈€缁堥儴缃叉姤鍛?..")
         
-        # 读取系统测试报告
-        # 报告路径统一至 04-prod/reports
+        # 璇诲彇绯荤粺娴嬭瘯鎶ュ憡
+        # 鎶ュ憡璺緞缁熶竴鑷?04-prod/reports
         reports_dir = self.base_path / "04-prod" / "reports"
         system_test_path = reports_dir / "system_test_report.json"
         mcp_validation_path = reports_dir / "mcp_validation_report.json"
@@ -1324,38 +1113,38 @@ python tools/test_api_connectivity.py
                 with open(production_report_path, 'r', encoding='utf-8') as f:
                     production_data = json.load(f)
         except Exception as e:
-            print(f"⚠️ 读取报告文件时出错: {e}")
+            print(f"鈿狅笍 璇诲彇鎶ュ憡鏂囦欢鏃跺嚭閿? {e}")
         
-        # 生成综合部署报告
+        # 鐢熸垚缁煎悎閮ㄧ讲鎶ュ憡
         final_report = {
             "deployment_summary": {
-                "project_name": "Trae平台智能体系统",
+                "project_name": "Trae骞冲彴鏅鸿兘浣撶郴缁?,
                 "version": "v2.0",
                 "deployment_date": datetime.now().isoformat(),
-                "deployment_status": "成功",
+                "deployment_status": "鎴愬姛",
                 "overall_success_rate": "95%"
             },
             "system_components": {
                 "intelligent_agents": {
-                    "ceo_agent": "已部署",
-                    "devteam_lead_agent": "已部署", 
-                    "resource_admin_agent": "已部署",
-                    "status": "全部正常运行"
+                    "ceo_agent": "宸查儴缃?,
+                    "devteam_lead_agent": "宸查儴缃?, 
+                    "resource_admin_agent": "宸查儴缃?,
+                    "status": "鍏ㄩ儴姝ｅ父杩愯"
                 },
                 "mcp_cluster": {
-                    "github_mcp": "已部署",
-                    "excel_mcp": "已部署",
-                    "filesystem_mcp": "已部署",
-                    "database_mcp": "已部署",
-                    "builder_mcp": "已部署",
-                    "figma_mcp": "部分功能受限",
-                    "overall_status": "91.67%可用"
+                    "github_mcp": "宸查儴缃?,
+                    "excel_mcp": "宸查儴缃?,
+                    "filesystem_mcp": "宸查儴缃?,
+                    "database_mcp": "宸查儴缃?,
+                    "builder_mcp": "宸查儴缃?,
+                    "figma_mcp": "閮ㄥ垎鍔熻兘鍙楅檺",
+                    "overall_status": "91.67%鍙敤"
                 },
                 "collaboration_workflows": {
-                    "daily_operations": "已配置",
-                    "project_development": "已配置",
-                    "emergency_response": "已配置",
-                    "status": "全部就绪"
+                    "daily_operations": "宸查厤缃?,
+                    "project_development": "宸查厤缃?,
+                    "emergency_response": "宸查厤缃?,
+                    "status": "鍏ㄩ儴灏辩华"
                 }
             },
             "test_results": {
@@ -1364,231 +1153,192 @@ python tools/test_api_connectivity.py
                 "production_validation": production_data.get("validation", {})
             },
             "documentation_status": {
-                "user_guide": "已完成",
-                "technical_docs": "已完成",
-                "api_reference": "已完成",
-                "training_materials": "已完成",
-                "troubleshooting_guide": "已完成",
+                "user_guide": "宸插畬鎴?,
+                "technical_docs": "宸插畬鎴?,
+                "api_reference": "宸插畬鎴?,
+                "training_materials": "宸插畬鎴?,
+                "troubleshooting_guide": "宸插畬鎴?,
                 "completion_rate": "100%"
             },
             "training_readiness": {
-                "training_outline": "已准备",
-                "exercise_materials": "已准备",
-                "assessment_tools": "已准备",
-                "instructor_resources": "已准备",
-                "readiness_level": "完全就绪"
+                "training_outline": "宸插噯澶?,
+                "exercise_materials": "宸插噯澶?,
+                "assessment_tools": "宸插噯澶?,
+                "instructor_resources": "宸插噯澶?,
+                "readiness_level": "瀹屽叏灏辩华"
             },
             "known_issues": [
                 {
-                    "issue": "Figma MCP依赖缺失",
-                    "impact": "低",
-                    "status": "已记录",
-                    "workaround": "使用替代设计工具"
+                    "issue": "Figma MCP渚濊禆缂哄け",
+                    "impact": "浣?,
+                    "status": "宸茶褰?,
+                    "workaround": "浣跨敤鏇夸唬璁捐宸ュ叿"
                 }
             ],
             "recommendations": [
-                "定期监控系统性能指标",
-                "建立定期备份机制",
-                "持续更新安全补丁",
-                "开展用户培训计划",
-                "建立反馈收集机制"
+                "瀹氭湡鐩戞帶绯荤粺鎬ц兘鎸囨爣",
+                "寤虹珛瀹氭湡澶囦唤鏈哄埗",
+                "鎸佺画鏇存柊瀹夊叏琛ヤ竵",
+                "寮€灞曠敤鎴峰煿璁鍒?,
+                "寤虹珛鍙嶉鏀堕泦鏈哄埗"
             ],
             "next_steps": [
-                "开展团队培训",
-                "收集用户反馈",
-                "性能优化",
-                "功能增强",
-                "安全加固"
+                "寮€灞曞洟闃熷煿璁?,
+                "鏀堕泦鐢ㄦ埛鍙嶉",
+                "鎬ц兘浼樺寲",
+                "鍔熻兘澧炲己",
+                "瀹夊叏鍔犲浐"
             ]
         }
         
-        # 保存最终报告
-        final_report_path = self.docs_path / "final_deployment_report.json"
+        # 淇濆瓨鏈€缁堟姤鍛?        final_report_path = self.docs_path / "final_deployment_report.json"
         with open(final_report_path, 'w', encoding='utf-8') as f:
             json.dump(final_report, f, ensure_ascii=False, indent=2)
         
-        # 生成可读性报告
-        readable_report = f"""# Trae平台智能体系统最终部署报告
+        # 鐢熸垚鍙鎬ф姤鍛?        readable_report = f"""# Trae骞冲彴鏅鸿兘浣撶郴缁熸渶缁堥儴缃叉姤鍛?
+## 椤圭洰姒傝堪
+- **椤圭洰鍚嶇О**: Trae骞冲彴鏅鸿兘浣撶郴缁?- **鐗堟湰**: v2.0
+- **閮ㄧ讲鏃ユ湡**: {datetime.now().strftime('%Y骞?m鏈?d鏃?)}
+- **閮ㄧ讲鐘舵€?*: 鉁?鎴愬姛
+- **鏁翠綋鎴愬姛鐜?*: 95%
 
-## 项目概述
-- **项目名称**: Trae平台智能体系统
-- **版本**: v2.0
-- **部署日期**: {datetime.now().strftime('%Y年%m月%d日')}
-- **部署状态**: ✅ 成功
-- **整体成功率**: 95%
+## 閮ㄧ讲鎴愭灉
 
-## 部署成果
+### 馃 鏅鸿兘浣撶郴缁?- 鉁?CEO鏅鸿兘浣?- 鎴樼暐鍐崇瓥鍜屽洟闃熷崗璋?- 鉁?DevTeamLead鏅鸿兘浣?- 寮€鍙戝洟闃熺鐞?- 鉁?ResourceAdmin鏅鸿兘浣?- 璧勬簮绠＄悊鍜岀郴缁熺淮鎶?- **鐘舵€?*: 鍏ㄩ儴姝ｅ父杩愯
 
-### 🤖 智能体系统
-- ✅ CEO智能体 - 战略决策和团队协调
-- ✅ DevTeamLead智能体 - 开发团队管理
-- ✅ ResourceAdmin智能体 - 资源管理和系统维护
-- **状态**: 全部正常运行
+### 馃敡 MCP宸ュ叿闆嗙兢
+- 鉁?GitHub MCP - 浠ｇ爜浠撳簱绠＄悊
+- 鉁?Excel MCP - 鏁版嵁澶勭悊鍜屽垎鏋?- 鉁?FileSystem MCP - 鏂囦欢绯荤粺鎿嶄綔
+- 鉁?Database MCP - 鏁版嵁搴撶鐞?- 鉁?Builder MCP - 鏋勫缓鍜岄儴缃?- 鈿狅笍 Figma MCP - 閮ㄥ垎鍔熻兘鍙楅檺
+- **鏁翠綋鍙敤鐜?*: 91.67%
 
-### 🔧 MCP工具集群
-- ✅ GitHub MCP - 代码仓库管理
-- ✅ Excel MCP - 数据处理和分析
-- ✅ FileSystem MCP - 文件系统操作
-- ✅ Database MCP - 数据库管理
-- ✅ Builder MCP - 构建和部署
-- ⚠️ Figma MCP - 部分功能受限
-- **整体可用率**: 91.67%
+### 馃攧 鍗忎綔宸ヤ綔娴?- 鉁?鏃ュ父杩愯惀宸ヤ綔娴?- 鉁?椤圭洰寮€鍙戝伐浣滄祦
+- 鉁?搴旀€ュ搷搴斿伐浣滄祦
+- **鐘舵€?*: 鍏ㄩ儴閰嶇疆瀹屾垚骞跺氨缁?
+## 娴嬭瘯缁撴灉
 
-### 🔄 协作工作流
-- ✅ 日常运营工作流
-- ✅ 项目开发工作流
-- ✅ 应急响应工作流
-- **状态**: 全部配置完成并就绪
+### 绯荤粺娴嬭瘯
+- **鐜瀹屾暣鎬?*: 鉁?閫氳繃
+- **鏅鸿兘浣撻厤缃?*: 鉁?閫氳繃
+- **鍗忎綔鏈哄埗**: 鉁?閫氳繃
+- **宸ヤ綔鍖哄姛鑳?*: 鉁?閫氳繃
+- **MCP闆嗙兢**: 鉁?閫氳繃
+- **鎬ц兘鍩哄噯**: 鉁?閫氳繃
+- **瀹夊叏鍔熻兘**: 鉁?閫氳繃
+- **瀹归敊鑳藉姏**: 鉁?閫氳繃
 
-## 测试结果
+### MCP闆嗘垚楠岃瘉
+- **鏈嶅姟鍣ㄩ獙璇?*: 83.33% 閫氳繃鐜?- **闆嗘垚娴嬭瘯**: 100% 閫氳繃鐜?- **鏁翠綋鎴愬姛鐜?*: 91.67%
 
-### 系统测试
-- **环境完整性**: ✅ 通过
-- **智能体配置**: ✅ 通过
-- **协作机制**: ✅ 通过
-- **工作区功能**: ✅ 通过
-- **MCP集群**: ✅ 通过
-- **性能基准**: ✅ 通过
-- **安全功能**: ✅ 通过
-- **容错能力**: ✅ 通过
+## 鏂囨。浜や粯
 
-### MCP集成验证
-- **服务器验证**: 83.33% 通过率
-- **集成测试**: 100% 通过率
-- **整体成功率**: 91.67%
+### 馃摎 鐢ㄦ埛鏂囨。
+- 鉁?鐢ㄦ埛鎸囧崡 - 瀹屾暣鐨勬搷浣滄墜鍐?- 鉁?蹇€熷紑濮嬫寚鍗?- 鏂扮敤鎴峰叆闂?- 鉁?甯歌闂瑙ｇ瓟 - 闂瑙ｅ喅鏂规
 
-## 文档交付
+### 馃敡 鎶€鏈枃妗?- 鉁?绯荤粺鏋舵瀯鏂囨。 - 璇︾粏鐨勬灦鏋勮鏄?- 鉁?API鍙傝€冩枃妗?- 瀹屾暣鐨凙PI璇存槑
+- 鉁?閰嶇疆鎸囧崡 - 绯荤粺閰嶇疆璇存槑
 
-### 📚 用户文档
-- ✅ 用户指南 - 完整的操作手册
-- ✅ 快速开始指南 - 新用户入门
-- ✅ 常见问题解答 - 问题解决方案
+### 馃帗 鍩硅鏉愭枡
+- 鉁?鍩硅澶х翰 - 6涓ā鍧楋紝14灏忔椂璇剧▼
+- 鉁?缁冧範棰樺簱 - 鐞嗚鍜屽疄璺电粌涔?- 鉁?璇勪及宸ュ叿 - 鑰冩牳鍜岃璇佹爣鍑?
+### 馃敡 杩愮淮鏂囨。
+- 鉁?鏁呴殰鎺掗櫎鎸囧崡 - 璇︾粏鐨勯棶棰樿瘖鏂拰瑙ｅ喅鏂规
+- 鉁?缁存姢鎵嬪唽 - 鏃ュ父缁存姢鎿嶄綔鎸囧崡
+- 鉁?鐩戞帶鎸囧崡 - 绯荤粺鐩戞帶鍜屽憡璀﹂厤缃?
+## 宸茬煡闂
 
-### 🔧 技术文档
-- ✅ 系统架构文档 - 详细的架构说明
-- ✅ API参考文档 - 完整的API说明
-- ✅ 配置指南 - 系统配置说明
+### 馃煛 Figma MCP渚濊禆缂哄け
+- **褰卞搷绋嬪害**: 浣?- **鐘舵€?*: 宸茶褰?- **瑙ｅ喅鏂规**: 浣跨敤鏇夸唬璁捐宸ュ叿鎴栨墜鍔ㄥ畨瑁呬緷璧?
+## 寤鸿鍜屽悗缁楠?
+### 馃挕 杩愯惀寤鸿
+1. **鎬ц兘鐩戞帶**: 寤虹珛瀹氭湡鐨勭郴缁熸€ц兘鐩戞帶鏈哄埗
+2. **澶囦唤绛栫暐**: 瀹炴柦鑷姩鍖栫殑鏁版嵁澶囦唤鍜屾仮澶嶆祦绋?3. **瀹夊叏鏇存柊**: 瀹氭湡鏇存柊绯荤粺瀹夊叏琛ヤ竵鍜屼緷璧栧寘
+4. **鐢ㄦ埛鍩硅**: 鎸夎鍒掑紑灞曞洟闃熷煿璁紝纭繚鐢ㄦ埛鐔熺粌浣跨敤
+5. **鍙嶉鏈哄埗**: 寤虹珛鐢ㄦ埛鍙嶉鏀堕泦鍜屽鐞嗘満鍒?
+### 馃殌 鍚庣画璁″垝
+1. **绗竴闃舵** (1-2鍛?: 寮€灞曞洟闃熷煿璁紝鏀堕泦鍒濇湡浣跨敤鍙嶉
+2. **绗簩闃舵** (1涓湀): 鏍规嵁鍙嶉杩涜绯荤粺浼樺寲鍜屽姛鑳藉畬鍠?3. **绗笁闃舵** (3涓湀): 鎬ц兘浼樺寲锛屽鍔犳柊鍔熻兘鐗规€?4. **绗洓闃舵** (6涓湀): 瀹夊叏鍔犲浐锛屾墿灞曢泦鎴愯兘鍔?
+## 椤圭洰鍥㈤槦
 
-### 🎓 培训材料
-- ✅ 培训大纲 - 6个模块，14小时课程
-- ✅ 练习题库 - 理论和实践练习
-- ✅ 评估工具 - 考核和认证标准
+### 馃弳 鏍稿績璐＄尞
+- **椤圭洰璐熻矗浜?*: YDS-Lab鎶€鏈洟闃?- **绯荤粺鏋舵瀯**: 鏅鸿兘浣撳崗浣滄灦鏋勮璁?- **寮€鍙戝疄鏂?*: MCP宸ュ叿闆嗙兢寮€鍙?- **娴嬭瘯楠岃瘉**: 鍏ㄩ潰鐨勭郴缁熸祴璇曞拰楠岃瘉
+- **鏂囨。缂栧啓**: 瀹屾暣鐨勭敤鎴峰拰鎶€鏈枃妗?
+## 鎬荤粨
 
-### 🔧 运维文档
-- ✅ 故障排除指南 - 详细的问题诊断和解决方案
-- ✅ 维护手册 - 日常维护操作指南
-- ✅ 监控指南 - 系统监控和告警配置
+Trae骞冲彴鏅鸿兘浣撶郴缁焩2.0宸叉垚鍔熼儴缃插苟鎶曞叆浣跨敤銆傜郴缁熷叿澶囷細
 
-## 已知问题
+鉁?**瀹屾暣鐨勬櫤鑳戒綋鍗忎綔鑳藉姏**
+鉁?**寮哄ぇ鐨凪CP宸ュ叿闆嗘垚**
+鉁?**鐏垫椿鐨勫伐浣滄祦閰嶇疆**
+鉁?**鍏ㄩ潰鐨勬枃妗ｆ敮鎸?*
+鉁?**瀹屽杽鐨勫煿璁綋绯?*
 
-### 🟡 Figma MCP依赖缺失
-- **影响程度**: 低
-- **状态**: 已记录
-- **解决方案**: 使用替代设计工具或手动安装依赖
-
-## 建议和后续步骤
-
-### 💡 运营建议
-1. **性能监控**: 建立定期的系统性能监控机制
-2. **备份策略**: 实施自动化的数据备份和恢复流程
-3. **安全更新**: 定期更新系统安全补丁和依赖包
-4. **用户培训**: 按计划开展团队培训，确保用户熟练使用
-5. **反馈机制**: 建立用户反馈收集和处理机制
-
-### 🚀 后续计划
-1. **第一阶段** (1-2周): 开展团队培训，收集初期使用反馈
-2. **第二阶段** (1个月): 根据反馈进行系统优化和功能完善
-3. **第三阶段** (3个月): 性能优化，增加新功能特性
-4. **第四阶段** (6个月): 安全加固，扩展集成能力
-
-## 项目团队
-
-### 🏆 核心贡献
-- **项目负责人**: YDS-Lab技术团队
-- **系统架构**: 智能体协作架构设计
-- **开发实施**: MCP工具集群开发
-- **测试验证**: 全面的系统测试和验证
-- **文档编写**: 完整的用户和技术文档
-
-## 总结
-
-Trae平台智能体系统v2.0已成功部署并投入使用。系统具备：
-
-✅ **完整的智能体协作能力**
-✅ **强大的MCP工具集成**
-✅ **灵活的工作流配置**
-✅ **全面的文档支持**
-✅ **完善的培训体系**
-
-系统整体运行稳定，功能完备，文档齐全，已具备生产环境使用条件。建议按计划开展用户培训，并持续收集反馈进行优化改进。
-
+绯荤粺鏁翠綋杩愯绋冲畾锛屽姛鑳藉畬澶囷紝鏂囨。榻愬叏锛屽凡鍏峰鐢熶骇鐜浣跨敤鏉′欢銆傚缓璁寜璁″垝寮€灞曠敤鎴峰煿璁紝骞舵寔缁敹闆嗗弽棣堣繘琛屼紭鍖栨敼杩涖€?
 ---
-**报告生成时间**: {datetime.now().strftime('%Y年%m月%d日 %H:%M:%S')}
-**报告版本**: v1.0
-**状态**: 项目成功交付 🎉
+**鎶ュ憡鐢熸垚鏃堕棿**: {datetime.now().strftime('%Y骞?m鏈?d鏃?%H:%M:%S')}
+**鎶ュ憡鐗堟湰**: v1.0
+**鐘舵€?*: 椤圭洰鎴愬姛浜や粯 馃帀
 """
         
         readable_report_path = self.docs_path / "final_deployment_report.md"
         with open(readable_report_path, 'w', encoding='utf-8') as f:
             f.write(readable_report)
         
-        print(f"✅ 最终部署报告生成完成")
+        print(f"鉁?鏈€缁堥儴缃叉姤鍛婄敓鎴愬畬鎴?)
         return final_report
     
     def run_training_documentation(self):
-        """运行完整的培训文档创建流程"""
-        print("🎯 开始创建团队培训和文档更新...")
+        """杩愯瀹屾暣鐨勫煿璁枃妗ｅ垱寤烘祦绋?""
+        print("馃幆 寮€濮嬪垱寤哄洟闃熷煿璁拰鏂囨。鏇存柊...")
         print("=" * 60)
         
         try:
-            # 1. 创建文档结构
+            # 1. 鍒涘缓鏂囨。缁撴瀯
             self.create_documentation_structure()
             
-            # 2. 创建用户指南
+            # 2. 鍒涘缓鐢ㄦ埛鎸囧崡
             self.create_user_guide()
             
-            # 3. 创建技术文档
-            self.create_technical_documentation()
+            # 3. 鍒涘缓鎶€鏈枃妗?            self.create_technical_documentation()
             
-            # 4. 创建培训材料
+            # 4. 鍒涘缓鍩硅鏉愭枡
             self.create_training_materials()
             
-            # 5. 创建故障排除指南
+            # 5. 鍒涘缓鏁呴殰鎺掗櫎鎸囧崡
             self.create_troubleshooting_guide()
             
-            # 6. 生成最终部署报告
-            final_report = self.create_deployment_report()
+            # 6. 鐢熸垚鏈€缁堥儴缃叉姤鍛?            final_report = self.create_deployment_report()
             
             print("\n" + "=" * 60)
-            print("🎉 团队培训和文档更新完成！")
-            print("\n📋 交付清单:")
-            print("✅ 用户指南和操作手册")
-            print("✅ 技术文档和API参考")
-            print("✅ 培训大纲和练习材料")
-            print("✅ 故障排除和维护指南")
-            print("✅ 最终部署报告")
+            print("馃帀 鍥㈤槦鍩硅鍜屾枃妗ｆ洿鏂板畬鎴愶紒")
+            print("\n馃搵 浜や粯娓呭崟:")
+            print("鉁?鐢ㄦ埛鎸囧崡鍜屾搷浣滄墜鍐?)
+            print("鉁?鎶€鏈枃妗ｅ拰API鍙傝€?)
+            print("鉁?鍩硅澶х翰鍜岀粌涔犳潗鏂?)
+            print("鉁?鏁呴殰鎺掗櫎鍜岀淮鎶ゆ寚鍗?)
+            print("鉁?鏈€缁堥儴缃叉姤鍛?)
             
-            print(f"\n📁 文档位置:")
-            print(f"📚 用户文档: {self.docs_path}")
-            print(f"🎓 培训材料: {self.training_path}")
+            print(f"\n馃搧 鏂囨。浣嶇疆:")
+            print(f"馃摎 鐢ㄦ埛鏂囨。: {self.docs_path}")
+            print(f"馃帗 鍩硅鏉愭枡: {self.training_path}")
             
             return True
             
         except Exception as e:
-            print(f"❌ 创建过程中出现错误: {e}")
+            print(f"鉂?鍒涘缓杩囩▼涓嚭鐜伴敊璇? {e}")
             return False
 
 def main():
-    """主函数"""
+    """涓诲嚱鏁?""
     manager = TrainingDocumentationManager()
     success = manager.run_training_documentation()
     
     if success:
-        print("\n🚀 Trae平台智能体系统已完全就绪！")
-        print("📖 请查看Documentation目录获取完整文档")
-        print("🎓 请查看Training目录获取培训材料")
+        print("\n馃殌 Trae骞冲彴鏅鸿兘浣撶郴缁熷凡瀹屽叏灏辩华锛?)
+        print("馃摉 璇锋煡鐪婦ocumentation鐩綍鑾峰彇瀹屾暣鏂囨。")
+        print("馃帗 璇锋煡鐪婽raining鐩綍鑾峰彇鍩硅鏉愭枡")
     else:
-        print("\n❌ 文档创建过程中出现问题，请检查错误信息")
+        print("\n鉂?鏂囨。鍒涘缓杩囩▼涓嚭鐜伴棶棰橈紝璇锋鏌ラ敊璇俊鎭?)
 
 if __name__ == "__main__":
     main()

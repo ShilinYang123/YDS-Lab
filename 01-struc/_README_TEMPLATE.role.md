@@ -1,46 +1,35 @@
-# 顶层角色目录 README 模板
+﻿# 椤跺眰瑙掕壊鐩綍 README 妯℃澘
 
-将本模板复制到目标角色目录并按需替换尖括号中的占位符。
-
-示例文件名：`README.md`
+灏嗘湰妯℃澘澶嶅埗鍒扮洰鏍囪鑹茬洰褰曞苟鎸夐渶鏇挎崲灏栨嫭鍙蜂腑鐨勫崰浣嶇銆?
+绀轰緥鏂囦欢鍚嶏細`README.md`
 
 ---
 
 # <ROLE_DIR_NAME>
 
-<ROLE_CN_NAME>（<ROLE_EN_NAME>）
+<ROLE_CN_NAME>锛?ROLE_EN_NAME>锛?
+鐩綍瀹氫綅涓庤亴璐?- <鑱岃矗涓€>
+- <鑱岃矗浜?
+- <鑱岃矗涓?
 
-目录定位与职责
-- <职责一>
-- <职责二>
-- <职责三>
+缁勭粐鍗忎綔鎺ュ彛
+- 鍏宠仈鍙墽琛岃鑹诧細<渚嬪 `01-struc/Agents/01-ceo/` 鎴?`01-struc/Agents/05-resource_admin/`>
+- 宸ヤ綔娴佸弬鑰冿細`01-struc/Agents/collaboration_workflows.yaml`
 
-组织协作接口
-- 关联可执行角色：<例如 `01-struc/Agents/ceo/` 或 `01-struc/Agents/resource_admin/`>
-- 工作流参考：`01-struc/Agents/collaboration_workflows.yaml`
+鏂囨。涓庢棩蹇楀綊妗?- 缁熶竴鏂囨。褰掓。璺緞锛歚01-struc/docs/`
+- 缁熶竴鏃ュ織褰掓。璺緞锛歚01-struc/0B-general-manager/logs/`
+- 寤鸿鍦ㄦ湰鐩綍寤虹珛 `notes/` 鐢ㄤ簬鍔炲叕瀹ゅ蹇橈紱鐢熶骇鏂囨。涓庢棩蹇楃粺涓€褰掓。鑷充互涓婅矾寰勩€?
+璺緞绾﹀畾
+- 涓ョ浣跨敤鏃ц矾寰?`GeneralOffice/Docs`锛涘凡缁熶竴涓?`01-struc/docs/` 涓?`01-struc/0B-general-manager/logs/`
+- Windows 缁濆璺緞绀轰緥锛歚S:\\YDS-Lab\\01-struc\\docs\\`
 
-文档与日志归档
-- 统一文档归档路径：`01-struc/docs/`
-- 统一日志归档路径：`01-struc/0B-general-manager/logs/`
-- 建议在本目录建立 `notes/` 用于办公室备忘；生产文档与日志统一归档至以上路径。
+杩愯鍙備笌璇存槑
+- 鏈洰褰曢€氬父涓嶅寘鍚彲鎵ц浠ｇ爜锛涙墽琛岀敱鐩稿叧 Agents 瀹屾垚銆?
+鐗堟湰涓庡浠?- 鍘嗗彶澶囦唤浣嶄簬 `backups/legacy/`锛屼笉鍙備笌杩愯锛涜瑙?`backups/legacy/README.md`銆?- 濡傞渶鎭㈠鍘嗗彶鍐呭锛岃鍦ㄥ彉鏇磋褰曚腑娉ㄦ槑鏉ユ簮涓庢棩鏈熴€?
+蹇€熺储寮?- 鐩稿叧 Agents 鍏ュ彛锛歚01-struc/Agents/<agent_name>/`
+- 鍗忎綔宸ヤ綔娴侊細`01-struc/Agents/collaboration_workflows.yaml`
+- 缁熶竴鏂囨。褰掓。锛歚01-struc/docs/`
+- 缁熶竴鏃ュ織锛歚01-struc/0B-general-manager/logs/`
 
-路径约定
-- 严禁使用旧路径 `GeneralOffice/Docs`；已统一为 `01-struc/docs/` 与 `01-struc/0B-general-manager/logs/`
-- Windows 绝对路径示例：`S:\\YDS-Lab\\01-struc\\docs\\`
-
-运行参与说明
-- 本目录通常不包含可执行代码；执行由相关 Agents 完成。
-
-版本与备份
-- 历史备份位于 `backups/legacy/`，不参与运行；详见 `backups/legacy/README.md`。
-- 如需恢复历史内容，请在变更记录中注明来源与日期。
-
-快速索引
-- 相关 Agents 入口：`01-struc/Agents/<agent_name>/`
-- 协作工作流：`01-struc/Agents/collaboration_workflows.yaml`
-- 统一文档归档：`01-struc/docs/`
-- 统一日志：`01-struc/0B-general-manager/logs/`
-
-Trae 平台适配说明
-- 与平台协作规范保持一致：提示词统一使用 YAML 多行块标量；路径引用统一为 `01-struc/docs/` 与 `01-struc/0B-general-manager/logs/`。
-- 需要平台验证时，使用 `tools/final_system_validation.py` 进行一致性检查。
+Trae 骞冲彴閫傞厤璇存槑
+- 涓庡钩鍙板崗浣滆鑼冧繚鎸佷竴鑷达細鎻愮ず璇嶇粺涓€浣跨敤 YAML 澶氳鍧楁爣閲忥紱璺緞寮曠敤缁熶竴涓?`01-struc/docs/` 涓?`01-struc/0B-general-manager/logs/`銆?- 闇€瑕佸钩鍙伴獙璇佹椂锛屼娇鐢?`tools/final_system_validation.py` 杩涜涓€鑷存€ф鏌ャ€

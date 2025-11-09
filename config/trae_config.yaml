@@ -1,59 +1,56 @@
-# YDS-Lab Trae平台配置文件
-# 版本: V2.0 - Trae适配版
-# 创建时间: 2025-11-01
+﻿# YDS-Lab Trae骞冲彴閰嶇疆鏂囦欢
+# 鐗堟湰: V2.0 - Trae閫傞厤鐗?# 鍒涘缓鏃堕棿: 2025-11-01
 
 platform:
   name: "YDS-Lab Trae Platform"
   version: "2.0.0"
   environment: "development"
   
-# Trae智能体配置
-agents:
+# Trae鏅鸿兘浣撻厤缃?agents:
   ceo:
-    name: "总经理智能体"
+    name: "鎬荤粡鐞嗘櫤鑳戒綋"
     role: "CEO"
-    capabilities: ["战略决策", "团队协调", "业务规划"]
-    workspace: "01-struc/Agents/ceo"
+    capabilities: ["鎴樼暐鍐崇瓥", "鍥㈤槦鍗忚皟", "涓氬姟瑙勫垝"]
+    workspace: "01-struc/Agents/01-ceo"
     
   planning_director:
-    name: "企划总监智能体"
+    name: "浼佸垝鎬荤洃鏅鸿兘浣?
     role: "PlanningDirector"
-    capabilities: ["项目规划", "需求分析", "方案设计"]
+    capabilities: ["椤圭洰瑙勫垝", "闇€姹傚垎鏋?, "鏂规璁捐"]
     workspace: "01-struc/Agents/PlanningDirector"
     
   finance_director:
-    name: "财务总监智能体"
+    name: "璐㈠姟鎬荤洃鏅鸿兘浣?
     role: "FinanceDirector"
-    capabilities: ["财务分析", "预算管理", "成本控制"]
+    capabilities: ["璐㈠姟鍒嗘瀽", "棰勭畻绠＄悊", "鎴愭湰鎺у埗"]
     workspace: "01-struc/Agents/FinanceDirector"
     
   dev_team_lead:
-    name: "开发团队负责人智能体"
+    name: "寮€鍙戝洟闃熻礋璐ｄ汉鏅鸿兘浣?
     role: "DevTeamLead"
-    capabilities: ["技术架构", "代码审查", "团队管理"]
-    workspace: "01-struc/Agents/dev_team"
+    capabilities: ["鎶€鏈灦鏋?, "浠ｇ爜瀹℃煡", "鍥㈤槦绠＄悊"]
+    workspace: "01-struc/Agents/06-dev_team"
     
   marketing_director:
-    name: "市场总监智能体"
+    name: "甯傚満鎬荤洃鏅鸿兘浣?
     role: "MarketingDirector"
-    capabilities: ["市场分析", "推广策略", "用户研究"]
+    capabilities: ["甯傚満鍒嗘瀽", "鎺ㄥ箍绛栫暐", "鐢ㄦ埛鐮旂┒"]
     workspace: "01-struc/Agents/MarketingDirector"
     
   resource_admin:
-    name: "资源行政智能体"
+    name: "璧勬簮琛屾斂鏅鸿兘浣?
     role: "ResourceAdmin"
-    capabilities: ["资源管理", "行政支持", "文档管理"]
-    workspace: "01-struc/Agents/resource_admin"
+    capabilities: ["璧勬簮绠＄悊", "琛屾斂鏀寔", "鏂囨。绠＄悊"]
+    workspace: "01-struc/Agents/05-resource_admin"
 
-# 共享工作空间配置
+# 鍏变韩宸ヤ綔绌洪棿閰嶇疆
 shared_workspace:
   root: "01-struc/SharedWorkspace"
   
-# 新增结构化目录配置
-structured_directories:
+# 鏂板缁撴瀯鍖栫洰褰曢厤缃?structured_directories:
   workflow:
     root: "01-struc/Workflow"
-    project_delivery: "01-struc/Workflow/project_delivery"
+    project_delivery: "01-struc/docs/06-流程与交付"
     operation_promotion: "01-struc/Workflow/operation_promotion"
     finance_management: "01-struc/Workflow/finance_management"
     
@@ -71,67 +68,67 @@ structured_directories:
   audit_trails: "01-struc/0B-general-manager/logs/audit_trails"
     config: "01-struc/0B-general-manager/logs/log_config.yaml"
   projects: "01-struc/SharedWorkspace/Projects"
-  documents: "01-struc/SharedWorkspace/Documents"
-  templates: "01-struc/SharedWorkspace/Templates"
+  documents: "01-struc/docs/07-资料库"
+  templates: "01-struc/docs/05-模板库"
   collaboration: "01-struc/SharedWorkspace/Collaboration"
   knowledge_base: "01-struc/SharedWorkspace/KnowledgeBase"
 
-# MCP服务器集群配置
-mcp_cluster:
+# MCP鏈嶅姟鍣ㄩ泦缇ら厤缃?mcp_cluster:
   root: "tools/mcp/servers"
   servers:
     github:
       path: "tools/mcp/servers/GitHub"
       port: 3001
-      capabilities: ["代码管理", "版本控制", "协作开发"]
+      capabilities: ["浠ｇ爜绠＄悊", "鐗堟湰鎺у埗", "鍗忎綔寮€鍙?]
       
     excel:
       path: "tools/mcp/servers/Excel"
       port: 3002
-      capabilities: ["数据处理", "报表生成", "财务分析"]
+      capabilities: ["鏁版嵁澶勭悊", "鎶ヨ〃鐢熸垚", "璐㈠姟鍒嗘瀽"]
       
     figma:
       path: "tools/mcp/servers/Figma"
       port: 3003
-      capabilities: ["设计协作", "原型制作", "UI/UX设计"]
+      capabilities: ["璁捐鍗忎綔", "鍘熷瀷鍒朵綔", "UI/UX璁捐"]
       
     builder:
       path: "tools/mcp/servers/Builder"
       port: 3004
-      capabilities: ["代码生成", "自动化构建", "部署管理"]
+      capabilities: ["浠ｇ爜鐢熸垚", "鑷姩鍖栨瀯寤?, "閮ㄧ讲绠＄悊"]
       
     filesystem:
       path: "tools/mcp/servers/FileSystem"
       port: 3005
-      capabilities: ["文件管理", "存储服务", "备份恢复"]
+      capabilities: ["鏂囦欢绠＄悊", "瀛樺偍鏈嶅姟", "澶囦唤鎭㈠"]
       
     database:
       path: "tools/mcp/servers/Database"
       port: 3006
-      capabilities: ["数据存储", "查询服务", "数据分析"]
+      capabilities: ["鏁版嵁瀛樺偍", "鏌ヨ鏈嶅姟", "鏁版嵁鍒嗘瀽"]
 
-# 协作流程配置
+# 鍗忎綔娴佺▼閰嶇疆
 collaboration:
   meeting_schedule: "daily_9am"
-  communication_channels: ["Trae内置聊天", "共享文档", "项目看板"]
-  decision_making: "共识决策"
+  communication_channels: ["Trae鍐呯疆鑱婂ぉ", "鍏变韩鏂囨。", "椤圭洰鐪嬫澘"]
+  decision_making: "鍏辫瘑鍐崇瓥"
   
-# 系统集成配置
+# 绯荤粺闆嗘垚閰嶇疆
 integrations:
   trae_ide: true
   long_memory: true
   mcp_protocol: true
   
-# 监控和日志配置
-monitoring:
-  health_check_interval: 300  # 5分钟
+# 鐩戞帶鍜屾棩蹇楅厤缃?monitoring:
+  health_check_interval: 300  # 5鍒嗛挓
   log_level: "INFO"
   log_rotation: "daily"
   performance_metrics: true
 
-# 安全配置
+# 瀹夊叏閰嶇疆
 security:
   authentication: "trae_native"
   authorization: "role_based"
   data_encryption: true
   audit_logging: true
+
+

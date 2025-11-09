@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-17-MONITOR-ALERTING",
+  "name_cn": "监控与告警",
+  "module_dir": "01-struc/Agents/17-monitor_alerting",
+  "description_cn": "系统监控指标采集与告警规则执行。",
+  "responsibilities": ["指标采集", "告警规则执行", "通知"],
+  "interfaces": {
+    "tools": ["01-struc/Agents/17-monitor_alerting/tools.py"],
+    "configs": ["tools/LongMemory/metrics_fast.ps1"],
+    "depends_on": ["tools/LongMemory/**"],
+    "deliverables": ["告警事件", "通知记录", "指标报表"]
+  },
+  "inputs": ["系统日志", "运行指标"],
+  "outputs": ["告警通知", "指标报表"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-20-MEETINGROOM-HOST",
+  "name_cn": "会议室主持",
+  "module_dir": "01-struc/Agents/20-meetingroom_host",
+  "description_cn": "会议主持、议程推进、发言协调与纪要确认（仅按需启用）。",
+  "responsibilities": ["会议主持", "议程推进", "发言协调", "纪要确认"],
+  "interfaces": {
+    "tools": ["03-dev/002-meetingroom/servers/*"],
+    "configs": ["config/meetingroom_config.json"],
+    "depends_on": ["会议室服务（仅按需启用）"],
+    "deliverables": ["会议记录", "进度控制"]
+  },
+  "inputs": ["会议类型", "议程", "角色分配"],
+  "outputs": ["会议进度", "发言记录", "纪要确认"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

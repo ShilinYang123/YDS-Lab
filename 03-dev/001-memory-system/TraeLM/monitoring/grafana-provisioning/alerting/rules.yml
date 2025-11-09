@@ -1,0 +1,36 @@
+apiVersion: 1
+groups:
+  - name: TraeLM Alerts
+    folder: TraeLM
+    interval: 1m
+    rules:
+      - uid: traelm_python_exit_nonzero
+        title: TraeLM Python 健康脚本退出非 0
+        condition: C
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            model:
+              editorMode: code
+              expr: traelm_py_health_exit
+              instant: false
+              interval: ""
+              legendFormat: ""
+              maxDataPoints: 43200
+              range: true
+          - refId: B
+            datasourceUid: grafana
+            model:
+              expression: last(A)
+          - refId: C
+            datasourceUid: grafana
+            model:
+              expression: threshold(B, 0)
+        for: 1m
+        noDataState: NoData
+        execErrState: Error
+        annotations:
+          summary: Python 退出码非 0 持续 1 分钟
+        labels:
+          severity: critical
+        isPaused: false

@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-07-MARKETING-DIRECTOR",
+  "name_cn": "营销总监",
+  "module_dir": "01-struc/Agents/07-marketing_director",
+  "description_cn": "品牌与推广策略，市场传播与渠道运营。",
+  "responsibilities": ["品牌与推广", "市场传播", "渠道运营"],
+  "interfaces": {
+    "tools": ["tools/agents/run_collab.py"],
+    "configs": ["Docs/YDS-AI-战略规划/*"],
+    "depends_on": ["Docs/**"],
+    "deliverables": ["传播方案", "运营数据报表"]
+  },
+  "inputs": ["用户反馈", "竞品动态"],
+  "outputs": ["推广计划", "渠道策略"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

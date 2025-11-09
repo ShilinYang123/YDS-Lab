@@ -14,15 +14,14 @@ YDS-Lab 自动Git提交工具
 适配YDS-Lab项目Git工作流需求
 """
 
-import os
 import sys
 import json
 import subprocess
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple, Any
 import logging
-import re
+
 
 class YDSLabAutoPush:
     """YDS-Lab自动Git提交工具"""
@@ -65,6 +64,19 @@ class YDSLabAutoPush:
         # 大文件与黑名单后缀保护阈值（>10MB + 黑名单后缀则阻止提交）
         self.large_file_threshold = 10 * 1024 * 1024
         self.blacklist_exts = {'.exe', '.zip', '.7z', '.tar', '.iso'}
+
+    def emit_longmemory_event(self, event_type: str, topic: str, payload: Dict[str, Any]) -> None:
+        """调用 LongMemory 记录脚本（软依赖）。"""
+        try:
+            script = self.project_root / 'tools' / 'LongMemory' / 'record_event.py'
+            if not script.exists():
+                self.logger.debug(f"[LongMemory] 事件脚本未找到: {script}")
+                return
+            cmd = [sys.executable, str(script), '--type', event_type, '--topic', topic,
+                   '--source', 'tools/git/auto_push.py', '--payload', json.dumps(payload, ensure_ascii=False)]
+            subprocess.run(cmd, cwd=self.project_root, check=False)
+        except Exception as e:
+            self.logger.debug(f"[LongMemory] 写入事件失败（忽略）: {e}")
         
     def setup_logging(self):
         """设置日志系统"""
@@ -300,6 +312,28 @@ class YDSLabAutoPush:
             # 提交变更
             if not self.commit_changes(message):
                 return False
+            else:
+                # 记录提交事件
+                try:
+                    payload_commit = {
+                        'message': message,
+                        'counts': {
+                            'modified': len(status.get('modified', [])),
+                            'added': len(status.get('added', [])),
+                            'deleted': len(status.get('deleted', [])),
+                            'untracked': len(status.get('untracked', [])),
+                        },
+                        'files': {
+                            'modified': status.get('modified', []),
+                            'added': status.get('added', []),
+                            'deleted': status.get('deleted', []),
+                            'untracked': status.get('untracked', []),
+                        },
+                        'timestamp': datetime.now().isoformat(),
+                    }
+                    self.emit_longmemory_event('git_commit', 'yds.git', payload_commit)
+                except Exception:
+                    pass
             
             # 推送到远程
             if push:
@@ -307,6 +341,18 @@ class YDSLabAutoPush:
                 if not self.push_to_remote(remote, current_branch):
                     self.logger.warning("推送失败，但本地提交成功")
                     return True
+                else:
+                    # 记录推送事件
+                    try:
+                        payload_push = {
+                            'remote': remote,
+                            'branch': current_branch,
+                            'message': message,
+                            'timestamp': datetime.now().isoformat(),
+                        }
+                        self.emit_longmemory_event('git_push', 'yds.git', payload_push)
+                    except Exception:
+                        pass
             
             self.logger.info("自动Git提交流程完成")
             return True
@@ -339,6 +385,7 @@ class YDSLabAutoPush:
                 })
         
         return history
+
 
 def main():
     """主函数"""
@@ -389,6 +436,7 @@ def main():
     except Exception as e:
         print(f"程序执行失败: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

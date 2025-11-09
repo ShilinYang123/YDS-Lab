@@ -1,30 +1,7 @@
-/**
- * 知识图谱管理器
- * 负责协调记忆管理器和知识图谱的交互
- */
-
-import { EventEmitter } from 'events';
-import type { Memory, KnowledgeNode, KnowledgeEdge, MemoryContext, AnalysisResult } from '../../types/base';
-import { MemoryType, NodeType, EdgeType } from '../../types/base';
-import { MemoryManager } from './memory';
-import { KnowledgeGraph } from './graph';
-
-export interface KnowledgeGraphManagerOptions {
-  maxNodes?: number;
-  maxEdges?: number;
-  maxMemories?: number;
-  enableAutoCleanup?: boolean;
-  cleanupInterval?: number;
-  enablePeriodicAnalysis?: boolean;
-  analysisInterval?: number;
-  enableMemoryConsolidation?: boolean;
-  consolidationInterval?: number;
-}
-
-export interface GraphAnalysisResult {
-  nodeCount: number;
-  edgeCount: number;
-  degreeDistribution: Record<number, number>;
+﻿/**
+ * 鐭ヨ瘑鍥捐氨绠＄悊鍣?
+ * 璐熻矗鍗忚皟璁板繂绠＄悊鍣ㄥ拰鐭ヨ瘑鍥捐氨鐨勪氦浜?
+ *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, number>;
   componentCount: number;
   density: number;
   averageDegree: number;
@@ -38,55 +15,13 @@ export interface MemoryConsolidationResult {
 
 export interface KnowledgeExtractionResult {
   extractedNodes: KnowledgeNode[];
-  extractedEdges: KnowledgeEdge[];
-  confidence: number;
-}
-
-export class KnowledgeGraphManager extends EventEmitter {
-  private knowledgeGraph: KnowledgeGraph;
-  private memoryManager: MemoryManager;
-  private analysisInterval: NodeJS.Timeout | null = null;
-  private consolidationInterval: NodeJS.Timeout | null = null;
-  private snapshots?: Map<string, any>;
-
-  constructor(
-    memoryManager: MemoryManager,
-    knowledgeGraph: KnowledgeGraph
-  ) {
-    super();
-    this.memoryManager = memoryManager;
-    this.knowledgeGraph = knowledgeGraph;
-    this.setupEventHandlers();
-  }
-
-  private setupEventHandlers(): void {
-    // 监听记忆存储事件
-    this.memoryManager.on('memoryStored', async (memory: Memory) => {
-      await this.createKnowledgeLinksForMemory(memory);
-      this.emit('memoryLinked', { memory });
-    });
-
-    // 监听记忆删除事件
-    this.memoryManager.on('memoryDeleted', (memoryId: string) => {
-      this.removeKnowledgeLinksForMemory(memoryId);
-      this.emit('memoryUnlinked', { memoryId });
-    });
-
-    // 监听图谱变化事件
-    this.knowledgeGraph.on('nodeAdded', (node: KnowledgeNode) => {
-      this.emit('knowledgeNodeAdded', { node });
-    });
-
-    this.knowledgeGraph.on('edgeAdded', (edge: KnowledgeEdge) => {
-      this.emit('knowledgeEdgeAdded', { edge });
+  extractedEdges: KnowledgeEdge[]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, { edge });
     });
   }
 
   /**
-   * 存储记忆并创建知识关联
-   */
-  async storeMemoryWithKnowledge(
-    memory: Memory,
+   * 瀛樺偍璁板繂骞跺垱寤虹煡璇嗗叧鑱?
+   *发现  个连通分量,
     createKnowledgeLinks: boolean = true
   ): Promise<boolean> {
     const success = this.memoryManager.storeMemory(memory);
@@ -99,93 +34,24 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 为记忆创建知识关联
-   */
-  private async createKnowledgeLinksForMemory(memory: Memory): Promise<void> {
-    try {
-      // 创建记忆节点
-      const memoryNode: KnowledgeNode = {
-        id: `memory_${memory.id}`,
-        type: NodeType.MEMORY,
-        label: memory.content.substring(0, 50) + '...',
-        properties: {
-          memoryId: memory.id,
-          memoryType: memory.type,
-          importance: memory.importance,
-          tags: [],
-          createdAt: memory.createdAt
-        },
-        tags: [],
-        createdAt: new Date(),
-        updatedAt: new Date()
-      };
-
-      this.knowledgeGraph.addNode(memoryNode);
-
-      // 基于标签创建概念节点和关联
-      if (memory.tags && memory.tags.length > 0) {
-        for (const tag of memory.tags) {
-          await this.createConceptNodeAndLink(tag, memoryNode.id);
-        }
-      }
-
-      // 基于上下文创建关联
-      if (memory.context) {
-        await this.createContextualLinks(memory, memoryNode.id);
-      }
-
-      // 基于内容相似性创建关联
-      await this.createSimilarityLinks(memory, memoryNode.id);
-
-    } catch (error) {
-      console.error('Error creating knowledge links for memory:', error);
-      this.emit('error', { operation: 'createKnowledgeLinks', memory, error });
+   * 涓鸿蹇嗗垱寤虹煡璇嗗叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+          tags: []发现  个连通分量,发现  个连通分量,
+        tags: []发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, error });
     }
   }
 
   /**
-   * 创建概念节点和关联
-   */
-  private async createConceptNodeAndLink(concept: string, memoryNodeId: string): Promise<void> {
-    const conceptNodeId = `concept_${concept.toLowerCase().replace(/\s+/g, '_')}`;
-    
-    // 检查概念节点是否已存在
-    let conceptNode = this.knowledgeGraph.getNode(conceptNodeId);
-    
-    if (!conceptNode) {
-      conceptNode = {
-        id: conceptNodeId,
-        type: NodeType.CONCEPT,
-        label: concept,
-        properties: {
-          concept: concept,
-          relatedMemoryCount: 1
-        },
-        tags: [concept],
-        createdAt: new Date(),
+   * 鍒涘缓姒傚康鑺傜偣鍜屽叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+        tags: [concept]发现  个连通分量,发现  个连通分量,
         updatedAt: new Date()
       };
       this.knowledgeGraph.addNode(conceptNode);
     } else {
-      // 更新相关记忆数量
+      // 鏇存柊鐩稿叧璁板繂鏁伴噺
       conceptNode.properties['relatedMemoryCount'] = 
-        (conceptNode.properties['relatedMemoryCount'] || 0) + 1;
-      conceptNode.updatedAt = new Date();
-    }
-
-    // 创建记忆到概念的关联
-    const edge: KnowledgeEdge = {
-      id: `${memoryNodeId}_relates_to_${conceptNodeId}`,
-      sourceId: memoryNodeId,
-      targetId: conceptNodeId,
-      type: EdgeType.RELATES_TO,
-      weight: 1.0,
-      relationship: 'tagged_with',
-      properties: {
-        relationship: 'tagged_with'
-      },
-
-        createdAt: new Date(),
+        (conceptNode.properties['relatedMemoryCount']发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
 
@@ -193,65 +59,20 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 创建上下文关联
-   */
-  private async createContextualLinks(memory: Memory, memoryNodeId: string): Promise<void> {
-    const context = memory.context!;
-    
-    // 创建用户节点关联
-    if (context.userId) {
-      await this.createUserNodeAndLink(context.userId, memoryNodeId);
-    }
-
-    // 创建会话节点关联
-    if (context.sessionId) {
-      await this.createSessionNodeAndLink(context.sessionId, memoryNodeId, context.userId);
-    }
-
-    // 创建领域节点关联
-    if (context.domain) {
-      await this.createDomainNodeAndLink(context.domain, memoryNodeId);
-    }
-
-    // 创建任务节点关联
-    if (context.task) {
-      await this.createTaskNodeAndLink(context.task, memoryNodeId);
+   * 鍒涘缓涓婁笅鏂囧叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, memoryNodeId);
     }
   }
 
   /**
-   * 创建用户节点和关联
-   */
-  private async createUserNodeAndLink(userId: string, memoryNodeId: string): Promise<void> {
-    const userNodeId = `user_${userId}`;
-    
-    let userNode = this.knowledgeGraph.getNode(userNodeId);
-    if (!userNode) {
-      userNode = {
-        id: userNodeId,
-        type: NodeType.USER,
-        label: `User ${userId}`,
-        properties: {},
-        tags: [],
-        createdAt: new Date(),
+   * 鍒涘缓鐢ㄦ埛鑺傜偣鍜屽叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+        tags: []发现  个连通分量,发现  个连通分量,
         updatedAt: new Date()
       };
       this.knowledgeGraph.addNode(userNode);
     } else {
-      userNode.properties['memoryCount'] = (userNode.properties['memoryCount'] || 0) + 1;
-      userNode.updatedAt = new Date();
-    }
-
-    // 创建关联
-    const edge: KnowledgeEdge = {
-      id: `${memoryNodeId}_belongs_to_${userNodeId}`,
-      sourceId: memoryNodeId,
-      targetId: userNodeId,
-      type: EdgeType.BELONGS_TO,
-      weight: 1.0,
-      relationship: 'created_by',
-      properties: {},
-      createdAt: new Date(),
+      userNode.properties['memoryCount'] = (userNode.properties['memoryCount']发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
 
@@ -259,38 +80,14 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 创建会话节点和关联
-   */
-  private async createSessionNodeAndLink(sessionId: string, memoryNodeId: string, _userId?: string): Promise<void> {
-    const sessionNodeId = `session_${sessionId}`;
-    
-    let sessionNode = this.knowledgeGraph.getNode(sessionNodeId);
-    if (!sessionNode) {
-      sessionNode = {
-        id: sessionNodeId,
-        type: NodeType.SESSION,
-        label: `Session ${sessionId}`,
-        properties: {},
-        tags: [],
-        createdAt: new Date(),
+   * 鍒涘缓浼氳瘽鑺傜偣鍜屽叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+        tags: []发现  个连通分量,发现  个连通分量,
         updatedAt: new Date()
       };
       this.knowledgeGraph.addNode(sessionNode);
     } else {
-      sessionNode.properties['memoryCount'] = (sessionNode.properties['memoryCount'] || 0) + 1;
-      sessionNode.updatedAt = new Date();
-    }
-
-    // 创建关联
-    const edge: KnowledgeEdge = {
-      id: `${memoryNodeId}_in_session_${sessionNodeId}`,
-      sourceId: memoryNodeId,
-      targetId: sessionNodeId,
-      type: EdgeType.PART_OF,
-      weight: 1.0,
-      relationship: 'occurred_in',
-      properties: {},
-      createdAt: new Date(),
+      sessionNode.properties['memoryCount'] = (sessionNode.properties['memoryCount']发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
 
@@ -298,38 +95,14 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 创建领域节点和关联
-   */
-  private async createDomainNodeAndLink(domain: string, memoryNodeId: string): Promise<void> {
-    const domainNodeId = `domain_${domain.toLowerCase().replace(/\s+/g, '_')}`;
-    
-    let domainNode = this.knowledgeGraph.getNode(domainNodeId);
-    if (!domainNode) {
-      domainNode = {
-        id: domainNodeId,
-        type: NodeType.DOMAIN,
-        label: domain,
-        properties: {},
-        tags: [],
-        createdAt: new Date(),
+   * 鍒涘缓棰嗗煙鑺傜偣鍜屽叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+        tags: []发现  个连通分量,发现  个连通分量,
         updatedAt: new Date()
       };
       this.knowledgeGraph.addNode(domainNode);
     } else {
-      domainNode.properties['memoryCount'] = (domainNode.properties['memoryCount'] || 0) + 1;
-      domainNode.updatedAt = new Date();
-    }
-
-    // 创建关联
-    const edge: KnowledgeEdge = {
-      id: `${memoryNodeId}_in_domain_${domainNodeId}`,
-      sourceId: memoryNodeId,
-      targetId: domainNodeId,
-      type: EdgeType.CATEGORIZED_AS,
-      weight: 1.0,
-      relationship: 'belongs_to_domain',
-      properties: {},
-      createdAt: new Date(),
+      domainNode.properties['memoryCount'] = (domainNode.properties['memoryCount']发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
 
@@ -337,39 +110,15 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 创建任务节点和关联
-   */
-  private async createTaskNodeAndLink(task: string, memoryNodeId: string): Promise<void> {
-    const taskNodeId = `task_${task.toLowerCase().replace(/\s+/g, '_')}`;
-    
-    let taskNode = this.knowledgeGraph.getNode(taskNodeId);
-    if (!taskNode) {
-      const newTaskNode: KnowledgeNode = {
-        id: taskNodeId,
-        type: NodeType.TASK,
-        label: task,
-        properties: {},
-        tags: [],
-        createdAt: new Date(),
+   * 鍒涘缓浠诲姟鑺傜偣鍜屽叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+        tags: []发现  个连通分量,发现  个连通分量,
         updatedAt: new Date()
       };
       this.knowledgeGraph.addNode(newTaskNode);
       taskNode = newTaskNode;
     } else {
-      taskNode.properties['memoryCount'] = (taskNode.properties['memoryCount'] || 0) + 1;
-      taskNode.updatedAt = new Date();
-    }
-
-    // 创建关联
-    const edge: KnowledgeEdge = {
-      id: `${memoryNodeId}_related_to_${taskNodeId}`,
-      sourceId: memoryNodeId,
-      targetId: taskNodeId,
-      relationship: 'related_to',
-      type: EdgeType.RELATES_TO,
-      weight: 0.8,
-      properties: {},
-      createdAt: new Date(),
+      taskNode.properties['memoryCount'] = (taskNode.properties['memoryCount']发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
 
@@ -377,28 +126,8 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 基于相似性创建关联
-   */
-  private async createSimilarityLinks(memory: Memory, memoryNodeId: string): Promise<void> {
-    // 查找相似的记忆
-    const similarMemories = this.memoryManager.findSimilarMemories(memory, 5, 0.7);
-    
-    for (const similarMemory of similarMemories) {
-      const similarNodeId = `memory_${similarMemory.id}`;
-      
-      // 计算相似度权重
-      const similarity = this.calculateMemorySimilarity(memory, similarMemory);
-      
-      if (similarity > 0.7) {
-        const edge: KnowledgeEdge = {
-          id: `${memoryNodeId}_similar_to_${similarNodeId}`,
-          sourceId: memoryNodeId,
-          targetId: similarNodeId,
-          relationship: 'similar_to',
-          type: EdgeType.SIMILAR_TO,
-          weight: similarity,
-          properties: {},
-          createdAt: new Date(),
+   * 鍩轰簬鐩镐技鎬у垱寤哄叧鑱?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
           updatedAt: new Date()
         };
 
@@ -408,33 +137,10 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 计算记忆相似度
-   */
-  private calculateMemorySimilarity(memory1: Memory, memory2: Memory): number {
-    let similarity = 0;
-    let factors = 0;
-
-    // 内容相似度（简化的文本相似度）
-    const contentSimilarity = this.calculateTextSimilarity(memory1.content, memory2.content);
-    similarity += contentSimilarity * 0.4;
-    factors += 0.4;
-
-    // 标签相似度
-    if (memory1.tags && memory2.tags) {
-      const tagSimilarity = this.calculateTagSimilarity(memory1.tags, memory2.tags);
-      similarity += tagSimilarity * 0.3;
-      factors += 0.3;
-    }
-
-    // 类型匹配
-    if (memory1.type === memory2.type) {
-      similarity += 0.2;
-    }
-    factors += 0.2;
-
-    // 上下文相似度
-    if (memory1.context && memory2.context) {
-      const contextSimilarity = this.calculateContextSimilarity(memory1.context, memory2.context);
+   * 璁＄畻璁板繂鐩镐技搴?
+   *发现  个连通分量,发现  个连通分量, memory2.content);
+    similarity += contentSimilarity *发现  个连通分量, memory2.tags);
+      similarity += tagSimilarity *发现  个连通分量, memory2.context);
       similarity += contextSimilarity * 0.1;
       factors += 0.1;
     }
@@ -443,9 +149,8 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 计算文本相似度（简化版本）
-   */
-  private calculateTextSimilarity(text1: string, text2: string): number {
+   * 璁＄畻鏂囨湰鐩镐技搴︼紙绠€鍖栫増鏈級
+   *发现  个连通分量, text2: string): number {
     const words1 = text1.toLowerCase().split(/\s+/);
     const words2 = text2.toLowerCase().split(/\s+/);
     
@@ -453,28 +158,27 @@ export class KnowledgeGraphManager extends EventEmitter {
     const set2 = new Set(words2);
     
     const intersection = new Set([...set1].filter(x => set2.has(x)));
-    const union = new Set([...set1, ...set2]);
+    const union = new Set([发现  个连通分量, ...set2]);
     
     return union.size > 0 ? intersection.size / union.size : 0;
   }
 
   /**
-   * 计算标签相似度
+   * 璁＄畻鏍囩鐩镐技搴?
    */
-  private calculateTagSimilarity(tags1: string[], tags2: string[]): number {
+  private calculateTagSimilarity(tags1: string[]发现  个连通分量, tags2: string[]): number {
     const set1 = new Set(tags1.map(tag => tag.toLowerCase()));
     const set2 = new Set(tags2.map(tag => tag.toLowerCase()));
     
     const intersection = new Set([...set1].filter(x => set2.has(x)));
-    const union = new Set([...set1, ...set2]);
+    const union = new Set([发现  个连通分量, ...set2]);
     
     return union.size > 0 ? intersection.size / union.size : 0;
   }
 
   /**
-   * 计算上下文相似度
-   */
-  private calculateContextSimilarity(context1: MemoryContext, context2: MemoryContext): number {
+   * 璁＄畻涓婁笅鏂囩浉浼煎害
+   *发现  个连通分量, context2: MemoryContext): number {
     let similarity = 0;
     let factors = 0;
 
@@ -497,86 +201,61 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 移除记忆的知识关联
+   * 绉婚櫎璁板繂鐨勭煡璇嗗叧鑱?
    */
   private removeKnowledgeLinksForMemory(memoryId: string): void {
     const memoryNodeId = `memory_${memoryId}`;
     
-    // 移除所有相关的边
+    // 绉婚櫎鎵€鏈夌浉鍏崇殑杈?
     const edges = this.knowledgeGraph.getEdgesByNode(memoryNodeId);
     for (const edge of edges) {
       this.knowledgeGraph.removeEdge(edge.id);
     }
     
-    // 移除记忆节点
+    // 绉婚櫎璁板繂鑺傜偣
     this.knowledgeGraph.removeNode(memoryNodeId);
   }
 
   /**
-   * 执行图谱分析
+   * 鎵ц鍥捐氨鍒嗘瀽
    */
   async performGraphAnalysis(): Promise<AnalysisResult> {
     const graphAnalysis = this.knowledgeGraph.analyzeGraph();
     
-    // 转换为AnalysisResult格式
+    // 杞崲涓篈nalysisResult鏍煎紡
     const analysis: AnalysisResult = {
-      insights: [
-        `图谱包含 ${graphAnalysis.nodeCount} 个节点和 ${graphAnalysis.edgeCount} 条边`,
-        `平均度数为 ${graphAnalysis.averageDegree.toFixed(2)}`,
-        `图谱密度为 ${graphAnalysis.density.toFixed(4)}`
-      ],
-      patterns: [
-        `发现 ${graphAnalysis.componentCount} 个连通分量`,
-        `度数分布: ${JSON.stringify(graphAnalysis.degreeDistribution)}`
-      ],
-      recommendations: [
-        graphAnalysis.density < 0.1 ? '建议增加节点间的关联以提高图谱连通性' : '图谱连通性良好',
-        graphAnalysis.componentCount > 1 ? '存在孤立的知识群组，建议建立跨群组连接' : '知识结构连贯'
-      ],
-      confidence: 0.8,
-      metadata: graphAnalysis
-    };
-    
-    // 发出分析完成事件
-    this.emit('analysisCompleted', analysis);
+      insights: [发现  个连通分量,发现  个连通分量,
+        `鍥捐氨瀵嗗害涓?${graphAnalysis.density.toFixed(4)}`
+      ]发现  个连通分量,
+      patterns: [发现  个连通分量,
+        `搴︽暟鍒嗗竷: ${JSON.stringify(graphAnalysis.degreeDistribution)}`
+      ]发现  个连通分量,
+      recommendations: [发现  个连通分量,
+        graphAnalysis.componentCount > 1 ? '瀛樺湪瀛ょ珛鐨勭煡璇嗙兢缁勶紝寤鸿寤虹珛璺ㄧ兢缁勮繛鎺? : '鐭ヨ瘑缁撴瀯杩炶疮'
+      ]发现  个连通分量,发现  个连通分量,发现  个连通分量, analysis);
     
     return analysis;
   }
 
   /**
-   * 整合记忆
-   */
-  async consolidateMemories(): Promise<void> {
-    // 查找可以整合的记忆
-    const consolidationCandidates = await this.findConsolidationCandidates();
-    
-    for (const candidate of consolidationCandidates) {
-      await this.consolidateMemoryGroup(candidate);
-    }
-    
-    this.emit('consolidationCompleted', { 
+   * 鏁村悎璁板繂
+   *发现  个连通分量, { 
       consolidatedGroups: consolidationCandidates.length 
     });
   }
 
   /**
-   * 查找整合候选
+   * 鏌ユ壘鏁村悎鍊欓€?
    */
   private async findConsolidationCandidates(): Promise<Memory[][]> {
-    // 简化实现：基于相似度分组
-    const allMemories = Array.from(this.memoryManager.getAllMemories());
-    const groups: Memory[][] = [];
-    const processed = new Set<string>();
-
-    for (const memory of allMemories) {
-      if (processed.has(memory.id)) continue;
-
-      const similarMemories = this.memoryManager.findSimilarMemories(memory, 10, 0.8);
+    // 绠€鍖栧疄鐜帮細鍩轰簬鐩镐技搴﹀垎缁?
+    const allMemories = await this.memoryManager.getAllMemories();
+    const groups: Memory[][] = []发现  个连通分量,发现  个连通分量, 0.8);
       if (similarMemories.length > 2) {
-        const group = [memory, ...similarMemories];
+        const group = [发现  个连通分量, ...similarMemories];
         groups.push(group);
         
-        // 标记为已处理
+        // 鏍囪涓哄凡澶勭悊
         group.forEach(m => processed.add(m.id));
       }
     }
@@ -585,49 +264,23 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 整合记忆组
+   * 鏁村悎璁板繂缁?
    */
-  private async consolidateMemoryGroup(memoryGroup: Memory[]): Promise<void> {
-    if (memoryGroup.length < 2) return;
-
-    // 创建整合后的记忆
-    const consolidatedMemory: Memory = {
-      id: `consolidated_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      type: MemoryType.CONSOLIDATED,
-      content: this.mergeMemoryContents(memoryGroup),
-      tags: this.mergeMemoryTags(memoryGroup),
-      importance: Math.max(...memoryGroup.map(m => m.importance)),
-      context: memoryGroup[0]?.context || {}, // 使用第一个记忆的上下文，如果不存在则使用空对象
-      createdAt: new Date(),
-      lastAccessedAt: new Date(),
-      accessCount: memoryGroup.reduce((sum, m) => sum + (m.accessCount || 0), 0),
-      consolidatedFrom: memoryGroup.map(m => m.id)
-    };
-
-    // 存储整合后的记忆
-    await this.storeMemoryWithKnowledge(consolidatedMemory);
-
-    // 标记原记忆为已整合（而不是删除）
-    for (const memory of memoryGroup) {
-      memory.consolidated = true;
-      memory.consolidatedInto = consolidatedMemory.id;
-    }
-
-    this.emit('memoriesConsolidated', {
-      consolidatedMemory,
+  private async consolidateMemoryGroup(memoryGroup: Memory[]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
+      context: memoryGroup[0]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       originalMemories: memoryGroup
     });
   }
 
   /**
-   * 合并记忆内容
+   * 鍚堝苟璁板繂鍐呭
    */
   private mergeMemoryContents(memories: Memory[]): string {
     return memories.map(m => m.content).join(' | ');
   }
 
   /**
-   * 合并记忆标签
+   * 鍚堝苟璁板繂鏍囩
    */
   private mergeMemoryTags(memories: Memory[]): string[] {
     const allTags = new Set<string>();
@@ -640,37 +293,29 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 获取记忆管理器
+   * 鑾峰彇璁板繂绠＄悊鍣?
    */
   getMemoryManager(): MemoryManager {
     return this.memoryManager;
   }
 
   /**
-   * 获取知识图谱
+   * 鑾峰彇鐭ヨ瘑鍥捐氨
    */
   getKnowledgeGraph(): KnowledgeGraph {
     return this.knowledgeGraph;
   }
 
   /**
-   * 获取统计信息
-   */
-  getStats() {
-    return {
-      memoryStats: this.memoryManager.getStats(),
+   * 鑾峰彇缁熻淇℃伅
+   *发现  个连通分量,
       graphStats: this.knowledgeGraph.getStats()
     };
   }
 
   /**
-   * 添加节点
-   */
-  async addNode(nodeData: any): Promise<string> {
-    const node = {
-      id: `node_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      ...nodeData,
-      createdAt: new Date(),
+   * 娣诲姞鑺傜偣
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
     this.knowledgeGraph.addNode(node);
@@ -678,13 +323,8 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 添加边
-   */
-  async addEdge(edgeData: any): Promise<string> {
-    const edge = {
-      id: `edge_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      ...edgeData,
-      createdAt: new Date(),
+   * 娣诲姞杈?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       updatedAt: new Date()
     };
     this.knowledgeGraph.addEdge(edge);
@@ -692,53 +332,31 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 获取节点
+   * 鑾峰彇鑺傜偣
    */
   async getNode(id: string): Promise<any> {
     return this.knowledgeGraph.getNode(id);
   }
 
   /**
-   * 获取边
+   * 鑾峰彇杈?
    */
   async getEdge(id: string): Promise<any> {
     return this.knowledgeGraph.getEdge(id);
   }
 
   /**
-   * 更新节点
-   */
-  async updateNode(id: string, data: any): Promise<void> {
-    const node = this.knowledgeGraph.getNode(id);
-    if (!node) {
-      throw new Error(`Node with id ${id} not found`);
-    }
-    const updatedNode = {
-      ...node,
-      ...data,
-      updatedAt: new Date()
-    };
-    this.knowledgeGraph.updateNode(id, updatedNode);
+   * 鏇存柊鑺傜偣
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, updatedNode);
   }
 
   /**
-   * 更新边
-   */
-  async updateEdge(id: string, data: any): Promise<void> {
-    const edge = this.knowledgeGraph.getEdge(id);
-    if (!edge) {
-      throw new Error(`Edge with id ${id} not found`);
-    }
-    const updatedEdge = {
-      ...edge,
-      ...data,
-      updatedAt: new Date()
-    };
-    this.knowledgeGraph.updateEdge(id, updatedEdge);
+   * 鏇存柊杈?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, updatedEdge);
   }
 
   /**
-   * 删除节点
+   * 鍒犻櫎鑺傜偣
    */
   async removeNode(id: string): Promise<void> {
     const node = this.knowledgeGraph.getNode(id);
@@ -749,7 +367,7 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 删除边
+   * 鍒犻櫎杈?
    */
   async removeEdge(id: string): Promise<void> {
     const edge = this.knowledgeGraph.getEdge(id);
@@ -760,7 +378,7 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 批量添加节点
+   * 鎵归噺娣诲姞鑺傜偣
    */
   async addNodes(nodesData: any[]): Promise<string[]> {
     const nodeIds: string[] = [];
@@ -772,7 +390,7 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 批量删除节点
+   * 鎵归噺鍒犻櫎鑺傜偣
    */
   async removeNodes(nodeIds: string[]): Promise<void> {
     for (const nodeId of nodeIds) {
@@ -781,16 +399,16 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 创建索引（简化实现）
+   * 鍒涘缓绱㈠紩锛堢畝鍖栧疄鐜帮級
    */
   async createIndex(field: string): Promise<void> {
-    // 简化的索引实现，实际上知识图谱已经有类型索引
-    // 这里只是为了满足测试接口
+    // 绠€鍖栫殑绱㈠紩瀹炵幇锛屽疄闄呬笂鐭ヨ瘑鍥捐氨宸茬粡鏈夌被鍨嬬储寮?
+    // 杩欓噷鍙槸涓轰簡婊¤冻娴嬭瘯鎺ュ彛
     console.log(`Index created for field: ${field}`);
   }
 
   /**
-   * 查询节点
+   * 鏌ヨ鑺傜偣
    */
   async queryNodes(query: any): Promise<any[]> {
     const { filters } = query;
@@ -798,10 +416,10 @@ export class KnowledgeGraphManager extends EventEmitter {
 
     if (filters) {
       nodes = nodes.filter(node => {
-        for (const [key, value] of Object.entries(filters)) {
+        for (const [发现  个连通分量, value] of Object.entries(filters)) {
           if (key.includes('.')) {
-            // 处理嵌套属性，如 'properties.category'
-            const [parentKey, childKey] = key.split('.');
+            // 澶勭悊宓屽灞炴€э紝濡?'properties.category'
+            const [发现  个连通分量, childKey] = key.split('.');
             if (parentKey && childKey) {
               const parentObj = (node as any)[parentKey];
               if (parentObj && parentObj[childKey] !== value) {
@@ -822,51 +440,31 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 按类型获取节点
+   * 鎸夌被鍨嬭幏鍙栬妭鐐?
    */
   async getNodesByType(type: string): Promise<any[]> {
     return this.knowledgeGraph.getNodesByType(type);
   }
 
   /**
-   * 创建图快照
-   */
-  async createSnapshot(name: string): Promise<string> {
-    const snapshotId = `snapshot_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-    const snapshot = {
-      id: snapshotId,
-      name,
-      timestamp: new Date(),
-      nodes: this.knowledgeGraph.getAllNodes(),
-      edges: this.knowledgeGraph.getAllEdges()
-    };
-    
-    // 简化实现：存储在内存中
-    if (!this.snapshots) {
-      this.snapshots = new Map();
-    }
-    this.snapshots.set(snapshotId, snapshot);
+   * 鍒涘缓鍥惧揩鐓?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, snapshot);
     
     return snapshotId;
   }
 
   /**
-   * 列出所有快照
+   * 鍒楀嚭鎵€鏈夊揩鐓?
    */
   async listSnapshots(): Promise<any[]> {
     if (!this.snapshots) {
-      return [];
-    }
-    
-    return Array.from(this.snapshots.values()).map(snapshot => ({
-      id: snapshot.id,
-      name: snapshot.name,
+      return []发现  个连通分量,发现  个连通分量,
       timestamp: snapshot.timestamp
     }));
   }
 
   /**
-   * 恢复快照
+   * 鎭㈠蹇収
    */
   async restoreSnapshot(snapshotId: string): Promise<void> {
     if (!this.snapshots || !this.snapshots.has(snapshotId)) {
@@ -875,141 +473,74 @@ export class KnowledgeGraphManager extends EventEmitter {
     
     const snapshot = this.snapshots.get(snapshotId)!;
     
-    // 清空当前图
+    // 娓呯┖褰撳墠鍥?
     const currentNodes = this.knowledgeGraph.getAllNodes();
     for (const node of currentNodes) {
       this.knowledgeGraph.removeNode(node.id);
     }
     
-    // 恢复节点
+    // 鎭㈠鑺傜偣
     for (const node of snapshot.nodes) {
       this.knowledgeGraph.addNode(node);
     }
     
-    // 恢复边
+    // 鎭㈠杈?
     for (const edge of snapshot.edges) {
       this.knowledgeGraph.addEdge(edge);
     }
   }
 
   /**
-   * 获取邻居节点
-   */
-  async getNeighbors(nodeId: string): Promise<Array<{
-    id: string;
-    type: string;
-    label: string;
-    properties: Record<string, any>;
-    metadata?: Record<string, any>;
+   * 鑾峰彇閭诲眳鑺傜偣
+   *发现  个连通分量,发现  个连通分量, any>;
   }>> {
     const edges = this.knowledgeGraph.getAllEdges();
     const nodes = this.knowledgeGraph.getAllNodes();
     
     const neighborIds = new Set<string>();
     
-    // 找到所有连接的边
+    // 鎵惧埌鎵€鏈夎繛鎺ョ殑杈?
     const connectedEdges = edges.filter(e => 
       e.sourceId === nodeId || e.targetId === nodeId
     );
     
-    // 收集邻居节点ID
+    // 鏀堕泦閭诲眳鑺傜偣ID
     for (const edge of connectedEdges) {
       const neighborId = edge.sourceId === nodeId ? edge.targetId : edge.sourceId;
       neighborIds.add(neighborId);
     }
     
-    // 返回邻居节点
+    // 杩斿洖閭诲眳鑺傜偣
     return nodes.filter(node => neighborIds.has(node.id));
   }
 
   /**
-   * 查找路径
-   */
-  async findPaths(sourceId: string, targetId: string, options: { maxDepth?: number } = {}): Promise<Array<{
+   * 鏌ユ壘璺緞
+   *发现  个连通分量,发现  个连通分量, options: { maxDepth?: number } = {}): Promise<Array<{
     nodes: string[];
     edges: string[];
     length: number;
   }>> {
     const { maxDepth = 5 } = options;
-    const paths: Array<{ nodes: string[]; edges: string[]; length: number }> = [];
-    const visited = new Set<string>();
-    
-    const dfs = (currentId: string, path: string[], edgePath: string[], depth: number) => {
+    const paths: Array<{ nodes: string[]; edges: string[]; length: number }> = []发现  个连通分量, path: string[]发现  个连通分量, edgePath: string[]发现  个连通分量, depth: number) => {
       if (depth > maxDepth) return;
       if (currentId === targetId) {
         paths.push({
-          nodes: [...path, currentId],
-          edges: [...edgePath],
-          length: path.length + 1  // 修复：应该是节点数量，包括当前节点
-        });
-        return;
-      }
-      
-      visited.add(currentId);
-      const edges = this.knowledgeGraph.getAllEdges();
-      const connectedEdges = edges.filter(e => 
-        e.sourceId === currentId || e.targetId === currentId
-      );
-      
-      for (const edge of connectedEdges) {
-        const nextId = edge.sourceId === currentId ? edge.targetId : edge.sourceId;
-        if (!visited.has(nextId)) {
-          dfs(nextId, [...path, currentId], [...edgePath, edge.id], depth + 1);
-        }
-      }
-      
-      visited.delete(currentId);
-    };
-    
-    dfs(sourceId, [], [], 0);
-    return paths.sort((a, b) => a.length - b.length);
+          nodes: [发现  个连通分量, currentId]发现  个连通分量,
+          edges: [...edgePath]发现  个连通分量,发现  个连通分量, [发现  个连通分量, currentId]发现  个连通分量, [发现  个连通分量, edge.id]发现  个连通分量,发现  个连通分量, []发现  个连通分量, []发现  个连通分量,发现  个连通分量, b) => a.length - b.length);
   }
 
   /**
-   * 获取子图
-   */
-  async getSubgraph(nodeId: string, options: { depth?: number } = {}): Promise<{
+   * 鑾峰彇瀛愬浘
+   *发现  个连通分量, options: { depth?: number } = {}): Promise<{
     nodes: any[];
-    edges: any[];
-  }> {
-    const { depth = 2 } = options;
-    const subgraphNodes = new Set<string>();
-    const subgraphEdges = new Set<string>();
-    const visited = new Set<string>();
-    
-    const bfs = (currentId: string, currentDepth: number) => {
-      if (currentDepth > depth || visited.has(currentId)) return;
-      
-      visited.add(currentId);
-      subgraphNodes.add(currentId);
-      
-      const edges = this.knowledgeGraph.getAllEdges();
-      const connectedEdges = edges.filter(e => 
-        e.sourceId === currentId || e.targetId === currentId
-      );
-      
-      for (const edge of connectedEdges) {
-        subgraphEdges.add(edge.id);
-        const nextId = edge.sourceId === currentId ? edge.targetId : edge.sourceId;
-        if (currentDepth < depth) {
-          bfs(nextId, currentDepth + 1);
-        }
-      }
-    };
-    
-    bfs(nodeId, 0);
-    
-    const allNodes = this.knowledgeGraph.getAllNodes();
-    const allEdges = this.knowledgeGraph.getAllEdges();
-    
-    return {
-      nodes: allNodes.filter(n => subgraphNodes.has(n.id)),
+    edges: any[]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       edges: allEdges.filter(e => subgraphEdges.has(e.id))
     };
   }
 
   /**
-   * 获取图指标
+   * 鑾峰彇鍥炬寚鏍?
    */
   async getGraphMetrics(): Promise<{
     nodeCount: number;
@@ -1024,64 +555,39 @@ export class KnowledgeGraphManager extends EventEmitter {
     const nodeCount = nodes.length;
     const edgeCount = edges.length;
     
-    // 计算密度
+    // 璁＄畻瀵嗗害
     const maxPossibleEdges = nodeCount * (nodeCount - 1) / 2;
     const density = maxPossibleEdges > 0 ? edgeCount / maxPossibleEdges : 0;
     
-    // 计算平均度
+    // 璁＄畻骞冲潎搴?
     const averageDegree = nodeCount > 0 ? (2 * edgeCount) / nodeCount : 0;
     
-    // 计算连通分量数（简化实现）
+    // 璁＄畻杩為€氬垎閲忔暟锛堢畝鍖栧疄鐜帮級
     const visited = new Set<string>();
     let components = 0;
     
     for (const node of nodes) {
       if (!visited.has(node.id)) {
         components++;
-        const stack = [node.id];
-        
-        while (stack.length > 0) {
-          const currentId = stack.pop()!;
-          if (visited.has(currentId)) continue;
-          
-          visited.add(currentId);
-          const connectedEdges = edges.filter(e => 
-            e.sourceId === currentId || e.targetId === currentId
-          );
-          
-          for (const edge of connectedEdges) {
-            const nextId = edge.sourceId === currentId ? edge.targetId : edge.sourceId;
-            if (!visited.has(nextId)) {
-              stack.push(nextId);
-            }
-          }
-        }
-      }
-    }
-    
-    return {
-      nodeCount,
-      edgeCount,
-      density,
-      averageDegree,
+        const stack = [node.id]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
       components
     };
   }
-  async detectCommunities(): Promise<Array<{ nodes: string[], edges: string[] }>> {
-    // 简单的社区检测实现
+  async detectCommunities(): Promise<Array<{ nodes: string[]发现  个连通分量, edges: string[] }>> {
+    // 绠€鍗曠殑绀惧尯妫€娴嬪疄鐜?
     const nodes = this.knowledgeGraph.getAllNodes();
     const edges = this.knowledgeGraph.getAllEdges();
     
-    // 基于连接度的简单社区检测
-    const communities: Array<{ nodes: string[], edges: string[] }> = [];
+    // 鍩轰簬杩炴帴搴︾殑绠€鍗曠ぞ鍖烘娴?
+    const communities: Array<{ nodes: string[]发现  个连通分量, edges: string[] }> = [];
     const visited = new Set<string>();
     
     for (const node of nodes) {
       if (!visited.has(node.id)) {
-        const community = { nodes: [node.id], edges: [] as string[] };
+        const community = { nodes: [node.id]发现  个连通分量, edges: [] as string[] };
         visited.add(node.id);
         
-        // 找到连接的节点
+        // 鎵惧埌杩炴帴鐨勮妭鐐?
         const connectedEdges = edges.filter(e => 
           e.sourceId === node.id || e.targetId === node.id
         );
@@ -1103,177 +609,46 @@ export class KnowledgeGraphManager extends EventEmitter {
   }
 
   /**
-   * 计算中心性指标
-   */
-  async calculateCentrality(nodeId: string): Promise<{
-    degree: number;
-    betweenness: number;
-    closeness: number;
-  }> {
-    const edges = this.knowledgeGraph.getAllEdges();
-    const nodes = this.knowledgeGraph.getAllNodes();
-    
-    // 度中心性
-    const degree = edges.filter(e => 
-      e.sourceId === nodeId || e.targetId === nodeId
-    ).length;
-    
-    // 简化的介数中心性和接近中心性计算
-    const betweenness = degree / Math.max(1, nodes.length - 1);
-    const closeness = degree / Math.max(1, nodes.length - 1);
-    
-    return { degree, betweenness, closeness };
+   * 璁＄畻涓績鎬ф寚鏍?
+   *发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, closeness };
   }
 
   /**
-   * 推荐相关节点
-   */
-  async recommendNodes(nodeId: string, options: { limit?: number } = {}): Promise<Array<{
+   * 鎺ㄨ崘鐩稿叧鑺傜偣
+   *发现  个连通分量, options: { limit?: number } = {}): Promise<Array<{
     nodeId: string;
     score: number;
     reason: string;
   }>> {
     const { limit = 10 } = options;
     const edges = this.knowledgeGraph.getAllEdges();
-    // const nodes = this.knowledgeGraph.getAllNodes(); // 暂时未使用
+    // const nodes = this.knowledgeGraph.getAllNodes(); // 鏆傛椂鏈娇鐢?
     
-    // 基于连接度的推荐
-    const recommendations: Array<{ nodeId: string; score: number; reason: string }> = [];
-    
-    // 直接连接的节点
-    const directConnections = edges.filter(e => 
-      e.sourceId === nodeId || e.targetId === nodeId
-    );
-    
-    for (const edge of directConnections) {
-      const connectedNodeId = edge.sourceId === nodeId ? edge.targetId : edge.sourceId;
-      recommendations.push({
-        nodeId: connectedNodeId,
-        score: 0.8,
-        reason: 'Direct connection'
-      });
-    }
-    
-    // 二度连接的节点
-    for (const connection of directConnections) {
-      const intermediateNodeId = connection.sourceId === nodeId ? connection.targetId : connection.sourceId;
-      const secondDegreeEdges = edges.filter(e => 
-        (e.sourceId === intermediateNodeId || e.targetId === intermediateNodeId) &&
-        e.sourceId !== nodeId && e.targetId !== nodeId
-      );
-      
-      for (const edge of secondDegreeEdges) {
-        const secondDegreeNodeId = edge.sourceId === intermediateNodeId ? edge.targetId : edge.sourceId;
-        if (!recommendations.find(r => r.nodeId === secondDegreeNodeId)) {
-          recommendations.push({
-            nodeId: secondDegreeNodeId,
-            score: 0.4,
-            reason: 'Second-degree connection'
-          });
-        }
-      }
-    }
-    
-    return recommendations
-      .sort((a, b) => b.score - a.score)
-      .slice(0, limit);
+    // 鍩轰簬杩炴帴搴︾殑鎺ㄨ崘
+    const recommendations: Array<{ nodeId: string; score: number; reason: string }> = []发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, limit);
   }
 
   /**
-   * 导出图数据
+   * 瀵煎嚭鍥炬暟鎹?
    */
   async exportGraph(): Promise<{
     nodes: any[];
-    edges: any[];
-    metadata: {
-      version: string;
-      exportedAt: string;
-      nodeCount: number;
-      edgeCount: number;
-    };
-  }> {
-    const nodes = this.knowledgeGraph.getAllNodes();
-    const edges = this.knowledgeGraph.getAllEdges();
-    
-    return {
-      nodes: nodes.map(node => ({
-        id: node.id,
-        type: node.type,
-        label: node.label,
-        properties: node.properties,
-        metadata: node.metadata || {},
-        createdAt: node.createdAt,
-        updatedAt: node.updatedAt
-      })),
-      edges: edges.map(edge => ({
-        id: edge.id,
-        sourceId: edge.sourceId,
-        targetId: edge.targetId,
-        type: edge.type,
-        weight: edge.weight,
-        properties: edge.properties,
-        createdAt: edge.createdAt,
-        updatedAt: edge.updatedAt
-      })),
-      metadata: {
-        version: '1.0.0',
-        exportedAt: new Date().toISOString(),
-        nodeCount: nodes.length,
+    edges: any[]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,
         edgeCount: edges.length
       }
     };
   }
 
   /**
-   * 导入图数据
+   * 瀵煎叆鍥炬暟鎹?
    */
   async importGraph(data: {
     nodes: any[];
-    edges: any[];
-    metadata?: any;
-  }): Promise<{
-    nodesImported: number;
-    edgesImported: number;
-  }> {
-    let nodesImported = 0;
-    let edgesImported = 0;
-    
-    // 导入节点
-    for (const nodeData of data.nodes) {
-      try {
-        await this.addNode({
-          type: nodeData.type,
-          label: nodeData.label,
-          properties: nodeData.properties || {},
-          metadata: nodeData.metadata || {}
-        });
-        nodesImported++;
-      } catch (error) {
-        // 忽略重复节点等错误
-      }
-    }
-    
-    // 导入边
-    for (const edgeData of data.edges) {
-      try {
-        await this.addEdge({
-          sourceId: edgeData.sourceId,
-          targetId: edgeData.targetId,
-          type: edgeData.type,
-          weight: edgeData.weight || 1,
-          properties: edgeData.properties || {}
-        });
-        edgesImported++;
-      } catch (error) {
-        // 忽略重复边等错误
-      }
-    }
-    
-    return { nodesImported, edgesImported };
+    edges: any[]发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量,发现  个连通分量, edgesImported };
   }
 
   /**
-   * 清理资源
+   * 娓呯悊璧勬簮
    */
   destroy(): void {
     if (this.analysisInterval) {
@@ -1295,5 +670,7 @@ export interface MemoryManagerOptions {
   enableAutoCleanup?: boolean;
   cleanupInterval?: number;
 }
+
+
 
 

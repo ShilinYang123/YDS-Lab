@@ -265,7 +265,7 @@ export class LongTermMemorySystem {
   private async initializeTraeIDEIntegration(): Promise<void> {
     try {
       // 从配置中获取自动记录设置
-      const config = this.configManager.getConfig();
+      const config = this.configManager.getSystemConfig();
       const autoRecordEnabled = config.auto_record_operations || false;
 
       if (autoRecordEnabled) {

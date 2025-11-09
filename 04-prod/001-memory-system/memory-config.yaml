@@ -132,7 +132,8 @@ backup:
     enabled: true
     interval: 86400 # 24小时
     retention: 30 # 保留30天
-    path: "./backups"
+    # 统一使用顶层备份目录
+    path: "S:\\YDS-Lab\\backups"
   # 备份压缩
   compression:
     enabled: true

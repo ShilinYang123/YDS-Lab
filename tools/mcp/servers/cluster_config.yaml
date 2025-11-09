@@ -147,4 +147,5 @@ backup:
   enabled: true
   frequency: "daily"
   retention_days: 30
-  backup_location: "Struc_V1_Backup/mcp_backups"
+  # 统一使用顶层备份目录
+  backup_location: "S:\\YDS-Lab\\backups\\mcp"

@@ -21,13 +21,14 @@ configFiles.forEach(file => {
 });
 
 // 检查数据目录
+const topBackups = process.env.YDS_BACKUPS_ROOT || 'S\\\\YDS-Lab\\\\backups';
 const dataDirs = [
   './data',
   './data/memories',
   './data/knowledge-graph',
   './data/cache',
   './logs',
-  './backups'
+  topBackups
 ];
 
 console.log('\n📂 数据目录结构检查:');

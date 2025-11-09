@@ -69,7 +69,7 @@ src/
 - ✅ ./data/knowledge-graph - 知识图谱目录
 - ✅ ./data/cache - 缓存目录
 - ✅ ./logs - 日志目录
-- ✅ ./backups - 备份目录
+- ✅ S:\\YDS-Lab\\backups - 顶层备份目录
 
 ### TypeScript配置 ✅
 - **编译目标**: ES2022

@@ -146,11 +146,12 @@ class TraeIDEDeployment {
      * 创建目录结构
      */
     async createDirectories() {
+        const topBackups = process.env.YDS_BACKUPS_ROOT || 'S\\\\YDS-Lab\\\\backups';
         const directories = [
             './data/memories',
             './data/knowledge-graph',
             './logs',
-            './backups',
+            topBackups,
             './examples',
             './docs'
         ];

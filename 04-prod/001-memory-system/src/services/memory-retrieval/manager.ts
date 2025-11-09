@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+﻿import { EventEmitter } from 'events';
 import type { Agent, Memory, PerformanceMetrics, MemoryContext, RetrievalQuery, RetrievalResult, EnhancementContext, EnhancementResult, KnowledgeNode } from '../../types/base';
 import { MemoryType } from '../../types/base';
 import { MemoryRetriever } from './retriever';
@@ -58,26 +58,26 @@ export class MemoryRetrievalManager extends EventEmitter {
   ) {
     super();
     
-    // 创建KnowledgeGraph实例（作为成员保存）
+    // 鍒涘缓KnowledgeGraph瀹炰緥锛堜綔涓烘垚鍛樹繚瀛橈級
     this.knowledgeGraph = new KnowledgeGraph();
 
-    // 支持两种构造：传入 MemoryManager 或 ConfigurationManager
+    // 鏀寔涓ょ鏋勯€狅細浼犲叆 MemoryManager 鎴?ConfigurationManager
     if ((managerOrConfig as any)?.getSystemConfig) {
       this.configManager = managerOrConfig as ConfigurationManager;
-      // 使用默认选项创建 MemoryManager（可在 initialize 中根据配置进一步调整）
-      this.memoryManager = new MemoryManager(this.knowledgeGraph, { enableAutoCleanup: false });
+      // 浣跨敤榛樿閫夐」鍒涘缓 MemoryManager锛堝彲鍦?initialize 涓牴鎹厤缃繘涓€姝ヨ皟鏁达級
+      this.memoryManager = new MemoryManager({ enableAutoCleanup: false });
     } else {
       this.memoryManager = managerOrConfig as MemoryManager;
     }
     this.config = {
-      cacheTimeout: 5 * 60 * 1000, // 5分钟
+      cacheTimeout: 5 * 60 * 1000, // 5鍒嗛挓
       maxCacheSize: 1000,
       enableLearning: true,
       performanceThreshold: 0.1,
       ...config
     };
     
-    // 初始化组件
+    // 鍒濆鍖栫粍浠?
     this.memoryRetriever = new MemoryRetriever(this.memoryManager, this.knowledgeGraph);
     this.agentEnhancer = new AgentEnhancer(this.memoryRetriever);
     
@@ -100,7 +100,7 @@ export class MemoryRetrievalManager extends EventEmitter {
   }
 
   private setupEventHandlers(): void {
-    // 监听检索事件
+    // 鐩戝惉妫€绱簨浠?
     this.memoryRetriever.on('retrievalCompleted', (data) => {
       this.updateRetrievalStats(data.result);
       this.recordQuery(data.query, data.result);
@@ -112,13 +112,13 @@ export class MemoryRetrievalManager extends EventEmitter {
       this.emit('cacheHit', data);
     });
 
-    // 监听增强事件
+    // 鐩戝惉澧炲己浜嬩欢
     this.agentEnhancer.on('agentEnhanced', (data) => {
       this.updateEnhancementStats(data.result);
       this.emit('agentEnhanced', data);
     });
 
-    // 监听错误事件
+    // 鐩戝惉閿欒浜嬩欢
     this.memoryRetriever.on('retrievalError', (error) => {
       this.emit('retrievalError', error);
     });
@@ -129,14 +129,14 @@ export class MemoryRetrievalManager extends EventEmitter {
   }
 
   /**
-   * 初始化记忆检索管理器
+   * 鍒濆鍖栬蹇嗘绱㈢鐞嗗櫒
    */
   public async initialize(): Promise<void> {
-    // 若有配置管理器，可在此应用配置（当前简化）
+    // 鑻ユ湁閰嶇疆绠＄悊鍣紝鍙湪姝ゅ簲鐢ㄩ厤缃紙褰撳墠绠€鍖栵級
     if (this.configManager) {
-      // 可根据配置调整 MemoryManager 选项，当前保持默认
+      // 鍙牴鎹厤缃皟鏁?MemoryManager 閫夐」锛屽綋鍓嶄繚鎸侀粯璁?
     }
-    // 这里可以添加其他初始化逻辑
+    // 杩欓噷鍙互娣诲姞鍏朵粬鍒濆鍖栭€昏緫
     this.emit('initialized');
   }
 
@@ -144,7 +144,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     try {
       const result = await this.memoryRetriever.retrieve(query);
       
-      // 如果启用学习，分析查询模式
+      // 濡傛灉鍚敤瀛︿範锛屽垎鏋愭煡璇㈡ā寮?
       if (this.config.enableLearning) {
         await this.analyzeQueryPattern(query, result);
       }
@@ -156,13 +156,13 @@ export class MemoryRetrievalManager extends EventEmitter {
     }
   }
 
-  // 方法重载：支持 (agent, context) 与 (context { agent }) 两种调用
+  // 鏂规硶閲嶈浇锛氭敮鎸?(agent, context) 涓?(context { agent }) 涓ょ璋冪敤
   public async enhanceAgent(agent: Agent, context: EnhancementContext): Promise<EnhancementResult>;
   public async enhanceAgent(context: EnhancementContext & { agent?: Agent }): Promise<{ success: boolean; enhancedAgent?: Agent; appliedMemories: Memory[]; relatedKnowledge: KnowledgeNode[]; performanceImprovement: number; enhancementTime: number; error?: any }>;
   public async enhanceAgent(arg1: any, arg2?: any): Promise<any> {
     try {
       if (arg1 && arg2) {
-        // 原始签名 (agent, context)
+        // 鍘熷绛惧悕 (agent, context)
         const agent: Agent = arg1 as Agent;
         const context: EnhancementContext = arg2 as EnhancementContext;
         const result = await this.agentEnhancer.enhanceAgent(agent, context);
@@ -171,7 +171,7 @@ export class MemoryRetrievalManager extends EventEmitter {
         }
         return result;
       }
-      // 新签名 (context { agent })
+      // 鏂扮鍚?(context { agent })
       const context: EnhancementContext & { agent?: Agent } = arg1;
       const agent = context?.agent as Agent;
       if (!agent) {
@@ -191,7 +191,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     }
   }
 
-  // 异步增强方法重载：返回任务ID
+  // 寮傛澧炲己鏂规硶閲嶈浇锛氳繑鍥炰换鍔D
   public async enhanceAgentAsync(agent: Agent, context: EnhancementContext): Promise<string>;
   public async enhanceAgentAsync(context: EnhancementContext & { agent?: Agent }): Promise<string>;
   public async enhanceAgentAsync(arg1: any, arg2?: any): Promise<string> {
@@ -237,18 +237,18 @@ export class MemoryRetrievalManager extends EventEmitter {
             this.emit('queueProcessingError', error);
           }
         }
-        // 更新 pending 计数
+        // 鏇存柊 pending 璁℃暟
         this.stats.enhancementQueue.pending = this.countQueueByStatus('pending');
       } finally {
         this.isProcessingQueue = false;
       }
-    }, 1000); // 每秒处理一次队列
+    }, 1000); // 姣忕澶勭悊涓€娆￠槦鍒?
   }
 
-  // 已不再使用 getAgentById，移除以避免 TS6133 警告
+  // 宸蹭笉鍐嶄娇鐢?getAgentById锛岀Щ闄や互閬垮厤 TS6133 璀﹀憡
 
   public async searchSimilarMemories(memory: Memory, limit: number = 10): Promise<Memory[]> {
-    // 保持原方法用于兼容，内部直接调用 retriever
+    // 淇濇寔鍘熸柟娉曠敤浜庡吋瀹癸紝鍐呴儴鐩存帴璋冪敤 retriever
     const query: RetrievalQuery = {
       text: memory.content,
       type: memory.type,
@@ -260,7 +260,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     return result.memories.filter(m => m.id !== memory.id);
   }
 
-  /** 查找相似记忆（返回 { memory, similarity }） */
+  /** 鏌ユ壘鐩镐技璁板繂锛堣繑鍥?{ memory, similarity }锛?*/
   public async findSimilarMemories(memory: Memory, options?: { limit?: number; threshold?: number }): Promise<Array<{ memory: Memory; similarity: number }>> {
     const query: RetrievalQuery = {
       text: memory.content,
@@ -303,7 +303,7 @@ export class MemoryRetrievalManager extends EventEmitter {
       semanticSearch: true
     };
     
-    // 基于智能体类型调整查询
+    // 鍩轰簬鏅鸿兘浣撶被鍨嬭皟鏁存煡璇?
     switch (agent.type) {
       case 'rule_processor':
         query.tags = ['rule', 'logic', 'processing'];
@@ -326,7 +326,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     return result.memories;
   }
 
-  /** 为智能体推荐记忆（返回 { memory, relevance, reason }） */
+  /** 涓烘櫤鑳戒綋鎺ㄨ崘璁板繂锛堣繑鍥?{ memory, relevance, reason }锛?*/
   public async recommendMemories(agent: Agent, options?: { limit?: number; task?: any }): Promise<Array<{ memory: Memory; relevance: number; reason: string }>> {
     const tags: string[] = [];
     switch (agent.type) {
@@ -365,9 +365,9 @@ export class MemoryRetrievalManager extends EventEmitter {
   }
 
   private async analyzeQueryPattern(query: RetrievalQuery, result: RetrievalResult): Promise<void> {
-    // 分析查询模式，用于优化未来的检索
+    // 鍒嗘瀽鏌ヨ妯″紡锛岀敤浜庝紭鍖栨湭鏉ョ殑妫€绱?
     if (result.confidence > 0.8 && result.memories.length > 0) {
-      // 记录成功的查询模式
+      // 璁板綍鎴愬姛鐨勬煡璇㈡ā寮?
       const pattern = {
         queryType: this.categorizeQuery(query),
         tags: query.tags || [],
@@ -376,7 +376,7 @@ export class MemoryRetrievalManager extends EventEmitter {
         timestamp: new Date()
       };
       
-      // 这里可以存储模式用于未来优化
+      // 杩欓噷鍙互瀛樺偍妯″紡鐢ㄤ簬鏈潵浼樺寲
       this.emit('patternAnalyzed', pattern);
     }
   }
@@ -394,7 +394,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     context: EnhancementContext, 
     result: EnhancementResult
   ): Promise<void> {
-    // 记录成功的增强模式
+    // 璁板綍鎴愬姛鐨勫寮烘ā寮?
     const successPattern = {
       agentType: agent.type,
       context: {
@@ -406,7 +406,7 @@ export class MemoryRetrievalManager extends EventEmitter {
       timestamp: new Date()
     };
     
-    // 存储成功模式用于学习
+    // 瀛樺偍鎴愬姛妯″紡鐢ㄤ簬瀛︿範
     await this.memoryManager.storeMemory({
       id: `enhancement_success_${Date.now()}`,
       type: MemoryType.PROCEDURAL,
@@ -444,9 +444,9 @@ export class MemoryRetrievalManager extends EventEmitter {
   }
 
   private calculateCacheHitRate(): number {
-    // 简化的缓存命中率计算
+    // 绠€鍖栫殑缂撳瓨鍛戒腑鐜囪绠?
     return this.stats.totalQueries > 0 ? 
-      Math.min(0.3, this.stats.totalQueries / 100) : 0; // 假设30%的最大命中率
+      Math.min(0.3, this.stats.totalQueries / 100) : 0; // 鍋囪30%鐨勬渶澶у懡涓巼
   }
 
   private recordQuery(query: RetrievalQuery, result: RetrievalResult): void {
@@ -456,7 +456,7 @@ export class MemoryRetrievalManager extends EventEmitter {
       timestamp: new Date()
     } as any);
     
-    // 保持历史记录在合理范围内
+    // 淇濇寔鍘嗗彶璁板綍鍦ㄥ悎鐞嗚寖鍥村唴
     if (this.queryHistory.length > 1000) {
       this.queryHistory.splice(0, this.queryHistory.length - 1000);
     }
@@ -507,7 +507,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     this.removeAllListeners();
   }
 
-  /** 存储记忆（接受 metadata.tags） */
+  /** 瀛樺偍璁板繂锛堟帴鍙?metadata.tags锛?*/
   public async storeMemory(memory: any): Promise<void> {
     if (!memory || typeof memory !== 'object') throw new Error('Invalid memory');
     if (!memory.id || !memory.content || !memory.type) throw new Error('Missing required memory fields');
@@ -531,14 +531,14 @@ export class MemoryRetrievalManager extends EventEmitter {
     this.stats.totalMemories++;
   }
 
-  /** 获取增强任务状态 */
+  /** 鑾峰彇澧炲己浠诲姟鐘舵€?*/
   public async getEnhancementStatus(id: string): Promise<{ id: string; status: 'pending'|'processing'|'completed'|'failed'|'cancelled'|'not_found'; createdAt?: Date }> {
     const task = this.enhancementQueue.get(id);
     if (!task) return { id, status: 'not_found' };
     return { id, status: task.status, createdAt: task.createdAt };
   }
 
-  /** 取消增强任务 */
+  /** 鍙栨秷澧炲己浠诲姟 */
   public async cancelEnhancement(id: string): Promise<boolean> {
     const task = this.enhancementQueue.get(id);
     if (!task) return false;
@@ -547,7 +547,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     return true;
   }
 
-  /** 分析查询模式（聚合统计） */
+  /** 鍒嗘瀽鏌ヨ妯″紡锛堣仛鍚堢粺璁★級 */
   public async analyzeQueryPatterns(options?: { timeRange?: { start?: Date; end?: Date } }): Promise<{ totalQueries: number; uniqueUsers: number; commonTerms: string[]; queryFrequency: Record<string, number>; popularQueries: Array<{ query: string; count: number }> }> {
     const start = options?.timeRange?.start?.getTime() ?? 0;
     const end = options?.timeRange?.end?.getTime() ?? Date.now();
@@ -580,12 +580,12 @@ export class MemoryRetrievalManager extends EventEmitter {
     };
   }
 
-  /** 记录成功的增强模式（供优化使用） */
+  /** 璁板綍鎴愬姛鐨勫寮烘ā寮忥紙渚涗紭鍖栦娇鐢級 */
   public async recordEnhancementPattern(pattern: { agentType: string; taskType?: string; memoryTypes: string[]; context?: Record<string, any>; outcome: { success: boolean; performanceImprovement: number; executionTime?: number } }): Promise<void> {
     this.enhancementPatterns.push({ ...pattern, recordedAt: new Date() });
   }
 
-  /** 获取已记录的增强模式 */
+  /** 鑾峰彇宸茶褰曠殑澧炲己妯″紡 */
   public async getEnhancementPatterns(filter?: { agentType?: string; taskType?: string }): Promise<Array<{ agentType: string; taskType?: string; memoryTypes: string[]; context?: Record<string, any>; outcome: { success: boolean; performanceImprovement: number; executionTime?: number }; recordedAt: Date }>> {
     return this.enhancementPatterns.filter(p => {
       if (filter?.agentType && p.agentType !== filter.agentType) return false;
@@ -594,7 +594,7 @@ export class MemoryRetrievalManager extends EventEmitter {
     });
   }
 
-  /** 基于历史模式优化增强 */
+  /** 鍩轰簬鍘嗗彶妯″紡浼樺寲澧炲己 */
   public async optimizeEnhancement(options: { agentType: string; taskType?: string; context?: Record<string, any> }): Promise<{ recommendedMemoryTypes: string[]; expectedImprovement: number; confidence: number }> {
     const patterns = this.enhancementPatterns.filter(p => p.agentType === options.agentType && (!options.taskType || p.taskType === options.taskType));
     if (patterns.length === 0) return { recommendedMemoryTypes: [], expectedImprovement: 0, confidence: 0 };

@@ -1,11 +1,5 @@
-/**
- * 规则引擎
- * 负责规则的执行、匹配和管理
- */
-
-import { EventEmitter } from 'events';
-import { Rule, RuleCondition, RuleAction, RuleCategory, SystemEvent, ActionType, EventSeverity, ConditionOperator } from '../../types/base';
-
+﻿import { EventEmitter } from 'events';
+import { Rule, RuleCategory, RuleCondition, ConditionOperator, RuleAction, ActionType, SystemEvent, EventSeverity, Memory, MemoryType, MemoryContext } from '../../types/base';
 export class RuleEngine extends EventEmitter {
   private rules: Map<string, Rule> = new Map();
   private executionHistory: RuleExecution[] = [];
@@ -17,7 +11,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 启动规则引擎
+   * 鍚姩瑙勫垯寮曟搸
    */
   start(): void {
     if (this.isRunning) {
@@ -29,7 +23,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 停止规则引擎
+   * 鍋滄瑙勫垯寮曟搸
    */
   stop(): void {
     if (!this.isRunning) {
@@ -41,7 +35,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 添加规则
+   * 娣诲姞瑙勫垯
    */
   addRule(rule: Rule): void {
     this.rules.set(rule.id, rule);
@@ -49,7 +43,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 移除规则
+   * 绉婚櫎瑙勫垯
    */
   removeRule(ruleId: string): boolean {
     const removed = this.rules.delete(ruleId);
@@ -60,7 +54,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 更新规则
+   * 鏇存柊瑙勫垯
    */
   updateRule(rule: Rule): void {
     if (this.rules.has(rule.id)) {
@@ -72,35 +66,35 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 获取规则
+   * 鑾峰彇瑙勫垯
    */
   getRule(ruleId: string): Rule | undefined {
     return this.rules.get(ruleId);
   }
 
   /**
-   * 获取所有规则
+   * 鑾峰彇鎵€鏈夎鍒?
    */
   getAllRules(): Rule[] {
     return Array.from(this.rules.values());
   }
 
   /**
-   * 获取指定类别的规则
+   * 鑾峰彇鎸囧畾绫诲埆鐨勮鍒?
    */
   getRulesByCategory(category: RuleCategory): Rule[] {
     return Array.from(this.rules.values()).filter(rule => rule.category === category);
   }
 
   /**
-   * 获取活跃规则
+   * 鑾峰彇娲昏穬瑙勫垯
    */
   getActiveRules(): Rule[] {
     return Array.from(this.rules.values()).filter(rule => rule.isActive);
   }
 
   /**
-   * 执行规则匹配和处理
+   * 鎵ц瑙勫垯鍖归厤鍜屽鐞?
    */
   async processEvent(event: SystemEvent, context: RuleContext = {}): Promise<RuleExecutionResult[]> {
     if (!this.isRunning) {
@@ -110,7 +104,7 @@ export class RuleEngine extends EventEmitter {
     const results: RuleExecutionResult[] = [];
     const activeRules = this.getActiveRules();
 
-    // 按优先级排序规则
+    // 鎸変紭鍏堢骇鎺掑簭瑙勫垯
     const sortedRules = activeRules.sort((a, b) => b.priority - a.priority);
 
     for (const rule of sortedRules) {
@@ -121,7 +115,7 @@ export class RuleEngine extends EventEmitter {
           const result = await this.executeActions(rule, event, context);
           results.push(result);
 
-          // 记录执行历史
+          // 璁板綍鎵ц鍘嗗彶
           this.recordExecution({
             ruleId: rule.id,
             event,
@@ -130,7 +124,7 @@ export class RuleEngine extends EventEmitter {
             timestamp: new Date()
           });
 
-          // 如果规则设置为一次性执行，则禁用它
+          // 濡傛灉瑙勫垯璁剧疆涓轰竴娆℃€ф墽琛岋紝鍒欑鐢ㄥ畠
           if (rule.metadata?.['executeOnce']) {
             rule.isActive = false;
             this.updateRule(rule);
@@ -153,7 +147,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 评估规则条件
+   * 璇勪及瑙勫垯鏉′欢
    */
   private async evaluateConditions(
     conditions: RuleCondition[],
@@ -175,7 +169,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 评估单个条件
+   * 璇勪及鍗曚釜鏉′欢
    */
   private async evaluateCondition(
     condition: RuleCondition,
@@ -184,7 +178,7 @@ export class RuleEngine extends EventEmitter {
   ): Promise<boolean> {
     const { field, operator, value } = condition;
     
-    // 获取字段值
+    // 鑾峰彇瀛楁鍊?
     const fieldValue = this.getFieldValue(field, event, context);
 
     switch (operator) {
@@ -241,14 +235,14 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 获取字段值
+   * 鑾峰彇瀛楁鍊?
    */
   private getFieldValue(field: string, event: SystemEvent, context: RuleContext): any {
-    // 支持点号分隔的嵌套字段访问
+    // 鏀寔鐐瑰彿鍒嗛殧鐨勫祵濂楀瓧娈佃闂?
     const parts = field.split('.');
     let value: any;
 
-    // 首先尝试从事件中获取
+    // 棣栧厛灏濊瘯浠庝簨浠朵腑鑾峰彇
     if (parts[0] === 'event') {
       value = event;
       for (let i = 1; i < parts.length; i++) {
@@ -261,7 +255,7 @@ export class RuleEngine extends EventEmitter {
         }
       }
     }
-    // 然后尝试从上下文中获取
+    // 鐒跺悗灏濊瘯浠庝笂涓嬫枃涓幏鍙?
     else if (parts[0] === 'context') {
       value = context;
       for (let i = 1; i < parts.length; i++) {
@@ -274,7 +268,7 @@ export class RuleEngine extends EventEmitter {
         }
       }
     }
-    // 直接从事件中获取
+    // 鐩存帴浠庝簨浠朵腑鑾峰彇
     else {
       value = event;
       for (const part of parts) {
@@ -291,7 +285,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行规则动作
+   * 鎵ц瑙勫垯鍔ㄤ綔
    */
   private async executeActions(
     rule: Rule,
@@ -310,11 +304,11 @@ export class RuleEngine extends EventEmitter {
         const actionResult = await this.executeAction(action, event, context);
         result.actions!.push(actionResult);
 
-        // 如果某个动作执行失败，则标记整条规则执行为失败
+        // 濡傛灉鏌愪釜鍔ㄤ綔鎵ц澶辫触锛屽垯鏍囪鏁存潯瑙勫垯鎵ц涓哄け璐?
         if (!actionResult.success) {
           result.success = false;
           result.error = actionResult.error ?? `Action ${action.type} failed`;
-          // 一旦发生失败，停止后续动作执行
+          // 涓€鏃﹀彂鐢熷け璐ワ紝鍋滄鍚庣画鍔ㄤ綔鎵ц
           break;
         }
       } catch (error) {
@@ -329,7 +323,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行单个动作
+   * 鎵ц鍗曚釜鍔ㄤ綔
    */
   private async executeAction(
     action: RuleAction,
@@ -387,13 +381,13 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行日志动作
+   * 鎵ц鏃ュ織鍔ㄤ綔
    */
   private executeLogAction(action: RuleAction, event: SystemEvent, context: RuleContext): void {
     const message = this.interpolateString(action.parameters['message'] || '', event, context);
     const level = action.parameters['level'] || 'info';
     
-    // 使用类型断言确保level是有效的console方法
+    // 浣跨敤绫诲瀷鏂█纭繚level鏄湁鏁堢殑console鏂规硶
     const consoleMethod = console[level as 'log' | 'info' | 'warn' | 'error'];
     if (typeof consoleMethod === 'function') {
       consoleMethod(message);
@@ -403,7 +397,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行发送事件动作
+   * 鎵ц鍙戦€佷簨浠跺姩浣?
    */
   private async executeEmitEventAction(
     action: RuleAction,
@@ -426,7 +420,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行更新上下文动作
+   * 鎵ц鏇存柊涓婁笅鏂囧姩浣?
    */
   private executeUpdateContextAction(
     action: RuleAction,
@@ -441,7 +435,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行调用函数动作
+   * 鎵ц璋冪敤鍑芥暟鍔ㄤ綔
    */
   private async executeCallFunctionAction(
     action: RuleAction,
@@ -451,7 +445,7 @@ export class RuleEngine extends EventEmitter {
     const functionName = action.parameters['function'];
     const args = action.parameters['arguments'] || [];
     
-    // 这里可以扩展为支持插件系统
+    // 杩欓噷鍙互鎵╁睍涓烘敮鎸佹彃浠剁郴缁?
     if (typeof context[functionName] === 'function') {
       return await context[functionName](...args);
     }
@@ -460,7 +454,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行设置变量动作
+   * 鎵ц璁剧疆鍙橀噺鍔ㄤ綔
    */
   private executeSetVariableAction(
     action: RuleAction,
@@ -474,7 +468,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 执行计数器递增动作
+   * 鎵ц璁℃暟鍣ㄩ€掑鍔ㄤ綔
    */
   private executeIncrementCounterAction(
     action: RuleAction,
@@ -489,7 +483,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 字符串插值
+   * 瀛楃涓叉彃鍊?
    */
   private interpolateString(template: string, event: SystemEvent, context: RuleContext): string {
     return template.replace(/\{\{([^}]+)\}\}/g, (_match, field) => {
@@ -499,7 +493,96 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 对象插值
+   * 处理增强后的记忆对象，规范化为 Memory 类型
+   * 该方法不依赖外部存储，纯转换逻辑，便于单元测试
+   */
+  }
+  public async processMemory(enhanced: any, context: RuleContext = {}): Promise<Memory> {
+    const rawContent = enhanced?.compressedContent ?? enhanced?.content ?? '';
+    const content: string = typeof rawContent === 'string' ? rawContent : JSON.stringify(rawContent);
+
+    const importance = typeof enhanced?.importanceScore === 'number'
+      ? Math.max(0, Math.min(1, enhanced.importanceScore))
+      : 0.5;
+
+    const mapType = (t: string | undefined, imp: number): MemoryType => {
+      const mapping: Record<string, MemoryType> = {
+        error: MemoryType.EPISODIC,
+        response: MemoryType.SEMANTIC,
+        execution: MemoryType.PROCEDURAL,
+        file_operation: MemoryType.WORKING,
+        interaction: MemoryType.EPISODIC,
+        session: MemoryType.CONSOLIDATED,
+        general: MemoryType.SHORT_TERM,
+      };
+      if (imp >= 0.8) return MemoryType.LONG_TERM;
+      if (!t) return MemoryType.SHORT_TERM;
+      return mapping[t] ?? MemoryType.SHORT_TERM;
+    };
+
+    const type: MemoryType = mapType(enhanced?.type, importance);
+
+    const mergedContext: MemoryContext = {
+      ...(enhanced?.context ?? {}),
+      ...(enhanced?.enrichedContext ?? {}),
+      environment: {
+        ...(enhanced?.context?.environment ?? {}),
+        ...(enhanced?.enrichedContext?.environment ?? {}),
+        ...(context?.environment ?? {}),
+      }
+    };
+
+    const tags: string[] | undefined = Array.isArray(enhanced?.tags) ? enhanced.tags
+      : (enhanced?.type ? [String(enhanced.type)] : undefined);
+
+    const summary = typeof enhanced?.summary === 'string' && enhanced.summary.length > 0
+      ? enhanced.summary
+      : (typeof enhanced?.content === 'string'
+        ? enhanced.content.slice(0, 200)
+        : JSON.stringify(enhanced?.content ?? '').slice(0, 200));
+
+    const createdAt = enhanced?.timestamp ? new Date(enhanced.timestamp) : new Date();
+    const updatedAt = new Date();
+
+    const memory: Memory = {
+      id: String(enhanced?.id ?? `mem_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`),
+      content,
+      summary,
+      type,
+      importance,
+      tags,
+      context: mergedContext,
+      metadata: {
+        ...(enhanced?.metadata ?? {}),
+        source: enhanced?.source ?? 'rule_engine',
+        processedAt: enhanced?.processedAt ?? new Date().toISOString(),
+        version: enhanced?.version ?? '1.0',
+        originalType: enhanced?.type,
+        compressed: typeof enhanced?.compressedContent === 'string',
+      },
+      createdAt,
+      updatedAt,
+    };
+
+    try {
+      const event: SystemEvent = {
+        id: `memory_${memory.id}`,
+        type: 'MEMORY_CREATED' as any,
+        source: memory.metadata?.source ?? 'rule_engine',
+        data: { memory },
+        timestamp: new Date(),
+        severity: EventSeverity.LOW
+      };
+      if (this.isRunning) await this.processEvent(event, context);
+    } catch {
+      // ignore rule processing errors
+    }
+
+    return memory;
+  }
+
+  /**
+   * 瀵硅薄鎻掑€?
    */
   private interpolateObject(obj: any, event: SystemEvent, context: RuleContext): any {
     if (typeof obj === 'string') {
@@ -522,7 +605,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 值插值
+   * 鍊兼彃鍊?
    */
   private interpolateValue(value: any, event: SystemEvent, context: RuleContext): any {
     if (typeof value === 'string' && value.startsWith('{{') && value.endsWith('}}')) {
@@ -534,19 +617,19 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 记录执行历史
+   * 璁板綍鎵ц鍘嗗彶
    */
   private recordExecution(execution: RuleExecution): void {
     this.executionHistory.push(execution);
     
-    // 限制历史记录大小
+    // 闄愬埗鍘嗗彶璁板綍澶у皬
     if (this.executionHistory.length > this.maxHistorySize) {
       this.executionHistory.shift();
     }
   }
 
   /**
-   * 获取执行历史
+   * 鑾峰彇鎵ц鍘嗗彶
    */
   getExecutionHistory(limit?: number): RuleExecution[] {
     const history = [...this.executionHistory].reverse();
@@ -554,7 +637,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 获取规则统计信息
+   * 鑾峰彇瑙勫垯缁熻淇℃伅
    */
   getStats(): RuleEngineStats {
     const totalRules = this.rules.size;
@@ -576,7 +659,7 @@ export class RuleEngine extends EventEmitter {
   }
 
   /**
-   * 清空执行历史
+   * 娓呯┖鎵ц鍘嗗彶
    */
   clearHistory(): void {
     this.executionHistory = [];
@@ -584,7 +667,11 @@ export class RuleEngine extends EventEmitter {
   }
 }
 
-// 接口定义
+// 鎺ュ彛瀹氫箟
+  /**
+   * 处理增强后的记忆对象，规范化为 Memory 类型
+   * 该方法不依赖外部存储，纯转换逻辑，便于单元测试
+   */
 export interface RuleContext {
   [key: string]: any;
 }
@@ -620,3 +707,10 @@ export interface RuleEngineStats {
   categoryStats: Record<string, number>;
   isRunning: boolean;
 }
+
+
+
+
+
+
+

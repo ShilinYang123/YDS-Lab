@@ -1,0 +1,121 @@
+{
+  "directory_rules": [
+    {
+      "path": "S:/YDS-Lab/01-struc/docs/YDS-AI-战略规划",
+      "category": "strategic",
+      "allowed_roles": [
+        "CEO",
+        "CFO",
+        "CTO"
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "CFO": "read",
+        "CTO": "read"
+      },
+      "description": "公司战略规划相关文档",
+      "auto_approval": false,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/01-struc/Agents/07-marketing_director",
+      "category": "marketing",
+      "allowed_roles": [
+        "CEO",
+        "项目协调者"
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "项目协调者": "write"
+      },
+      "description": "市场营销部门文档与素材",
+      "auto_approval": true,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/01-struc/04-dev-team",
+      "category": "technical",
+      "allowed_roles": [
+        "后端开发智能体",
+        "CTO",
+        "前端开发智能体",
+        "项目协调者"
+      ],
+      "access_levels": {
+        "CTO": "admin",
+        "前端开发智能体": "write",
+        "后端开发智能体": "write",
+        "项目协调者": "read"
+      },
+      "description": "研发团队技术文档与设计资料",
+      "auto_approval": true,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/01-struc/02-finance",
+      "category": "financial",
+      "allowed_roles": [
+        "CEO",
+        "CFO"
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "CFO": "admin"
+      },
+      "description": "公司财务部门文档",
+      "auto_approval": false,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/04-prod",
+      "category": "operational",
+      "allowed_roles": [
+        "CEO",
+        "项目协调者",
+        "前端开发智能体",
+        "后端开发智能体"
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "项目协调者": "write",
+        "前端开发智能体": "write",
+        "后端开发智能体": "write"
+      },
+      "description": "生产环境部署与运维相关文档",
+      "auto_approval": true,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/tools",
+      "category": "technical",
+      "allowed_roles": [
+        "后端开发智能体",
+        "CTO",
+        "前端开发智能体",
+        "项目协调者"
+      ],
+      "access_levels": {
+        "CTO": "admin",
+        "前端开发智能体": "write",
+        "后端开发智能体": "write",
+        "项目协调者": "read"
+      },
+      "description": "工具与脚本目录",
+      "auto_approval": true,
+      "requires_audit": false
+    },
+    {
+      "path": "S:/YDS-Lab/Public",
+      "category": "public",
+      "allowed_roles": [
+        "*"
+      ],
+      "access_levels": {
+        "*": "read"
+      },
+      "description": "公开共享文档",
+      "auto_approval": true,
+      "requires_audit": false
+    }
+  ]
+}

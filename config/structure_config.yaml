@@ -58,9 +58,11 @@ naming_rules:
     path: 01-struc/0B-general-manager
     required_number_prefix: true
     exceptions:
+      - docs
       - Docs
       - logs
       - Log
+      - GeneralOffice
       - config
       - tools
       - meetings

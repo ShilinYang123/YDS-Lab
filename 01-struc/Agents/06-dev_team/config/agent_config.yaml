@@ -1,0 +1,46 @@
+﻿agent_info:
+  migrated_from: dev_team
+  migration_date: '2025-11-01T16:12:57.989108'
+  name: DevTeamLead
+  original_goal: null
+  original_role: null
+  platform: Trae
+  version: 2.0.0
+capabilities:
+- 鎶€鏈灦鏋?
+- 浠ｇ爜瀹℃煡
+- 鍥㈤槦绠＄悊
+- 鎶€鏈€夊瀷
+- 寮€鍙戣鍒?
+collaboration:
+  collaborates_with:
+  - PlanningDirector
+  - ResourceAdmin
+  communication_channels:
+  - trae_workspace
+  - shared_documents
+  - meeting_system
+  reports_to:
+  - CEO
+performance:
+  accuracy_target: '> 95%'
+  availability_target: 99.9%
+  response_time_target: < 3s
+tools:
+  mcp_integrations:
+  - GitHub
+  - Builder
+  - Database
+  migrated_tools: []
+  trae_tools:
+  - code_reviewer
+  - architecture_designer
+  - team_coordinator
+trae_prompt: 浣犳槸DevTeamLead鏅鸿兘浣擄紝鍦═rae骞冲彴涓婂崗浣滃伐浣溿€?
+workspace:
+  config: 01-struc/Agents/06-dev_team/config
+  documents: 01-struc/Agents/06-dev_team/documents
+  logs: 01-struc/Agents/06-dev_team/logs
+  root: 01-struc/Agents/06-dev_team
+  templates: 01-struc/Agents/06-dev_team/templates
+

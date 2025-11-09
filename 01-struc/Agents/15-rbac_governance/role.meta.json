@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-15-RBAC-GOVERNANCE",
+  "name_cn": "RBAC治理",
+  "module_dir": "01-struc/Agents/15-rbac_governance",
+  "description_cn": "角色/权限模型治理，权限边界检查与变更审计。",
+  "responsibilities": ["角色权限治理", "边界检查", "变更审计"],
+  "interfaces": {
+    "tools": ["01-struc/Agents/15-rbac_governance/tools.py"],
+    "configs": ["config/rbac_config.json", "config/rbac_config.tools.json", "config/rbac_config.root.json"],
+    "depends_on": ["config/**"],
+    "deliverables": ["治理报告", "权限矩阵", "异常访问告警"]
+  },
+  "inputs": ["RBAC配置", "访问日志"],
+  "outputs": ["治理报告", "审计记录"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

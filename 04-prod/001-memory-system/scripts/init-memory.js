@@ -25,7 +25,9 @@ class MemorySystemInitializer {
     this.baseDir = process.cwd();
     this.dataDir = path.join(this.baseDir, 'data');
     this.logsDir = path.join(this.baseDir, 'logs');
-    this.backupsDir = path.join(this.baseDir, 'backups');
+    // 统一备份目录到顶层，可通过环境变量 YDS_BACKUPS_ROOT 覆盖
+    const topBackups = process.env.YDS_BACKUPS_ROOT || 'S\\\\YDS-Lab\\\\backups';
+    this.backupsDir = topBackups;
   }
 
   async initialize() {

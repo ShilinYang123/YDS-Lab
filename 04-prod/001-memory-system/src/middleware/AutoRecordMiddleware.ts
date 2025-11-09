@@ -1,8 +1,8 @@
-// src/middleware/AutoRecordMiddleware.ts
+﻿// src/middleware/AutoRecordMiddleware.ts
 import { InteractionHook, InteractionEvent } from '../integrations/trae-ide/hooks/InteractionHook';
 import { MemoryService, MemoryData } from '../services/MemoryService';
-import { IntelligentFilter, FilterResult } from '../services/IntelligentFilter';
-import { ContentProcessor, ProcessingResult } from '../services/ContentProcessor';
+import { IntelligentFilter } from '../services/IntelligentFilter';
+import { ContentProcessor } from '../services/ContentProcessor';
 import { ContextExtractor } from '../utils/ContextExtractor';
 import { Logger } from '../utils/logger';
 
@@ -64,8 +64,8 @@ export class AutoRecordMiddleware {
     this.config = {
       enabled: true,
       batchSize: 10,
-      batchTimeout: 5000, // 5秒
-      enableFiltering: true,
+      
+      
       enableProcessing: true,
       enableContextExtraction: true,
       maxRetries: 3,
@@ -74,17 +74,17 @@ export class AutoRecordMiddleware {
       ...config
     };
 
-    // 初始化服务
-    this.memoryService = memoryService || new MemoryService();
+    
+    
     this.intelligentFilter = intelligentFilter || new IntelligentFilter();
     this.contentProcessor = contentProcessor || new ContentProcessor();
     this.contextExtractor = contextExtractor || new ContextExtractor();
     
-    // 初始化交互钩子
-    this.interactionHook = new InteractionHook();
     
-    // 初始化统计信息
-    this.stats = {
+    
+    
+    
+    
       totalEvents: 0,
       processedEvents: 0,
       filteredEvents: 0,
@@ -97,7 +97,7 @@ export class AutoRecordMiddleware {
     this.initialize();
   }
 
-  // 初始化中间件
+  // 鍒濆鍖栦腑闂翠欢
   private async initialize() {
     try {
       if (!this.config.enabled) {
@@ -105,10 +105,10 @@ export class AutoRecordMiddleware {
         return;
       }
 
-      // 设置事件监听器
-      this.setupEventListeners();
+      
+      
 
-      // 启动批处理定时器
+      // 鍚姩鎵瑰鐞嗗畾鏃跺櫒
       this.startBatchTimer();
 
       this.logger.info('AutoRecordMiddleware initialized successfully');
@@ -118,17 +118,16 @@ export class AutoRecordMiddleware {
     }
   }
 
-  // 设置事件监听器
-  private setupEventListeners() {
-    // 监听所有交互事件
-    this.interactionHook.on('userInput', (event) => this.handleEvent(event));
+  
+  
+    // 鐩戝惉鎵€鏈変氦浜掍簨浠?    this.interactionHook.on('userInput', (event) => this.handleEvent(event));
     this.interactionHook.on('agentResponse', (event) => this.handleEvent(event));
     this.interactionHook.on('codeExecution', (event) => this.handleEvent(event));
     this.interactionHook.on('fileChange', (event) => this.handleEvent(event));
     this.interactionHook.on('errorOccurred', (event) => this.handleEvent(event));
     this.interactionHook.on('sessionEnd', (event) => this.handleEvent(event));
 
-    // 监听内存服务事件
+    // 鐩戝惉鍐呭瓨鏈嶅姟浜嬩欢
     this.memoryService.on('memoryStored', (memory) => {
       this.logger.debug(`Memory stored: ${memory.id}`);
     });
@@ -141,7 +140,7 @@ export class AutoRecordMiddleware {
     this.logger.debug('Event listeners set up');
   }
 
-  // 处理事件
+  // 澶勭悊浜嬩欢
   private async handleEvent(event: InteractionEvent) {
     try {
       if (!this.config.enabled) return;
@@ -152,11 +151,9 @@ export class AutoRecordMiddleware {
         this.logger.debug(`Received event: ${event.type}`, event);
       }
 
-      // 添加到事件队列
-      this.eventQueue.push(event);
+      // 娣诲姞鍒颁簨浠堕槦鍒?      this.eventQueue.push(event);
 
-      // 检查是否需要立即处理
-      if (this.shouldProcessImmediately(event)) {
+      // 妫€鏌ユ槸鍚﹂渶瑕佺珛鍗冲鐞?      if (this.shouldProcessImmediately(event)) {
         await this.processEventQueue();
       } else if (this.eventQueue.length >= this.config.batchSize) {
         await this.processEventQueue();
@@ -167,14 +164,13 @@ export class AutoRecordMiddleware {
     }
   }
 
-  // 判断是否需要立即处理
-  private shouldProcessImmediately(event: InteractionEvent): boolean {
-    // 高优先级事件立即处理
+  // 鍒ゆ柇鏄惁闇€瑕佺珛鍗冲鐞?  private shouldProcessImmediately(event: InteractionEvent): boolean {
+    // 楂樹紭鍏堢骇浜嬩欢绔嬪嵆澶勭悊
     const highPriorityTypes = ['errorOccurred', 'sessionEnd'];
     return highPriorityTypes.includes(event.type) || event.priority === 'high';
   }
 
-  // 启动批处理定时器
+  // 鍚姩鎵瑰鐞嗗畾鏃跺櫒
   private startBatchTimer() {
     if (this.batchTimer) {
       clearTimeout(this.batchTimer);
@@ -184,11 +180,10 @@ export class AutoRecordMiddleware {
       if (this.eventQueue.length > 0) {
         await this.processEventQueue();
       }
-      this.startBatchTimer(); // 重新启动定时器
-    }, this.config.batchTimeout);
+      this.startBatchTimer(); // 閲嶆柊鍚姩瀹氭椂鍣?    }, this.config.batchTimeout);
   }
 
-  // 处理事件队列
+  // 澶勭悊浜嬩欢闃熷垪
   private async processEventQueue() {
     if (this.isProcessing || this.eventQueue.length === 0) {
       return;
@@ -198,12 +193,12 @@ export class AutoRecordMiddleware {
     const startTime = Date.now();
 
     try {
-      // 获取要处理的事件
+      // 鑾峰彇瑕佸鐞嗙殑浜嬩欢
       const eventsToProcess = this.eventQueue.splice(0, this.config.batchSize);
       
       this.logger.debug(`Processing ${eventsToProcess.length} events`);
 
-      // 并行处理事件
+      // 骞惰澶勭悊浜嬩欢
       const processingPromises = eventsToProcess.map(event => 
         this.processEvent(event).catch(error => {
           this.logger.error(`Error processing event ${event.id}:`, error);
@@ -215,7 +210,7 @@ export class AutoRecordMiddleware {
       const results = await Promise.all(processingPromises);
       const successfulResults = results.filter(result => result !== null);
 
-      // 更新统计信息
+      // 鏇存柊缁熻淇℃伅
       this.stats.processedEvents += successfulResults.length;
       this.stats.lastProcessedAt = new Date();
       
@@ -231,7 +226,7 @@ export class AutoRecordMiddleware {
     }
   }
 
-  // 处理单个事件
+  // 澶勭悊鍗曚釜浜嬩欢
   private async processEvent(event: InteractionEvent): Promise<MemoryData | null> {
     const startTime = Date.now();
     let filterResult = 'none';
@@ -239,21 +234,18 @@ export class AutoRecordMiddleware {
     let error: string | undefined;
 
     try {
-      // 1. 转换事件为记忆数据
-      let memoryData = await this.convertEventToMemory(event);
+      // 1. 杞崲浜嬩欢涓鸿蹇嗘暟鎹?      let memoryData = await this.convertEventToMemory(event);
       if (!memoryData) {
         this.logger.debug(`Event ${event.id} could not be converted to memory`);
         return null;
       }
 
-      // 2. 提取上下文信息
-      if (this.config.enableContextExtraction) {
+      // 2. 鎻愬彇涓婁笅鏂囦俊鎭?      if (this.config.enableContextExtraction) {
         const context = await this.contextExtractor.extractContext();
         memoryData.context = { ...memoryData.context, ...context };
       }
 
-      // 3. 智能筛选
-      if (this.config.enableFiltering) {
+      // 3. 鏅鸿兘绛涢€?      if (this.config.enableFiltering) {
         const filterResultObj = await this.intelligentFilter.filterMemory(memoryData);
         filterResult = filterResultObj.action;
 
@@ -270,13 +262,11 @@ export class AutoRecordMiddleware {
         this.stats.filteredEvents++;
       }
 
-      // 4. 内容处理和增强
-      if (this.config.enableProcessing) {
+      // 4. 鍐呭澶勭悊鍜屽寮?      if (this.config.enableProcessing) {
         const processingResult = await this.contentProcessor.processMemory(memoryData);
         memoryData = processingResult.processedMemory;
 
-        // 添加处理元数据
-        memoryData.metadata = {
+        // 娣诲姞澶勭悊鍏冩暟鎹?        memoryData.metadata = {
           ...memoryData.metadata,
           processed: true,
           enhancements: processingResult.enhancements.map(e => e.type),
@@ -284,19 +274,17 @@ export class AutoRecordMiddleware {
         };
       }
 
-      // 5. 存储记忆
-      const storedMemory = await this.memoryService.submitMemory(memoryData);
-      
+      // 5. 瀛樺偍璁板繂
+      await this.memoryService.submitMemory(memoryData);
       success = true;
-      this.logger.debug(`Event ${event.id} successfully processed and stored as memory ${storedMemory.id}`);
-      
-      return storedMemory;
+      this.logger.debug('Event successfully processed and stored as memory');
+      return memoryData;
     } catch (err) {
       error = err instanceof Error ? err.message : String(err);
       this.logger.error(`Error processing event ${event.id}:`, err);
       throw err;
     } finally {
-      // 记录处理指标
+      // 璁板綍澶勭悊鎸囨爣
       const processingTime = Date.now() - startTime;
       this.recordMetrics({
         eventType: event.type,
@@ -309,8 +297,7 @@ export class AutoRecordMiddleware {
     }
   }
 
-  // 转换事件为记忆数据
-  private async convertEventToMemory(event: InteractionEvent): Promise<MemoryData | null> {
+  // 杞崲浜嬩欢涓鸿蹇嗘暟鎹?  private async convertEventToMemory(event: InteractionEvent): Promise<MemoryData | null> {
     try {
       const baseMemory: MemoryData = {
         id: `memory_${event.id}_${Date.now()}`,
@@ -328,7 +315,7 @@ export class AutoRecordMiddleware {
         context: event.context || {}
       };
 
-      // 根据事件类型进行特殊处理
+      // 鏍规嵁浜嬩欢绫诲瀷杩涜鐗规畩澶勭悊
       switch (event.type) {
         case 'userInput':
           baseMemory.metadata.inputType = event.data.type;
@@ -371,8 +358,7 @@ export class AutoRecordMiddleware {
     }
   }
 
-  // 映射事件类型到记忆类型
-  private mapEventTypeToMemoryType(eventType: string): string {
+  // 鏄犲皠浜嬩欢绫诲瀷鍒拌蹇嗙被鍨?  private mapEventTypeToMemoryType(eventType: string): string {
     const typeMapping: { [key: string]: string } = {
       'userInput': 'interaction',
       'agentResponse': 'response',
@@ -385,28 +371,27 @@ export class AutoRecordMiddleware {
     return typeMapping[eventType] || 'general';
   }
 
-  // 记录处理指标
+  // 璁板綍澶勭悊鎸囨爣
   private recordMetrics(metrics: RecordingMetrics) {
     this.metrics.push(metrics);
     
-    // 限制指标历史记录数量
+    // 闄愬埗鎸囨爣鍘嗗彶璁板綍鏁伴噺
     if (this.metrics.length > 1000) {
-      this.metrics = this.metrics.slice(-500); // 保留最近500条记录
-    }
+      this.metrics = this.metrics.slice(-500); // 淇濈暀鏈€杩?00鏉¤褰?    }
   }
 
-  // 更新平均处理时间
+  // 鏇存柊骞冲潎澶勭悊鏃堕棿
   private updateAverageProcessingTime(newTime: number) {
     if (this.stats.averageProcessingTime === 0) {
       this.stats.averageProcessingTime = newTime;
     } else {
-      // 使用指数移动平均
+      // 浣跨敤鎸囨暟绉诲姩骞冲潎
       this.stats.averageProcessingTime = 
         this.stats.averageProcessingTime * 0.9 + newTime * 0.1;
     }
   }
 
-  // 启动自动记录
+  // 鍚姩鑷姩璁板綍
   public async start() {
     if (this.config.enabled) {
       this.logger.info('AutoRecordMiddleware is already running');
@@ -418,7 +403,7 @@ export class AutoRecordMiddleware {
     this.logger.info('AutoRecordMiddleware started');
   }
 
-  // 停止自动记录
+  // 鍋滄鑷姩璁板綍
   public async stop() {
     this.config.enabled = false;
     
@@ -427,42 +412,40 @@ export class AutoRecordMiddleware {
       this.batchTimer = null;
     }
 
-    // 处理剩余的事件
-    if (this.eventQueue.length > 0) {
+    // 澶勭悊鍓╀綑鐨勪簨浠?    if (this.eventQueue.length > 0) {
       this.logger.info(`Processing remaining ${this.eventQueue.length} events before stopping`);
       await this.processEventQueue();
     }
 
-    // 等待所有处理完成
-    await Promise.all(this.processingQueue);
+    // 绛夊緟鎵€鏈夊鐞嗗畬鎴?    await Promise.all(this.processingQueue);
 
     this.logger.info('AutoRecordMiddleware stopped');
   }
 
-  // 暂停自动记录
+  // 鏆傚仠鑷姩璁板綍
   public pause() {
     this.config.enabled = false;
     this.logger.info('AutoRecordMiddleware paused');
   }
 
-  // 恢复自动记录
+  // 鎭㈠鑷姩璁板綍
   public resume() {
     this.config.enabled = true;
     this.startBatchTimer();
     this.logger.info('AutoRecordMiddleware resumed');
   }
 
-  // 获取统计信息
+  // 鑾峰彇缁熻淇℃伅
   public getStats(): RecordingStats {
     return { ...this.stats };
   }
 
-  // 获取最近的处理指标
+  // 鑾峰彇鏈€杩戠殑澶勭悊鎸囨爣
   public getRecentMetrics(limit: number = 100): RecordingMetrics[] {
     return this.metrics.slice(-limit);
   }
 
-  // 获取性能报告
+  // 鑾峰彇鎬ц兘鎶ュ憡
   public getPerformanceReport() {
     const recentMetrics = this.getRecentMetrics(100);
     const successfulMetrics = recentMetrics.filter(m => m.success);
@@ -499,13 +482,12 @@ export class AutoRecordMiddleware {
     };
   }
 
-  // 更新配置
+  // 鏇存柊閰嶇疆
   public updateConfig(newConfig: Partial<AutoRecordConfig>) {
     const oldEnabled = this.config.enabled;
     this.config = { ...this.config, ...newConfig };
 
-    // 如果启用状态改变，重新初始化
-    if (oldEnabled !== this.config.enabled) {
+    // 濡傛灉鍚敤鐘舵€佹敼鍙橈紝閲嶆柊鍒濆鍖?    if (oldEnabled !== this.config.enabled) {
       if (this.config.enabled) {
         this.start();
       } else {
@@ -516,7 +498,7 @@ export class AutoRecordMiddleware {
     this.logger.info('AutoRecordMiddleware config updated');
   }
 
-  // 手动触发事件处理
+  // 鎵嬪姩瑙﹀彂浜嬩欢澶勭悊
   public async processNow() {
     if (this.eventQueue.length > 0) {
       await this.processEventQueue();
@@ -526,15 +508,14 @@ export class AutoRecordMiddleware {
     }
   }
 
-  // 清空事件队列
+  // 娓呯┖浜嬩欢闃熷垪
   public clearQueue() {
     const queueSize = this.eventQueue.length;
     this.eventQueue = [];
     this.logger.info(`Cleared ${queueSize} events from queue`);
   }
 
-  // 获取队列状态
-  public getQueueStatus() {
+  // 鑾峰彇闃熷垪鐘舵€?  public getQueueStatus() {
     return {
       queueSize: this.eventQueue.length,
       isProcessing: this.isProcessing,
@@ -543,15 +524,14 @@ export class AutoRecordMiddleware {
     };
   }
 
-  // 健康检查
-  public healthCheck() {
+  // 鍋ュ悍妫€鏌?  public healthCheck() {
     const now = Date.now();
     const lastProcessedTime = this.stats.lastProcessedAt.getTime();
     const timeSinceLastProcess = now - lastProcessedTime;
 
     return {
       status: this.config.enabled ? 'running' : 'stopped',
-      healthy: timeSinceLastProcess < 60000, // 1分钟内有处理活动
+      healthy: timeSinceLastProcess < 60000, // 1鍒嗛挓鍐呮湁澶勭悊娲诲姩
       queueSize: this.eventQueue.length,
       isProcessing: this.isProcessing,
       timeSinceLastProcess,
@@ -560,11 +540,11 @@ export class AutoRecordMiddleware {
     };
   }
 
-  // 清理资源
+  // 娓呯悊璧勬簮
   public async cleanup() {
     await this.stop();
     
-    // 清理各个服务
+    // 娓呯悊鍚勪釜鏈嶅姟
     if (this.intelligentFilter) {
       this.intelligentFilter.cleanup();
     }
@@ -575,3 +555,9 @@ export class AutoRecordMiddleware {
     this.logger.info('AutoRecordMiddleware cleaned up');
   }
 }
+
+
+
+
+
+

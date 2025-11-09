@@ -35,8 +35,12 @@ export class Logger {
   private logBuffer: LogEntry[] = [];
   private bufferFlushInterval: NodeJS.Timeout | null = null;
   private currentLogFile: string | null = null;
+  // 当使用字符串构造时，记录默认的 source 名称
+  private defaultSource?: string;
 
-  constructor(config: Partial<LoggerConfig> = {}) {
+  // 兼容旧用法：允许用字符串作为 source 构造
+  constructor(config: Partial<LoggerConfig> | string = {}) {
+    const resolvedConfig = typeof config === 'string' ? {} : config;
     this.config = {
       level: LogLevel.INFO,
       enableConsole: true,
@@ -46,8 +50,12 @@ export class Logger {
       maxFiles: 10,
       dateFormat: 'YYYY-MM-DD',
       enableStructuredLogging: true,
-      ...config
+      ...resolvedConfig
     };
+
+    if (typeof config === 'string') {
+      this.defaultSource = config;
+    }
 
     this.initializeLogger();
   }
@@ -93,7 +101,7 @@ export class Logger {
       level,
       message,
       context,
-      source: source || 'Unknown'
+      source: source || this.defaultSource || 'Unknown'
     };
 
     if (this.config.enableConsole) {

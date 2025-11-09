@@ -1,1 +1,0 @@
-# Package initializer for Struc.Agents.finance_director

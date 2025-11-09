@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-01-CEO",
+  "name_cn": "首席执行官",
+  "module_dir": "01-struc/Agents/01-ceo",
+  "description_cn": "战略决策与资源协调，确保项目目标和跨部门协同推进。",
+  "responsibilities": ["战略决策", "资源协调", "目标制定", "跨部门沟通"],
+  "interfaces": {
+    "tools": ["tools/agents/run_collab.py"],
+    "configs": ["config/yds_ai_config.yaml"],
+    "depends_on": ["Docs/*", "01-struc/docs/*"],
+    "deliverables": ["Docs/启动简报_*", "01-struc/docs/meetings/*"]
+  },
+  "inputs": ["会议纪要", "部门汇报", "系统状态报告"],
+  "outputs": ["战略决策", "行动项批示", "对外声明"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

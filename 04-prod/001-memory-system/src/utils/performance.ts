@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+﻿import { EventEmitter } from 'events';
 import { logger } from './logger';
 import type { PerformanceConfig } from '../types/base';
 
@@ -53,8 +53,8 @@ export class PerformanceMonitor extends EventEmitter {
     this.config = {
       enableCPUMonitoring: true,
       enableMemoryMonitoring: true,
-      enableNetworkMonitoring: false, // 简化实现，默认关闭
-      monitoringInterval: 5000, // 5秒
+      enableNetworkMonitoring: false, // 绠€鍖栧疄鐜帮紝榛樿鍏抽棴
+      monitoringInterval: 5000, // 5绉?
       alertThresholds: {
         cpuUsage: 80,
         memoryUsage: 85,
@@ -105,12 +105,12 @@ export class PerformanceMonitor extends EventEmitter {
 
       this.systemMetricsHistory.push(metrics);
       
-      // 保持历史记录在合理范围内
+      // 淇濇寔鍘嗗彶璁板綍鍦ㄥ悎鐞嗚寖鍥村唴
       if (this.systemMetricsHistory.length > this.config.historySize) {
         this.systemMetricsHistory.shift();
       }
 
-      // 检查告警阈值
+      // 妫€鏌ュ憡璀﹂槇鍊?
       this.checkAlerts(metrics);
       
       this.emit('metricsCollected', metrics);
@@ -126,9 +126,9 @@ export class PerformanceMonitor extends EventEmitter {
       return { usage: 0, loadAverage: [] };
     }
 
-    // 简化的CPU使用率计算（在实际环境中需要使用系统API）
-    const usage = Math.random() * 100; // 模拟CPU使用率
-    const loadAverage = [1.0, 1.2, 1.1]; // 模拟负载平均值
+    // 绠€鍖栫殑CPU浣跨敤鐜囪绠楋紙鍦ㄥ疄闄呯幆澧冧腑闇€瑕佷娇鐢ㄧ郴缁烝PI锛?
+    const usage = Math.random() * 100; // 妯℃嫙CPU浣跨敤鐜?
+    const loadAverage = [1.0, 1.2, 1.1]; // 妯℃嫙璐熻浇骞冲潎鍊?
     
     return { usage, loadAverage };
   }
@@ -139,7 +139,7 @@ export class PerformanceMonitor extends EventEmitter {
     }
 
     const memUsage = process.memoryUsage();
-    const totalMemory = 8 * 1024 * 1024 * 1024; // 假设8GB总内存
+    const totalMemory = 8 * 1024 * 1024 * 1024; // 鍋囪8GB鎬诲唴瀛?
     const usedMemory = memUsage.rss;
     
     return {
@@ -156,7 +156,7 @@ export class PerformanceMonitor extends EventEmitter {
       return { bytesIn: 0, bytesOut: 0, connectionsActive: 0 };
     }
 
-    // 简化实现，返回模拟数据
+    // 绠€鍖栧疄鐜帮紝杩斿洖妯℃嫙鏁版嵁
     return {
       bytesIn: Math.floor(Math.random() * 1000000),
       bytesOut: Math.floor(Math.random() * 1000000),
@@ -221,16 +221,16 @@ export class PerformanceMonitor extends EventEmitter {
       operation.errorMessage = errorMessage;
     }
     
-    // 移动到历史记录
+    // 绉诲姩鍒板巻鍙茶褰?
     this.operationHistory.push({ ...operation });
     this.operationMetrics.delete(operationId);
     
-    // 保持历史记录在合理范围内
+    // 淇濇寔鍘嗗彶璁板綍鍦ㄥ悎鐞嗚寖鍥村唴
     if (this.operationHistory.length > this.config.historySize) {
       this.operationHistory.shift();
     }
     
-    // 检查响应时间告警
+    // 妫€鏌ュ搷搴旀椂闂村憡璀?
     if (operation.duration! > this.config.alertThresholds.responseTime) {
       logger.warn('Slow operation detected', { 
         operationId, 
@@ -292,7 +292,25 @@ export class PerformanceMonitor extends EventEmitter {
     return lastMetrics || null;
   }
 
-  public getMetricsHistory(minutes?: number): SystemMetrics[] {
+  // 鍏煎鏃ф帴鍙ｏ細鎻愪緵 getMetrics 鍒悕锛岃繑鍥炲綋鍓嶇郴缁熸寚鏍?
+  public getMetrics(): SystemMetrics | null {
+    return this.getCurrentMetrics();
+  }
+
+  
+  // 兼容接口：记录自定义指标（与旧版 recordMetric 调用兼容）
+  // 兼容接口：记录自定义指标（与旧版 recordMetric 调用兼容）
+  public recordMetric(name: string, value: number | Record<string, any>, metadata?: any): void {
+    try {
+      const payload = { name, value, metadata, timestamp: new Date() };
+      // 将指标作为一次操作记录，便于统一统计
+      const operationId = this.startOperation('custom_metric', payload);
+      this.endOperation(operationId, true);
+      this.emit('metricRecorded', payload);
+    } catch (error) {
+      logger.warn('Failed to record metric', { name, value, error }, 'PerformanceMonitor');
+    }
+  }  public getMetricsHistory(minutes?: number): SystemMetrics[] {
     if (!minutes) return [...this.systemMetricsHistory];
     
     const cutoffTime = new Date(Date.now() - minutes * 60 * 1000);
@@ -356,7 +374,7 @@ export class PerformanceMonitor extends EventEmitter {
       errorRate: number;
     };
   } {
-    // 过滤操作指标（如果提供了时间范围）
+    // 杩囨护鎿嶄綔鎸囨爣锛堝鏋滄彁渚涗簡鏃堕棿鑼冨洿锛?
     let filteredOperations = [...this.operationHistory];
     if (startTime !== undefined && endTime !== undefined) {
       filteredOperations = this.operationHistory.filter(op => {
@@ -365,7 +383,7 @@ export class PerformanceMonitor extends EventEmitter {
       });
     }
 
-    // 计算汇总统计
+    // 璁＄畻姹囨€荤粺璁?
     const totalOperations = filteredOperations.length;
     const successfulOperations = filteredOperations.filter(op => op.success);
     const averageResponseTime = totalOperations > 0 
@@ -401,29 +419,29 @@ export class PerformanceMonitor extends EventEmitter {
   }
 
   public updateConfig(newConfig: Partial<PerformanceConfig>): void {
-    // 验证配置参数
+    // 楠岃瘉閰嶇疆鍙傛暟
     if (newConfig.monitoringInterval !== undefined && newConfig.monitoringInterval <= 0) {
-      throw new Error('监控间隔必须大于0');
+      throw new Error('鐩戞帶闂撮殧蹇呴』澶т簬0');
     }
     if (newConfig.historySize !== undefined && newConfig.historySize <= 0) {
-      throw new Error('历史记录大小必须大于0');
+      throw new Error('鍘嗗彶璁板綍澶у皬蹇呴』澶т簬0');
     }
     if (newConfig.alertThresholds) {
       const { cpuUsage, memoryUsage, responseTime } = newConfig.alertThresholds;
       if (cpuUsage !== undefined && (cpuUsage < 0 || cpuUsage > 100)) {
-        throw new Error('CPU使用率阈值必须在0-100之间');
+        throw new Error('CPU浣跨敤鐜囬槇鍊煎繀椤诲湪0-100涔嬮棿');
       }
       if (memoryUsage !== undefined && (memoryUsage < 0 || memoryUsage > 100)) {
-        throw new Error('内存使用率阈值必须在0-100之间');
+        throw new Error('鍐呭瓨浣跨敤鐜囬槇鍊煎繀椤诲湪0-100涔嬮棿');
       }
       if (responseTime !== undefined && responseTime <= 0) {
-        throw new Error('响应时间阈值必须大于0');
+        throw new Error('鍝嶅簲鏃堕棿闃堝€煎繀椤诲ぇ浜?');
       }
     }
 
     this.config = { ...this.config, ...newConfig };
     
-    // 如果监控间隔改变，重启监控
+    // 濡傛灉鐩戞帶闂撮殧鏀瑰彉锛岄噸鍚洃鎺?
     if (this.isMonitoring && newConfig.monitoringInterval) {
       this.stopMonitoring();
       this.startMonitoring();
@@ -446,5 +464,10 @@ export class PerformanceMonitor extends EventEmitter {
   }
 }
 
-// 全局性能监控实例
+// 鍏ㄥ眬鎬ц兘鐩戞帶瀹炰緥
 export const performanceMonitor = new PerformanceMonitor();
+
+
+
+
+

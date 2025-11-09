@@ -202,7 +202,8 @@ export const DEFAULT_FILE_PATHS = {
   knowledgeGraphFile: '.trae/knowledge-graph.json',
   configFile: '.trae/config.json',
   logsDirectory: '.trae/logs',
-  backupDirectory: '.trae/backups'
+  // 统一使用顶层备份目录，避免在项目内生成 backups/
+  backupDirectory: 'S\\YDS-Lab\\backups\\TraeLM'
 };
 
 export const DEFAULT_API_SETTINGS = {

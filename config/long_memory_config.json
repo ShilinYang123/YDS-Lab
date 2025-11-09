@@ -1,0 +1,10 @@
+{
+  "storeDirs": [
+    "LongMemory",
+    ".trae/memory"
+  ],
+  "heartbeatFile": "LongMemory/heartbeat.txt",
+  "diskSpaceThresholdGB": 2,
+  "maxLogDays": 60,
+  "autoFix": true
+}

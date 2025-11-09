@@ -52,19 +52,21 @@ class YDSLabEnvChecker:
         self.setup_logging()
         
         # 必需的目录结构（零容忍：必须使用 03-dev；不再回退到 projects）
+        # 更新：顶层运维与临时文档目录统一为小写 docs；日志统一到 01-struc/logs
         self.required_dirs = [
-            'Docs',
+            'docs',
             'ai',
             'tools',
             '03-dev',
-            'env',
-'01-struc/0B-general-manager/logs',
+            '01-struc/logs',
             'backup'
         ]
         
         # 必需的Python包
+        # 说明：PyYAML 的发行版名称为 "PyYAML"，模块导入名为 "yaml"
+        # 这里使用发行版名称以便 pkg_resources.get_distribution 正确识别
         self.required_packages = {
-            'yaml': 'pyyaml>=5.4.0',
+            'PyYAML': 'PyYAML>=5.4.0',
             'requests': 'requests>=2.25.0',
             'psutil': 'psutil>=5.8.0',
             'pathlib': None,  # 内置包
@@ -106,11 +108,13 @@ class YDSLabEnvChecker:
             ('google.com', 80),
             ('baidu.com', 80)
         ]
+        # 尝试从配置文件覆盖网络端点
+        self._load_network_endpoints_from_configs()
         
     def setup_logging(self):
         """设置日志系统"""
         try:
-            logs_dir = self.project_root / "01-struc" / "Log"
+            logs_dir = self.project_root / "01-struc" / "logs"
             logs_dir.mkdir(parents=True, exist_ok=True)
             
             log_file = logs_dir / "env_checker.log"
@@ -126,9 +130,81 @@ class YDSLabEnvChecker:
             self.logger = logging.getLogger(__name__)
             self.logger.info("环境检查器初始化")
             
-        except Exception as e:
-            print(f"日志系统初始化失败: {e}")
+        except Exception:
+            # 若日志初始化本身失败，降级到标准输出，不影响后续检查
+            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
             self.logger = logging.getLogger(__name__)
+            self.logger.warning("日志系统初始化降级到标准输出")
+
+    def _parse_endpoints(self, endpoints: Any) -> Optional[List[Tuple[str, int]]]:
+        """将各种格式的端点配置解析为 (host, port) 列表
+        支持格式：
+        - [ {"host": "github.com", "port": 443}, ... ]
+        - [ "github.com:443", "pypi.org:443", ... ]
+        - [ ["github.com", 443], ["pypi.org", 443], ... ]
+        """
+        parsed: List[Tuple[str, int]] = []
+        try:
+            if isinstance(endpoints, list):
+                for item in endpoints:
+                    if isinstance(item, dict) and 'host' in item and 'port' in item:
+                        host = str(item['host']).strip()
+                        port = int(item['port'])
+                        parsed.append((host, port))
+                    elif isinstance(item, str):
+                        text = item.strip()
+                        if ':' in text:
+                            host, port_str = text.split(':', 1)
+                            parsed.append((host.strip(), int(port_str)))
+                    elif isinstance(item, (list, tuple)) and len(item) == 2:
+                        host, port = item
+                        parsed.append((str(host).strip(), int(port)))
+            return parsed if parsed else None
+        except Exception as e:
+            self.logger.warning(f"网络端点解析失败，回退默认端点: {e}")
+            return None
+
+    def _load_network_endpoints_from_configs(self) -> None:
+        """从配置文件加载网络端点，按优先级覆盖默认值。
+        优先级：
+        1) config/env_ready.network.json
+        2) document_governance_config.json
+        3) config/yds_ai_config.yaml (键：env_ready.network_endpoints 或 network_endpoints)
+        """
+        candidates = [
+            self.project_root / 'config' / 'env_ready.network.json',
+            self.project_root / 'document_governance_config.json',
+            self.project_root / 'config' / 'yds_ai_config.yaml'
+        ]
+
+        for path in candidates:
+            try:
+                if not path.exists():
+                    continue
+                if path.suffix.lower() == '.json':
+                    with open(path, 'r', encoding='utf-8') as f:
+                        data = json.load(f)
+                        endpoints = data.get('env_ready', {}).get('network_endpoints') or data.get('network_endpoints')
+                elif path.suffix.lower() in ('.yml', '.yaml'):
+                    with open(path, 'r', encoding='utf-8') as f:
+                        data = yaml.safe_load(f) or {}
+                        endpoints = (
+                            data.get('env_ready', {}).get('network_endpoints')
+                            or data.get('network_endpoints')
+                        )
+                else:
+                    continue
+
+                parsed = self._parse_endpoints(endpoints) if endpoints is not None else None
+                if parsed:
+                    self.network_endpoints = parsed
+                    self.logger.info(f"网络端点来自配置: {path}")
+                    return
+            except Exception as e:
+                # 若某个配置文件解析失败，不中断，继续尝试下一个
+                self.logger.warning(f"解析网络端点配置失败({path}): {e}")
+        # 若未加载到配置，保持默认值
+        self.logger.info("使用默认网络端点配置")
     
     def check_python_version(self) -> Dict:
         """检查Python版本"""
@@ -301,6 +377,86 @@ class YDSLabEnvChecker:
         else:
             result['messages'].append(f"目录结构完整: {len(existing_dirs)} 个目录")
         
+        return result
+
+    def check_document_paths(self) -> Dict:
+        """检查文档路径合规性"""
+        result = {
+            'name': '文档路径合规检查',
+            'status': 'pass',
+            'details': {},
+            'messages': []
+        }
+
+        docs_path = self.project_root / 'docs'
+        # 注意：Windows 文件系统大小写不敏感，os.path.exists('Docs') 会在存在 'docs' 时返回 True。
+        # 为避免误报，这里通过列举根目录实际名称来进行严格大小写判定。
+        try:
+            top_level_names = [name for name in os.listdir(self.project_root) if (self.project_root / name).is_dir()]
+        except Exception:
+            top_level_names = []
+        has_exact_docs = any(name == 'docs' for name in top_level_names)
+        has_exact_Docs = any(name == 'Docs' for name in top_level_names)
+
+        details = {
+            'docs_exists': has_exact_docs,
+            'old_docs_exists': has_exact_Docs,
+            'missing_project_docs': [],
+            'report_issues': []
+        }
+
+        # 顶层目录大小写合规
+        if has_exact_Docs:
+            result['status'] = 'fail'
+            result['messages'].append('存在不合规顶层目录 "Docs"，请重命名为小写 "docs" 并合并内容')
+        elif not has_exact_docs:
+            result['status'] = 'warning'
+            result['messages'].append('顶层 "docs" 目录不存在（用于运维/临时文档），建议创建')
+        else:
+            result['messages'].append('顶层文档目录名称合规（docs）')
+
+        # 项目 docs 目录存在性检查
+        project_docs = [
+            '03-dev/001-dewatermark-ai/docs',
+            '03-dev/001-memory-system/docs',
+            '03-dev/002-meetingroom/docs',
+            '04-prod/002-meetingroom/docs'
+        ]
+        missing_projects = []
+        for rel in project_docs:
+            p = self.project_root / rel
+            if not p.exists():
+                missing_projects.append(rel)
+        details['missing_project_docs'] = missing_projects
+
+        if missing_projects:
+            if result['status'] != 'fail':
+                result['status'] = 'warning'
+            result['messages'].append(f'缺少项目 docs 目录: {missing_projects}')
+        else:
+            result['messages'].append('项目 docs 目录已补齐')
+
+        # 报告归档合规性：根目录不应存在 final_validation_report.*
+        root_reports = list(self.project_root.glob('final_validation_report.*'))
+        if root_reports:
+            details['report_issues'].append('根目录存在 final_validation_report.*，建议迁移至 04-prod/reports/')
+            if result['status'] != 'fail':
+                result['status'] = 'warning'
+            result['messages'].append('根目录存在最终验证报告文件，需迁移至 04-prod/reports/')
+
+        # docs/发布版 不应包含“最终部署/最终验证报告”
+        release_dir = docs_path / '发布版'
+        if release_dir.exists():
+            issues = []
+            issues.extend(list(release_dir.glob('最终部署报告.*')))
+            issues.extend(list(release_dir.glob('最终验证报告.*')))
+            if issues:
+                details['report_issues'].append('docs/发布版 含有最终报告文件，需迁移至 04-prod/reports/')
+                if result['status'] != 'fail':
+                    result['status'] = 'warning'
+                result['messages'].append('docs/发布版 中存在最终报告文件，应迁移至 04-prod/reports/')
+
+        result['details'] = details
         return result
     
     def check_system_resources(self) -> Dict:
@@ -568,6 +724,7 @@ class YDSLabEnvChecker:
             self.check_required_packages,
             self.check_optional_packages,
             self.check_directory_structure,
+            self.check_document_paths,
             self.check_system_resources,
             self.check_network_connectivity,
             self.check_config_files,

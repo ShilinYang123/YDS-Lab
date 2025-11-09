@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-09-KNOWLEDGE-BASE",
+  "name_cn": "知识库",
+  "module_dir": "01-struc/Agents/09-knowledge_base",
+  "description_cn": "知识采集、索引与检索，支撑业务与研发知识沉淀。",
+  "responsibilities": ["知识采集", "索引构建", "检索服务"],
+  "interfaces": {
+    "tools": ["01-struc/Agents/09-knowledge_base/tools.py"],
+    "configs": ["config/yds_ai_config.yaml"],
+    "depends_on": ["Docs/**", "01-struc/docs/**", "final_validation_report.json"],
+    "deliverables": ["知识条目", "索引", "检索接口说明"]
+  },
+  "inputs": ["会议纪要", "技术文档", "运营数据"],
+  "outputs": ["知识库条目", "索引"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

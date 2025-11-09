@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-10-MCP-MANAGER",
+  "name_cn": "MCP管理",
+  "module_dir": "01-struc/Agents/10-mcp_manager",
+  "description_cn": "管理多MCP服务器的生命周期、健康与配置。",
+  "responsibilities": ["MCP服务管理", "健康检查", "扩容与配置"],
+  "interfaces": {
+    "tools": ["tools/mcp/mcp_server_manager.py", "tools/mcp/mcp_health_checker.py"],
+    "configs": ["tools/mcp/servers/*", "voice_service_config.json"],
+    "depends_on": ["03-dev/**", "04-prod/**"],
+    "deliverables": ["MCP启停日志", "健康检查报告"]
+  },
+  "inputs": ["服务配置", "运行状态"],
+  "outputs": ["服务状态报告", "异常告警"]
+  ,"status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

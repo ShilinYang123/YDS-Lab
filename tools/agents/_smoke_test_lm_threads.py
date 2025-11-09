@@ -4,7 +4,7 @@ from pathlib import Path
 
 # Ensure repo and servers are on path
 REPO = Path(__file__).resolve().parents[2]
-SERVERS = REPO / "03-dev" / "JS001-meetingroom" / "servers"
+SERVERS = REPO / "03-dev" / "002-meetingroom" / "servers"
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(SERVERS))
 

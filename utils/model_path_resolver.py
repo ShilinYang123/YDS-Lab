@@ -1,11 +1,11 @@
 """
 模型路径解析器 - 支持外部模型目录配置
-优先使用 S:\LLM 外部目录（兼容历史 S:\LLm 兜底路径），同时保持项目兼容性
+优先使用 S:\\LLM 外部目录（兼容历史 S:\\LLm 兜底路径），同时保持项目兼容性
 """
 
 import os
 import json
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 class ModelPathResolver:
     """模型路径解析器"""
@@ -13,6 +13,8 @@ class ModelPathResolver:
     def __init__(self):
         self.project_root = self._get_project_root()
         self.config = self._load_external_config()
+        # 智能体目录根路径（统一）
+        self.agents_root = os.path.join(self.project_root, "01-struc", "Agents")
     
     def _get_project_root(self) -> str:
         """获取项目根目录"""
@@ -111,6 +113,49 @@ class ModelPathResolver:
     def get_output_dir(self) -> str:
         """获取输出目录"""
         return os.path.join(self.project_root, "output")
+
+    # ====== 新增：智能体目录解析工具 ======
+    def list_agents(self) -> List[str]:
+        """列出所有智能体目录名（两位编号前缀）"""
+        if not os.path.isdir(self.agents_root):
+            return []
+        agents = []
+        for name in os.listdir(self.agents_root):
+            agent_path = os.path.join(self.agents_root, name)
+            if os.path.isdir(agent_path) and len(name) >= 3:
+                prefix = name[:2]
+                if prefix.isdigit():
+                    agents.append(name)
+        return sorted(agents)
+
+    def normalize_agent_name(self, name: str) -> str:
+        """规范化智能体目录名（保持原样或修复常见误写）"""
+        # 已带编号则直接返回
+        if len(name) >= 3 and name[:2].isdigit():
+            return name
+        # 常见误写修复（示例：marketing_director → 07-marketing_director）
+        mapping = {
+            "ceo": "01-ceo",
+            "chair_assistant": "02-chair_assistant",
+            "planning_director": "03-planning_director",
+            "finance_director": "04-finance_director",
+            "resource_admin": "05-resource_admin",
+            "dev_team": "06-dev_team",
+            "marketing_director": "07-marketing_director",
+        }
+        return mapping.get(name, name)
+
+    def resolve_agent_path(self, name: str, must_exist: bool = True) -> str:
+        """解析智能体目录的绝对路径
+        :param name: 智能体目录名（推荐格式：07-marketing_director）
+        :param must_exist: 若为 True 且不存在则抛出异常
+        :return: 绝对路径字符串
+        """
+        normalized = self.normalize_agent_name(name)
+        path = os.path.join(self.agents_root, normalized)
+        if must_exist and not os.path.isdir(path):
+            raise FileNotFoundError(f"智能体目录不存在: {normalized} -> {path}")
+        return path
     
     def create_symlinks(self) -> bool:
         """创建符号链接（需要管理员权限）"""
@@ -168,3 +213,10 @@ def get_lama_model_path() -> str:
 
 def get_output_dir() -> str:
     return resolver.get_output_dir()
+
+# 新增便捷函数（智能体目录）
+def list_agents() -> List[str]:
+    return resolver.list_agents()
+
+def resolve_agent_path(name: str, must_exist: bool = True) -> str:
+    return resolver.resolve_agent_path(name, must_exist)

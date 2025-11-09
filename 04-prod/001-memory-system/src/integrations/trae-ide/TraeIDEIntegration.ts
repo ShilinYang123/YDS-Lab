@@ -34,11 +34,12 @@ export interface IntegrationStatus {
 export class TraeIDEIntegration {
   private logger: Logger;
   private config: TraeIDEIntegrationConfig;
-  private autoRecordMiddleware: AutoRecordMiddleware;
-  private memoryService: MemoryService;
-  private intelligentFilter: IntelligentFilter;
-  private contentProcessor: ContentProcessor;
-  private contextExtractor: ContextExtractor;
+  // 使用确定赋值断言，属性在 initialize() 流程中赋值
+  private autoRecordMiddleware!: AutoRecordMiddleware;
+  private memoryService!: MemoryService;
+  private intelligentFilter!: IntelligentFilter;
+  private contentProcessor!: ContentProcessor;
+  private contextExtractor!: ContextExtractor;
   
   private status: IntegrationStatus;
   private healthCheckTimer: NodeJS.Timeout | null = null;

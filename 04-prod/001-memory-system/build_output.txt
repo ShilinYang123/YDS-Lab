@@ -1,0 +1,585 @@
+﻿
+> yds-lab-memory-system@1.0.0 build
+> tsc
+
+src/middleware/AutoRecordMiddleware.ts(89,22): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(90,21): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(91,21): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(92,18): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(93,28): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(94,22): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(97,5): error TS1068: Unexpected token. A constructor, method, accessor, or property was expected.
+src/middleware/AutoRecordMiddleware.ts(98,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(101,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(101,11): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(101,30): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(141,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(144,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(144,11): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(144,34): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(144,54): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(158,9): error TS1472: 'catch' or 'finally' expected.
+src/middleware/AutoRecordMiddleware.ts(161,7): error TS1005: 'try' expected.
+src/middleware/AutoRecordMiddleware.ts(165,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(171,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(174,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(174,29): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(187,3): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(187,11): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(187,17): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(187,37): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(188,13): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(188,58): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(188,60): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(230,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(230,11): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(230,35): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(230,54): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(231,11): error TS1005: ':' expected.
+src/middleware/AutoRecordMiddleware.ts(231,33): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(232,9): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(232,30): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(233,9): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(233,24): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(234,9): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(234,34): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(236,9): error TS1005: ':' expected.
+src/middleware/AutoRecordMiddleware.ts(238,11): error TS1003: Identifier expected.
+src/middleware/AutoRecordMiddleware.ts(244,9): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(244,15): error TS1005: ':' expected.
+src/middleware/AutoRecordMiddleware.ts(244,69): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(245,19): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(245,67): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(249,9): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(249,15): error TS1005: ':' expected.
+src/middleware/AutoRecordMiddleware.ts(249,86): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(250,46): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(252,28): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(252,48): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(252,50): error TS1136: Property assignment expected.
+src/middleware/AutoRecordMiddleware.ts(263,7): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(270,11): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(271,20): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(272,23): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(273,28): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(274,9): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(275,7): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(282,5): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(282,7): error TS1005: 'try' expected.
+src/middleware/AutoRecordMiddleware.ts(298,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(359,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(372,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(375,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(375,32): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(375,52): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(384,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(384,46): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(384,56): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(395,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(395,10): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(395,24): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(407,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(407,10): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(407,23): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(426,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(426,18): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(432,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(432,19): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(439,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(439,20): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(439,22): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(444,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(444,32): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(444,47): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(444,66): error TS1011: An element access expression should take an argument.
+src/middleware/AutoRecordMiddleware.ts(444,68): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(449,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(449,33): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(486,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(486,32): error TS1005: ',' expected.
+src/middleware/AutoRecordMiddleware.ts(486,61): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(499,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(502,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(502,10): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(502,29): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(512,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(512,23): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(525,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(541,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(544,3): error TS1128: Declaration or statement expected.
+src/middleware/AutoRecordMiddleware.ts(544,10): error TS1434: Unexpected keyword or identifier.
+src/middleware/AutoRecordMiddleware.ts(544,26): error TS1005: ';' expected.
+src/middleware/AutoRecordMiddleware.ts(557,1): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(169,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(169,39): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(169,48): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(169,49): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(169,53): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(169,65): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(169,74): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(169,76): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(169,78): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(174,32): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(206,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(206,49): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(206,58): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(207,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(207,46): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(210,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(210,67): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(211,10): error TS1359: Identifier expected. 'const' is a reserved word that cannot be used here.
+src/services/knowledge-graph/manager.ts(211,16): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(211,21): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(211,24): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(216,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(216,9): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(216,49): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(222,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(222,31): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(223,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(223,61): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(226,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(226,19): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(227,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(227,32): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(229,8): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(229,12): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(230,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(232,8): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(232,12): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(233,29): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(234,78): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(234,87): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(234,88): error TS1002: Unterminated string literal.
+src/services/knowledge-graph/manager.ts(235,8): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(235,12): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(235,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(235,32): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(235,47): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(235,48): error TS1136: Property assignment expected.
+src/services/knowledge-graph/manager.ts(237,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(237,20): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(250,3): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(253,34): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(253,38): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(253,48): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(253,55): error TS1134: Variable declaration expected.
+src/services/knowledge-graph/manager.ts(253,58): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(255,28): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(263,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(263,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(263,18): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(269,11): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(269,51): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,60): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(269,61): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,65): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,75): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,85): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,95): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,105): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(269,115): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,14): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,30): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,34): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,44): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,54): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,64): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,74): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,84): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,94): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(270,104): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(271,23): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(272,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(273,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(278,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(278,39): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(278,48): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(278,50): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(278,52): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(285,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(285,35): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(285,44): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(285,46): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(285,55): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(285,57): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(298,21): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(298,23): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(305,22): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(305,24): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(337,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(337,19): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(337,28): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(338,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(338,43): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(344,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(344,19): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(344,28): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(345,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(345,43): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(361,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(361,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(361,31): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(361,45): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(362,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(362,49): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(363,9): error TS1003: Identifier expected.
+src/services/knowledge-graph/manager.ts(366,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(366,9): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(366,39): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(372,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(372,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(372,31): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(372,45): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(373,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(373,49): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(374,9): error TS1003: Identifier expected.
+src/services/knowledge-graph/manager.ts(377,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(377,9): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(377,39): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(383,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(383,27): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(383,33): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(383,35): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(383,52): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(384,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(384,18): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(384,26): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(384,27): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(384,29): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(384,33): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(385,10): error TS1359: Identifier expected. 'const' is a reserved word that cannot be used here.
+src/services/knowledge-graph/manager.ts(385,16): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(385,25): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(385,28): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(389,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(389,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(389,19): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(395,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(395,28): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(395,37): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(395,39): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(395,53): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(396,10): error TS1359: Identifier expected. 'const' is a reserved word that cannot be used here.
+src/services/knowledge-graph/manager.ts(396,16): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(396,23): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(396,26): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(404,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(404,26): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(404,35): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(404,49): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(407,12): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(407,53): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(413,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(413,25): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(413,31): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(413,45): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(414,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(414,30): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(415,9): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(415,50): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(419,25): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(422,24): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(439,5): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(439,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(439,17): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(445,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(445,28): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(445,37): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(445,51): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(446,12): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(446,52): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(459,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(459,24): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(459,38): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(460,9): error TS1003: Identifier expected.
+src/services/knowledge-graph/manager.ts(460,14): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(460,24): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(460,26): error TS1136: Property assignment expected.
+src/services/knowledge-graph/manager.ts(461,16): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(461,30): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(462,16): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(463,6): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(463,7): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(464,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(469,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(469,35): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(469,44): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(469,58): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(470,9): error TS1003: Identifier expected.
+src/services/knowledge-graph/manager.ts(470,14): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(470,59): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(470,61): error TS1136: Property assignment expected.
+src/services/knowledge-graph/manager.ts(491,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(545,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(545,26): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(546,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(547,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(548,20): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(549,26): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(550,23): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(552,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(552,52): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(553,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(553,52): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(555,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(555,35): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(556,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(556,35): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(559,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(559,61): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(560,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(560,76): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(563,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(563,74): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(566,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(566,38): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(567,9): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(567,23): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(569,10): error TS1359: Identifier expected. 'const' is a reserved word that cannot be used here.
+src/services/knowledge-graph/manager.ts(569,16): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(569,21): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(569,24): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(572,32): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(572,36): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(572,46): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(572,56): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(572,66): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(576,3): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(576,61): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(576,65): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(576,86): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(578,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(578,52): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(579,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(579,52): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(582,11): error TS1005: ':' expected.
+src/services/knowledge-graph/manager.ts(582,22): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(582,30): error TS1005: '>' expected.
+src/services/knowledge-graph/manager.ts(582,46): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(582,47): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(582,63): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(582,72): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(582,75): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(582,77): error TS1109: Expression expected.
+src/services/knowledge-graph/manager.ts(587,45): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(587,49): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(609,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(634,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(634,22): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(635,16): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(635,17): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,16): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(636,17): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,21): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,31): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,41): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,51): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,61): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,71): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,81): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,91): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,101): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,111): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,121): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,131): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,141): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,151): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,161): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,171): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,181): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(636,191): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(639,5): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(640,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(645,3): error TS1434: Unexpected keyword or identifier.
+src/services/knowledge-graph/manager.ts(645,25): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(646,16): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(646,17): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,16): error TS1011: An element access expression should take an argument.
+src/services/knowledge-graph/manager.ts(647,17): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,21): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,31): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,41): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,51): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,61): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,71): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,81): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,91): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(647,113): error TS1005: ')' expected.
+src/services/knowledge-graph/manager.ts(648,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(653,12): error TS1005: ';' expected.
+src/services/knowledge-graph/manager.ts(654,13): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(654,30): error TS1005: ',' expected.
+src/services/knowledge-graph/manager.ts(654,32): error TS1136: Property assignment expected.
+src/services/knowledge-graph/manager.ts(665,3): error TS1128: Declaration or statement expected.
+src/services/knowledge-graph/manager.ts(666,1): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(72,6): error TS1068: Unexpected token. A constructor, method, accessor, or property was expected.
+src/services/MemoryService.ts(74,5): error TS1068: Unexpected token. A constructor, method, accessor, or property was expected.
+src/services/MemoryService.ts(80,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(107,7): error TS1472: 'catch' or 'finally' expected.
+src/services/MemoryService.ts(115,5): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(115,7): error TS1005: 'try' expected.
+src/services/MemoryService.ts(119,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(159,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(162,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(162,11): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(162,41): error TS1005: ',' expected.
+src/services/MemoryService.ts(162,54): error TS1005: ';' expected.
+src/services/MemoryService.ts(163,9): error TS1005: ':' expected.
+src/services/MemoryService.ts(165,13): error TS1005: ':' expected.
+src/services/MemoryService.ts(165,66): error TS1005: ',' expected.
+src/services/MemoryService.ts(168,13): error TS1005: ':' expected.
+src/services/MemoryService.ts(168,82): error TS1005: ',' expected.
+src/services/MemoryService.ts(170,14): error TS1005: ':' expected.
+src/services/MemoryService.ts(170,29): error TS1005: ',' expected.
+src/services/MemoryService.ts(171,7): error TS1005: ',' expected.
+src/services/MemoryService.ts(178,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(178,11): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(178,41): error TS1005: ',' expected.
+src/services/MemoryService.ts(178,54): error TS1005: ';' expected.
+src/services/MemoryService.ts(179,11): error TS1005: ':' expected.
+src/services/MemoryService.ts(179,19): error TS1005: ',' expected.
+src/services/MemoryService.ts(179,41): error TS1005: '(' expected.
+src/services/MemoryService.ts(179,43): error TS1136: Property assignment expected.
+src/services/MemoryService.ts(180,7): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(181,9): error TS1005: ';' expected.
+src/services/MemoryService.ts(182,18): error TS1005: ';' expected.
+src/services/MemoryService.ts(183,14): error TS1005: ';' expected.
+src/services/MemoryService.ts(188,5): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(198,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(201,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(201,40): error TS1005: ',' expected.
+src/services/MemoryService.ts(201,53): error TS1005: ';' expected.
+src/services/MemoryService.ts(201,55): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(207,7): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(208,7): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(219,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(219,39): error TS1005: ',' expected.
+src/services/MemoryService.ts(219,52): error TS1005: ';' expected.
+src/services/MemoryService.ts(219,54): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(232,5): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(235,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(244,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(261,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(273,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(301,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(304,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(304,11): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(304,40): error TS1005: ',' expected.
+src/services/MemoryService.ts(304,46): error TS1005: ';' expected.
+src/services/MemoryService.ts(306,12): error TS1005: ':' expected.
+src/services/MemoryService.ts(306,54): error TS1005: ',' expected.
+src/services/MemoryService.ts(310,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(310,29): error TS1005: ';' expected.
+src/services/MemoryService.ts(310,31): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(315,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(315,29): error TS1005: ';' expected.
+src/services/MemoryService.ts(330,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(330,10): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(330,51): error TS1005: ',' expected.
+src/services/MemoryService.ts(330,60): error TS1005: ';' expected.
+src/services/MemoryService.ts(330,74): error TS1109: Expression expected.
+src/services/MemoryService.ts(331,9): error TS1005: ':' expected.
+src/services/MemoryService.ts(338,11): error TS1005: ':' expected.
+src/services/MemoryService.ts(338,67): error TS1005: ',' expected.
+src/services/MemoryService.ts(339,11): error TS1005: ':' expected.
+src/services/MemoryService.ts(339,57): error TS1005: ',' expected.
+src/services/MemoryService.ts(340,7): error TS1005: ',' expected.
+src/services/MemoryService.ts(355,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(358,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(358,28): error TS1005: ',' expected.
+src/services/MemoryService.ts(358,39): error TS1005: ';' expected.
+src/services/MemoryService.ts(370,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(370,10): error TS1434: Unexpected keyword or identifier.
+src/services/MemoryService.ts(370,25): error TS1005: ';' expected.
+src/services/MemoryService.ts(370,39): error TS1109: Expression expected.
+src/services/MemoryService.ts(371,13): error TS1005: ',' expected.
+src/services/MemoryService.ts(371,24): error TS1005: ',' expected.
+src/services/MemoryService.ts(371,26): error TS1136: Property assignment expected.
+src/services/MemoryService.ts(381,3): error TS1128: Declaration or statement expected.
+src/services/MemoryService.ts(382,1): error TS1128: Declaration or statement expected.
+src/services/rule-system/engine.ts(500,3): error TS1128: Declaration or statement expected.
+src/services/rule-system/engine.ts(500,10): error TS1434: Unexpected keyword or identifier.
+src/services/rule-system/engine.ts(500,38): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(500,52): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(500,71): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(501,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(501,78): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(502,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(502,18): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(502,101): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(504,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(506,12): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(508,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(521,6): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(523,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(523,15): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(523,65): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(525,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(525,24): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(533,6): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(535,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(535,15): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(535,23): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(535,24): error TS1109: Expression expected.
+src/services/rule-system/engine.ts(535,26): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(535,38): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(535,45): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(536,63): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(538,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(542,65): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(544,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(544,86): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(545,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(545,33): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(547,11): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(547,17): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(565,6): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(567,9): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(568,13): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(568,18): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(575,8): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(576,15): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(576,25): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(576,33): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(576,37): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(576,66): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(577,7): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(577,13): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(581,5): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(581,12): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(581,18): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(587,3): error TS1128: Declaration or statement expected.
+src/services/rule-system/engine.ts(587,32): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(587,44): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(587,66): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(587,80): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(587,82): error TS1434: Unexpected keyword or identifier.
+src/services/rule-system/engine.ts(610,3): error TS1128: Declaration or statement expected.
+src/services/rule-system/engine.ts(610,33): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(610,45): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(610,67): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(610,81): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(610,83): error TS1434: Unexpected keyword or identifier.
+src/services/rule-system/engine.ts(622,3): error TS1128: Declaration or statement expected.
+src/services/rule-system/engine.ts(622,36): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(622,52): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(623,9): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(623,42): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(626,13): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(626,59): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(626,61): error TS1136: Property assignment expected.
+src/services/rule-system/engine.ts(629,3): error TS1128: Declaration or statement expected.
+src/services/rule-system/engine.ts(634,29): error TS1109: Expression expected.
+src/services/rule-system/engine.ts(634,38): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(634,54): error TS1011: An element access expression should take an argument.
+src/services/rule-system/engine.ts(634,56): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(642,13): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(642,15): error TS1434: Unexpected keyword or identifier.
+src/services/rule-system/engine.ts(664,17): error TS1005: ';' expected.
+src/services/rule-system/engine.ts(665,9): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(665,31): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(666,9): error TS1005: ':' expected.
+src/services/rule-system/engine.ts(666,32): error TS1005: ',' expected.
+src/services/rule-system/engine.ts(668,1): error TS1128: Declaration or statement expected.

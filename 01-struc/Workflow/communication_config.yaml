@@ -1,120 +1,96 @@
-# 通用沟通协作配置
-# 从 SharedWorkspace/Collaboration/workflows_config.yaml 迁移
+﻿# 閫氱敤娌熼€氬崗浣滈厤缃?# 浠?SharedWorkspace/Collaboration/workflows_config.yaml 杩佺Щ
 
 communication:
   channels:
     meeting_system:
       minutes: true
       recording: true
-      type: 会议系统
-      usage: 正式会议和决策
-    shared_documents:
-      location: SharedWorkspace/Documents
-      type: 文档协作
-      usage: 文档共享和编辑
-      version_control: true
+      type: 浼氳绯荤粺
+      usage: 姝ｅ紡浼氳鍜屽喅绛?    shared_documents:
+      location: 01-struc/docs/07-资料库
+      type: 鏂囨。鍗忎綔
+      usage: 鏂囨。鍏变韩鍜岀紪杈?      version_control: true
     trae_workspace:
-      format: 结构化消息
-      participants: 所有智能体
-      type: 实时协作
-      usage: 日常工作交流
+      format: 缁撴瀯鍖栨秷鎭?      participants: 鎵€鏈夋櫤鑳戒綋
+      type: 瀹炴椂鍗忎綔
+      usage: 鏃ュ父宸ヤ綔浜ゆ祦
   escalation_rules:
     level_1:
-      condition: 部门内部问题
-      handler: 部门主管
-      response_time: < 2小时
+      condition: 閮ㄩ棬鍐呴儴闂
+      handler: 閮ㄩ棬涓荤
+      response_time: < 2灏忔椂
     level_2:
-      condition: 跨部门协调问题
-      handler: CEO
-      response_time: < 4小时
+      condition: 璺ㄩ儴闂ㄥ崗璋冮棶棰?      handler: CEO
+      response_time: < 4灏忔椂
     level_3:
-      condition: 紧急业务问题
-      handler: CEO + 相关部门
-      response_time: < 30分钟
+      condition: 绱ф€ヤ笟鍔￠棶棰?      handler: CEO + 鐩稿叧閮ㄩ棬
+      response_time: < 30鍒嗛挓
   message_formats:
     decision_proposal:
       template:
         content:
-          alternatives: 备选方案
-          impact: 影响分析
-          proposal: 提议内容
-          rationale: 理由说明
-        sender: 提议者
-        timestamp: 时间戳
-        type: decision_proposal
+          alternatives: 澶囬€夋柟妗?          impact: 褰卞搷鍒嗘瀽
+          proposal: 鎻愯鍐呭
+          rationale: 鐞嗙敱璇存槑
+        sender: 鎻愯鑰?        timestamp: 鏃堕棿鎴?        type: decision_proposal
     status_update:
       template:
         content:
-          current_task: 当前任务
-          issues: 遇到的问题
-          next_steps: 下一步计划
-          progress: 进度百分比
-        sender: 智能体名称
-        timestamp: 时间戳
-        type: status_update
+          current_task: 褰撳墠浠诲姟
+          issues: 閬囧埌鐨勯棶棰?          next_steps: 涓嬩竴姝ヨ鍒?          progress: 杩涘害鐧惧垎姣?        sender: 鏅鸿兘浣撳悕绉?        timestamp: 鏃堕棿鎴?        type: status_update
     task_request:
       template:
         content:
-          deadline: 截止时间
-          priority: 优先级
-          resources: 所需资源
-          task_description: 任务描述
-        recipient: 接收者
-        sender: 请求者
-        timestamp: 时间戳
-        type: task_request
+          deadline: 鎴鏃堕棿
+          priority: 浼樺厛绾?          resources: 鎵€闇€璧勬簮
+          task_description: 浠诲姟鎻忚堪
+        recipient: 鎺ユ敹鑰?        sender: 璇锋眰鑰?        timestamp: 鏃堕棿鎴?        type: task_request
 
 decision_making:
   consensus_rules:
     qualified_majority:
       threshold: 66.7%
-      usage: 重要决策
+      usage: 閲嶈鍐崇瓥
     simple_majority:
       threshold: 50% + 1
-      usage: 一般性决策
-    unanimous:
+      usage: 涓€鑸€у喅绛?    unanimous:
       threshold: 100%
-      usage: 关键战略决策
+      usage: 鍏抽敭鎴樼暐鍐崇瓥
   decision_process:
     analysis:
-      description: 分析评估
+      description: 鍒嗘瀽璇勪及
       requirements:
-      - 可行性分析
-      - 风险评估
-      - 成本效益
-      responsible: 相关专家智能体
-      step: 2
+      - 鍙鎬у垎鏋?      - 椋庨櫓璇勪及
+      - 鎴愭湰鏁堢泭
+      responsible: 鐩稿叧涓撳鏅鸿兘浣?      step: 2
     consultation:
-      description: 征求意见
+      description: 寰佹眰鎰忚
       requirements:
-      - 意见收集
-      - 反馈整理
-      responsible: 利益相关者
-      step: 3
+      - 鎰忚鏀堕泦
+      - 鍙嶉鏁寸悊
+      responsible: 鍒╃泭鐩稿叧鑰?      step: 3
     decision:
-      description: 做出决策
+      description: 鍋氬嚭鍐崇瓥
       requirements:
-      - 决策结果
-      - 执行计划
-      responsible: 决策权限者
-      step: 4
+      - 鍐崇瓥缁撴灉
+      - 鎵ц璁″垝
+      responsible: 鍐崇瓥鏉冮檺鑰?      step: 4
     execution:
-      description: 执行监督
+      description: 鎵ц鐩戠潱
       requirements:
-      - 执行进度
-      - 效果评估
-      responsible: 执行部门
+      - 鎵ц杩涘害
+      - 鏁堟灉璇勪及
+      responsible: 鎵ц閮ㄩ棬
       step: 5
     proposal:
-      description: 提出决策提议
+      description: 鎻愬嚭鍐崇瓥鎻愯
       requirements:
-      - 问题描述
-      - 解决方案
-      - 影响分析
-      responsible: 任何智能体
-      step: 1
+      - 闂鎻忚堪
+      - 瑙ｅ喅鏂规
+      - 褰卞搷鍒嗘瀽
+      responsible: 浠讳綍鏅鸿兘浣?      step: 1
 
-# 通用日志配置
+# 閫氱敤鏃ュ織閰嶇疆
 logging:
   destinations:
   - console
@@ -126,5 +102,5 @@ logging:
   - WARNING
   - ERROR
   - CRITICAL
-  retention: 30天
-  rotation: daily
+  retention: 30澶?  rotation: daily
+

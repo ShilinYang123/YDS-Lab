@@ -201,7 +201,8 @@ class ProductionDeploymentManager:
         config_files = [
             "config.yaml",
             "requirements.txt",
-            "README.md"
+            "读我.md",
+            "README.md"  # 兼容占位，如存在则一并备份
         ]
         
         for config_file in config_files:

@@ -16,10 +16,10 @@ YDS-Lab 目录结构更新工具
 import os
 import sys
 import json
-import time
+import subprocess
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Set, Optional
+from typing import Dict, List, Optional, Any
 import yaml
 import re
 
@@ -32,21 +32,56 @@ class YDSLabStructureUpdater:
         cfg_new = self.project_root / "config" / "structure_config.yaml"
         self.config_file = cfg_new
         # 正式与候选清单路径（统一新路径 01-struc/0B-general-manager；旧路径仅作为历史记录，不再回退）
-        self.formal_file = self.project_root / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程" / "《动态目录结构清单》.md"
-        self.candidate_file = self.project_root / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程" / "《动态目录结构清单（候选）》.md"
+        self.formal_file = (
+            self.project_root
+            / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程"
+            / "《动态目录结构清单》.md"
+        )
+        self.candidate_file = (
+            self.project_root
+            / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程"
+            / "《动态目录结构清单（候选）》.md"
+        )
         # 默认输出为候选清单，需批准后方可发布为正式清单
         self.output_file = self.candidate_file
         # 归档与审批默认设置（日志统一至 01-struc/0B-general-manager/logs/structure）
-        self.archive_dir = self.project_root / "01-struc" / "0B-general-manager" / "logs" / "structure"
+        self.archive_dir = (
+            self.project_root / "01-struc" / "0B-general-manager" / "logs" / "structure"
+        )
         self.require_approval = True
         self.approval_env_var = "YDS_APPROVE_STRUCTURE"
-        self.approval_sentinel = self.project_root / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程" / "APPROVE_UPDATE_STRUCTURE"
+        self.approval_sentinel = (
+            self.project_root
+            / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程"
+            / "APPROVE_UPDATE_STRUCTURE"
+        )
         # 需要在架构设计文档中永久记录的维护说明（新路径优先）
-        self.architecture_doc = self.project_root / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程" / "项目架构设计.md"
-        self.architecture_doc_old = self.project_root / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程" / "项目架构设计.md"
+        self.architecture_doc = (
+            self.project_root
+            / "01-struc" / "0B-general-manager" / "Docs" / "YDS-AI-组织与流程"
+            / "项目架构设计.md"
+        )
+        self.architecture_doc_old = (
+            self.project_root
+            / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程"
+            / "项目架构设计.md"
+        )
+        # 旧路径的正式清单（用于归档历史版本）
+        self.formal_old = (
+            self.project_root
+            / "Struc" / "GeneralOffice" / "Docs" / "YDS-AI-组织与流程"
+            / "《动态目录结构清单》.md"
+        )
         self.venv_path = str(self.project_root / ".venv")
-        venv_display = self.venv_path[0].upper() + self.venv_path[1:] if len(self.venv_path) >= 2 and self.venv_path[1] == ':' and self.venv_path[0].isalpha() else self.venv_path
-        self.maintenance_note = f"维护说明：近期策略调整——已将 `.venv`（{venv_display}）纳入 `.gitignore` 忽略，并在结构扫描中排除，确保本地虚拟环境不进入版本库且不参与目录结构统计。"
+        venv_display = (
+            self.venv_path[0].upper() + self.venv_path[1:]
+            if len(self.venv_path) >= 2 and self.venv_path[1] == ':' and self.venv_path[0].isalpha()
+            else self.venv_path
+        )
+        self.maintenance_note = (
+            f"维护说明：近期策略调整——已将 `.venv`（{venv_display}）纳入 `.gitignore` 忽略，"
+            f"并在结构扫描中排除，确保本地虚拟环境不进入版本库且不参与目录结构统计。"
+        )
         
         # 默认配置 - 严格按照《规范与流程.md》第3.3节规定
         self.default_config = {
@@ -64,7 +99,7 @@ class YDSLabStructureUpdater:
             'exclude_files': [
                 # 规范文档第3.3节：完全排除的文件
                 '*.pyc', '*.pyo', '*.pyd',  # Python编译缓存文件
-                '*.log', '*.tmp', '*.temp', # 临时和日志文件
+                '*.log', '*.tmp', '*.temp',  # 临时和日志文件
                 '.DS_Store', 'Thumbs.db',   # 系统文件
                 # 额外的常见排除文件（保持兼容性）
                 '*.bak', '*.swp', 'desktop.ini',
@@ -74,7 +109,7 @@ class YDSLabStructureUpdater:
                 # 规范文档第2.2节：特殊目录处理规则
                 'Log': {'max_depth': 2, 'show_files': False},      # Log目录：最大深度2层，不显示具体文件
                 'archive': {'max_depth': 1, 'show_files': False},  # 归档目录：最大深度1层，不显示具体文件
-                'archives': {'max_depth': 1, 'show_files': False}, # 归档目录：最大深度1层，不显示具体文件
+                'archives': {'max_depth': 1, 'show_files': False},  # 归档目录：最大深度1层，不显示具体文件
                 'logs': {'max_depth': 2, 'show_files': False}      # 日志目录：最大深度2层，不显示具体文件
             },
             'hidden_dirs_handling': {
@@ -84,6 +119,22 @@ class YDSLabStructureUpdater:
         }
         
         self.load_config()
+
+    def emit_longmemory_event(self, event_type: str, topic: str, payload: Dict[str, Any]) -> None:
+        """调用 LongMemory 事件记录工具，将事件写入本地并可选上报HTTP。
+
+        该方法为软依赖：record_event.py 不存在时不会中断主流程。
+        """
+        try:
+            script = self.project_root / 'tools' / 'LongMemory' / 'record_event.py'
+            if not script.exists():
+                print(f"[LongMemory] 未找到事件记录脚本: {script}")
+                return
+            cmd = [sys.executable, str(script), '--type', event_type, '--topic', topic,
+                   '--source', 'tools/up.py', '--payload', json.dumps(payload, ensure_ascii=False)]
+            subprocess.run(cmd, check=False)
+        except Exception as e:
+            print(f"[LongMemory] 事件记录失败（忽略不影响主流程）: {e}")
         
     def load_config(self):
         """加载配置文件"""
@@ -109,8 +160,13 @@ class YDSLabStructureUpdater:
         try:
             self.config_file.parent.mkdir(parents=True, exist_ok=True)
             with open(self.config_file, 'w', encoding='utf-8') as f:
-                yaml.dump(self.default_config, f, default_flow_style=False, 
-                         allow_unicode=True, indent=2)
+                yaml.dump(
+                    self.default_config,
+                    f,
+                    default_flow_style=False,
+                    allow_unicode=True,
+                    indent=2,
+                )
         except Exception as e:
             print(f"配置文件保存失败: {e}")
             
@@ -150,9 +206,14 @@ class YDSLabStructureUpdater:
                 
         return None
         
-    def scan_directory(self, path: Path, max_depth: int = None, 
-                      show_files: bool = True, current_depth: int = 0, 
-                      parent_special_handling: Optional[Dict] = None) -> List[str]:
+    def scan_directory(
+        self,
+        path: Path,
+        max_depth: int = None,
+        show_files: bool = True,
+        current_depth: int = 0,
+        parent_special_handling: Optional[Dict] = None,
+    ) -> List[str]:
         """扫描目录结构"""
         items = []
         
@@ -193,10 +254,14 @@ class YDSLabStructureUpdater:
                     items.append(f"{indent}{entry.name}/")
                     
                     # 递归扫描子目录
-                    sub_items = self.scan_directory(
-                        entry, adjusted_max_depth, sub_show_files, current_depth + 1, 
-                        effective_special
-                    )
+                    scan_kwargs = {
+                        'path': entry,
+                        'max_depth': adjusted_max_depth,
+                        'show_files': sub_show_files,
+                        'current_depth': current_depth + 1,
+                        'parent_special_handling': effective_special,
+                    }
+                    sub_items = self.scan_directory(**scan_kwargs)
                     items.extend(sub_items)
                     
                 elif entry.is_file() and show_files:
@@ -418,6 +483,7 @@ python tools\\update_structure.py
             sentinel_approved = self.approval_sentinel.exists()
             should_finalize = finalize or (env_approved or sentinel_approved)
             
+            archive_path_value = None
             if should_finalize:
                 # 归档旧正式清单（若存在）
                 self.archive_dir.mkdir(parents=True, exist_ok=True)
@@ -427,18 +493,22 @@ python tools\\update_structure.py
                     archive_path = self.archive_dir / f"动态目录结构清单_旧版_{ts}.md"
                     try:
                         # 同时打开旧正式清单与归档文件进行内容复制
-                        with open(self.formal_file, 'r', encoding='utf-8') as rf, open(archive_path, 'w', encoding='utf-8') as wf:
-                            wf.write(rf.read())
+                        with open(self.formal_file, 'r', encoding='utf-8') as rf:
+                            with open(archive_path, 'w', encoding='utf-8') as wf:
+                                wf.write(rf.read())
                         print(f"已归档旧正式清单: {archive_path}")
+                        archive_path_value = str(archive_path)
                     except Exception as ae:
                         print(f"归档失败，但继续发布: {ae}")
                 elif self.formal_old.exists():
                     ts = datetime.now().strftime('%Y%m%d_%H%M%S')
                     archive_path = self.archive_dir / f"动态目录结构清单_旧版_{ts}.md"
                     try:
-                        with open(self.formal_old, 'r', encoding='utf-8') as rf, open(archive_path, 'w', encoding='utf-8') as wf:
-                            wf.write(rf.read())
+                        with open(self.formal_old, 'r', encoding='utf-8') as rf:
+                            with open(archive_path, 'w', encoding='utf-8') as wf:
+                                wf.write(rf.read())
                         print(f"已归档旧正式清单(旧路径): {archive_path}")
+                        archive_path_value = str(archive_path)
                     except Exception as ae:
                         print(f"归档失败，但继续发布: {ae}")
                 
@@ -451,7 +521,11 @@ python tools\\update_structure.py
                 print(f"正式目录结构清单已发布: {self.formal_file}")
             else:
                 print("未获批准，已生成候选清单但未更新正式清单。")
-                print(f"如需发布，请使用 --finalize 参数或设置环境变量 {self.approval_env_var}=1，或创建哨兵文件: {self.approval_sentinel}")
+                hint = (
+                    f"如需发布，请使用 --finalize 参数或设置环境变量 {self.approval_env_var}=1，"
+                    f"或创建哨兵文件: {self.approval_sentinel}"
+                )
+                print(hint)
             
             # 确保项目架构设计文档永久包含维护说明
             self.ensure_architecture_maintenance_note()
@@ -465,6 +539,28 @@ python tools\\update_structure.py
             print(f"扫描完成，共处理 {total_items} 个项目")
             print(f"   目录数量: {dir_count}")
             print(f"   文件数量: {file_count}")
+
+            # LongMemory 事件记录
+            try:
+                payload = {
+                    'finalize': bool(should_finalize),
+                    'approved_env': bool(env_approved),
+                    'approved_sentinel': bool(sentinel_approved),
+                    'candidate_file': str(self.candidate_file),
+                    'formal_file': str(self.formal_file) if should_finalize else None,
+                    'archive_file': archive_path_value,
+                    'output_file': str(self.output_file),
+                    'stats': {
+                        'total_items': total_items,
+                        'dir_count': dir_count,
+                        'file_count': file_count,
+                    },
+                    'timestamp': datetime.now().isoformat(),
+                }
+                event_type = 'structure_publish' if should_finalize else 'structure_candidate_update'
+                self.emit_longmemory_event(event_type, 'yds.structure', payload)
+            except Exception as e:
+                print(f"[LongMemory] 结构更新事件写入失败（忽略）: {e}")
             
             return True
             

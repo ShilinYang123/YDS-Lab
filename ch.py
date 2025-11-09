@@ -382,8 +382,13 @@ class YDSLabStructureChecker:
 
     # === 命名规则校验相关 ===
     def _has_number_prefix(self, name: str) -> bool:
-        """检测名称是否以编号前缀开头，例如 01-、02_、03 """
-        return bool(re.match(r'^\d{2,}[-_ ]', name))
+        """检测名称是否以编号前缀开头
+        支持两类前缀：
+        1) 纯数字两位：如 01-、02_、03 ；
+        2) 数字+字母：如 0A-、0B_（用于 0A/0B 类编号）。
+        """
+        pattern = r'^(\d{2}|\d[A-Za-z])[-_ ]'
+        return bool(re.match(pattern, name))
 
     def check_naming_rules(self) -> List[Dict[str, str]]:
         """检查 Agents 与 0B-general-manager 的命名规则，返回违规清单"""

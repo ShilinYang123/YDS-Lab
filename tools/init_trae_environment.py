@@ -1,9 +1,7 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Trae环境初始化脚本
-功能：初始化和验证Trae开发环境的完整性
-"""
+Trae鐜鍒濆鍖栬剼鏈?鍔熻兘锛氬垵濮嬪寲鍜岄獙璇乀rae寮€鍙戠幆澧冪殑瀹屾暣鎬?"""
 
 import os
 import yaml
@@ -13,61 +11,61 @@ from pathlib import Path
 from datetime import datetime
 
 class TraeEnvironmentInitializer:
-    """Trae环境初始化器"""
+    """Trae鐜鍒濆鍖栧櫒"""
     
     def __init__(self, project_root: str = None):
         if project_root is None:
             project_root = Path(__file__).parent.parent
         
         self.project_root = Path(project_root)
-        # 统一到标准目录结构 01-struc
+        # 缁熶竴鍒版爣鍑嗙洰褰曠粨鏋?01-struc
         self.struc_root = self.project_root / "01-struc"
         
     def initialize_environment(self):
-        """初始化完整的Trae环境"""
-        print("🚀 开始初始化Trae开发环境...")
+        """鍒濆鍖栧畬鏁寸殑Trae鐜"""
+        print("馃殌 寮€濮嬪垵濮嬪寲Trae寮€鍙戠幆澧?..")
         
         steps = [
-            ("验证目录结构", self._verify_directory_structure),
-            ("初始化智能体配置", self._initialize_agents),
-            ("配置共享工作空间", self._setup_shared_workspace),
-            ("初始化MCP集群", self._initialize_mcp_cluster),
-            ("创建协作模板", self._create_collaboration_templates),
-            ("设置监控系统", self._setup_monitoring),
-            ("验证环境完整性", self._verify_environment)
+            ("楠岃瘉鐩綍缁撴瀯", self._verify_directory_structure),
+            ("鍒濆鍖栨櫤鑳戒綋閰嶇疆", self._initialize_agents),
+            ("閰嶇疆鍏变韩宸ヤ綔绌洪棿", self._setup_shared_workspace),
+            ("鍒濆鍖朚CP闆嗙兢", self._initialize_mcp_cluster),
+            ("鍒涘缓鍗忎綔妯℃澘", self._create_collaboration_templates),
+            ("璁剧疆鐩戞帶绯荤粺", self._setup_monitoring),
+            ("楠岃瘉鐜瀹屾暣鎬?, self._verify_environment)
         ]
         
         for step_name, step_func in steps:
-            print(f"\n📋 {step_name}...")
+            print(f"\n馃搵 {step_name}...")
             try:
                 result = step_func()
                 if result:
-                    print(f"   ✅ {step_name} 完成")
+                    print(f"   鉁?{step_name} 瀹屾垚")
                 else:
-                    print(f"   ❌ {step_name} 失败")
+                    print(f"   鉂?{step_name} 澶辫触")
                     return False
             except Exception as e:
-                print(f"   ❌ {step_name} 出错: {e}")
+                print(f"   鉂?{step_name} 鍑洪敊: {e}")
                 return False
                 
-        print("\n🎉 Trae环境初始化完成！")
+        print("\n馃帀 Trae鐜鍒濆鍖栧畬鎴愶紒")
         return True
         
     def _verify_directory_structure(self):
-        """验证目录结构"""
+        """楠岃瘉鐩綍缁撴瀯"""
         required_dirs = [
             "01-struc/Agents",
             "01-struc/SharedWorkspace", 
             "tools/mcp/servers",
-            "01-struc/Agents/CEO",
+            "01-struc/Agents/01-ceo",
             "01-struc/Agents/PlanningDirector",
             "01-struc/Agents/FinanceDirector",
             "01-struc/Agents/DevTeamLead",
             "01-struc/Agents/MarketingDirector",
             "01-struc/Agents/ResourceAdmin",
             "01-struc/SharedWorkspace/Projects",
-            "01-struc/SharedWorkspace/Documents",
-            "01-struc/SharedWorkspace/Templates",
+            "01-struc/docs/07-资料库",
+            "01-struc/docs/05-模板库",
             "01-struc/SharedWorkspace/Collaboration",
             "01-struc/SharedWorkspace/KnowledgeBase",
             "tools/mcp/servers/GitHub",
@@ -85,20 +83,19 @@ class TraeEnvironmentInitializer:
                 missing_dirs.append(dir_path)
                 
         if missing_dirs:
-            print(f"   缺少目录: {missing_dirs}")
+            print(f"   缂哄皯鐩綍: {missing_dirs}")
             return False
             
         return True
         
     def _initialize_agents(self):
-        """初始化智能体配置"""
+        """鍒濆鍖栨櫤鑳戒綋閰嶇疆"""
         agents = ["CEO", "PlanningDirector", "FinanceDirector", "DevTeamLead", "MarketingDirector", "ResourceAdmin"]
         
         for agent in agents:
             agent_dir = self.struc_root / "Agents" / agent
             
-            # 创建智能体配置文件
-            config = {
+            # 鍒涘缓鏅鸿兘浣撻厤缃枃浠?            config = {
                 "agent_info": {
                     "name": agent,
                     "version": "2.0.0",
@@ -118,11 +115,10 @@ class TraeEnvironmentInitializer:
                 }
             }
             
-            # 创建子目录
-            for subdir in ["documents", "templates", "logs", "config"]:
+            # 鍒涘缓瀛愮洰褰?            for subdir in ["documents", "templates", "logs", "config"]:
                 (agent_dir / subdir).mkdir(exist_ok=True)
                 
-            # 保存配置文件
+            # 淇濆瓨閰嶇疆鏂囦欢
             config_file = agent_dir / "config" / "agent_config.yaml"
             with open(config_file, 'w', encoding='utf-8') as f:
                 yaml.dump(config, f, default_flow_style=False, allow_unicode=True)
@@ -130,26 +126,26 @@ class TraeEnvironmentInitializer:
         return True
         
     def _setup_shared_workspace(self):
-        """配置共享工作空间"""
+        """閰嶇疆鍏变韩宸ヤ綔绌洪棿"""
         workspace_root = self.struc_root / "SharedWorkspace"
         
-        # 创建项目模板
+        # 鍒涘缓椤圭洰妯℃澘
         templates_dir = workspace_root / "Templates"
         
         project_template = {
-            "name": "标准项目模板",
+            "name": "鏍囧噯椤圭洰妯℃澘",
             "structure": {
-                "docs": "项目文档",
-                "src": "源代码",
-                "tests": "测试文件",
-                "config": "配置文件"
+                "docs": "椤圭洰鏂囨。",
+                "src": "婧愪唬鐮?,
+                "tests": "娴嬭瘯鏂囦欢",
+                "config": "閰嶇疆鏂囦欢"
             },
             "workflow": [
-                "需求分析",
-                "设计方案",
-                "开发实现",
-                "测试验证",
-                "部署上线"
+                "闇€姹傚垎鏋?,
+                "璁捐鏂规",
+                "寮€鍙戝疄鐜?,
+                "娴嬭瘯楠岃瘉",
+                "閮ㄧ讲涓婄嚎"
             ]
         }
         
@@ -157,19 +153,19 @@ class TraeEnvironmentInitializer:
         with open(template_file, 'w', encoding='utf-8') as f:
             yaml.dump(project_template, f, default_flow_style=False, allow_unicode=True)
             
-        # 创建协作指南
+        # 鍒涘缓鍗忎綔鎸囧崡
         collab_dir = workspace_root / "Collaboration"
         
         collab_guide = {
             "communication_guidelines": {
-                "daily_standup": "每日9:00晨会",
-                "urgent_matters": "即时消息",
-                "documentation": "共享文档系统"
+                "daily_standup": "姣忔棩9:00鏅ㄤ細",
+                "urgent_matters": "鍗虫椂娑堟伅",
+                "documentation": "鍏变韩鏂囨。绯荤粺"
             },
             "decision_process": {
-                "consensus_items": ["项目启动", "技术选型", "预算调整"],
-                "ceo_authority": ["战略决策", "人事变动", "紧急事项"],
-                "department_authority": ["日常运营", "技术细节", "执行计划"]
+                "consensus_items": ["椤圭洰鍚姩", "鎶€鏈€夊瀷", "棰勭畻璋冩暣"],
+                "ceo_authority": ["鎴樼暐鍐崇瓥", "浜轰簨鍙樺姩", "绱ф€ヤ簨椤?],
+                "department_authority": ["鏃ュ父杩愯惀", "鎶€鏈粏鑺?, "鎵ц璁″垝"]
             }
         }
         
@@ -180,8 +176,8 @@ class TraeEnvironmentInitializer:
         return True
         
     def _initialize_mcp_cluster(self):
-        """初始化MCP集群"""
-        # 新路径：tools/mcp/servers
+        """鍒濆鍖朚CP闆嗙兢"""
+        # 鏂拌矾寰勶細tools/mcp/servers
         mcp_root = self.project_root / "tools" / "mcp" / "servers"
         
         servers = ["GitHub", "Excel", "Figma", "Builder", "FileSystem", "Database"]
@@ -189,8 +185,7 @@ class TraeEnvironmentInitializer:
         for server in servers:
             server_dir = mcp_root / server
             
-            # 创建服务器配置
-            server_config = {
+            # 鍒涘缓鏈嶅姟鍣ㄩ厤缃?            server_config = {
                 "server_info": {
                     "name": f"{server} MCP Server",
                     "version": "1.0.0",
@@ -204,11 +199,10 @@ class TraeEnvironmentInitializer:
                 }
             }
             
-            # 创建子目录
-            for subdir in ["src", "config", "logs", "tests"]:
+            # 鍒涘缓瀛愮洰褰?            for subdir in ["src", "config", "logs", "tests"]:
                 (server_dir / subdir).mkdir(exist_ok=True)
                 
-            # 保存配置
+            # 淇濆瓨閰嶇疆
             config_file = server_dir / "config" / "server_config.yaml"
             with open(config_file, 'w', encoding='utf-8') as f:
                 yaml.dump(server_config, f, default_flow_style=False, allow_unicode=True)
@@ -216,46 +210,44 @@ class TraeEnvironmentInitializer:
         return True
         
     def _create_collaboration_templates(self):
-        """创建协作模板"""
+        """鍒涘缓鍗忎綔妯℃澘"""
         templates_dir = self.struc_root / "SharedWorkspace" / "Templates"
         
-        # 会议纪要模板
-        meeting_template = """# 会议纪要模板
+        # 浼氳绾妯℃澘
+        meeting_template = """# 浼氳绾妯℃澘
 
-## 会议信息
-- **日期**: {date}
-- **时间**: {time}
-- **参与者**: {participants}
-- **主持人**: {host}
+## 浼氳淇℃伅
+- **鏃ユ湡**: {date}
+- **鏃堕棿**: {time}
+- **鍙備笌鑰?*: {participants}
+- **涓绘寔浜?*: {host}
 
-## 议程
-1. 上次会议回顾
-2. 当前进展汇报
-3. 问题讨论
-4. 决策事项
-5. 下步计划
+## 璁▼
+1. 涓婃浼氳鍥為【
+2. 褰撳墠杩涘睍姹囨姤
+3. 闂璁ㄨ
+4. 鍐崇瓥浜嬮」
+5. 涓嬫璁″垝
 
-## 讨论内容
-### 进展汇报
+## 璁ㄨ鍐呭
+### 杩涘睍姹囨姤
 - CEO: 
-- 企划总监: 
-- 财务总监: 
-- 开发负责人: 
-- 市场总监: 
-- 资源行政: 
+- 浼佸垝鎬荤洃: 
+- 璐㈠姟鎬荤洃: 
+- 寮€鍙戣礋璐ｄ汉: 
+- 甯傚満鎬荤洃: 
+- 璧勬簮琛屾斂: 
 
-### 问题和决策
-| 问题 | 讨论结果 | 负责人 | 截止时间 |
+### 闂鍜屽喅绛?| 闂 | 璁ㄨ缁撴灉 | 璐熻矗浜?| 鎴鏃堕棿 |
 |------|----------|--------|----------|
 |      |          |        |          |
 
-## 行动项
-- [ ] 任务1 - 负责人 - 截止时间
-- [ ] 任务2 - 负责人 - 截止时间
+## 琛屽姩椤?- [ ] 浠诲姟1 - 璐熻矗浜?- 鎴鏃堕棿
+- [ ] 浠诲姟2 - 璐熻矗浜?- 鎴鏃堕棿
 
-## 下次会议
-- **时间**: 
-- **议题**: 
+## 涓嬫浼氳
+- **鏃堕棿**: 
+- **璁**: 
 """
         
         with open(templates_dir / "meeting_template.md", 'w', encoding='utf-8') as f:
@@ -264,7 +256,7 @@ class TraeEnvironmentInitializer:
         return True
         
     def _setup_monitoring(self):
-        """设置监控系统"""
+        """璁剧疆鐩戞帶绯荤粺"""
         monitoring_config = {
             "system_monitoring": {
                 "agents_health": True,
@@ -285,7 +277,7 @@ class TraeEnvironmentInitializer:
             }
         }
         
-        # 监控配置文件：统一至 01-struc/0B-general-manager/config
+        # 鐩戞帶閰嶇疆鏂囦欢锛氱粺涓€鑷?01-struc/0B-general-manager/config
         config_file = self.struc_root / "0B-general-manager" / "config" / "monitoring_config.yaml"
         config_file.parent.mkdir(parents=True, exist_ok=True)
         
@@ -295,7 +287,7 @@ class TraeEnvironmentInitializer:
         return True
         
     def _verify_environment(self):
-        """验证环境完整性"""
+        """楠岃瘉鐜瀹屾暣鎬?""
         verification_results = {
             "directory_structure": self._verify_directory_structure(),
             "config_files": self._verify_config_files(),
@@ -305,15 +297,15 @@ class TraeEnvironmentInitializer:
         
         all_passed = all(verification_results.values())
         
-        print(f"\n📊 环境验证结果:")
+        print(f"\n馃搳 鐜楠岃瘉缁撴灉:")
         for check, result in verification_results.items():
-            status = "✅" if result else "❌"
+            status = "鉁? if result else "鉂?
             print(f"   {status} {check}")
             
         return all_passed
         
     def _verify_config_files(self):
-        """验证配置文件"""
+        """楠岃瘉閰嶇疆鏂囦欢"""
         required_configs = [
             "01-struc/0B-general-manager/config/startup_config.yaml",
             "01-struc/Agents/collaboration_workflows.yaml",
@@ -327,7 +319,7 @@ class TraeEnvironmentInitializer:
         return True
         
     def _verify_agent_setup(self):
-        """验证智能体设置"""
+        """楠岃瘉鏅鸿兘浣撹缃?""
         agents = ["CEO", "PlanningDirector", "FinanceDirector", "DevTeamLead", "MarketingDirector", "ResourceAdmin"]
         
         for agent in agents:
@@ -338,7 +330,7 @@ class TraeEnvironmentInitializer:
         return True
         
     def _verify_mcp_cluster(self):
-        """验证MCP集群设置"""
+        """楠岃瘉MCP闆嗙兢璁剧疆"""
         servers = ["GitHub", "Excel", "Figma", "Builder", "FileSystem", "Database"]
         
         for server in servers:
@@ -349,26 +341,26 @@ class TraeEnvironmentInitializer:
         return True
         
     def _get_agent_capabilities(self, agent):
-        """获取智能体能力配置"""
+        """鑾峰彇鏅鸿兘浣撹兘鍔涢厤缃?""
         capabilities_map = {
-            "CEO": ["战略决策", "团队协调", "业务规划", "风险管理"],
-            "PlanningDirector": ["项目规划", "需求分析", "方案设计", "进度管理"],
-            "FinanceDirector": ["财务分析", "预算管理", "成本控制", "投资决策"],
-            "DevTeamLead": ["技术架构", "代码审查", "团队管理", "技术选型"],
-            "MarketingDirector": ["市场分析", "推广策略", "用户研究", "品牌管理"],
-            "ResourceAdmin": ["资源管理", "行政支持", "文档管理", "流程优化"]
+            "CEO": ["鎴樼暐鍐崇瓥", "鍥㈤槦鍗忚皟", "涓氬姟瑙勫垝", "椋庨櫓绠＄悊"],
+            "PlanningDirector": ["椤圭洰瑙勫垝", "闇€姹傚垎鏋?, "鏂规璁捐", "杩涘害绠＄悊"],
+            "FinanceDirector": ["璐㈠姟鍒嗘瀽", "棰勭畻绠＄悊", "鎴愭湰鎺у埗", "鎶曡祫鍐崇瓥"],
+            "DevTeamLead": ["鎶€鏈灦鏋?, "浠ｇ爜瀹℃煡", "鍥㈤槦绠＄悊", "鎶€鏈€夊瀷"],
+            "MarketingDirector": ["甯傚満鍒嗘瀽", "鎺ㄥ箍绛栫暐", "鐢ㄦ埛鐮旂┒", "鍝佺墝绠＄悊"],
+            "ResourceAdmin": ["璧勬簮绠＄悊", "琛屾斂鏀寔", "鏂囨。绠＄悊", "娴佺▼浼樺寲"]
         }
         return capabilities_map.get(agent, [])
         
     def _get_reporting_structure(self, agent):
-        """获取汇报关系"""
+        """鑾峰彇姹囨姤鍏崇郴"""
         if agent == "CEO":
             return []
         else:
             return ["CEO"]
             
     def _get_collaboration_partners(self, agent):
-        """获取协作伙伴"""
+        """鑾峰彇鍗忎綔浼欎即"""
         collab_map = {
             "CEO": ["PlanningDirector", "FinanceDirector", "DevTeamLead", "MarketingDirector", "ResourceAdmin"],
             "PlanningDirector": ["DevTeamLead", "MarketingDirector", "FinanceDirector"],
@@ -380,7 +372,7 @@ class TraeEnvironmentInitializer:
         return collab_map.get(agent, [])
         
     def _get_mcp_capabilities(self, server):
-        """获取MCP服务器能力"""
+        """鑾峰彇MCP鏈嶅姟鍣ㄨ兘鍔?""
         capabilities_map = {
             "GitHub": ["repository_management", "code_collaboration", "version_control"],
             "Excel": ["spreadsheet_processing", "data_analysis", "report_generation"],
@@ -392,7 +384,7 @@ class TraeEnvironmentInitializer:
         return capabilities_map.get(server, [])
         
     def _get_mcp_dependencies(self, server):
-        """获取MCP服务器依赖"""
+        """鑾峰彇MCP鏈嶅姟鍣ㄤ緷璧?""
         deps_map = {
             "GitHub": ["github", "requests", "mcp"],
             "Excel": ["openpyxl", "pandas", "mcp"],
@@ -404,20 +396,22 @@ class TraeEnvironmentInitializer:
         return deps_map.get(server, ["mcp"])
 
 def main():
-    """主函数"""
-    print("🚀 YDS-Lab Trae环境初始化器")
+    """涓诲嚱鏁?""
+    print("馃殌 YDS-Lab Trae鐜鍒濆鍖栧櫒")
     print("=" * 50)
     
     initializer = TraeEnvironmentInitializer()
     success = initializer.initialize_environment()
     
     if success:
-        print("\n🎉 Trae环境初始化成功！")
-        print("📋 下一步可以开始迁移智能体配置")
+        print("\n馃帀 Trae鐜鍒濆鍖栨垚鍔燂紒")
+        print("馃搵 涓嬩竴姝ュ彲浠ュ紑濮嬭縼绉绘櫤鑳戒綋閰嶇疆")
     else:
-        print("\n❌ Trae环境初始化失败，请检查错误信息")
+        print("\n鉂?Trae鐜鍒濆鍖栧け璐ワ紝璇锋鏌ラ敊璇俊鎭?)
         
     return success
 
 if __name__ == "__main__":
     main()
+
+

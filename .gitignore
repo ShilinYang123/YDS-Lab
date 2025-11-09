@@ -97,3 +97,8 @@ yarn-error.log*
  
 # Releases (new production directory)
 03-proc/releases/
+
+# Additional ignores (auto-added by workflow)
+backups/
+01-struc/0B-general-manager/bak/
+tmp/

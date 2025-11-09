@@ -1,0 +1,21 @@
+root = true
+
+[*.md]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+
+[*.txt]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+
+[*.{yml,yaml,json}]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+
+[*.{ps1,psm1,py,js,ts}]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true

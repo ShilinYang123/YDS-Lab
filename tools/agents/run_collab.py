@@ -30,6 +30,7 @@ if str(REPO_ROOT) not in sys.path:
 
 # 统一通过 01-struc/Agents 基于文件路径动态导入（移除 Struc.Agents 旧包名）
 import importlib.util
+import re
 
 def _import_module_from_path(mod_name: str, file_path: Path):
     spec = importlib.util.spec_from_file_location(mod_name, str(file_path))
@@ -39,8 +40,43 @@ def _import_module_from_path(mod_name: str, file_path: Path):
     spec.loader.exec_module(module)  # type: ignore
     return module
 
+def _resolve_agents_dir(name: str) -> Path:
+    """在 01-struc/Agents 下解析不带序号或带序号前缀的目录名。
+    兼容如 'ceo' 与 '01-ceo'，'planning_director' 与 '03-planning_director'。
+    """
+    agents_root = REPO_ROOT / "01-struc" / "Agents"
+    if not agents_root.exists():
+        # 兼容小写目录名（Windows大小写不敏感，但显式兼容）
+        agents_root = REPO_ROOT / "01-struc" / "agents"
+    if not agents_root.exists():
+        raise FileNotFoundError(f"Agents 目录不存在: {agents_root}")
+
+    target_lower = name.lower()
+    # 直接命中
+    direct = agents_root / name
+    if direct.exists():
+        return direct
+
+    # 遍历寻找带序号前缀的目录
+    for d in agents_root.iterdir():
+        if d.is_dir():
+            nm = d.name.lower()
+            # 允许匹配：完全相等、以 name 结尾、去掉前缀 'NN-' 后相等
+            if nm == target_lower:
+                return d
+            if nm.endswith(target_lower):
+                return d
+            if re.match(r"^\d{2,}-", nm) and nm.split("-", 1)[1] == target_lower:
+                return d
+    raise FileNotFoundError(f"未找到 Agents 子目录: {name}")
+
 def _import_symbol_from_agents(subdirs: List[str], filename: str, symbol: str):
-    base = REPO_ROOT / "01-struc" / "Agents" / Path(*subdirs) / filename
+    # 支持首级目录名的带序号解析
+    if not subdirs:
+        raise ValueError("subdirs 不能为空")
+    root_dir = _resolve_agents_dir(subdirs[0])
+    rel = Path(*subdirs[1:]) if len(subdirs) > 1 else Path("")
+    base = root_dir / rel / filename
     if not base.exists():
         raise FileNotFoundError(f"缺少模块文件: {base}")
     mod = _import_module_from_path("agents_" + "_".join(subdirs) + "_" + filename.replace(".py",""), base)
@@ -50,9 +86,14 @@ def _import_symbol_from_agents(subdirs: List[str], filename: str, symbol: str):
 
 # 导入部门提示词与工具（按需懒加载，避免包名兼容问题）
 GENERAL_MANAGER_PROMPT = _import_symbol_from_agents(["ceo"], "prompt.py", "GENERAL_MANAGER_PROMPT")
-_ceo_tools_mod = _import_module_from_path(
-    "agents_ceo_tools", REPO_ROOT / "01-struc" / "Agents" / "ceo" / "tools.py"
-)
+# 兼容带序号的 ceo 目录（如 01-ceo），使用解析函数定位实际路径
+try:
+    _ceo_dir = _resolve_agents_dir("ceo")
+    _ceo_tools_mod = _import_module_from_path(
+        "agents_ceo_tools", _ceo_dir / "tools.py"
+    )
+except Exception as e:
+    raise ImportError(f"无法导入CEO工具模块: {e}")
 archive_meeting = getattr(_ceo_tools_mod, "archive_meeting")
 schedule_emergency_meeting = getattr(_ceo_tools_mod, "schedule_emergency_meeting")
 
@@ -67,7 +108,7 @@ try:
     from models.services.llm_router import route_chat  # type: ignore
 except Exception:
     try:
-        _mrs = REPO_ROOT / "03-dev" / "JS001-meetingroom" / "servers" / "meetingroom_server.py"
+        _mrs = REPO_ROOT / "03-dev" / "002-meetingroom" / "servers" / "meetingroom_server.py"
         _mrs_mod = _import_module_from_path("meetingroom_server", _mrs)
         route_chat = getattr(_mrs_mod, "route_chat")  # type: ignore
     except Exception:

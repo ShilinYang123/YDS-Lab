@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-19-LONGMEMORY-HEALTH",
+  "name_cn": "长记忆健康",
+  "module_dir": "01-struc/Agents/19-longmemory_health",
+  "description_cn": "长记忆系统健康检查、指标采集与异常恢复建议。",
+  "responsibilities": ["健康检查", "指标采集", "异常恢复建议"],
+  "interfaces": {
+    "tools": ["01-struc/Agents/19-longmemory_health/tools.py"],
+    "configs": ["tools/LongMemory/health_check.py", "final_validation_report.json"],
+    "depends_on": ["tools/LongMemory/**"],
+    "deliverables": ["健康报告", "异常处理建议", "自动化校验记录"]
+  },
+  "inputs": ["health_check", "metrics", "构建与测试结果"],
+  "outputs": ["健康检查报告", "修复建议"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

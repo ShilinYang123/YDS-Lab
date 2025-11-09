@@ -13,22 +13,22 @@
         "CFO": "read",
         "CTO": "read"
       },
-      "description": "YDS AI战略规划文档",
+      "description": "公司战略规划相关文档",
       "auto_approval": false,
       "requires_audit": true
     },
     {
-      "path": "S:/YDS-Lab/01-struc/05-marketing",
+      "path": "S:/YDS-Lab/01-struc/Agents/07-marketing_director",
       "category": "marketing",
       "allowed_roles": [
-        "CEO",
-        "项目协调者"
+        "项目协调者",
+        "CEO"
       ],
       "access_levels": {
         "CEO": "admin",
         "项目协调者": "write"
       },
-      "description": "市场部门文档",
+      "description": "市场营销部门文档与素材",
       "auto_approval": true,
       "requires_audit": true
     },
@@ -36,18 +36,18 @@
       "path": "S:/YDS-Lab/01-struc/04-dev-team",
       "category": "technical",
       "allowed_roles": [
-        "后端开发",
-        "CTO",
-        "前端开发",
-        "项目协调者"
+        "项目协调者",
+        "前端开发智能体",
+        "后端开发智能体",
+        "CTO"
       ],
       "access_levels": {
         "CTO": "admin",
-        "前端开发": "write",
-        "后端开发": "write",
+        "前端开发智能体": "write",
+        "后端开发智能体": "write",
         "项目协调者": "read"
       },
-      "description": "技术部门文档",
+      "description": "研发团队技术文档与设计资料",
       "auto_approval": true,
       "requires_audit": true
     },
@@ -62,7 +62,7 @@
         "CEO": "admin",
         "CFO": "admin"
       },
-      "description": "财务部门文档",
+      "description": "公司财务部门文档",
       "auto_approval": false,
       "requires_audit": true
     },
@@ -70,18 +70,18 @@
       "path": "S:/YDS-Lab/04-prod",
       "category": "operational",
       "allowed_roles": [
-        "后端开发",
-        "CEO",
-        "前端开发",
-        "项目协调者"
+        "项目协调者",
+        "前端开发智能体",
+        "后端开发智能体",
+        "CEO"
       ],
       "access_levels": {
         "CEO": "admin",
         "项目协调者": "write",
-        "前端开发": "write",
-        "后端开发": "write"
+        "前端开发智能体": "write",
+        "后端开发智能体": "write"
       },
-      "description": "生产环境文档",
+      "description": "生产环境部署与运维相关文档",
       "auto_approval": true,
       "requires_audit": true
     },
@@ -89,10 +89,10 @@
       "path": "S:/YDS-Lab/tools",
       "category": "technical",
       "allowed_roles": [
-        "后端开发智能体",
+        "项目协调者",
         "前端开发智能体",
-        "CTO",
-        "项目协调者"
+        "后端开发智能体",
+        "CTO"
       ],
       "access_levels": {
         "CTO": "admin",
@@ -100,7 +100,7 @@
         "后端开发智能体": "write",
         "项目协调者": "read"
       },
-      "description": "工具和脚本",
+      "description": "工具与脚本目录",
       "auto_approval": true,
       "requires_audit": false
     },
@@ -113,7 +113,7 @@
       "access_levels": {
         "*": "read"
       },
-      "description": "公开文档",
+      "description": "公开共享文档",
       "auto_approval": true,
       "requires_audit": false
     }

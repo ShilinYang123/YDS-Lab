@@ -47,7 +47,8 @@ deployment:
   # 记忆存储路径
   memory_storage:
     path: "data/memories"
-    backup_path: "data/backups"
+    # 统一使用顶层备份目录
+    backup_path: "S:\\YDS-Lab\\backups\\trae-ide"
 
 # 监控配置
 monitoring:

@@ -181,11 +181,17 @@ export class ContextExtractor {
   // 提取工作区上下文
   private extractWorkspaceContext(contextData: ContextData): ExtractedContext['workspace'] {
     try {
-      return {
-        root: contextData.workspaceRoot,
-        openFiles: contextData.openFiles || [],
-        activeEditor: contextData.activeFile
-      };
+      const workspace: ExtractedContext['workspace'] = {};
+      if (contextData.workspaceRoot) {
+        workspace.root = contextData.workspaceRoot;
+      }
+      if (contextData.openFiles && contextData.openFiles.length > 0) {
+        workspace.openFiles = contextData.openFiles;
+      }
+      if (contextData.activeFile) {
+        workspace.activeEditor = contextData.activeFile;
+      }
+      return workspace;
     } catch (error) {
       this.logger.error('Error extracting workspace context:', error);
       return {};
@@ -331,8 +337,6 @@ export class ContextExtractor {
   // 获取项目结构
   private getProjectStructure(workspaceRoot: string, maxDepth: number = 2): any {
     try {
-      const structure: any = {};
-      
       const readDir = (dirPath: string, currentDepth: number) => {
         if (currentDepth > maxDepth) return;
 

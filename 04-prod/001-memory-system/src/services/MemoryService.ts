@@ -1,11 +1,14 @@
-// src/services/MemoryService.ts
-import { EventEmitter } from 'events';
+﻿import { EventEmitter } from 'events';
 import { Logger } from '../utils/logger';
+import { PerformanceMonitor } from '../utils/performance';
 import { MemoryManager } from './knowledge-graph/memory';
 import { RuleEngine } from './rule-system/engine';
-import { PerformanceMonitor } from '../utils/performance';
+import type { Memory } from '../types/base';
+
 
 export interface MemoryData {
+  id?: string;
+  source?: string;
   type: string;
   content: any;
   conversationId?: string;
@@ -46,8 +49,7 @@ export class MemoryService extends EventEmitter {
     
     this.config = {
       batchSize: 10,
-      flushInterval: 5000, // 5秒
-      maxQueueSize: 1000,
+      flushInterval: 5000, // 5绉?      maxQueueSize: 1000,
       enableFiltering: true,
       enableCompression: true,
       ...config
@@ -62,11 +64,9 @@ export class MemoryService extends EventEmitter {
   }
 
   private initializeService() {
-    // 启动定时刷新
-    this.startFlushTimer();
-    
-    // 监听内存管理器事件
-    this.memoryManager.on('memoryStored', (memory) => {
+    // 鍚姩瀹氭椂鍒锋柊
+        this.ruleEngine.start();
+    // 鐩戝惉鍐呭瓨绠＄悊鍣ㄤ簨浠?    this.memoryManager.on('memoryStored', (memory) => {
       this.emit('memoryStored', memory);
       this.logger.debug('Memory stored successfully');
     });
@@ -79,37 +79,34 @@ export class MemoryService extends EventEmitter {
     this.logger.info('MemoryService initialized');
   }
 
-  // 提交记忆到队列
-  public async submitMemory(memoryData: MemoryData): Promise<void> {
+  // 鎻愪氦璁板繂鍒伴槦鍒?  public async submitMemory(memoryData: MemoryData): Promise<void> {
     if (!this.isEnabled) {
       this.logger.debug('MemoryService is disabled, skipping memory submission');
       return;
     }
 
     try {
-      // 验证记忆数据
+      // 楠岃瘉璁板繂鏁版嵁
       if (!this.validateMemoryData(memoryData)) {
         this.logger.warn('Invalid memory data, skipping submission');
         return;
       }
 
-      // 应用过滤规则
+      // 搴旂敤杩囨护瑙勫垯
       if (this.config.enableFiltering && !this.shouldStoreMemory(memoryData)) {
         this.logger.debug('Memory filtered out by rules');
         return;
       }
 
-      // 检查队列大小
-      if (this.memoryQueue.length >= this.config.maxQueueSize) {
+      // 妫€鏌ラ槦鍒楀ぇ灏?      if (this.memoryQueue.length >= this.config.maxQueueSize) {
         this.logger.warn('Memory queue is full, forcing flush');
         await this.flushQueue();
       }
 
-      // 添加到队列
-      this.memoryQueue.push(memoryData);
+      // 娣诲姞鍒伴槦鍒?      this.memoryQueue.push(memoryData);
       this.logger.debug(`Memory added to queue, queue size: ${this.memoryQueue.length}`);
 
-      // 如果队列达到批处理大小，立即处理
+      // 濡傛灉闃熷垪杈惧埌鎵瑰鐞嗗ぇ灏忥紝绔嬪嵆澶勭悊
       if (this.memoryQueue.length >= this.config.batchSize) {
         await this.flushQueue();
       }
@@ -121,8 +118,7 @@ export class MemoryService extends EventEmitter {
     }
   }
 
-  // 刷新队列，批量处理记忆
-  private async flushQueue(): Promise<void> {
+  // 鍒锋柊闃熷垪锛屾壒閲忓鐞嗚蹇?  private async flushQueue(): Promise<void> {
     if (this.processingQueue || this.memoryQueue.length === 0) {
       return;
     }
@@ -134,21 +130,21 @@ export class MemoryService extends EventEmitter {
       const batch = this.memoryQueue.splice(0, this.config.batchSize);
       this.logger.debug(`Processing batch of ${batch.length} memories`);
 
-      // 批量处理记忆
+      // 鎵归噺澶勭悊璁板繂
       const processedMemories = await Promise.all(
         batch.map(memory => this.processMemory(memory))
       );
 
-      // 过滤掉处理失败的记忆
+      // 杩囨护鎺夊鐞嗗け璐ョ殑璁板繂
       const validMemories = processedMemories.filter(memory => memory !== null);
 
       if (validMemories.length > 0) {
-        // 批量存储到记忆管理器
+        // 鎵归噺瀛樺偍鍒拌蹇嗙鐞嗗櫒
         await this.memoryManager.storeBatch(validMemories);
         this.logger.info(`Successfully stored ${validMemories.length} memories`);
       }
 
-      // 记录性能指标
+      // 璁板綍鎬ц兘鎸囨爣
       const processingTime = Date.now() - startTime;
       this.performanceMonitor.recordMetric('memory_batch_processing_time', processingTime);
       this.performanceMonitor.recordMetric('memory_batch_size', batch.length);
@@ -162,13 +158,13 @@ export class MemoryService extends EventEmitter {
     }
   }
 
-  // 处理单个记忆
+  // 澶勭悊鍗曚釜璁板繂
   private async processMemory(memoryData: MemoryData): Promise<any | null> {
     try {
-      // 增强记忆数据
+      // 澧炲己璁板繂鏁版嵁
       const enhancedMemory = await this.enhanceMemory(memoryData);
 
-      // 应用规则引擎
+      // 搴旂敤瑙勫垯寮曟搸
       const processedMemory = await this.ruleEngine.processMemory(enhancedMemory);
 
       return processedMemory;
@@ -178,24 +174,22 @@ export class MemoryService extends EventEmitter {
     }
   }
 
-  // 增强记忆数据
+  // 澧炲己璁板繂鏁版嵁
   private async enhanceMemory(memoryData: MemoryData): Promise<any> {
-    const enhanced = {
+    const enhanced: Record<string, any> = {
       ...memoryData,
       id: this.generateMemoryId(),
       processedAt: new Date().toISOString(),
       version: '1.0'
     };
 
-    // 添加上下文信息
-    if (memoryData.context) {
+    // 娣诲姞涓婁笅鏂囦俊鎭?    if (memoryData.context) {
       enhanced.enrichedContext = await this.enrichContext(memoryData.context);
     }
 
-    // 计算重要性分数
-    enhanced.importanceScore = this.calculateImportanceScore(memoryData);
+    // 璁＄畻閲嶈鎬у垎鏁?    enhanced.importanceScore = this.calculateImportanceScore(memoryData);
 
-    // 压缩内容（如果启用）
+    // 鍘嬬缉鍐呭锛堝鏋滃惎鐢級
     if (this.config.enableCompression) {
       enhanced.compressedContent = await this.compressContent(memoryData.content);
     }
@@ -203,18 +197,17 @@ export class MemoryService extends EventEmitter {
     return enhanced;
   }
 
-  // 验证记忆数据
+  // 楠岃瘉璁板繂鏁版嵁
   private validateMemoryData(memoryData: MemoryData): boolean {
     if (!memoryData.type || !memoryData.content || !memoryData.timestamp) {
       return false;
     }
 
-    // 检查内容长度
-    const contentStr = typeof memoryData.content === 'string' 
+    // 妫€鏌ュ唴瀹归暱搴?    const contentStr = typeof memoryData.content === 'string' 
       ? memoryData.content 
       : JSON.stringify(memoryData.content);
     
-    if (contentStr.length > 50000) { // 50KB限制
+    if (contentStr.length > 50000) { // 50KB闄愬埗
       this.logger.warn('Memory content too large, truncating');
       return false;
     }
@@ -222,20 +215,18 @@ export class MemoryService extends EventEmitter {
     return true;
   }
 
-  // 判断是否应该存储记忆
+  // 鍒ゆ柇鏄惁搴旇瀛樺偍璁板繂
   private shouldStoreMemory(memoryData: MemoryData): boolean {
-    // 基本过滤规则
+    // 鍩烘湰杩囨护瑙勫垯
     if (memoryData.metadata?.priority === 'low' && Math.random() > 0.3) {
-      return false; // 70%概率过滤低优先级记忆
+      return false; // 70%姒傜巼杩囨护浣庝紭鍏堢骇璁板繂
     }
 
-    // 重复内容检测
-    if (this.isDuplicateContent(memoryData)) {
+    // 閲嶅鍐呭妫€娴?    if (this.isDuplicateContent(memoryData)) {
       return false;
     }
 
-    // 敏感信息检测
-    if (this.containsSensitiveInfo(memoryData)) {
+    // 鏁忔劅淇℃伅妫€娴?    if (this.containsSensitiveInfo(memoryData)) {
       this.logger.warn('Sensitive information detected, filtering memory');
       return false;
     }
@@ -243,9 +234,8 @@ export class MemoryService extends EventEmitter {
     return true;
   }
 
-  // 检测重复内容
-  private isDuplicateContent(memoryData: MemoryData): boolean {
-    // 简单的重复检测逻辑
+  // 妫€娴嬮噸澶嶅唴瀹?  private isDuplicateContent(memoryData: MemoryData): boolean {
+    // 绠€鍗曠殑閲嶅妫€娴嬮€昏緫
     const recentMemories = this.memoryQueue.slice(-10);
     return recentMemories.some(memory => 
       memory.type === memoryData.type && 
@@ -253,14 +243,13 @@ export class MemoryService extends EventEmitter {
     );
   }
 
-  // 检测敏感信息
-  private containsSensitiveInfo(memoryData: MemoryData): boolean {
+  // 妫€娴嬫晱鎰熶俊鎭?  private containsSensitiveInfo(memoryData: MemoryData): boolean {
     const sensitivePatterns = [
       /password\s*[:=]\s*\S+/i,
       /api[_-]?key\s*[:=]\s*\S+/i,
       /token\s*[:=]\s*\S+/i,
       /secret\s*[:=]\s*\S+/i,
-      /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/, // 信用卡号
+      /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/, // 淇＄敤鍗″彿
       /\b\d{3}-\d{2}-\d{4}\b/ // SSN
     ];
 
@@ -271,9 +260,8 @@ export class MemoryService extends EventEmitter {
     return sensitivePatterns.some(pattern => pattern.test(contentStr));
   }
 
-  // 丰富上下文信息
-  private async enrichContext(context: any): Promise<any> {
-    // 添加环境信息
+  // 涓板瘜涓婁笅鏂囦俊鎭?  private async enrichContext(context: any): Promise<any> {
+    // 娣诲姞鐜淇℃伅
     return {
       ...context,
       environment: {
@@ -284,11 +272,10 @@ export class MemoryService extends EventEmitter {
     };
   }
 
-  // 计算重要性分数
-  private calculateImportanceScore(memoryData: MemoryData): number {
-    let score = 0.5; // 基础分数
+  // 璁＄畻閲嶈鎬у垎鏁?  private calculateImportanceScore(memoryData: MemoryData): number {
+    let score = 0.5; // 鍩虹鍒嗘暟
 
-    // 根据类型调整分数
+    // 鏍规嵁绫诲瀷璋冩暣鍒嗘暟
     const typeScores: { [key: string]: number } = {
       'error_log': 0.9,
       'agent_response': 0.8,
@@ -299,11 +286,10 @@ export class MemoryService extends EventEmitter {
 
     score = typeScores[memoryData.type] || score;
 
-    // 根据优先级调整
-    if (memoryData.metadata?.priority === 'high') score += 0.2;
+    // 鏍规嵁浼樺厛绾ц皟鏁?    if (memoryData.metadata?.priority === 'high') score += 0.2;
     if (memoryData.metadata?.priority === 'low') score -= 0.2;
 
-    // 根据内容长度调整
+    // 鏍规嵁鍐呭闀垮害璋冩暣
     const contentLength = typeof memoryData.content === 'string' 
       ? memoryData.content.length 
       : JSON.stringify(memoryData.content).length;
@@ -314,19 +300,18 @@ export class MemoryService extends EventEmitter {
     return Math.max(0, Math.min(1, score));
   }
 
-  // 压缩内容
+  // 鍘嬬缉鍐呭
   private async compressContent(content: any): Promise<string> {
-    // 简单的压缩逻辑，实际可以使用zlib等
-    const contentStr = typeof content === 'string' ? content : JSON.stringify(content);
+    // 绠€鍗曠殑鍘嬬缉閫昏緫锛屽疄闄呭彲浠ヤ娇鐢▃lib绛?    const contentStr = typeof content === 'string' ? content : JSON.stringify(content);
     return Buffer.from(contentStr).toString('base64');
   }
 
-  // 生成记忆ID
+  // 鐢熸垚璁板繂ID
   private generateMemoryId(): string {
     return `mem_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
-  // 启动定时刷新
+  // 鍚姩瀹氭椂鍒锋柊
   private startFlushTimer() {
     if (this.flushTimer) {
       clearInterval(this.flushTimer);
@@ -341,14 +326,14 @@ export class MemoryService extends EventEmitter {
     }, this.config.flushInterval);
   }
 
-  // 完成对话处理
+  // 瀹屾垚瀵硅瘽澶勭悊
   public async finalizeConversation(conversationId: string): Promise<void> {
     try {
-      // 刷新当前队列
-      await this.flushQueue();
+      
+    
 
-      // 通知记忆管理器对话结束
-      await this.memoryManager.finalizeConversation(conversationId);
+      
+      
 
       this.logger.info(`Conversation ${conversationId} finalized`);
       this.emit('conversationFinalized', conversationId);
@@ -358,8 +343,8 @@ export class MemoryService extends EventEmitter {
     }
   }
 
-  // 获取服务状态
-  public getStatus() {
+  
+  
     return {
       enabled: this.isEnabled,
       queueSize: this.memoryQueue.length,
@@ -369,29 +354,33 @@ export class MemoryService extends EventEmitter {
     };
   }
 
-  // 启用/禁用服务
+  // 鍚敤/绂佺敤鏈嶅姟
   public setEnabled(enabled: boolean) {
     this.isEnabled = enabled;
     if (!enabled && this.flushTimer) {
       clearInterval(this.flushTimer);
       this.flushTimer = null;
     } else if (enabled && !this.flushTimer) {
-      this.startFlushTimer();
+          this.ruleEngine.start();
     }
     this.logger.info(`MemoryService ${enabled ? 'enabled' : 'disabled'}`);
   }
 
-  // 清理资源
+  // 娓呯悊璧勬簮
   public async cleanup(): Promise<void> {
     if (this.flushTimer) {
       clearInterval(this.flushTimer);
       this.flushTimer = null;
     }
 
-    // 最后一次刷新队列
-    await this.flushQueue();
+    
+    
 
     this.removeAllListeners();
     this.logger.info('MemoryService cleaned up');
   }
 }
+
+
+
+

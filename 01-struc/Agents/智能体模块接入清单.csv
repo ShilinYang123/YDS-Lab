@@ -1,0 +1,21 @@
+模块目录,角色ID,中文名,状态,优先级,负责人,接口工具,备注
+01-ceo,AGENT-01-CEO,首席执行官,initialized,high,CEO（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+02-chair_assistant,AGENT-02-CHAIR-ASSISTANT,董事会助理,initialized,high,董事会助理（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+03-planning_director,AGENT-03-PLANNING-DIRECTOR,企划总监,initialized,high,企划总监（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+04-finance_director,AGENT-04-FINANCE-DIRECTOR,财务总监,initialized,high,财务总监（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+05-resource_admin,AGENT-05-RESOURCE-ADMIN,资源管理员,initialized,medium,资源管理员（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+06-dev_team,AGENT-06-DEV-TEAM,开发团队代表,initialized,high,开发团队负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+07-marketing_director,AGENT-07-MARKETING-DIRECTOR,营销总监,initialized,medium,营销总监（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+08-document_governance,AGENT-08-DOCUMENT-GOVERNANCE,文档治理,initialized,high,文档治理负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+09-knowledge_base,AGENT-09-KNOWLEDGE-BASE,知识库,initialized,medium,知识库管理员（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+10-mcp_manager,AGENT-10-MCP-MANAGER,MCP管理,initialized,medium,MCP平台负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+11-release_ci_cd,AGENT-11-RELEASE-CI-CD,发布/CI-CD,initialized,high,发布负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+12-workspace_coordinator,AGENT-12-WORKSPACE-COORDINATOR,工作区协调,initialized,medium,工作区协调负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+13-engineering_audit,AGENT-13-ENGINEERING-AUDIT,工程审计,initialized,medium,工程审计负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+14-security_compliance,AGENT-14-SECURITY-COMPLIANCE,安全与合规,initialized,high,安全与合规负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+15-rbac_governance,AGENT-15-RBAC-GOVERNANCE,RBAC治理,initialized,high,RBAC治理负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+16-quality_kpi,AGENT-16-QUALITY-KPI,质量指标/KPI,initialized,medium,质量KPI负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+17-monitor_alerting,AGENT-17-MONITOR-ALERTING,监控与告警,initialized,high,监控与告警负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+18-backup_recovery,AGENT-18-BACKUP-RECOVERY,备份与恢复,initialized,medium,备份与恢复负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+19-longmemory_health,AGENT-19-LONGMEMORY-HEALTH,长记忆健康,initialized,high,长记忆健康负责人（角色）,见 role.meta.json,已创建角色元数据与初始化说明
+20-meetingroom_host,AGENT-20-MEETINGROOM-HOST,会议室主持,initialized,low,会议室主持人（角色）,见 role.meta.json,未启用会议室服务，按需启用

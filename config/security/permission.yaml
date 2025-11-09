@@ -1,61 +1,60 @@
-# 权限控制清单
-# 统一管理系统各组件的访问权限和授权策略
-
-# 全局权限策略
+﻿# 鏉冮檺鎺у埗娓呭崟
+# 缁熶竴绠＄悊绯荤粺鍚勭粍浠剁殑璁块棶鏉冮檺鍜屾巿鏉冪瓥鐣?
+# 鍏ㄥ眬鏉冮檺绛栫暐
 global_policy:
   authentication_required: true
   authorization_model: "role_based_access_control"  # RBAC
-  default_deny: true  # 默认拒绝策略
-  session_timeout: "8小时"
+  default_deny: true  # 榛樿鎷掔粷绛栫暐
+  session_timeout: "8灏忔椂"
   
-# 角色定义
+# 瑙掕壊瀹氫箟
 roles:
   system_admin:
-    description: "系统管理员"
+    description: "绯荤粺绠＄悊鍛?
     permissions:
       - "system:*"
       - "config:*"
       - "user:*"
       - "audit:read"
-    resource_access: "全部"
+    resource_access: "鍏ㄩ儴"
     
   project_manager:
-    description: "项目经理"
+    description: "椤圭洰缁忕悊"
     permissions:
       - "project:*"
       - "workflow:manage"
       - "report:generate"
       - "team:manage"
-    resource_access: "项目相关"
+    resource_access: "椤圭洰鐩稿叧"
     
   developer:
-    description: "开发人员"
+    description: "寮€鍙戜汉鍛?
     permissions:
       - "code:read"
       - "code:write"
       - "build:execute"
       - "test:run"
-    resource_access: "开发环境"
+    resource_access: "寮€鍙戠幆澧?
     
   analyst:
-    description: "数据分析师"
+    description: "鏁版嵁鍒嗘瀽甯?
     permissions:
       - "data:read"
       - "report:generate"
       - "dashboard:view"
       - "export:limited"
-    resource_access: "数据和报告"
+    resource_access: "鏁版嵁鍜屾姤鍛?
     
   guest:
-    description: "访客用户"
+    description: "璁垮鐢ㄦ埛"
     permissions:
       - "dashboard:view"
       - "report:read"
-    resource_access: "只读访问"
+    resource_access: "鍙璁块棶"
 
-  # 会议系统角色（新增）
+  # 浼氳绯荤粺瑙掕壊锛堟柊澧烇級
   ceo:
-    description: "CEO会议角色（会议主席/决策汇总）"
+    description: "CEO浼氳瑙掕壊锛堜細璁富甯?鍐崇瓥姹囨€伙級"
     permissions:
       - "meetingroom:manage"
       - "docs:share"
@@ -63,42 +62,42 @@ roles:
       - "vote:create"
       - "vote:cast"
       - "minutes:generate"
-    resource_access: "会议系统"
+    resource_access: "浼氳绯荤粺"
 
   meeting_secretary:
-    description: "会议秘书（议程与纪要、附件管理）"
+    description: "浼氳绉樹功锛堣绋嬩笌绾銆侀檮浠剁鐞嗭級"
     permissions:
       - "meetingroom:organize"
       - "docs:share"
       - "docs:revoke"
       - "minutes:generate"
-    resource_access: "会议系统"
+    resource_access: "浼氳绯荤粺"
 
   finance_director:
-    description: "财务总监（财务顾问/风控与投票参与）"
+    description: "璐㈠姟鎬荤洃锛堣储鍔￠【闂?椋庢帶涓庢姇绁ㄥ弬涓庯級"
     permissions:
       - "docs:read"
       - "vote:cast"
-    resource_access: "会议系统只读+投票"
+    resource_access: "浼氳绯荤粺鍙+鎶曠エ"
 
   tech_representative:
-    description: "技术代表（技术讨论/语音参与/投票）"
+    description: "鎶€鏈唬琛紙鎶€鏈璁?璇煶鍙備笌/鎶曠エ锛?
     permissions:
       - "docs:read"
       - "voice:stream"
       - "vote:cast"
-    resource_access: "会议系统只读+语音+投票"
+    resource_access: "浼氳绯荤粺鍙+璇煶+鎶曠エ"
 
   observer:
-    description: "观察员（只读与投票参与）"
+    description: "瑙傚療鍛橈紙鍙涓庢姇绁ㄥ弬涓庯級"
     permissions:
       - "docs:read"
       - "vote:cast"
-    resource_access: "会议系统只读"
+    resource_access: "浼氳绯荤粺鍙"
 
-# 资源权限映射
+# 璧勬簮鏉冮檺鏄犲皠
 resource_permissions:
-  # 目录结构权限
+  # 鐩綍缁撴瀯鏉冮檺
   directories:
     "01-struc/":
       system_admin: ["read", "write", "execute", "delete"]
@@ -121,8 +120,7 @@ resource_permissions:
       analyst: []
       guest: []
 
-  # MCP服务器权限
-  mcp_servers:
+  # MCP鏈嶅姟鍣ㄦ潈闄?  mcp_servers:
     github_mcp:
       system_admin: ["manage", "configure", "monitor"]
       project_manager: ["use", "monitor"]
@@ -151,16 +149,16 @@ resource_permissions:
       analyst: ["read", "export"]
       guest: ["read"]
 
-  # 会议室资源与路径限制（新增）
+  # 浼氳瀹よ祫婧愪笌璺緞闄愬埗锛堟柊澧烇級
   meetingroom:
     docs:
       whitelist_paths:
-        - "S:\\YDS-Lab\\01-struc\\SharedWorkspace\\Documents\\**"
+        - "S:\\YDS-Lab\\01-struc\\docs\\07-资料库\\**"
         - "S:\\YDS-Lab\\01-struc\\SharedWorkspace\\Collaboration\\**"
-        - "S:\\YDS-Lab\\01-struc\\docs\\YDS-AI-战略规划\\*.md"
+        - "S:\\YDS-Lab\\01-struc\\docs\\YDS-AI-鎴樼暐瑙勫垝\\*.md"
         - "S:\\YDS-Lab\\01-struc\\docs\\meetings\\**"
       blacklist_paths:
-        - "S:\\YDS-Lab\\01-struc\\docs\\**\\合同\\**"
+        - "S:\\YDS-Lab\\01-struc\\docs\\**\\鍚堝悓\\**"
       operations:
         share:
           allowed_roles: ["system_admin", "project_manager", "ceo", "meeting_secretary"]
@@ -181,8 +179,7 @@ resource_permissions:
         finalize:
           allowed_roles: ["system_admin", "ceo", "meeting_secretary"]
 
-# 智能体权限
-agent_permissions:
+# 鏅鸿兘浣撴潈闄?agent_permissions:
   collaboration_agent:
     allowed_operations:
       - "message:send"
@@ -210,17 +207,17 @@ agent_permissions:
       - "test:execute"
       - "deploy:staging"
     resource_limits:
-      max_build_time: "30分钟"
+      max_build_time: "30鍒嗛挓"
       max_memory_usage: "4GB"
 
-# API访问控制
+# API璁块棶鎺у埗
 api_access:
   rate_limiting:
-    system_admin: "无限制"
-    project_manager: "1000/小时"
-    developer: "500/小时"
-    analyst: "300/小时"
-    guest: "50/小时"
+    system_admin: "鏃犻檺鍒?
+    project_manager: "1000/灏忔椂"
+    developer: "500/灏忔椂"
+    analyst: "300/灏忔椂"
+    guest: "50/灏忔椂"
     
   endpoint_restrictions:
     "/admin/*":
@@ -242,12 +239,12 @@ api_access:
     "/mcp/audit/*":
       allowed_roles: ["system_admin"]
 
-# 审计配置
+# 瀹¤閰嶇疆
 audit:
   log_all_access: true
   log_failed_attempts: true
-  retention_period: "2年"
-  # 审计输出目录统一到新结构：01-struc/0B-general-manager/logs/audit_trails
+  retention_period: "2骞?
+  # 瀹¤杈撳嚭鐩綍缁熶竴鍒版柊缁撴瀯锛?1-struc/0B-general-manager/logs/audit_trails
   output_path: "01-struc/0B-general-manager/logs/audit_trails"
   sensitive_operations:
     - "config:modify"
@@ -260,7 +257,7 @@ audit:
     - "vote:finalize"
     - "voice:stream"
     
-# 安全策略
+# 瀹夊叏绛栫暐
 security_policies:
   password_policy:
     min_length: 12
@@ -272,20 +269,20 @@ security_policies:
     
   session_policy:
     max_concurrent_sessions: 3
-    idle_timeout: "30分钟"
-    absolute_timeout: "8小时"
+    idle_timeout: "30鍒嗛挓"
+    absolute_timeout: "8灏忔椂"
     require_reauth_for_sensitive: true
     
   access_policy:
     max_failed_attempts: 5
-    lockout_duration: "15分钟"
+    lockout_duration: "15鍒嗛挓"
     require_mfa_for_admin: true
     ip_whitelist_enabled: false
 
-# 紧急访问
-emergency_access:
+# 绱ф€ヨ闂?emergency_access:
   enabled: true
   break_glass_accounts: ["emergency_admin"]
   approval_required: true
   audit_immediately: true
-  auto_expire: "24小时"
+  auto_expire: "24灏忔椂"
+

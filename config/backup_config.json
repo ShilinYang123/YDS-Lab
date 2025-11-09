@@ -1,0 +1,26 @@
+{
+  "retentionDays": 14,
+  "globalExcludeDirs": [
+    "backups",
+    "backup",
+    "bak",
+    "tmp",
+    "coverage",
+    "lcov",
+    "lcov-report",
+    "node_modules",
+    ".git",
+    ".trae"
+  ],
+  "globalExcludeFiles": [
+    "*.zip"
+  ],
+  "sources": [
+    { "path": "S:\\YDS-Lab\\01-struc" },
+    { "path": "S:\\YDS-Lab\\02-task" },
+    { "path": "S:\\YDS-Lab\\03-dev" },
+    { "path": "S:\\YDS-Lab\\04-prod" },
+    { "path": "S:\\YDS-Lab\\docs" },
+    { "path": "S:\\YDS-Lab\\config" }
+  ]
+}

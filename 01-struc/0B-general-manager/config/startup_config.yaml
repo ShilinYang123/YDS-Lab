@@ -12,6 +12,8 @@ mcp_servers:
   - memory
   - github
   - context7
+memory_system:
+  auto_start: true
 startup_checks:
   check_dependencies: true
   check_git_config: true

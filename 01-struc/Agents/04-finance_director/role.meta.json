@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-04-FINANCE-DIRECTOR",
+  "name_cn": "财务总监",
+  "module_dir": "01-struc/Agents/04-finance_director",
+  "description_cn": "预算管理与现金流预测，确保财务健康与盈亏目标。",
+  "responsibilities": ["预算管理", "现金流预测", "盈亏分析"],
+  "interfaces": {
+    "tools": ["Struc/Agents/finance_director/tools.py"],
+    "configs": ["01-struc/Agents/04-finance_director/*"],
+    "depends_on": ["03-dev/**"],
+    "deliverables": ["预算模型", "收入预测", "盈亏平衡分析"]
+  },
+  "inputs": ["项目成本", "营销计划", "销售预测"],
+  "outputs": ["预算", "现金流报表", "风险提示"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}
