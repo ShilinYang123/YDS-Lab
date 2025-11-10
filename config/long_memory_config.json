@@ -1,9 +1,9 @@
 {
   "storeDirs": [
-    "LongMemory",
+    "01-struc/logs/longmemory",
     ".trae/memory"
   ],
-  "heartbeatFile": "LongMemory/heartbeat.txt",
+  "heartbeatFile": "01-struc/logs/longmemory/heartbeat.txt",
   "diskSpaceThresholdGB": 2,
   "maxLogDays": 60,
   "autoFix": true

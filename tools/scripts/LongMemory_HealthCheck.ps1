@@ -31,9 +31,10 @@ try {
   # 载入或创建配置
   $ConfigPath = Join-Path $RepoRoot 'config/long_memory_config.json'
   if (-not (Test-Path $ConfigPath)) {
+    # 默认配置统一到公司级路径，避免在仓库根创建 LongMemory 目录
     $defaultCfg = @{ 
-      storeDirs = @('LongMemory', '.trae/memory');
-      heartbeatFile = 'LongMemory/heartbeat.txt';
+      storeDirs = @('01-struc/logs/longmemory', '.trae/memory');
+      heartbeatFile = '01-struc/logs/longmemory/heartbeat.txt';
       diskSpaceThresholdGB = 2;
       maxLogDays = 60;
       autoFix = $true

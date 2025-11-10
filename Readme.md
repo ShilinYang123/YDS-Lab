@@ -8,38 +8,93 @@ YDS-Lab 是一个综合性的AI工具和数据处理实验室项目，集成了�
 
 ```
 YDS-Lab/
-├── Docs/                    # 项目文档
-├── ai/                      # AI相关模块
-├── tools/                   # 核心工具集
-├── tools2/                  # 扩展工具集
-├── 03-dev/                  # 项目工作区（开发）
-├── knowledge/               # 知识库
+├── 01-struc/                # 结构文档和项目规范
+├── 02-task/                 # 任务管理和开发文档
+├── 03-dev/                  # 开发环境和工作区
+├── 04-prod/                 # 生产部署和发布
+├── Training/                # 培训材料和教程
 ├── config/                  # 配置文件
-└── archive/                 # 归档文件
+├── coverage/                # 代码覆盖率报告
+├── docs/                    # 项目文档
+├── tools/                   # 核心工具集
+├── utils/                   # 实用工具脚本
+├── ch.py                    # 结构检查工具
+├── fi.py                    # 文件索引工具
+├── st.py                    # 系统测试工具
+├── up.py                    # 更新工具
+└── requirements.txt         # Python依赖
 ```
 
 ## 主要功能
 
-- **AI工具集成**: 集成多种AI服务和工具
-- **数据处理**: 批量处理各种格式的文件
-- **MCP服务器**: 模型上下文协议服务器集成
+- **长记忆系统**: 集成Trae IDE长效记忆功能，支持知识图谱管理
+- **AI工具集成**: 集成多种AI服务和工具（Ollama、Shimmy等）
+- **MCP服务器**: 模型上下文协议服务器集成和管理
+- **会议管理**: 智能会议室调度和会议记录管理
+- **数据处理**: 批量处理各种格式的文件和数据
 - **文档管理**: 自动化文档生成和管理
-- **质量控制**: 代码质量检查和合规监控
+- **质量控制**: 代码质量检查、合规监控和性能分析
+- **部署管理**: 自动化部署和发布流程
 
 ## 快速开始
 
-1. 克隆项目到本地
-2. 安装依赖
-3. 配置环境变量
-4. 运行启动脚本
+### 环境要求
+- Python 3.8+
+- Node.js 16+
+- Git
+- PowerShell 5.1+
+
+### 安装步骤
+
+1. **克隆项目**
+   ```bash
+   git clone <repository-url>
+   cd YDS-Lab
+   ```
+
+2. **安装Python依赖**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **初始化环境**
+   ```bash
+   python tools/init_trae_environment.py
+   ```
+
+4. **运行系统测试**
+   ```bash
+   python st.py
+   ```
+
+5. **启动长记忆系统**
+   ```bash
+   cd 04-prod/001-memory-system
+   npm start
+   ```
 
 ## 技术栈
 
-- Python 3.x
-- Node.js
-- PowerShell
-- Git
-- 各种AI和数据处理库
+### 后端技术
+- **Python 3.8+**: 主要开发语言
+- **Node.js 16+**: 长记忆系统运行环境
+- **PowerShell**: 自动化脚本和系统管理
+
+### AI和数据处理
+- **Ollama**: 本地大模型服务
+- **Shimmy**: AI模型路由和代理
+- **Pandas**: 数据处理和分析
+- **NumPy**: 数值计算
+
+### 开发工具
+- **Git**: 版本控制
+- **Pre-commit**: 代码质量检查
+- **Coverage**: 代码覆盖率测试
+
+### 部署和运维
+- **Docker**: 容器化部署（可选）
+- **NPM**: Node.js包管理
+- **PM2**: 进程管理（生产环境）
 
 ## 贡献
 

@@ -5,7 +5,7 @@
 LongMemory 事件记录命令行工具（双通道：本地JSON + 可选HTTP）
 
 用途：
-- 将关键工作流事件统一写入到仓库根 logs/longmemory/lm_records.json（统一路径）
+- 将关键工作流事件统一写入到公司级 01-struc/logs/longmemory/lm_records.json（统一路径）
 - 可选将事件通过 HTTP 上报到服务端（需提供 --http 或环境变量 LM_HTTP_ENDPOINT）
 
 事件模型（示例）：
@@ -76,8 +76,8 @@ def resolve_storage_path(repo_root: Path) -> Path:
                 return p
         except Exception:
             pass
-    # 最后兜底统一路径（仓库根 logs/longmemory/lm_records.json）
-    return (repo_root / 'logs' / 'longmemory' / 'lm_records.json').resolve()
+    # 最后兜底统一路径（公司级 01-struc/logs/longmemory/lm_records.json）
+    return (repo_root / '01-struc' / 'logs' / 'longmemory' / 'lm_records.json').resolve()
 
 
 def ensure_parent_dir(path: Path) -> None:

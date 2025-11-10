@@ -3,7 +3,7 @@ Param(
 )
 
 $ErrorActionPreference = 'Continue'
-$base = 'S:\YDS-Lab\01-struc\0B-general-manager\logs\longmemory\health'
+$base = 'S:\YDS-Lab\01-struc\logs\longmemory\health'
 
 if (-not (Test-Path $base)) {
   Write-Output "Health dir not found: $base"

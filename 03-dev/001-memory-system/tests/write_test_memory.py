@@ -38,7 +38,7 @@ def ensure_dir(p):
 
 def _resolve_memory_path() -> str:
     """解析测试写入的持久化路径：
-    优先环境变量 YDS_LONGMEMORY_STORAGE_PATH/LONGMEMORY_PATH，其次仓库默认路径 logs/longmemory/lm_records.json。
+    优先环境变量 YDS_LONGMEMORY_STORAGE_PATH/LONGMEMORY_PATH，其次公司级默认路径 01-struc/logs/longmemory/lm_records.json。
     支持相对路径（相对仓库根目录）。
     """
     env_path = os.environ.get("YDS_LONGMEMORY_STORAGE_PATH") or os.environ.get("LONGMEMORY_PATH")
@@ -55,7 +55,7 @@ def _resolve_memory_path() -> str:
         base = Path.cwd()
     except Exception:
         base = Path(__file__).resolve().parents[2]
-    return str(base / 'logs' / 'longmemory' / 'lm_records.json')
+    return str(base / '01-struc' / 'logs' / 'longmemory' / 'lm_records.json')
 
 
 def main():

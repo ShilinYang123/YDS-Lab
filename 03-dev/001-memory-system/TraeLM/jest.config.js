@@ -54,7 +54,7 @@ module.exports = {
   coverageReporters: ['text', 'lcov', 'html', 'json'],
 
   // 覆盖率输出目录
-  coverageDirectory: 'coverage',
+  coverageDirectory: '<rootDir>/coverage',
 
   // 覆盖率阈值
   coverageThreshold: {

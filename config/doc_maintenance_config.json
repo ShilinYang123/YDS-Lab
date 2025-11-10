@@ -1,0 +1,24 @@
+{
+  "required_docs": [
+    "project_structure.md",
+    "README.md",
+    "api_documentation.md",
+    "configuration.md",
+    "deployment_guide.md"
+  ],
+  "check_intervals": {
+    "daily": ["project_structure.md"],
+    "weekly": ["README.md"],
+    "monthly": ["api_documentation.md", "configuration.md", "deployment_guide.md"]
+  },
+  "doc_standards": {
+    "min_word_count": 50,
+    "required_sections": ["概述", "安装", "使用"],
+    "max_file_age_days": 30
+  },
+  "generation_rules": {
+    "auto_generate_missing": true,
+    "validate_before_generation": true,
+    "backup_existing": false
+  }
+}

@@ -1,5 +1,5 @@
 param(
-    [string]$LogsRoot = "S:\YDS-Lab\01-struc\0B-general-manager\logs\longmemory",
+    [string]$LogsRoot = "S:\YDS-Lab\01-struc\logs\longmemory",
     [string]$TraeLMPidFile = "",
     [int]$Port = 8765,
     [string]$TestHost = "localhost",

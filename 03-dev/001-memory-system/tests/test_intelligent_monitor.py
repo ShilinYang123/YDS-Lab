@@ -223,9 +223,14 @@ if __name__ == "__main__":
         print("\n🧠 测试长记忆系统集成...")
         
         try:
-            # 适配统一后的 LongMemory 存储路径：logs/longmemory/lm_records.json（仓库根）
+            # 适配统一后的 LongMemory 存储路径：01-struc/logs/longmemory/lm_records.json（公司级）
             repo_root = Path(__file__).resolve().parents[3]
-            memory_file = repo_root / "logs" / "longmemory" / "lm_records.json"
+            env_path = os.environ.get("YDS_LONGMEMORY_STORAGE_PATH") or os.environ.get("LONGMEMORY_PATH")
+            if env_path:
+                p = Path(env_path)
+                memory_file = p if p.is_absolute() else (repo_root / p).resolve()
+            else:
+                memory_file = repo_root / "01-struc" / "logs" / "longmemory" / "lm_records.json"
             
             if not memory_file.exists():
                 print("   ⚠️ 长记忆文件不存在，跳过集成测试")

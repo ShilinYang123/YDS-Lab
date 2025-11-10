@@ -191,7 +191,7 @@ class ProactiveReminder:
     
     def __init__(self, config_path: str = None):
         self.config_path = config_path or "s:/3AI/tools/LongMemory/reminder_config.json"
-        self.memory_path = "s:/3AI/docs/02-开发/memory.json"
+        self.memory_path = os.environ.get("LONGMEMORY_PATH", "01-struc/logs/longmemory/lm_records.json")
         
         self.knowledge_base = KnowledgeBase()
         self.context_analyzer = ContextAnalyzer()

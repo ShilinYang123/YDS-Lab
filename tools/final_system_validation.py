@@ -395,7 +395,7 @@ class FinalSystemValidator:
             print(f"  ⚠️ 备份脚本: 缺失")
         
         # 检查恢复程序文档（文档已统一到 01-struc/docs）
-        recovery_doc_path = self.base_path / "01-struc" / "docs" / "Troubleshooting" / "troubleshooting_guide.md"
+        recovery_doc_path = self.base_path / "01-struc" / "docs" / "troubleshooting_guide.md"
         if recovery_doc_path.exists():
             validation_results["recovery_procedures"]["documentation"] = "存在"
             print(f"  ✅ 恢复程序文档: 存在")

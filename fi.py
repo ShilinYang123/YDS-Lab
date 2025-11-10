@@ -254,12 +254,12 @@ class YDSLabFinishProcessor:
     def __init__(self, project_root: str = "s:/YDS-Lab"):
         self.project_root = Path(project_root)
         self.tools_dir = self.project_root / "tools"
-        # 文档与日志统一归档至顶层 docs 目录，符合《文档治理规范与流程》
+        # 人读运维文档归档至顶层 docs/系统维护；机器日志归档至对应层级 logs/
         # 系统维护文档目录
         self.docs_dir = self.project_root / "docs" / "系统维护"
         self.ai_dir = self.project_root / "ai"
-        # 顶层日志目录
-        self.logs_dir = self.project_root / "docs" / "logs"
+        # 公司级运维机器日志目录（统一规范）：01-struc/logs；允许通过环境变量 YDS_COMPANY_LOGS_ROOT 覆盖
+        self.logs_dir = Path(os.environ.get('YDS_COMPANY_LOGS_ROOT', str(self.project_root / "01-struc" / "logs")))
         # 顶层备份目录（可由环境变量 YDS_BACKUPS_ROOT 覆盖）
         self.bak_dir = Path(os.environ.get('YDS_BACKUPS_ROOT', str(self.project_root / "backups")))
         

@@ -14,7 +14,10 @@ const pingOkGauge = new prom.Gauge({ name: 'traelm_ping_ok', help: 'ICMP ping lo
 const pyExitGauge = new prom.Gauge({ name: 'traelm_py_health_exit', help: 'Python health script exit code', registers: [register] });
 
 const PORT = process.env.PORT || 8765;
-const LOGS_DIR = process.env.LOGS_DIR || 'S:/YDS-Lab/01-struc/0B-general-manager/logs/longmemory';
+// 统一到公司级 LongMemory 日志目录（可被环境变量覆盖）
+// YDS_LONGMEMORY_ROOT 优先，其次 LOGS_DIR，最后使用规范默认值
+const DEFAULT_LONGMEMORY_ROOT = 'S:/YDS-Lab/01-struc/logs/longmemory';
+const LOGS_DIR = process.env.YDS_LONGMEMORY_ROOT || process.env.LOGS_DIR || DEFAULT_LONGMEMORY_ROOT;
 const PID_FILE = process.env.PID_FILE || './trae-lm.pid';
 
 let ltms;

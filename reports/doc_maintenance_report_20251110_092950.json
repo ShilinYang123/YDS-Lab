@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-11-10T09:29:50.212606",
+  "check_result": {
+    "timestamp": "2025-11-10T09:29:50.204752",
+    "missing_docs": [
+      "api_documentation.md",
+      "configuration.md",
+      "deployment_guide.md"
+    ],
+    "outdated_docs": [],
+    "invalid_docs": [
+      {
+        "name": "project_structure.md",
+        "issues": [
+          "缺少章节: 简介",
+          "缺少章节: 安装",
+          "缺少章节: 使用"
+        ]
+      },
+      {
+        "name": "README.md",
+        "issues": [
+          "字数不足: 89 < 100"
+        ]
+      }
+    ],
+    "total_docs": 2,
+    "valid_docs": 0
+  },
+  "generated_files": [
+    "api_documentation.md",
+    "configuration.md",
+    "deployment_guide.md"
+  ],
+  "total_actions": 5,
+  "status": "completed"
+}

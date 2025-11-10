@@ -41,8 +41,10 @@ class YDSLabStartupChecker:
         # 统一生产目录与日志目录
         # 新标准：04-prod/001-memory-system（不再使用 03-proc/** 旧路径）
         self.memory_system_dir = self.project_root / "04-prod" / "001-memory-system"
-        # 统一日志目录至 0B-general-manager/logs（移除 GeneralOffice 旧路径回退）
-        self.logs_dir = self.struc_dir / "0B-general-manager" / "logs"
+        # 日志目录修订：公司级机器日志统一为 01-struc/logs，可被环境变量覆盖
+        # 优先使用 YDS_COMPANY_LOGS_ROOT，其次默认到 01-struc/logs
+        env_company_logs = os.environ.get('YDS_COMPANY_LOGS_ROOT')
+        self.logs_dir = Path(env_company_logs) if env_company_logs else (self.struc_dir / "logs")
         
         # 设置日志
         self.setup_logging()
@@ -94,7 +96,7 @@ class YDSLabStartupChecker:
     def ensure_longmemory_records(self) -> bool:
         """确保长记忆文件存在且为有效JSON，如损坏则尝试自动修复"""
         try:
-# 统一长记忆持久化目录到 01-struc/0B-general-manager/logs/longmemory
+            # 统一长记忆持久化目录到公司级 01-struc/logs/longmemory（支持环境变量覆盖）
             lm_dir = self.logs_dir / "longmemory"
             lm_dir.mkdir(parents=True, exist_ok=True)
             lm_file = lm_dir / "lm_records.json"

@@ -1,6 +1,6 @@
 param(
   [string]$TaskName = "YDS-LongMemory-HealthCheck",
-  [string]$LogsRoot = "S:\YDS-Lab\01-struc\0B-general-manager\logs\longmemory",
+  [string]$LogsRoot = "S:\YDS-Lab\01-struc\logs\longmemory",
   [string]$TraeLMPidFile = "S:\YDS-Lab\03-dev\001-memory-system\TraeLM\trae-lm.pid",
   [int]$Port = 8765,
   [string]$TestHost = "localhost"

@@ -213,7 +213,7 @@ if __name__ == "__main__":
         print("\n🧠 测试长记忆系统集成...")
         
         try:
-            memory_file = Path("s:/3AI/docs/02-开发/memory.json")
+            memory_file = Path(os.environ.get("LONGMEMORY_PATH", "01-struc/logs/longmemory/lm_records.json"))
             
             if not memory_file.exists():
                 print("   ⚠️ 长记忆文件不存在，跳过集成测试")

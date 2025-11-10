@@ -6,7 +6,8 @@ $ErrorActionPreference = 'Stop'
 
 $RepoRoot = (Resolve-Path "$PSScriptRoot/../..").Path
 $LogDir = Join-Path $RepoRoot 'docs/系统维护'
-$hb = Join-Path $RepoRoot 'LongMemory/heartbeat.txt'
+# 心跳文件统一至公司级日志根
+$hb = Join-Path $RepoRoot '01-struc/logs/longmemory/heartbeat.txt'
 
 if (-not (Test-Path $LogDir)) {
   Write-Output "LogDir not found: $LogDir"

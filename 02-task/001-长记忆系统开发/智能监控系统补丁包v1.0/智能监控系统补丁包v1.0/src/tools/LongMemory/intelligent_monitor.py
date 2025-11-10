@@ -186,7 +186,7 @@ class IntelligentMonitor:
     
     def __init__(self, config_path: str = None):
         self.config_path = config_path or "s:/3AI/tools/LongMemory/intelligent_monitor_config.json"
-        self.memory_path = "s:/3AI/docs/02-开发/memory.json"
+        self.memory_path = os.environ.get("LONGMEMORY_PATH", "01-struc/logs/longmemory/lm_records.json")
         
         # 初始化子系统
         self.error_detector = SmartErrorDetector()

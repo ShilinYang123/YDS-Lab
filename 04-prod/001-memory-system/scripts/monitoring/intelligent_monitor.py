@@ -201,7 +201,10 @@ class IntelligentMonitor:
     def __init__(self, config_path: str = None):
         # 统一为仓库内 tools/LongMemory 下的配置；memory_path 由上层服务注入，默认为仓库日志路径
         self.config_path = config_path or "tools/LongMemory/intelligent_monitor_config.json"
-        self.memory_path = "logs/longmemory/lm_records.json"
+        # 优先环境变量，其次公司级规范路径（避免误写到仓库根 logs/longmemory）
+        self.memory_path = os.environ.get("YDS_LONGMEMORY_STORAGE_PATH") or \
+                           os.environ.get("LONGMEMORY_PATH") or \
+                           "01-struc/logs/longmemory/lm_records.json"
         
         # 初始化子系统
         self.error_detector = SmartErrorDetector()

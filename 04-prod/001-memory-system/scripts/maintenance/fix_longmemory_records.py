@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-快速修复 logs/longmemory/lm_records.json 的结构问题：
-- 当出现尾部多余的闭括号导致 json.load 报错时，移除多余字符并重新保存。
+快速修复 01-struc/logs/longmemory/lm_records.json 的结构问题：
+    - 当出现尾部多余的闭括号导致 json.load 报错时，移除多余字符并重新保存。
 """
 import json
 import os
@@ -10,7 +10,7 @@ from pathlib import Path
 
 def resolve_lm_path() -> str:
     """解析长记忆持久化文件路径。
-    优先使用环境变量，其次使用仓库默认路径 logs/longmemory/lm_records.json。
+    优先使用环境变量，其次使用公司级默认路径 01-struc/logs/longmemory/lm_records.json。
     支持相对路径（相对仓库根目录）。
     """
     # 支持两种环境变量名（文档与服务兼容）
@@ -22,9 +22,9 @@ def resolve_lm_path() -> str:
             p = Path.cwd() / p
         return str(p)
 
-    # 回退到仓库默认路径
+    # 回退到公司级默认路径
     repo_root = Path.cwd()
-    return str(repo_root / "logs" / "longmemory" / "lm_records.json")
+    return str(repo_root / "01-struc" / "logs" / "longmemory" / "lm_records.json")
 
 LM_PATH = resolve_lm_path()
 

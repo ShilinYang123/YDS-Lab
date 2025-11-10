@@ -37,7 +37,18 @@ import shutil
 class YDSLabEnvChecker:
     """YDS-Lab环境就绪检查器"""
     
-    def __init__(self, project_root: str = "s:/YDS-Lab"):
+    def __init__(self, project_root: str = None):
+        if project_root is None:
+            # 自动检测项目根目录
+            current_file = Path(__file__)
+            # 向上查找直到找到包含YDS-Lab特征目录的位置
+            for parent in current_file.parents:
+                if (parent / "01-struc").exists() and (parent / "docs").exists():
+                    project_root = str(parent)
+                    break
+            else:
+                # 如果找不到，使用当前工作目录
+                project_root = str(Path.cwd())
         self.project_root = Path(project_root)
         self.check_results = {
             'timestamp': datetime.now().isoformat(),

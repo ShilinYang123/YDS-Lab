@@ -4,7 +4,7 @@
 LongMemory 集成与并发写入测试脚本
 
 - 同时触发 ProactiveReminder、SmartErrorDetector、IntelligentMonitor 的写入逻辑
-- 验证 logs/longmemory/lm_records.json 在高并发下仍保持有效 JSON 结构
+- 验证 01-struc/logs/longmemory/lm_records.json 在高并发下仍保持有效 JSON 结构
 """
 
 import sys

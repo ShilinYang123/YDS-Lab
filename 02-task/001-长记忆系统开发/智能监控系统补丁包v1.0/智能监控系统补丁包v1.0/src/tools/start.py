@@ -105,7 +105,8 @@ class AI3StudioStartupChecker:
         self.project_root = Path(project_root)
         self.docs_dir = self.project_root / "docs"
         self.tools_dir = self.project_root / "tools"
-        self.logs_dir = self.project_root / "logs"
+        # 公司级日志根目录，统一到 01-struc/logs；支持环境变量 YDS_COMPANY_LOGS_ROOT
+        self.logs_dir = Path(os.environ.get('YDS_COMPANY_LOGS_ROOT', str(self.project_root / "01-struc" / "logs")))
         # 修正日志子目录为实际的中文名称
         self.work_logs_dir = self.logs_dir / "工作记录"
         self.output_dir = self.project_root / "03.Output"

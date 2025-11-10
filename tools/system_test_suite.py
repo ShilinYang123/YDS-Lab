@@ -152,10 +152,10 @@ class TraeSystemTestSuite:
             return {"success": False, "error": "MCP集群目录缺失", "checks": checks}
                 
         # 2. 检查配置文件
-        # 统一配置来源到 config/，去除旧的 Struc/trae_config.yaml
+        # 统一配置来源到 config/
         config_files = [
             self.project_root / "config" / "production.yaml",
-            self.trae_agents_path / "collaboration_workflows.yaml",
+            self.project_root / "config" / "collaboration_workflows.yaml",
         ]
         
         for config_file in config_files:

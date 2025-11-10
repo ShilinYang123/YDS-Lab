@@ -38,8 +38,8 @@ class MCPServerManager:
         old_mcp_root = self.project_root / "01-struc" / "MCPCluster"
         self.mcp_dir = new_mcp_root if new_mcp_root.exists() else old_mcp_root
 
-        # 统一日志目录至 0B-general-manager/logs（旧路径 GeneralOffice/logs 仅作为历史记录，不再回退使用）
-        self.logs_dir = self.project_root / "01-struc" / "0B-general-manager" / "logs"
+        # 统一日志目录至公司级 logs（修订）：01-struc/logs
+        self.logs_dir = self.project_root / "01-struc" / "logs"
         
         # MCP服务器配置 - 使用实际文件路径
         # 服务器清单：以当前 MCPCluster 版本为准

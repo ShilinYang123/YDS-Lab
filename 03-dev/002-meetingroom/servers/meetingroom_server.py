@@ -316,8 +316,8 @@ def _get_longmemory_storage_path() -> Path:
             except Exception:
                 pass
 
-    # 3) 默认路径（统一至 01-struc/0B-general-manager/logs/longmemory，避免与 Trae IDE 的 Memory MCP 的 memory.json 混淆）
-    return REPO_ROOT / "01-struc" / "0B-general-manager" / "logs" / "longmemory" / "lm_records.json"
+    # 3) 默认路径（统一至公司级 01-struc/logs/longmemory，避免与 Trae IDE 的 Memory MCP 的 memory.json 混淆）
+    return REPO_ROOT / "01-struc" / "logs" / "longmemory" / "lm_records.json"
 
 
 def _ensure_longmemory_storage_file(path: Path) -> None:

@@ -61,7 +61,8 @@ class YDSLabProjectCreator:
     def setup_logging(self):
         """设置日志系统"""
         try:
-            logs_dir = self.project_root / "01-struc" / "Log"
+            # 公司级统一日志目录（修订）：01-struc/logs
+            logs_dir = self.project_root / "01-struc" / "logs"
             logs_dir.mkdir(parents=True, exist_ok=True)
             
             log_file = logs_dir / "project_creator.log"
@@ -75,7 +76,7 @@ class YDSLabProjectCreator:
             )
             
             self.logger = logging.getLogger(__name__)
-            self.logger.info("项目创建器初始化")
+            self.logger.info("项目创建器初始化（日志：01-struc/logs）")
             
         except Exception as e:
             print(f"日志系统初始化失败: {e}")

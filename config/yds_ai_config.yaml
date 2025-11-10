@@ -1,11 +1,13 @@
-﻿# YDS AI 鍏徃寤鸿涓庨」鐩疄鏂界郴缁熼厤缃?# 鐗堟湰: V3.0-Trae閫傞厤鐗?
+﻿# YDS AI 公司建设与项目实施系统配置
+# 版本: V3.0-Trae适配版
 system:
   name: "YDS AI Virtual Meeting System"
   version: "3.0.0"
   environment: "production"
   debug: false
 
-# 鏉冮檺涓庤闂帶鍒?rbac:
+# 权限与访问控制
+rbac:
   jwt:
     secret_key: "yds-ai-jwt-secret-2024"
     expiration_hours: 24
@@ -21,62 +23,63 @@ system:
     - name: "CTO"
       permissions: ["meeting.*", "document.technical.*", "system.*"]
       level: "executive"
-    - name: "椤圭洰鍗忚皟鑰?
+    - name: "项目协调员"
       permissions: ["meeting.create", "meeting.manage", "document.project.*"]
       level: "manager"
-    - name: "鍓嶇寮€鍙?
+    - name: "前端开发"
       permissions: ["meeting.join", "document.frontend.*"]
       level: "developer"
-    - name: "鍚庣寮€鍙?
+    - name: "后端开发"
       permissions: ["meeting.join", "document.backend.*"]
       level: "developer"
-    - name: "浼氳绉樹功"
+    - name: "会议秘书"
       permissions: ["meeting.record", "document.meeting.*"]
       level: "assistant"
 
-# 鏂囨。鍏变韩娌荤悊
+# 文档共享治理
 document_governance:
   base_path: "S:/YDS-Lab"
   
   directory_rules:
-    # 鎴樼暐瑙勫垝鏂囨。
-    - path: "01-struc/docs/YDS-AI-鎴樼暐瑙勫垝"
+    # 战略规划文档
+    - path: "01-struc/docs/YDS-AI-战略规划"
       category: "strategic"
       access_level: "executive"
       allowed_roles: ["CEO", "CFO", "CTO"]
       operations: ["read", "write"]
     
-    # 椤圭洰鏂囨。
+    # 项目文档
     - path: "01-struc/Agents/07-marketing_director/Task"
       category: "project"
       access_level: "manager"
-      allowed_roles: ["椤圭洰鍗忚皟鑰?, "鍓嶇寮€鍙?, "鍚庣寮€鍙?]
+      allowed_roles: ["项目协调员", "前端开发", "后端开发"]
       operations: ["read", "write"]
     
-# 浼氳璁板綍
-- path: "01-struc/docs/meetings"
+    # 会议记录
+    - path: "01-struc/docs/meetings"
       category: "meeting"
       access_level: "internal"
       allowed_roles: ["*"]
       operations: ["read"]
     
-    # 鎶€鏈枃妗?    - path: "tools"
+    # 技术文档
+    - path: "tools"
       category: "technical"
       access_level: "developer"
-      allowed_roles: ["CTO", "鍓嶇寮€鍙?, "鍚庣寮€鍙?]
+      allowed_roles: ["CTO", "前端开发", "后端开发"]
       operations: ["read", "write"]
     
-    # 璐㈠姟鏂囨。
+    # 财务文档
     - path: "01-struc/02-finance"
       category: "financial"
       access_level: "confidential"
       allowed_roles: ["CEO", "CFO"]
       operations: ["read", "write"]
 
-# 浼氳鍒嗙骇閰嶇疆
+# 会议分级配置
 meeting_levels:
-  A绾т細璁?
-    description: "鎴樼暐鍐崇瓥浼氳"
+  A级会议:
+    description: "战略决策会议"
     max_participants: 20
     max_duration_minutes: 180
     required_quorum: 0.75
@@ -85,18 +88,18 @@ meeting_levels:
     optional_roles: ["CFO", "CTO"]
     agenda_templates: ["strategic_planning", "budget_approval", "major_decisions"]
     
-  B绾т細璁?
-    description: "涓氬姟鎵ц浼氳"
+  B级会议:
+    description: "业务执行会议"
     max_participants: 10
     max_duration_minutes: 120
     required_quorum: 0.6
     voting_threshold: 0.6
-    required_roles: ["椤圭洰鍗忚皟鑰?]
-    optional_roles: ["鍓嶇寮€鍙?, "鍚庣寮€鍙?]
+    required_roles: ["项目协调员"]
+    optional_roles: ["前端开发", "后端开发"]
     agenda_templates: ["project_review", "task_assignment", "progress_update"]
     
-  C绾т細璁?
-    description: "鏃ュ父娌熼€氫細璁?
+  C级会议:
+    description: "日常沟通会议"
     max_participants: 5
     max_duration_minutes: 60
     required_quorum: 0.5
@@ -105,7 +108,7 @@ meeting_levels:
     optional_roles: ["*"]
     agenda_templates: ["daily_standup", "technical_discussion", "quick_sync"]
 
-# 璇煶鏈嶅姟閰嶇疆
+# 语音服务配置
 voice_services:
   shimmy:
     enabled: true
@@ -127,20 +130,20 @@ voice_services:
       chat: "/api/chat"
     models: ["qwen2.5:14b", "llama3.1:8b"]
 
-# MCP娑堟伅妯″瀷閰嶇疆
+# MCP消息模型配置
 mcp:
   version: "0.1"
   channels:
     - name: "meeting"
-      description: "浼氳鐩稿叧娑堟伅"
+      description: "会议相关消息"
     - name: "document"
-      description: "鏂囨。鐩稿叧娑堟伅"
+      description: "文档相关消息"
     - name: "voice"
-      description: "璇煶鐩稿叧娑堟伅"
+      description: "语音相关消息"
     - name: "vote"
-      description: "鎶曠エ鐩稿叧娑堟伅"
+      description: "投票相关消息"
     - name: "system"
-      description: "绯荤粺鐩稿叧娑堟伅"
+      description: "系统相关消息"
   
   event_types:
     - "message_sent"
@@ -152,11 +155,11 @@ mcp:
     - "agent_assigned"
     - "agenda_generated"
 
-# 瀹¤閰嶇疆
+# 审计配置
 audit:
   enabled: true
-# 鏃ュ織缁熶竴鑷?01-struc/0B-general-manager/logs
-log_file: "01-struc/0B-general-manager/logs/audit_trails/yds_ai_audit.log"
+  # 日志统一至 01-struc/0B-general-manager/logs
+  log_file: "01-struc/0B-general-manager/logs/audit_trails/yds_ai_audit.log"
   retention_days: 90
   events:
     - "user_login"
@@ -165,7 +168,7 @@ log_file: "01-struc/0B-general-manager/logs/audit_trails/yds_ai_audit.log"
     - "vote_cast"
     - "permission_denied"
 
-# 绯荤粺鐩戞帶
+# 系统监控
 monitoring:
   health_check_interval: 30
   metrics_collection: true
@@ -175,7 +178,9 @@ monitoring:
     disk_usage: 90
     response_time_ms: 5000
 
-# 闀胯蹇嗛厤缃紙LongMemory锛?longmemory:
-  # 鍙娇鐢ㄧ粷瀵硅矾寰勬垨浠撳簱鐩稿璺緞锛沵eetingroom_server 灏嗚В鏋愪负缁濆璺緞骞剁‘淇濆瓨鍌ㄦ枃浠跺瓨鍦?  # 娉ㄦ剰锛氫负閬垮厤涓?Trae IDE 鐨?Memory MCP 鐨?memory.json 娣锋穯锛岃繖閲岀粺涓€浣跨敤 lm_records.json
-  # 缁熶竴闀胯蹇嗘寔涔呭寲璺緞鑷?01-struc/0B-general-manager/logs/longmemory
-  storage_path: "01-struc/0B-general-manager/logs/longmemory/lm_records.json"
+# 长记忆配置（LongMemory）
+longmemory:
+  # 可使用绝对路径或仓库相对路径；meetingroom_server 将解析为绝对路径并确保存储文件存在
+  # 注意：为避免与 Trae IDE 的 Memory MCP 的 memory.json 混淆，这里统一使用 lm_records.json
+  # 统一长记忆持久化路径至公司级：01-struc/logs/longmemory
+  storage_path: "01-struc/logs/longmemory/lm_records.json"

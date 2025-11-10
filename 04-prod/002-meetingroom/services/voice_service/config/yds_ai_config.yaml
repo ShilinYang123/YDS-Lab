@@ -175,7 +175,9 @@ monitoring:
     disk_usage: 90
     response_time_ms: 5000
 
-# 闀胯蹇嗛厤缃紙LongMemory锛?longmemory:
-  # 鍙娇鐢ㄧ粷瀵硅矾寰勬垨浠撳簱鐩稿璺緞锛沵eetingroom_server 灏嗚В鏋愪负缁濆璺緞骞剁‘淇濆瓨鍌ㄦ枃浠跺瓨鍦?  # 娉ㄦ剰锛氫负閬垮厤涓?Trae IDE 鐨?Memory MCP 鐨?memory.json 娣锋穯锛岃繖閲岀粺涓€浣跨敤 lm_records.json
-# 缁熶竴闀胯蹇嗘寔涔呭寲璺緞鑷?01-struc/0B-general-manager/logs/longmemory
-  storage_path: "01-struc/0B-general-manager/logs/longmemory/lm_records.json"
+# 长记忆配置（LongMemory）
+longmemory:
+  # 可使用绝对路径或仓库相对路径；meetingroom_server 会解析为绝对路径并确保持久化文件存在
+  # 注意：为避免与 Trae IDE 的 Memory MCP 的 memory.json 混淆，这里统一使用 lm_records.json
+  # 统一长记忆持久化路径至公司级：01-struc/logs/longmemory
+  storage_path: "01-struc/logs/longmemory/lm_records.json"
