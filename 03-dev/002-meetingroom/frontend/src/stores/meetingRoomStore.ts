@@ -73,7 +73,7 @@ interface MeetingRoomState {
   error: string | null;
   
   // Actions
-  fetchMeetingRooms: (filters?: Record<string, any>) => Promise<void>;
+  fetchMeetingRooms: (filters?: Record<string, unknown>) => Promise<void>;
   fetchMeetingRoomById: (id: string) => Promise<void>;
   createMeetingRoom: (data: CreateMeetingRoomData) => Promise<void>;
   updateMeetingRoom: (id: string, data: Partial<CreateMeetingRoomData>) => Promise<void>;
@@ -88,6 +88,7 @@ interface MeetingRoomState {
   
   clearError: () => void;
   setLoading: (loading: boolean) => void;
+  getAuthHeaders: () => Record<string, string>;
 }
 
 const API_BASE_URL = 'http://localhost:3000/api'
@@ -119,8 +120,11 @@ export const useMeetingRoomStore = create<MeetingRoomState>()((set, get) => ({
     try {
       const queryParams = new URLSearchParams()
       Object.entries(filters).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== '') {
-          queryParams.append(key, String(value))
+        if (value !== undefined && value !== null) {
+          const v = String(value)
+          if (v !== '') {
+            queryParams.append(key, v)
+          }
         }
       })
 

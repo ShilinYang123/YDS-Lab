@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useMeetingRoomStore } from '@/stores/meetingRoomStore';
+import { useState, useEffect, useCallback } from 'react';
+import { useMeetingRoomStore, type MeetingRoom } from '@/stores/meetingRoomStore';
 import { useAuthStore } from '@/stores/authStore';
-import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import BookingForm from './BookingForm';
 import BookingList from './BookingList';
@@ -53,23 +52,25 @@ export default function MeetingRoomList() {
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [showBookingList, setShowBookingList] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadMeetingRooms();
-  }, []);
 
-  const loadMeetingRooms = async () => {
+
+  const loadMeetingRooms = useCallback(async () => {
     try {
       await fetchMeetingRooms();
-    } catch (error) {
+    } catch {
       toast.error('加载会议室列表失败');
     }
-  };
+  }, [fetchMeetingRooms]);
+
+  useEffect(() => {
+    loadMeetingRooms();
+  }, [loadMeetingRooms]);
 
   const handleStatusChange = async (roomId: string, newStatus: string) => {
     try {
-      await updateMeetingRoomStatus(roomId, newStatus as any);
+      await updateMeetingRoomStatus(roomId, newStatus as MeetingRoom['status']);
       toast.success('会议室状态更新成功');
-    } catch (error) {
+    } catch {
       toast.error('更新会议室状态失败');
     }
   };

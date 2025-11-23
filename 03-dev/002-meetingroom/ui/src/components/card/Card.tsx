@@ -203,4 +203,3 @@ export { CardHeader, CardBody, CardFooter };
 export default Card;
 
 // 完整导出类型
-export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps };
