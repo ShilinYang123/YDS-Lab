@@ -70,7 +70,7 @@ interface MeetingState {
   
   // API Actions
   fetchRooms: () => Promise<void>
-  fetchMeetings: (params?: Record<string, any>) => Promise<void>
+  fetchMeetings: (params?: Record<string, unknown>) => Promise<void>
   fetchRoomById: (id: string) => Promise<void>
   fetchMeetingById: (id: string) => Promise<void>
   bookMeeting: (meetingData: Partial<Meeting>) => Promise<void>
@@ -124,7 +124,10 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
     set({ isLoading: true, error: null })
     
     try {
-      const queryString = new URLSearchParams(params).toString()
+      const stringParams = Object.fromEntries(
+        Object.entries(params).map(([key, value]) => [key, String(value ?? '')])
+      )
+      const queryString = new URLSearchParams(stringParams).toString()
       const response = await fetch(`${API_BASE_URL}/meetings?${queryString}`)
       const data = await response.json()
       

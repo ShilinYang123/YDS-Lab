@@ -1,5 +1,7 @@
 // 主题相关类型定义
 
+import type React from 'react';
+
 export interface ThemeColors {
   primary: {
     50: string;

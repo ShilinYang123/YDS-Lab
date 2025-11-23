@@ -30,6 +30,7 @@ interface AuthState {
   // Actions
   login: (username: string, password: string) => Promise<void>
   register: (userData: RegisterData) => Promise<void>
+  resetPassword: (email: string, newPassword: string, token: string) => Promise<void>
   logout: () => Promise<void>
   refreshToken: () => Promise<void>
   getCurrentUser: () => Promise<void>
@@ -132,6 +133,30 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
+      resetPassword: async (email: string, newPassword: string, token: string) => {
+        set({ isLoading: true, error: null })
+        try {
+          const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, newPassword, token }),
+          })
+          const data = await response.json()
+          if (!response.ok) {
+            throw new Error(data.message || '重置失败')
+          }
+          set({ isLoading: false })
+        } catch (error) {
+          set({
+            error: error instanceof Error ? error.message : '重置失败',
+            isLoading: false
+          })
+          throw error
+        }
+      },
+
       logout: async () => {
         const { tokens } = get()
         
@@ -227,7 +252,7 @@ export const useAuthStore = create<AuthState>()(
                   set({ user: retryData.data.user })
                   return
                 }
-              } catch (refreshError) {
+              } catch {
                 // 刷新失败，需要重新登录
                 set({ 
                   user: null,

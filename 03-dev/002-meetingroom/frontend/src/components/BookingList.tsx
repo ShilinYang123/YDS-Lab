@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useMeetingRoomStore, Booking } from '../stores/meetingRoomStore'
-import { Calendar, Clock, Users, X, AlertCircle, CheckCircle } from 'lucide-react'
+import { Calendar, Clock, Users, X, AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface BookingListProps {
@@ -12,20 +12,22 @@ export default function BookingList({ roomId, roomName }: BookingListProps) {
   const { currentBookings, fetchBookings, cancelBooking, isLoading } = useMeetingRoomStore()
   const [isRefreshing, setIsRefreshing] = useState(false)
 
-  useEffect(() => {
-    loadBookings()
-  }, [roomId])
+  
 
-  const loadBookings = async () => {
+  const loadBookings = useCallback(async () => {
     try {
       setIsRefreshing(true)
       await fetchBookings(roomId)
-    } catch (error) {
+    } catch {
       toast.error('加载预约列表失败')
     } finally {
       setIsRefreshing(false)
     }
-  }
+  }, [roomId, fetchBookings])
+
+  useEffect(() => {
+    loadBookings()
+  }, [loadBookings])
 
   const handleCancelBooking = async (bookingId: string) => {
     if (!confirm('确定要取消这个预约吗？')) {

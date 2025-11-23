@@ -178,3 +178,6 @@ logs/audit_*/
 # 自动生成的文档
 docs/generated/
 docs/auto-generated/
+03-dev/006-AUTOVPN/VPN-All/config/wstunnel_Output.txt
+03-dev/006-AUTOVPN/VPN-Sel/config/wstunnel_Output.txt
+rep/encoding_analysis/encoding_fix_results.json

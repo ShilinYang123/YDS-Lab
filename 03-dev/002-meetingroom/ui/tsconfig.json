@@ -9,9 +9,10 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
 
     /* Linting */
@@ -39,7 +40,6 @@
   },
   "include": [
     "src",
-    "vite.config.ts",
     "storybook"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
