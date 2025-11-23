@@ -1,0 +1,29 @@
+ai_agents:
+  auto_start_agents: false
+  enable_crewai: true
+  enable_monitoring: true
+compliance:
+  auto_start_monitoring: true
+  check_structure: true
+  validate_docs: true
+mcp_servers:
+  check_timeout: 10
+  cluster_config: true
+  required_servers:
+  - memory
+  - github
+  - context7
+  - sequential-thinking
+memory_system:
+  auto_start: false
+  check_status: true
+  required_services:
+  - MemoryService
+  - ContentProcessor
+  - IntelligentFilter
+  test_on_startup: true
+startup_checks:
+  check_dependencies: true
+  check_git_config: true
+  check_memory_system: true
+  check_python_env: true

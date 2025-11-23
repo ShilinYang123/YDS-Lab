@@ -1,0 +1,27 @@
+agent_info:
+  created_at: '2025-11-14T09:30:03.177456'
+  key: ResourceAdmin
+  name: 资源管理员
+  platform: Trae
+  version: 1.0.0
+capabilities:
+- 资源调配
+- 设备管理
+- 行政支持
+- 后勤保障
+collaboration:
+  collaborates_with:
+  - PlanningDirector
+  - DevTeamLead
+  - MarketingDirector
+  reporting_to: CEO
+workspace:
+  documents: S:\YDS-Lab\01-struc\Agents\05-resource_admin\documents
+  logs: S:\YDS-Lab\01-struc\Agents\05-resource_admin\logs
+  root: S:\YDS-Lab\01-struc\Agents\05-resource_admin
+  templates: S:\YDS-Lab\01-struc\Agents\05-resource_admin\templates
+tools:
+  entries:
+  - S:\YDS-Lab\01-struc\Agents\05-resource_admin\tools
+  capabilities:
+  - core_scripts

@@ -1,0 +1,12 @@
+communication_protocols:
+  daily_standup: 每日例会，同步进展
+  urgent_matters: 紧急事项，立即通知
+  weekly_review: 周回顾，总结经验
+decision_process:
+  authority_levels: 各角色权限级别
+  consensus_items: 需要共识的事项
+  escalation_path: 问题升级路径
+documentation_standards:
+  code_comments: 代码注释标准
+  meeting_notes: 会议记录模板
+  project_docs: 项目文档规范

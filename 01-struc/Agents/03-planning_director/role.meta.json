@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-03-PLANNING-DIRECTOR",
+  "name_cn": "企划总监",
+  "module_dir": "01-struc/Agents/03-planning_director",
+  "description_cn": "市场定位、方案策划与产品路线规划。",
+  "responsibilities": ["市场定位", "方案策划", "产品路线规划"],
+  "interfaces": {
+    "tools": ["Struc/Agents/planning_director/tools.py"],
+    "configs": ["01-struc/Agents/03-planning_director/*"],
+    "depends_on": ["03-dev/001-dewatermark-ai/*"],
+    "deliverables": ["市场分析", "SWOT分析", "路线图"]
+  },
+  "inputs": ["市场数据", "竞品信息"],
+  "outputs": ["定位建议", "市场规模估算", "企划方案"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

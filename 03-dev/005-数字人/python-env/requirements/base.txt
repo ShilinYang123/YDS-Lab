@@ -1,0 +1,38 @@
+# 数字员工项目 - 基础依赖包
+# 核心Web框架
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# 数据库相关
+sqlalchemy==2.0.23
+alembic==1.12.1
+psycopg2-binary==2.9.9
+redis==5.0.1
+
+# 文件处理和存储
+aiofiles==23.2.1
+python-multipart==0.0.6
+minio==7.2.0
+
+# 认证和安全
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# HTTP客户端
+httpx==0.25.2
+aiohttp==3.9.1
+
+# 日志和监控
+loguru==0.7.2
+prometheus-client==0.19.0
+
+# 配置管理
+python-dotenv==1.0.0
+pyyaml==6.0.1
+
+# 工具类
+click==8.1.7
+typer==0.9.0
+python-dateutil==2.8.2

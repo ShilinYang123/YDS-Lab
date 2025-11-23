@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-13-ENGINEERING-AUDIT",
+  "name_cn": "工程审计",
+  "module_dir": "01-struc/Agents/13-engineering_audit",
+  "description_cn": "代码与配置审计、问题分类与整改建议。",
+  "responsibilities": ["代码审计", "配置审计", "整改建议"],
+  "interfaces": {
+    "tools": ["flake8"],
+    "configs": ["setup.cfg"],
+    "depends_on": ["03-dev/**"],
+    "deliverables": ["审计报告", "问题清单"]
+  },
+  "inputs": ["代码仓", "配置文件"],
+  "outputs": ["审计报告", "整改方案"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

@@ -1,0 +1,10 @@
+YDS �ڲ� Agent ·��	CrewAI Agent ���ƣ����飩	˵��
+Struc/Agents/ceo/	CrewAI-CEO-ChiefExecutiveOfficer	CEO = Chief Executive Officer（总经理）
+Struc/Agents/planning_director/	CrewAI-PL-PlanningDirector	PL = Planning
+Struc/Agents/finance_director/	CrewAI-FN-FinanceDirector	FN = Finance
+Struc/Agents/resource_admin/	CrewAI-RA-ResourceAdmin	RA = Resource & Admin
+Struc/Agents/marketing_director/	CrewAI-MK-MarketingDirector	MK = Marketing
+Struc/Agents/dev_team/dev_director/	CrewAI-DV-DevDirector	DV = Development
+Struc/Agents/dev_team/dev_architect/	CrewAI-DV-Architect	�����ӽ�ɫ
+Struc/Agents/dev_team/dev_coder/	CrewAI-DV-Coder	����
+Struc/Agents/dev_team/dev_tester/	CrewAI-DV-Tester	����

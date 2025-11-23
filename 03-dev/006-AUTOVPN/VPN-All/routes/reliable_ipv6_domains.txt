@@ -1,0 +1,8 @@
+ipv6.google.com
+cloudflare.com
+www.cloudflare.com
+ipv6-test.com
+whatismyipv6.com
+testmyipv6.com
+wikipedia.org
+www.wikipedia.org

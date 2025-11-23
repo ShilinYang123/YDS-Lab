@@ -1,0 +1,233 @@
+# 财务管理流程配置
+# 从 SharedWorkspace/Collaboration/workflows_config.yaml 迁移
+
+# 财务相关的决策类型
+decision_types:
+  financial_strategic:
+    approval_required: true
+    authority: CEO + 董事长
+    description: 财务战略性决策
+    examples:
+    - 重大投资决策
+    - 融资方案
+    - 预算调整 > 10%
+  financial_tactical:
+    approval_required: true
+    authority: CEO
+    description: 财务战术性决策
+    examples:
+    - 预算调整 < 10%
+    - 成本控制措施
+    - 资源重新分配
+  financial_operational:
+    approval_required: false
+    authority: FinanceDirector
+    description: 财务日常运营决策
+    examples:
+    - 日常费用审批
+    - 财务报表生成
+    - 成本分析
+
+# 财务管理工作流
+workflows:
+  budget_planning:
+    description: 年度预算规划流程
+    name: 预算规划工作流
+    participants:
+    - CEO
+    - FinanceDirector
+    - PlanningDirector
+    - 各部门主管
+    steps:
+    - actions:
+      - 收集各部门预算需求
+      - 分析历史数据
+      - 评估业务目标
+      duration: 1周
+      name: 需求收集
+      responsible: FinanceDirector
+      step: 1
+    - actions:
+      - 制定预算草案
+      - 成本效益分析
+      - 风险评估
+      duration: 3天
+      name: 预算编制
+      responsible: FinanceDirector
+      step: 2
+    - actions:
+      - 部门预算评审
+      - 调整优化
+      - 平衡资源分配
+      duration: 2天
+      name: 评审调整
+      responsible: CEO + 各部门
+      step: 3
+    - actions:
+      - 最终预算确认
+      - 执行计划制定
+      duration: 1天
+      name: 批准执行
+      responsible: CEO
+      step: 4
+    trigger: annual_planning
+
+  expense_approval:
+    description: 费用审批流程
+    name: 费用审批工作流
+    participants:
+    - 申请人
+    - 部门主管
+    - FinanceDirector
+    - CEO
+    steps:
+    - actions:
+      - 填写费用申请
+      - 提供相关凭证
+      duration: 30分钟
+      name: 费用申请
+      responsible: 申请人
+      step: 1
+    - actions:
+      - 审核申请合理性
+      - 检查预算额度
+      duration: 1小时
+      name: 部门审核
+      responsible: 部门主管
+      step: 2
+    - actions:
+      - 财务合规检查
+      - 预算控制验证
+      duration: 2小时
+      name: 财务审核
+      responsible: FinanceDirector
+      step: 3
+    - actions:
+      - 最终审批决定
+      - 执行付款指令
+      duration: 4小时
+      name: 最终审批
+      responsible: CEO (超过限额时)
+      step: 4
+    trigger: expense_request
+
+# 财务管理模板
+templates:
+  budget_report:
+    template: |
+      # 预算执行报告
+      
+      ## 报告信息
+      - **报告期间**: {period}
+      - **报告人**: {reporter}
+      - **报告日期**: {report_date}
+      
+      ## 预算执行概况
+      - **总预算**: {total_budget}
+      - **已执行**: {executed_amount}
+      - **执行率**: {execution_rate}%
+      - **剩余预算**: {remaining_budget}
+      
+      ## 各部门预算执行
+      {department_budget_execution}
+      
+      ## 重要支出项目
+      {major_expenses}
+      
+      ## 预算偏差分析
+      {variance_analysis}
+      
+      ## 风险提示
+      {risk_alerts}
+      
+      ## 建议措施
+      {recommendations}
+    usage: 预算执行汇报
+
+  expense_request:
+    template: |
+      # 费用申请单
+      
+      ## 申请信息
+      - **申请人**: {applicant}
+      - **申请部门**: {department}
+      - **申请日期**: {application_date}
+      - **费用类型**: {expense_type}
+      
+      ## 费用详情
+      - **费用金额**: {amount}
+      - **费用用途**: {purpose}
+      - **预算科目**: {budget_category}
+      - **紧急程度**: {urgency}
+      
+      ## 费用说明
+      {expense_description}
+      
+      ## 相关凭证
+      {supporting_documents}
+      
+      ## 审批流程
+      - [ ] 申请人提交
+      - [ ] 部门主管审核
+      - [ ] 财务审核
+      - [ ] 最终审批
+      - [ ] 执行付款
+      
+      ## 备注
+      {notes}
+    usage: 费用申请和审批
+
+  financial_analysis:
+    template: |
+      # 财务分析报告
+      
+      ## 分析概况
+      - **分析期间**: {analysis_period}
+      - **分析师**: {analyst}
+      - **报告日期**: {report_date}
+      
+      ## 收入分析
+      {revenue_analysis}
+      
+      ## 成本分析
+      {cost_analysis}
+      
+      ## 盈利能力分析
+      {profitability_analysis}
+      
+      ## 现金流分析
+      {cashflow_analysis}
+      
+      ## 关键财务指标
+      {key_financial_metrics}
+      
+      ## 趋势分析
+      {trend_analysis}
+      
+      ## 风险评估
+      {risk_assessment}
+      
+      ## 建议和行动计划
+      {recommendations_and_actions}
+    usage: 财务分析和决策支持
+
+# 财务监控配置
+monitoring:
+  budget_alerts:
+    budget_overrun:
+      threshold: 90%
+      alert_message: "预算执行率超过90%，请注意控制支出"
+      escalation: FinanceDirector
+    cash_flow_warning:
+      threshold: "现金流 < 30天运营成本"
+      alert_message: "现金流预警，请关注资金状况"
+      escalation: CEO
+  financial_kpis:
+    cost_control_rate:
+      target: "> 95%"
+      description: "成本控制达标率"
+      measurement: "实际成本/预算成本"
+    approval_efficiency:
+      target: "< 24小时"
+      description: "费用审批效率"
+      measurement: "平均审批时间"

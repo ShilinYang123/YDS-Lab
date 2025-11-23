@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-14-SECURITY-COMPLIANCE",
+  "name_cn": "安全与合规",
+  "module_dir": "01-struc/Agents/14-security_compliance",
+  "description_cn": "权限策略、合规检查、敏感信息治理。",
+  "responsibilities": ["权限策略", "合规检查", "敏感信息治理"],
+  "interfaces": {
+    "tools": ["tools/security/*"],
+    "configs": ["config/security/permission.yaml"],
+    "depends_on": ["config/rbac_config.json"],
+    "deliverables": ["合规报告", "风险预警"]
+  },
+  "inputs": ["RBAC配置", "审计日志"],
+  "outputs": ["合规报告", "整改建议"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

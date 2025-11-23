@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-11-RELEASE-CI-CD",
+  "name_cn": "发布/CI-CD",
+  "module_dir": "01-struc/Agents/11-release_ci_cd",
+  "description_cn": "构建、测试与发布流水线的编排与执行。",
+  "responsibilities": ["构建与测试", "发布流程", "回滚策略"],
+  "interfaces": {
+    "tools": ["tools/production_deployment.py", "04-prod/scripts/start.py"],
+    "configs": ["config/production.yaml", "setup.cfg"],
+    "depends_on": ["04-prod/releases/*"],
+    "deliverables": ["发布记录", "回滚记录"]
+  },
+  "inputs": ["构建产物", "测试报告"],
+  "outputs": ["发布包", "发布报告"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

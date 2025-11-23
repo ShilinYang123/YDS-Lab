@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-11-21T15:10:15.766857",
+  "services": {
+    "wstunnel": {
+      "running": false,
+      "socks5_port": false,
+      "http_port": false
+    }
+  },
+  "network": {
+    "dns_ok": true,
+    "ping_ok": true
+  },
+  "ipv6": {
+    "loopback_ok": true,
+    "dns_ok": false
+  },
+  "config": {
+    "loaded": true,
+    "ipv6_enabled": false,
+    "proxy_enabled": false
+  }
+}

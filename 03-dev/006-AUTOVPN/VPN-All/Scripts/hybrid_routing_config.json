@@ -1,0 +1,39 @@
+{
+  "hosts_sections": {
+    "domestic": {
+      "marker": "# [DOMESTIC_IPS] - 国内纯净IP区域",
+      "description": "确定的国内IP地址，走物理网卡",
+      "route_policy": "physical",
+      "metric": 1
+    },
+    "foreign_verified": {
+      "marker": "# [FOREIGN_VERIFIED_IPS] - 国外验证纯净IP区域",
+      "description": "通过隧道验证的国外纯净IP，走虚拟网卡",
+      "route_policy": "virtual",
+      "metric": 1
+    },
+    "foreign_cdn": {
+      "marker": "# [FOREIGN_CDN_IPS] - 国外CDN IP区域",
+      "description": "国外CDN IP地址，走虚拟网卡",
+      "route_policy": "virtual",
+      "metric": 1
+    },
+    "special": {
+      "marker": "# [SPECIAL_IPS] - 特殊服务IP区域",
+      "description": "特殊服务IP（DNS、银行等），按策略路由",
+      "route_policy": "auto",
+      "metric": 1
+    }
+  },
+  "routing": {
+    "physical_gateway": "192.168.1.1",
+    "virtual_gateway": "10.9.0.1",
+    "physical_metric": 10,
+    "virtual_metric": 5
+  },
+  "validation": {
+    "enable_tunnel_check": true,
+    "max_route_entries": 1000,
+    "backup_before_change": true
+  }
+}

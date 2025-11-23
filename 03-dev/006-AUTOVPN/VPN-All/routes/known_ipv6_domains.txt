@@ -1,0 +1,60 @@
+# 已知支持IPv6的域名列表
+# 来源: 各大科技公司和服务提供商的官方IPv6支持域名
+# 更新时间: 2025-11-21
+
+# Google服务 (确认支持IPv6)
+google.com
+www.google.com
+ipv6.google.com
+youtube.com
+www.youtube.com
+gmail.com
+maps.google.com
+drive.google.com
+
+# Cloudflare服务 (全面支持IPv6)
+cloudflare.com
+www.cloudflare.com
+1.1.1.1
+1.0.0.1
+
+# Facebook/Meta服务 (支持IPv6)
+facebook.com
+www.facebook.com
+instagram.com
+www.instagram.com
+whatsapp.com
+
+# Microsoft服务 (部分支持IPv6)
+microsoft.com
+www.microsoft.com
+outlook.com
+hotmail.com
+
+# 其他知名IPv6支持服务
+wikipedia.org
+www.wikipedia.org
+wikimedia.org
+
+# CDN和基础设施 (全面支持IPv6)
+fastly.com
+akamai.com
+edgecast.com
+
+# 网络服务提供商
+he.net
+tunnelbroker.net
+
+# 测试和验证域名
+test-ipv6.com
+ipv6-test.com
+whatismyipv6.com
+
+# 学术和研究网络
+internet2.edu
+es.net
+
+# 开源项目
+apache.org
+ubuntu.com
+debian.org

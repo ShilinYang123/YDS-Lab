@@ -1,0 +1,27 @@
+agent_info:
+  created_at: '2025-11-14T09:30:01.640589'
+  key: FinanceDirector
+  name: 财务总监
+  platform: Trae
+  version: 1.0.0
+capabilities:
+- 预算管理
+- 成本控制
+- 财务分析
+- 投资回报
+collaboration:
+  collaborates_with:
+  - CEO
+  - PlanningDirector
+  - DevTeamLead
+  reporting_to: CEO
+workspace:
+  documents: S:\YDS-Lab\01-struc\Agents\04-finance_director\documents
+  logs: S:\YDS-Lab\01-struc\Agents\04-finance_director\logs
+  root: S:\YDS-Lab\01-struc\Agents\04-finance_director
+  templates: S:\YDS-Lab\01-struc\Agents\04-finance_director\templates
+tools:
+  entries:
+  - S:\YDS-Lab\01-struc\Agents\04-finance_director\tools
+  capabilities:
+  - core_scripts

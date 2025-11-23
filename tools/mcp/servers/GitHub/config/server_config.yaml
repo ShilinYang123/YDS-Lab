@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - PyGithub>=1.55
+  - gitpython>=3.1.0
+  environment: production
+  python_version: 3.8+
+server_info:
+  capabilities:
+  - 仓库管理
+  - 代码协作
+  - 版本控制
+  - CI/CD
+  name: GitHub
+  protocol: MCP
+  version: 1.0.0

@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-12-WORKSPACE-COORDINATOR",
+  "name_cn": "工作区协调",
+  "module_dir": "01-struc/Agents/12-workspace_coordinator",
+  "description_cn": "目录结构统一、环境就绪检查、路径兼容与迁移。",
+  "responsibilities": ["目录结构统一", "环境就绪检查", "路径迁移"],
+  "interfaces": {
+    "tools": ["tools/check_structure.py", "tools/check/env_ready.py"],
+    "configs": ["config/structure_config.yaml"],
+    "depends_on": ["01-struc/**"],
+    "deliverables": ["结构修复记录", "就绪报告"]
+  },
+  "inputs": ["结构配置", "环境状态"],
+  "outputs": ["修复脚本", "就绪报告"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

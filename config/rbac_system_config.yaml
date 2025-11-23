@@ -1,0 +1,566 @@
+# YDS AI公司RBAC权限控制体系配置
+# 部署版本: V5.1-架构适配版
+# 部署时间: 2025-11-14
+# 配置版本: 2.0
+
+# RBAC核心配置
+rbac_config:
+  version: "2.0"
+  enabled: true
+  audit_enabled: true
+  
+  # 权限定义
+  permissions:
+    # 系统管理权限
+    system_admin:
+      description: "系统管理权限"
+      actions: ["create", "read", "update", "delete", "execute"]
+      resources: ["system", "config", "logs", "users", "roles"]
+      
+    meeting_management:
+      description: "会议管理权限"
+      actions: ["create", "read", "update", "delete", "moderate", "end"]
+      resources: ["meeting", "agenda", "participants", "recording"]
+      
+    document_management:
+      description: "文档管理权限"
+      actions: ["create", "read", "update", "delete", "share", "version"]
+      resources: ["document", "template", "attachment", "folder"]
+      
+    vote_management:
+      description: "投票管理权限"
+      actions: ["create", "read", "update", "delete", "participate", "view_results"]
+      resources: ["vote", "ballot", "result", "statistics"]
+      
+    lm_access:
+      description: "长记忆系统访问权限"
+      actions: ["read", "write", "search", "analyze", "manage"]
+      resources: ["lm_component", "memory", "index", "query"]
+      
+    audit_access:
+      description: "审计日志访问权限"
+      actions: ["read", "analyze", "export"]
+      resources: ["audit_log", "security_log", "access_log"]
+      
+    development_tools:
+      description: "开发工具权限"
+      actions: ["use", "configure", "deploy", "debug"]
+      resources: ["ide", "repository", "build_tools", "testing"]
+      
+    monitoring_tools:
+      description: "监控工具权限"
+      actions: ["view", "configure", "alert", "report"]
+      resources: ["dashboard", "metrics", "alerts", "reports"]
+
+  # 角色定义 (基于智能体角色)
+  roles:
+    # 核心管理层角色
+    ceo_role:
+      name: "CEO"
+      display_name: "首席执行官"
+      description: "公司最高管理者，拥有所有权限"
+      permissions:
+        - system_admin
+        - meeting_management
+        - document_management
+        - vote_management
+        - lm_access
+        - audit_access
+        - development_tools
+        - monitoring_tools
+      resource_access:
+        system: ["*"]
+        meeting: ["*"]
+        document: ["*"]
+        vote: ["*"]
+        lm_component: ["*"]
+        audit_log: ["*"]
+      priority: "critical"
+      
+    chair_assistant_role:
+      name: "CHAIR_ASSISTANT"
+      display_name: "董事会助理"
+      description: "董事长助理，协助董事会事务和监督管理"
+      permissions:
+        - meeting_management
+        - document_management
+        - vote_management
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        meeting: ["strategic", "governance"]
+        document: ["strategic", "governance", "compliance"]
+        vote: ["strategic", "governance"]
+        audit_log: ["read", "analyze"]
+      priority: "high"
+      
+    # 部门管理层角色
+    planning_director_role:
+      name: "PLANNING_DIRECTOR"
+      display_name: "企划总监"
+      description: "企划部门负责人，负责战略规划和创新管理"
+      permissions:
+        - meeting_management
+        - document_management
+        - vote_management
+        - lm_access
+        - development_tools
+      resource_access:
+        meeting: ["strategic", "planning", "innovation"]
+        document: ["strategic", "planning", "innovation"]
+        vote: ["strategic", "planning"]
+        lm_component: ["planning", "innovation", "strategy"]
+      priority: "high"
+      
+    finance_director_role:
+      name: "FINANCE_DIRECTOR"
+      display_name: "财务总监"
+      description: "财务部门负责人，负责财务管理和风险控制"
+      permissions:
+        - meeting_management
+        - document_management
+        - vote_management
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        meeting: ["financial", "budget", "strategic"]
+        document: ["financial", "budget", "compliance"]
+        vote: ["financial", "budget"]
+        audit_log: ["financial", "compliance"]
+      priority: "high"
+      
+    resource_admin_role:
+      name: "RESOURCE_ADMIN"
+      display_name: "资源管理员"
+      description: "资源与行政部门负责人，负责人力资源和行政管理"
+      permissions:
+        - meeting_management
+        - document_management
+        - lm_access
+        - monitoring_tools
+      resource_access:
+        meeting: ["hr", "admin", "operational"]
+        document: ["hr", "admin", "policy"]
+        lm_component: ["hr", "admin", "knowledge"]
+      priority: "medium"
+      
+    dev_team_role:
+      name: "DEV_TEAM"
+      display_name: "开发团队代表"
+      description: "开发部门负责人，负责技术开发和系统运维"
+      permissions:
+        - meeting_management
+        - document_management
+        - vote_management
+        - lm_access
+        - development_tools
+        - monitoring_tools
+      resource_access:
+        meeting: ["technical", "development", "architecture"]
+        document: ["technical", "development", "architecture"]
+        vote: ["technical", "development"]
+        lm_component: ["development", "architecture", "code"]
+        development_tools: ["*"]
+        monitoring_tools: ["technical", "performance"]
+      priority: "high"
+      
+    marketing_director_role:
+      name: "MARKETING_DIRECTOR"
+      display_name: "营销总监"
+      description: "市场部门负责人，负责市场策略和用户运营"
+      permissions:
+        - meeting_management
+        - document_management
+        - vote_management
+        - lm_access
+        - monitoring_tools
+      resource_access:
+        meeting: ["marketing", "user_ops", "partnership"]
+        document: ["marketing", "user_ops", "partnership"]
+        vote: ["marketing", "user_feedback"]
+        lm_component: ["marketing", "user_data", "market_analysis"]
+        monitoring_tools: ["marketing", "user_metrics"]
+      priority: "medium"
+      
+    # 技术支撑层角色
+    document_governance_role:
+      name: "DOCUMENT_GOVERNANCE"
+      display_name: "文档治理"
+      description: "文档治理专家，负责文档标准化和版本控制"
+      permissions:
+        - document_management
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        document: ["*"]
+        audit_log: ["document_access", "version_history"]
+        monitoring_tools: ["document_metrics", "quality_metrics"]
+      priority: "high"
+      
+    knowledge_base_role:
+      name: "KNOWLEDGE_BASE"
+      display_name: "知识库"
+      description: "知识库管理员，负责知识管理和信息检索"
+      permissions:
+        - lm_access
+        - document_management
+        - monitoring_tools
+      resource_access:
+        lm_component: ["knowledge", "search", "index"]
+        document: ["knowledge_base", "reference", "training"]
+        monitoring_tools: ["knowledge_metrics", "search_analytics"]
+      priority: "medium"
+      
+    mcp_manager_role:
+      name: "MCP_MANAGER"
+      display_name: "MCP管理"
+      description: "MCP协议管理员，负责多智能体通信协调"
+      permissions:
+        - system_admin
+        - monitoring_tools
+        - audit_access
+      resource_access:
+        system: ["mcp", "communication", "routing"]
+        monitoring_tools: ["communication_metrics", "message_stats"]
+        audit_log: ["communication", "message_history"]
+      priority: "high"
+      
+    release_ci_cd_role:
+      name: "RELEASE_CI_CD"
+      display_name: "发布/CI-CD"
+      description: "发布管理专家，负责CI/CD流程和版本发布"
+      permissions:
+        - development_tools
+        - system_admin
+        - monitoring_tools
+      resource_access:
+        development_tools: ["*"]
+        system: ["deployment", "ci_cd", "versioning"]
+        monitoring_tools: ["deployment_metrics", "build_status"]
+      priority: "high"
+      
+    workspace_coordinator_role:
+      name: "WORKSPACE_COORDINATOR"
+      display_name: "工作区协调"
+      description: "工作空间协调员，负责环境配置和资源协调"
+      permissions:
+        - system_admin
+        - development_tools
+        - monitoring_tools
+      resource_access:
+        system: ["workspace", "environment", "resources"]
+        development_tools: ["environment", "configuration"]
+        monitoring_tools: ["resource_usage", "environment_status"]
+      priority: "medium"
+      
+    engineering_audit_role:
+      name: "ENGINEERING_AUDIT"
+      display_name: "工程审计"
+      description: "工程审计专家，负责代码审查和质量评估"
+      permissions:
+        - development_tools
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        development_tools: ["code_review", "quality_tools"]
+        audit_log: ["code_changes", "quality_metrics"]
+        monitoring_tools: ["code_metrics", "quality_dashboard"]
+      priority: "medium"
+      
+    security_compliance_role:
+      name: "SECURITY_COMPLIANCE"
+      display_name: "安全与合规"
+      description: "安全合规专家，负责安全审计和合规检查"
+      permissions:
+        - system_admin
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        system: ["security", "compliance", "policy"]
+        audit_log: ["security_events", "compliance_violations"]
+        monitoring_tools: ["security_dashboard", "compliance_metrics"]
+      priority: "high"
+      
+    rbac_governance_role:
+      name: "RBAC_GOVERNANCE"
+      display_name: "RBAC治理"
+      description: "RBAC治理专家，负责权限管理和访问控制"
+      permissions:
+        - system_admin
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        system: ["rbac", "permissions", "roles", "users"]
+        audit_log: ["permission_changes", "access_violations"]
+        monitoring_tools: ["permission_metrics", "access_analytics"]
+      priority: "high"
+      
+    quality_kpi_role:
+      name: "QUALITY_KPI"
+      display_name: "质量指标/KPI"
+      description: "质量KPI专家，负责质量指标监控和性能评估"
+      permissions:
+        - monitoring_tools
+        - audit_access
+        - document_management
+      resource_access:
+        monitoring_tools: ["quality_metrics", "kpi_dashboard", "performance_data"]
+        audit_log: ["quality_events", "performance_issues"]
+        document: ["quality_reports", "kpi_data"]
+      priority: "medium"
+      
+    monitor_alerting_role:
+      name: "MONITOR_ALERTING"
+      display_name: "监控与告警"
+      description: "监控告警专家，负责系统监控和告警管理"
+      permissions:
+        - monitoring_tools
+        - system_admin
+        - audit_access
+      resource_access:
+        monitoring_tools: ["*"]
+        system: ["monitoring", "alerting", "metrics"]
+        audit_log: ["alerts", "incidents", "system_events"]
+      priority: "high"
+      
+    backup_recovery_role:
+      name: "BACKUP_RECOVERY"
+      display_name: "备份与恢复"
+      description: "备份恢复专家，负责数据备份和灾难恢复"
+      permissions:
+        - system_admin
+        - audit_access
+        - monitoring_tools
+      resource_access:
+        system: ["backup", "recovery", "disaster_recovery"]
+        audit_log: ["backup_events", "recovery_operations"]
+        monitoring_tools: ["backup_status", "recovery_metrics"]
+      priority: "medium"
+      
+    longmemory_health_role:
+      name: "LONGMEMORY_HEALTH"
+      display_name: "长记忆健康"
+      description: "长记忆健康专家，负责长记忆系统维护和健康管理"
+      permissions:
+        - lm_access
+        - system_admin
+        - monitoring_tools
+        - audit_access
+      resource_access:
+        lm_component: ["*"]
+        system: ["longmemory", "health", "maintenance"]
+        monitoring_tools: ["memory_metrics", "health_status"]
+        audit_log: ["memory_events", "health_issues"]
+      priority: "high"
+      
+    meetingroom_host_role:
+      name: "MEETINGROOM_HOST"
+      display_name: "会议室主持"
+      description: "会议室主持智能体，负责会议协调和主持"
+      permissions:
+        - meeting_management
+        - document_management
+        - lm_access
+      resource_access:
+        meeting: ["coordination", "hosting", "facilitation"]
+        document: ["meeting_notes", "agenda", "minutes"]
+        lm_component: ["meeting_assistant", "agenda_management"]
+      priority: "low"
+
+# 用户角色映射
+user_role_mappings:
+  # 智能体用户映射
+  AGENT-01-CEO:
+    roles: ["ceo_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-02-CHAIR-ASSISTANT:
+    roles: ["chair_assistant_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-03-PLANNING-DIRECTOR:
+    roles: ["planning_director_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-04-FINANCE-DIRECTOR:
+    roles: ["finance_director_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-05-RESOURCE-ADMIN:
+    roles: ["resource_admin_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-06-DEV-TEAM:
+    roles: ["dev_team_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-07-MARKETING-DIRECTOR:
+    roles: ["marketing_director_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-08-DOCUMENT-GOVERNANCE:
+    roles: ["document_governance_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-09-KNOWLEDGE-BASE:
+    roles: ["knowledge_base_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-10-MCP-MANAGER:
+    roles: ["mcp_manager_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-11-RELEASE-CI-CD:
+    roles: ["release_ci_cd_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-12-WORKSPACE-COORDINATOR:
+    roles: ["workspace_coordinator_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-13-ENGINEERING-AUDIT:
+    roles: ["engineering_audit_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-14-SECURITY-COMPLIANCE:
+    roles: ["security_compliance_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-15-RBAC-GOVERNANCE:
+    roles: ["rbac_governance_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-16-QUALITY-KPI:
+    roles: ["quality_kpi_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-17-MONITOR-ALERTING:
+    roles: ["monitor_alerting_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-18-BACKUP-RECOVERY:
+    roles: ["backup_recovery_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-19-LONGMEMORY-HEALTH:
+    roles: ["longmemory_health_role"]
+    effective_date: "2025-11-14"
+    status: "active"
+    
+  AGENT-20-MEETINGROOM-HOST:
+    roles: ["meetingroom_host_role"]
+    effective_date: "2025-11-14"
+    status: "standby"
+
+# 资源访问控制列表
+resource_access_control:
+  # 系统资源
+  system:
+    paths:
+      - "s:/YDS-Lab/config/*"
+      - "s:/YDS-Lab/logs/*"
+      - "s:/YDS-Lab/tools/*"
+    access_levels: ["read", "write", "execute", "admin"]
+    
+  # 会议资源
+  meeting:
+    paths:
+      - "s:/YDS-Lab/01-struc/SharedWorkspace/Collaboration/*"
+      - "s:/YDS-Lab/logs/meeting_records/*"
+    access_levels: ["read", "write", "moderate", "admin"]
+    
+  # 文档资源
+  document:
+    paths:
+      - "s:/YDS-Lab/01-struc/companydocs/*"
+      - "s:/YDS-Lab/01-struc/docs/*"
+      - "s:/YDS-Lab/02-task/*"
+    access_levels: ["read", "write", "share", "version", "admin"]
+    
+  # 长记忆组件资源
+  lm_component:
+    paths:
+      - "s:/YDS-Lab/logs/longmemory/*"
+      - "s:/YDS-Lab/tools/LongMemory/*"
+    access_levels: ["read", "write", "manage", "admin"]
+    
+  # 审计日志资源
+  audit_log:
+    paths:
+      - "s:/YDS-Lab/logs/audit_trails/*"
+      - "s:/YDS-Lab/logs/compliance/*"
+    access_levels: ["read", "analyze", "export"]
+
+# 审计与合规配置
+audit_compliance:
+  enabled: true
+  log_all_access: true
+  retention_days: 90
+  
+  compliance_rules:
+    - name: "权限变更审计"
+      description: "记录所有权限变更操作"
+      enabled: true
+      
+    - name: "管理员操作审计"
+      description: "记录所有管理员级别的操作"
+      enabled: true
+      
+    - name: "数据访问审计"
+      description: "记录敏感数据的访问操作"
+      enabled: true
+      
+    - name: "失败登录审计"
+      description: "记录所有失败的登录尝试"
+      enabled: true
+
+# 部署配置
+deployment:
+  version: "V5.1-架构适配版"
+  date: "2025-11-14"
+  environment: "production"
+  status: "active"
+  
+  # 自动配置
+  auto_provisioning:
+    enabled: true
+    default_role: "technical_agents"
+    
+  # 定期审核
+  periodic_review:
+    enabled: true
+    review_interval_days: 30
+    
+  # 权限继承
+  permission_inheritance:
+    enabled: true
+    inheritance_rules:
+      - from: "ceo_role"
+        to: ["chair_assistant_role"]
+        permissions: ["meeting_management", "document_management"]
+        
+      - from: "dev_team_role"
+        to: ["engineering_audit_role", "release_ci_cd_role"]
+        permissions: ["development_tools"]
+        
+      - from: "security_compliance_role"
+        to: ["rbac_governance_role"]
+        permissions: ["audit_access"]

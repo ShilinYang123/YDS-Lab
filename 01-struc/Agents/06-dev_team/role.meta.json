@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-06-DEV-TEAM",
+  "name_cn": "开发团队代表",
+  "module_dir": "01-struc/Agents/06-dev_team",
+  "description_cn": "研发任务执行与技术实现，对接CI/CD与质量保障。",
+  "responsibilities": ["开发任务执行", "技术实现", "问题修复"],
+  "interfaces": {
+    "tools": ["tools/system_test_suite.py", "tools/production_deployment.py"],
+    "configs": ["setup.cfg", "config/production.yaml"],
+    "depends_on": ["03-dev/**", "04-prod/**"],
+    "deliverables": ["PR与交付物", "测试报告"]
+  },
+  "inputs": ["需求文档", "任务拆解", "测试用例"],
+  "outputs": ["代码与构建产物", "测试与验证结果"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

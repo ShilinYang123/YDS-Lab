@@ -1,0 +1,26 @@
+capabilities:
+- design_collaboration
+- prototype_management
+- asset_export
+- design_system
+dependencies:
+- requests
+- pillow
+logging:
+  backup_count: 5
+  file: logs/figma_mcp.log
+  level: INFO
+  max_size: 10MB
+performance:
+  max_connections: 100
+  retry_attempts: 3
+  timeout: 30
+security:
+  authentication: true
+  encryption: true
+  rate_limiting: true
+server_info:
+  name: Figma MCP Server
+  port: 3003
+  protocol: stdio
+  version: 1.0.0

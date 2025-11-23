@@ -1,0 +1,90 @@
+exclude_dirs:
+- .git
+- .vscode
+- .idea
+- __pycache__
+- .pytest_cache
+- node_modules
+- .env
+- .venv
+- venv
+- env
+- .DS_Store
+- Thumbs.db
+- '*.tmp'
+- '*.temp'
+# 备份目录：完全排除
+- bak
+- backup
+- backups
+- Backup
+- Backups
+exclude_files:
+- '*.pyc'
+- '*.pyo'
+- '*.pyd'
+- '*.so'
+- '*.dll'
+- '*.log'
+- '*.tmp'
+- '*.temp'
+- '*.bak'
+- '*.swp'
+- .DS_Store
+- Thumbs.db
+- desktop.ini
+special_handling:
+  # 规范文档第2.2节：特殊目录处理规则
+  Log:
+    max_depth: 2
+    show_files: false  # Log目录：最大深度2层，不显示具体文件
+  archive:
+    max_depth: 1
+    show_files: false  # 归档目录：最大深度1层，不显示具体文件
+  archives:
+    max_depth: 1
+    show_files: false  # 归档目录：最大深度1层，不显示具体文件
+  logs:
+    max_depth: 2
+    show_files: false  # 日志目录：最大深度2层，不显示具体文件
+
+# 命名规则：Agents 禁止编号前缀；01-struc目录有特殊文化命名规则（阴阳五行）
+naming_rules:
+  agents:
+    path: Agents
+    forbidden_number_prefix: true
+    exceptions: []
+  struc_cultural_naming:
+    path: 01-struc
+    required_number_prefix: true
+    cultural_exceptions:
+      # 中华文化命名特例：一阴一阳，阴生阳长
+      - 0A-board-chair      # 董事长：阴，战略决策与监督
+      - 0B-general-manager  # 总经理：阳，战略执行与落地
+    exceptions:
+      - Docs
+      - logs
+      - Log
+      - config
+      - tools
+      - meetings
+      - Struc
+      - archive
+      - archives
+      - bak
+      - backup
+      - Backups
+
+# 重复结构检测与处理
+duplicate_structure_handling:
+  enabled: true
+  # 相似度阈值（0.0-1.0），超过此值视为重复结构
+  similarity_threshold: 0.8
+  # 检测重复结构的目录对
+  duplicate_pairs:
+    - source: "03-dev/006-AUTOVPN/VPN-Sel"
+      target: "venv-tools/requests"
+      # 处理方式：skip_target（跳过目标目录）、merge_summary（合并摘要）
+      handling: "skip_target"
+      # 描述说明
+      description: "VPN-Sel与requests结构相似，跳过requests目录"

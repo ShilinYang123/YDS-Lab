@@ -1,0 +1,27 @@
+agent_info:
+  created_at: '2025-11-14T09:30:03.171259'
+  key: MarketingDirector
+  name: 市场总监
+  platform: Trae
+  version: 1.0.0
+capabilities:
+- 市场分析
+- 营销策略
+- 品牌建设
+- 客户关系
+collaboration:
+  collaborates_with:
+  - PlanningDirector
+  - DevTeamLead
+  - ResourceAdmin
+  reporting_to: CEO
+workspace:
+  documents: S:\YDS-Lab\01-struc\Agents\07-marketing_director\documents
+  logs: S:\YDS-Lab\01-struc\Agents\07-marketing_director\logs
+  root: S:\YDS-Lab\01-struc\Agents\07-marketing_director
+  templates: S:\YDS-Lab\01-struc\Agents\07-marketing_director\templates
+tools:
+  entries:
+  - S:\YDS-Lab\01-struc\Agents\07-marketing_director\tools
+  capabilities:
+  - core_scripts

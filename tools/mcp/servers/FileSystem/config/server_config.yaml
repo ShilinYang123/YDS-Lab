@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - pathlib
+  - shutil
+  environment: production
+  python_version: 3.8+
+server_info:
+  capabilities:
+  - 文件管理
+  - 目录操作
+  - 权限控制
+  - 备份恢复
+  name: FileSystem
+  protocol: MCP
+  version: 1.0.0

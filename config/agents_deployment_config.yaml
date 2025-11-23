@@ -1,0 +1,473 @@
+# YDS AI公司智能体角色部署配置
+# 部署版本: V5.1-架构适配版
+# 部署时间: 2025-11-14
+# 部署负责人: 雨俊
+
+agents:
+  # 核心管理层 (阴阳五行 - 决策层)
+  - id: AGENT-01-CEO
+    name: 首席执行官
+    directory: 01-ceo
+    role_type: leadership
+    priority: critical
+    status: active
+    description: "公司最高决策者，负责战略方向和重大决策"
+    responsibilities:
+      - 战略规划与决策
+      - 跨部门协调
+      - 重大事项审批
+    tools:
+      - decision_support
+      - strategic_analysis
+      - cross_department_coordination
+    permissions:
+      - all_system_access
+      - strategic_docs_write
+      - cross_department_data
+
+  - id: AGENT-02-CHAIR-ASSISTANT
+    name: 董事会助理
+    directory: 02-chair_assistant
+    role_type: governance
+    priority: critical
+    status: active
+    description: "董事长助理，协助董事会事务和监督管理"
+    responsibilities:
+      - 董事会事务协调
+      - 监督执行情况
+      - 合规性检查
+    tools:
+      - meeting_coordination
+      - compliance_checker
+      - executive_tracker
+    permissions:
+      - governance_docs_access
+      - compliance_data_read
+      - executive_reports
+
+  # 部门管理层 (阴阳五行 - 执行层)
+  - id: AGENT-03-PLANNING-DIRECTOR
+    name: 企划总监
+    directory: 03-planning_director
+    role_type: department_head
+    priority: high
+    status: active
+    description: "企划部门负责人，负责战略规划和创新管理"
+    responsibilities:
+      - 战略规划制定
+      - 创新项目管理
+      - 产品路线规划
+    tools:
+      - strategic_planning
+      - innovation_management
+      - product_roadmap
+    permissions:
+      - planning_docs_write
+      - innovation_data_access
+      - product_strategy
+
+  - id: AGENT-04-FINANCE-DIRECTOR
+    name: 财务总监
+    directory: 04-finance_director
+    role_type: department_head
+    priority: high
+    status: active
+    description: "财务部门负责人，负责财务管理和风险控制"
+    responsibilities:
+      - 财务分析与预算
+      - 风险控制管理
+      - 投资决策支持
+    tools:
+      - financial_analysis
+      - risk_management
+      - investment_evaluation
+    permissions:
+      - financial_data_write
+      - risk_data_access
+      - investment_tools
+
+  - id: AGENT-05-RESOURCE-ADMIN
+    name: 资源管理员
+    directory: 05-resource_admin
+    role_type: department_head
+    priority: medium
+    status: active
+    description: "资源与行政部门负责人，负责人力资源和行政管理"
+    responsibilities:
+      - 人力资源管理
+      - 行政事务协调
+      - 知识管理
+    tools:
+      - hr_management
+      - admin_coordination
+      - knowledge_management
+    permissions:
+      - hr_data_access
+      - admin_docs_write
+      - knowledge_base
+
+  - id: AGENT-06-DEV-TEAM
+    name: 开发团队代表
+    directory: 06-dev_team
+    role_type: department_head
+    priority: high
+    status: active
+    description: "开发部门负责人，负责技术开发和系统运维"
+    responsibilities:
+      - 技术开发管理
+      - 系统架构设计
+      - 质量保障
+    tools:
+      - development_management
+      - system_architecture
+      - quality_assurance
+    permissions:
+      - dev_environment_access
+      - system_architecture_docs
+      - deployment_tools
+
+  - id: AGENT-07-MARKETING-DIRECTOR
+    name: 营销总监
+    directory: 07-marketing_director
+    role_type: department_head
+    priority: medium
+    status: active
+    description: "市场部门负责人，负责市场策略和用户运营"
+    responsibilities:
+      - 市场策略制定
+      - 用户运营管理
+      - 合作伙伴关系
+    tools:
+      - market_strategy
+      - user_operations
+      - partnership_management
+    permissions:
+      - market_data_access
+      - user_analytics
+      - partnership_tools
+
+  # 技术支撑层
+  - id: AGENT-08-DOCUMENT-GOVERNANCE
+    name: 文档治理
+    directory: 08-document_governance
+    role_type: technical_support
+    priority: high
+    status: active
+    description: "文档治理专家，负责文档标准化和版本控制"
+    responsibilities:
+      - 文档标准化
+      - 版本控制管理
+      - 文档质量检查
+    tools:
+      - document_standardization
+      - version_control
+      - quality_checker
+    permissions:
+      - document_governance
+      - version_control_access
+      - quality_metrics
+
+  - id: AGENT-09-KNOWLEDGE-BASE
+    name: 知识库
+    directory: 09-knowledge_base
+    role_type: technical_support
+    priority: medium
+    status: active
+    description: "知识库管理员，负责知识管理和信息检索"
+    responsibilities:
+      - 知识库维护
+      - 信息检索优化
+      - 知识图谱构建
+    tools:
+      - knowledge_base_maintenance
+      - search_optimization
+      - knowledge_graph
+    permissions:
+      - knowledge_base_write
+      - search_index_access
+      - knowledge_graph_data
+
+  - id: AGENT-10-MCP-MANAGER
+    name: MCP管理
+    directory: 10-mcp_manager
+    role_type: technical_support
+    priority: medium
+    status: active
+    description: "MCP协议管理员，负责多智能体通信协调"
+    responsibilities:
+      - MCP协议管理
+      - 智能体通信协调
+      - 消息路由管理
+    tools:
+      - mcp_protocol_manager
+      - agent_communication
+      - message_routing
+    permissions:
+      - mcp_protocol_access
+      - agent_communication_data
+      - message_routing_config
+
+  - id: AGENT-11-RELEASE-CI-CD
+    name: 发布/CI-CD
+    directory: 11-release_ci_cd
+    role_type: technical_support
+    priority: high
+    status: active
+    description: "发布管理专家，负责CI/CD流程和版本发布"
+    responsibilities:
+      - CI/CD流程管理
+      - 版本发布控制
+      - 部署自动化
+    tools:
+      - ci_cd_pipeline
+      - release_management
+      - deployment_automation
+    permissions:
+      - ci_cd_access
+      - release_control
+      - deployment_tools
+
+  - id: AGENT-12-WORKSPACE-COORDINATOR
+    name: 工作区协调
+    directory: 12-workspace_coordinator
+    role_type: technical_support
+    priority: medium
+    status: active
+    description: "工作空间协调员，负责环境配置和资源协调"
+    responsibilities:
+      - 工作空间管理
+      - 环境配置协调
+      - 资源分配优化
+    tools:
+      - workspace_management
+      - environment_config
+      - resource_allocation
+    permissions:
+      - workspace_access
+      - environment_config_write
+      - resource_allocation_tools
+
+  - id: AGENT-13-ENGINEERING-AUDIT
+    name: 工程审计
+    directory: 13-engineering_audit
+    role_type: technical_support
+    priority: medium
+    status: active
+    description: "工程审计专家，负责代码审查和质量评估"
+    responsibilities:
+      - 代码质量审查
+      - 工程标准检查
+      - 技术债务评估
+    tools:
+      - code_review
+      - engineering_standards
+      - technical_debt_analysis
+    permissions:
+      - code_review_access
+      - engineering_data_read
+      - quality_metrics_access
+
+  - id: AGENT-14-SECURITY-COMPLIANCE
+    name: 安全与合规
+    directory: 14-security_compliance
+    role_type: technical_support
+    priority: high
+    status: active
+    description: "安全合规专家，负责安全审计和合规检查"
+    responsibilities:
+      - 安全审计
+      - 合规性检查
+      - 风险评估
+    tools:
+      - security_audit
+      - compliance_checker
+      - risk_assessment
+    permissions:
+      - security_data_access
+      - compliance_tools
+      - risk_assessment_data
+
+  - id: AGENT-15-RBAC-GOVERNANCE
+    name: RBAC治理
+    directory: 15-rbac_governance
+    role_type: technical_support
+    priority: high
+    status: active
+    description: "RBAC治理专家，负责权限管理和访问控制"
+    responsibilities:
+      - 权限管理
+      - 访问控制
+      - 角色治理
+    tools:
+      - permission_management
+      - access_control
+      - role_governance
+    permissions:
+      - rbac_admin_access
+      - permission_config_write
+      - access_control_data
+
+  - id: AGENT-16-QUALITY-KPI
+    name: 质量指标/KPI
+    directory: 16-quality_kpi
+    role_type: technical_support
+    priority: medium
+    status: active
+    description: "质量KPI专家，负责质量指标监控和性能评估"
+    responsibilities:
+      - 质量指标监控
+      - 性能评估
+      - KPI报告生成
+    tools:
+      - quality_monitoring
+      - performance_evaluation
+      - kpi_reporting
+    permissions:
+      - quality_data_access
+      - performance_metrics
+      - kpi_tools
+
+  - id: AGENT-17-MONITOR-ALERTING
+    name: 监控与告警
+    directory: 17-monitor_alerting
+    role_type: technical_support
+    priority: high
+    status: active
+    description: "监控告警专家，负责系统监控和告警管理"
+    responsibilities:
+      - 系统监控
+      - 告警管理
+      - 性能分析
+    tools:
+      - system_monitoring
+      - alerting_management
+      - performance_analysis
+    permissions:
+      - monitoring_data_access
+      - alerting_config_write
+      - performance_data
+
+  - id: AGENT-18-BACKUP-RECOVERY
+    name: 备份与恢复
+    directory: 18-backup_recovery
+    role_type: technical_support
+    priority: medium
+    status: active
+    description: "备份恢复专家，负责数据备份和灾难恢复"
+    responsibilities:
+      - 数据备份管理
+      - 灾难恢复
+      - 业务连续性
+    tools:
+      - backup_management
+      - disaster_recovery
+      - business_continuity
+    permissions:
+      - backup_data_access
+      - recovery_tools
+      - continuity_config
+
+  - id: AGENT-19-LONGMEMORY-HEALTH
+    name: 长记忆健康
+    directory: 19-longmemory_health
+    role_type: technical_support
+    priority: high
+    status: active
+    description: "长记忆健康专家，负责长记忆系统维护和健康管理"
+    responsibilities:
+      - 长记忆系统维护
+      - 健康状态监控
+      - 性能优化
+    tools:
+      - longmemory_maintenance
+      - health_monitoring
+      - performance_optimization
+    permissions:
+      - longmemory_access
+      - health_data_write
+      - optimization_tools
+
+  - id: AGENT-20-MEETINGROOM-HOST
+    name: 会议室主持
+    directory: 20-meetingroom_host
+    role_type: technical_support
+    priority: low
+    status: standby
+    description: "会议室主持智能体，负责会议协调和主持"
+    responsibilities:
+      - 会议协调
+      - 议程管理
+      - 会议记录
+    tools:
+      - meeting_coordination
+      - agenda_management
+      - meeting_recorder
+    permissions:
+      - meeting_data_access
+      - agenda_tools
+      - recording_permissions
+
+# 智能体协作配置
+collaboration:
+  # 消息模型配置
+  message_models:
+    voice:
+      enabled: true
+      format: "audio/wav"
+      max_duration: 300
+    stream:
+      enabled: true
+      format: "application/json"
+      real_time: true
+    docs:
+      enabled: true
+      format: "text/markdown"
+      versioning: true
+    vote:
+      enabled: true
+      format: "application/json"
+      consensus_required: true
+
+  # 协作工作流
+  workflows:
+    daily_operations:
+      description: "日常运营协作"
+      primary_agents: ["AGENT-01-CEO", "AGENT-03-PLANNING-DIRECTOR", "AGENT-04-FINANCE-DIRECTOR"]
+      support_agents: ["AGENT-08-DOCUMENT-GOVERNANCE", "AGENT-17-MONITOR-ALERTING"]
+      
+    project_development:
+      description: "项目开发生命周期协作"
+      primary_agents: ["AGENT-06-DEV-TEAM", "AGENT-03-PLANNING-DIRECTOR", "AGENT-11-RELEASE-CI-CD"]
+      support_agents: ["AGENT-13-ENGINEERING-AUDIT", "AGENT-14-SECURITY-COMPLIANCE"]
+      
+    emergency_response:
+      description: "应急响应协作"
+      primary_agents: ["AGENT-01-CEO", "AGENT-17-MONITOR-ALERTING", "AGENT-14-SECURITY-COMPLIANCE"]
+      support_agents: ["AGENT-18-BACKUP-RECOVERY", "AGENT-19-LONGMEMORY-HEALTH"]
+
+# 系统配置
+system:
+  # 部署信息
+  deployment:
+    version: "V5.1-架构适配版"
+    date: "2025-11-14"
+    environment: "production"
+    location: "s:/YDS-Lab/"
+    
+  # 监控配置
+  monitoring:
+    health_check_interval: 300
+    performance_metrics: true
+    alerting_enabled: true
+    
+  # 安全配置
+  security:
+    rbac_enabled: true
+    audit_logging: true
+    encryption_enabled: true
+    
+  # 备份配置
+  backup:
+    automated_backup: true
+    backup_interval: 86400
+    retention_days: 30

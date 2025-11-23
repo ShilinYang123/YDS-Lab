@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-02-CHAIR-ASSISTANT",
+  "name_cn": "董事会助理",
+  "module_dir": "01-struc/Agents/02-chair_assistant",
+  "description_cn": "会议筹备、议程管理、纪要归档、决议跟踪。",
+  "responsibilities": ["会议筹备", "议程管理", "纪要归档", "决议跟踪"],
+  "interfaces": {
+    "tools": ["tools/agents/run_collab.py"],
+    "configs": ["config/meetingroom_config.json"],
+    "depends_on": ["01-struc/0B-general-manager/meetings/*"],
+    "deliverables": ["会议纪要", "行动项清单"]
+  },
+  "inputs": ["会议需求", "议程草案", "附件材料"],
+  "outputs": ["会议纪要", "决议记录", "行动项分发"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

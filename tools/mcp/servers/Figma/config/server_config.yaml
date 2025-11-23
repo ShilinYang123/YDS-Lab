@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - requests>=2.25.0
+  - Pillow>=8.0.0
+  environment: production
+  python_version: 3.8+
+server_info:
+  capabilities:
+  - 界面设计
+  - 原型制作
+  - 团队协作
+  - 设计系统
+  name: Figma
+  protocol: MCP
+  version: 1.0.0

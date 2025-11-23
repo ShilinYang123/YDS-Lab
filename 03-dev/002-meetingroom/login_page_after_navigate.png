@@ -1,0 +1,18 @@
+uid=2_0 RootWebArea "My Trae Project" url="http://localhost:5173/login"
+  uid=2_1 heading "YDS智能会议室系统" level="2"
+  uid=2_2 StaticText "请登录您的账户"
+  uid=2_3 StaticText "用户名"
+  uid=2_4 textbox "用户名" required
+  uid=2_5 StaticText "密码"
+  uid=2_6 textbox "密码" required
+  uid=2_7 button
+  uid=2_8 button "登录"
+  uid=2_9 StaticText "还没有账户？"
+  uid=2_10 StaticText " "
+  uid=2_11 link "立即注册" url="http://localhost:5173/register"
+    uid=2_12 StaticText "立即注册"
+  uid=2_13 StaticText "忘记密码？"
+  uid=2_14 StaticText " "
+  uid=2_15 link "点击找回" url="http://localhost:5173/forgot-password"
+    uid=2_16 StaticText "点击找回"
+  uid=2_17 region "Notifications alt+T"

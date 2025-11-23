@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - docker>=5.0.0
+  - kubernetes>=18.0.0
+  environment: production
+  python_version: 3.8+
+server_info:
+  capabilities:
+  - 代码构建
+  - 部署管理
+  - 环境配置
+  - 自动化
+  name: Builder
+  protocol: MCP
+  version: 1.0.0

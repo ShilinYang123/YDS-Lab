@@ -1,0 +1,121 @@
+{
+  "directory_rules": [
+    {
+      "path": "S:/YDS-Lab/01-struc/docs/YDS-AI-鎴樼暐瑙勫垝",
+      "category": "strategic",
+      "allowed_roles": [
+        "CFO",
+        "CEO",
+        "CTO"
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "CFO": "read",
+        "CTO": "read"
+      },
+      "description": "YDS AI鎴樼暐瑙勫垝鏂囨。",
+      "auto_approval": false,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/01-struc/Agents/07-marketing_director",
+      "category": "marketing",
+      "allowed_roles": [
+        "CEO",
+        "椤圭洰鍗忚皟鑰?
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "椤圭洰鍗忚皟鑰?: "write"
+      },
+      "description": "甯傚満閮ㄩ棬鏂囨。",
+      "auto_approval": true,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/01-struc/04-dev-team",
+      "category": "technical",
+      "allowed_roles": [
+        "鍚庣寮€鍙?,
+        "CTO",
+        "鍓嶇寮€鍙?,
+        "椤圭洰鍗忚皟鑰?
+      ],
+      "access_levels": {
+        "CTO": "admin",
+        "鍓嶇寮€鍙?: "write",
+        "鍚庣寮€鍙?: "write",
+        "椤圭洰鍗忚皟鑰?: "read"
+      },
+      "description": "鎶€鏈儴闂ㄦ枃妗?,
+      "auto_approval": true,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/01-struc/02-finance",
+      "category": "financial",
+      "allowed_roles": [
+        "CFO",
+        "CEO"
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "CFO": "admin"
+      },
+      "description": "璐㈠姟閮ㄩ棬鏂囨。",
+      "auto_approval": false,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/04-prod",
+      "category": "operational",
+      "allowed_roles": [
+        "鍚庣寮€鍙?,
+        "CEO",
+        "鍓嶇寮€鍙?,
+        "椤圭洰鍗忚皟鑰?
+      ],
+      "access_levels": {
+        "CEO": "admin",
+        "椤圭洰鍗忚皟鑰?: "write",
+        "鍓嶇寮€鍙?: "write",
+        "鍚庣寮€鍙?: "write"
+      },
+      "description": "鐢熶骇鐜鏂囨。",
+      "auto_approval": true,
+      "requires_audit": true
+    },
+    {
+      "path": "S:/YDS-Lab/tools",
+      "category": "technical",
+      "allowed_roles": [
+        "鍚庣寮€鍙戞櫤鑳戒綋",
+        "鍓嶇寮€鍙戞櫤鑳戒綋",
+        "CTO",
+        "椤圭洰鍗忚皟鑰?
+      ],
+      "access_levels": {
+        "CTO": "admin",
+        "鍓嶇寮€鍙戞櫤鑳戒綋": "write",
+        "鍚庣寮€鍙戞櫤鑳戒綋": "write",
+        "椤圭洰鍗忚皟鑰?: "read"
+      },
+      "description": "宸ュ叿鍜岃剼鏈?,
+      "auto_approval": true,
+      "requires_audit": false
+    },
+    {
+      "path": "S:/YDS-Lab/Public",
+      "category": "public",
+      "allowed_roles": [
+        "*"
+      ],
+      "access_levels": {
+        "*": "read"
+      },
+      "description": "鍏紑鏂囨。",
+      "auto_approval": true,
+      "requires_audit": false
+    }
+  ]
+}

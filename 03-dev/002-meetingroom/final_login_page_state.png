@@ -1,0 +1,55 @@
+uid=5_0 RootWebArea "My Trae Project" url="http://localhost:5173/login"
+  uid=5_1 ignored
+    uid=5_2 ignored
+      uid=5_3 generic
+        uid=5_4 ignored
+          uid=5_5 ignored
+            uid=5_6 ignored
+              uid=5_7 ignored
+                uid=5_8 image
+              uid=5_9 heading "YDS智能会议室系统" level="2"
+                uid=5_10 StaticText "YDS智能会议室系统"
+                  uid=5_11 InlineTextBox "YDS智能会议室系统"
+              uid=5_12 paragraph
+                uid=5_13 StaticText "请登录您的账户"
+                  uid=5_14 InlineTextBox "请登录您的账户"
+            uid=5_15 generic
+              uid=5_16 ignored
+                uid=5_17 ignored
+                  uid=5_18 LabelText
+                    uid=5_19 StaticText "用户名"
+                      uid=5_20 InlineTextBox "用户名"
+                  uid=5_21 textbox "用户名" required
+                    uid=5_22 ignored
+                    uid=5_23 generic
+                uid=5_24 ignored
+                  uid=5_25 LabelText
+                    uid=5_26 StaticText "密码"
+                      uid=5_27 InlineTextBox "密码"
+                  uid=5_28 generic
+                    uid=5_29 textbox "密码" required
+                      uid=5_30 ignored
+                      uid=5_31 generic
+                    uid=5_32 button
+              uid=5_33 ignored
+                uid=5_34 button "登录"
+                  uid=5_35 StaticText "登录"
+                    uid=5_36 InlineTextBox "登录"
+              uid=5_37 ignored
+                uid=5_38 paragraph
+                  uid=5_39 StaticText "还没有账户？"
+                    uid=5_40 InlineTextBox "还没有账户？"
+                  uid=5_41 StaticText " "
+                    uid=5_42 InlineTextBox " "
+                  uid=5_43 link "立即注册" url="http://localhost:5173/register"
+                    uid=5_44 StaticText "立即注册"
+                      uid=5_45 InlineTextBox "立即注册"
+                uid=5_46 paragraph
+                  uid=5_47 StaticText "忘记密码？"
+                    uid=5_48 InlineTextBox "忘记密码？"
+                  uid=5_49 StaticText " "
+                    uid=5_50 InlineTextBox " "
+                  uid=5_51 link "点击找回" url="http://localhost:5173/forgot-password"
+                    uid=5_52 StaticText "点击找回"
+                      uid=5_53 InlineTextBox "点击找回"
+        uid=5_54 region "Notifications alt+T"

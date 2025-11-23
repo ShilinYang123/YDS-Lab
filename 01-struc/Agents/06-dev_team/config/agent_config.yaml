@@ -1,0 +1,30 @@
+agent_info:
+  created_at: '2025-11-14T09:30:03.148146'
+  key: DevTeamLead
+  name: 开发团队负责人
+  platform: Trae
+  version: 1.0.0
+capabilities:
+- 技术架构
+- 代码审查
+- 开发管理
+- 技术创新
+collaboration:
+  collaborates_with:
+  - PlanningDirector
+  - MarketingDirector
+  - ResourceAdmin
+  reporting_to: CEO
+workspace:
+  documents: S:\YDS-Lab\01-struc\Agents\06-dev_team\documents
+  logs: S:\YDS-Lab\01-struc\Agents\06-dev_team\logs
+  root: S:\YDS-Lab\01-struc\Agents\06-dev_team
+  templates: S:\YDS-Lab\01-struc\Agents\06-dev_team\templates
+tools:
+  entries:
+  - S:\YDS-Lab\01-struc\Agents\06-dev_team\dev_architect
+  - S:\YDS-Lab\01-struc\Agents\06-dev_team\dev_coder
+  - S:\YDS-Lab\01-struc\Agents\06-dev_team\dev_director
+  - S:\YDS-Lab\01-struc\Agents\06-dev_team\dev_tester
+  capabilities:
+  - core_scripts

@@ -1,0 +1,233 @@
+# YDS AI公司MCP协议通信配置
+# 部署版本: V5.1-架构适配版
+# 部署时间: 2025-11-14
+# 协议版本: MCP 1.0
+
+# MCP协议核心配置
+mcp_protocol:
+  version: "1.0"
+  encoding: "utf-8"
+  message_format: "json"
+  
+  # 通信模式配置
+  communication_modes:
+    synchronous:
+      enabled: true
+      timeout: 30
+      retry_count: 3
+      
+    asynchronous:
+      enabled: true
+      queue_size: 1000
+      worker_threads: 4
+      
+    broadcast:
+      enabled: true
+      ttl: 300
+      max_recipients: 20
+
+# 消息模型配置
+message_models:
+  voice:
+    enabled: true
+    format: "audio/wav"
+    max_duration: 300
+    sample_rate: 16000
+    channels: 1
+    compression: "gzip"
+    
+  stream:
+    enabled: true
+    format: "application/json"
+    real_time: true
+    buffer_size: 4096
+    keep_alive: true
+    heartbeat_interval: 60
+    
+  docs:
+    enabled: true
+    format: "text/markdown"
+    versioning: true
+    max_size: 10485760  # 10MB
+    compression: "gzip"
+    diff_support: true
+    
+  vote:
+    enabled: true
+    format: "application/json"
+    consensus_required: true
+    timeout: 600
+    quorum_percentage: 51
+    vote_types: ["approve", "reject", "abstain"]
+
+# 智能体通信配置
+agent_communication:
+  # 消息路由配置
+  routing:
+    default_strategy: "round_robin"
+    priority_based: true
+    load_balancing: true
+    
+  # 消息队列配置
+  queues:
+    high_priority:
+      max_size: 100
+      timeout: 10
+      
+    normal_priority:
+      max_size: 500
+      timeout: 30
+      
+    low_priority:
+      max_size: 1000
+      timeout: 300
+
+  # 消息持久化配置
+  persistence:
+    enabled: true
+    storage_path: "s:/YDS-Lab/logs/mcp_messages/"
+    retention_days: 30
+    compression: true
+
+# 安全与认证配置
+security:
+  authentication:
+    enabled: true
+    method: "token_based"
+    token_expiry: 3600
+    
+  encryption:
+    enabled: true
+    algorithm: "AES-256-GCM"
+    key_rotation: 86400
+    
+  audit_logging:
+    enabled: true
+    log_level: "INFO"
+    include_payload: false
+    
+# 性能监控配置
+monitoring:
+  metrics:
+    enabled: true
+    collect_interval: 60
+    
+  health_checks:
+    enabled: true
+    check_interval: 30
+    
+  alerting:
+    enabled: true
+    thresholds:
+      message_queue_size: 80
+      response_time: 5000
+      error_rate: 5
+
+# 智能体特定通信规则
+agent_rules:
+  # 核心管理层通信规则
+  leadership_agents:
+    - agents: ["AGENT-01-CEO", "AGENT-02-CHAIR-ASSISTANT"]
+      priority: "critical"
+      encryption: true
+      audit_level: "detailed"
+      
+  # 部门管理层通信规则
+  department_agents:
+    - agents: ["AGENT-03-PLANNING-DIRECTOR", "AGENT-04-FINANCE-DIRECTOR", "AGENT-05-RESOURCE-ADMIN", 
+               "AGENT-06-DEV-TEAM", "AGENT-07-MARKETING-DIRECTOR"]
+      priority: "high"
+      encryption: true
+      audit_level: "standard"
+      
+  # 技术支撑层通信规则
+  technical_agents:
+    - agents: ["AGENT-08-DOCUMENT-GOVERNANCE", "AGENT-09-KNOWLEDGE-BASE", "AGENT-10-MCP-MANAGER",
+               "AGENT-11-RELEASE-CI-CD", "AGENT-12-WORKSPACE-COORDINATOR", "AGENT-13-ENGINEERING-AUDIT",
+               "AGENT-14-SECURITY-COMPLIANCE", "AGENT-15-RBAC-GOVERNANCE", "AGENT-16-QUALITY-KPI",
+               "AGENT-17-MONITOR-ALERTING", "AGENT-18-BACKUP-RECOVERY", "AGENT-19-LONGMEMORY-HEALTH"]
+      priority: "medium"
+      encryption: false
+      audit_level: "basic"
+
+# 工作流通信配置
+workflows:
+  daily_operations:
+    message_types: ["docs", "stream"]
+    priority: "high"
+    participants: ["AGENT-01-CEO", "AGENT-03-PLANNING-DIRECTOR", "AGENT-04-FINANCE-DIRECTOR"]
+    
+  project_development:
+    message_types: ["docs", "stream", "vote"]
+    priority: "high"
+    participants: ["AGENT-06-DEV-TEAM", "AGENT-03-PLANNING-DIRECTOR", "AGENT-11-RELEASE-CI-CD"]
+    
+  emergency_response:
+    message_types: ["stream", "voice"]
+    priority: "critical"
+    participants: ["AGENT-01-CEO", "AGENT-17-MONITOR-ALERTING", "AGENT-14-SECURITY-COMPLIANCE"]
+    
+  meeting_coordination:
+    message_types: ["docs", "stream", "voice"]
+    priority: "medium"
+    participants: ["AGENT-20-MEETINGROOM-HOST"]
+
+# 错误处理配置
+error_handling:
+  retry_policy:
+    max_retries: 3
+    backoff_strategy: "exponential"
+    initial_delay: 1000
+    max_delay: 30000
+    
+  dead_letter_queue:
+    enabled: true
+    max_size: 1000
+    retention_hours: 24
+    
+  circuit_breaker:
+    enabled: true
+    failure_threshold: 5
+    recovery_timeout: 60000
+    
+# 集成配置
+integrations:
+  external_apis:
+    enabled: true
+    timeout: 30
+    retry_count: 2
+    
+  webhooks:
+    enabled: true
+    max_payload_size: 1048576  # 1MB
+    timeout: 10
+    
+  database:
+    enabled: true
+    connection_pool_size: 10
+    query_timeout: 30
+
+# 部署配置
+deployment:
+  environment: "production"
+  version: "V5.1-架构适配版"
+  
+  # 服务发现配置
+  service_discovery:
+    enabled: true
+    registry_type: "consul"
+    health_check_path: "/health"
+    
+  # 负载均衡配置
+  load_balancing:
+    enabled: true
+    strategy: "least_connections"
+    health_check_interval: 30
+    
+  # 自动扩缩容配置
+  auto_scaling:
+    enabled: true
+    min_instances: 2
+    max_instances: 10
+    scale_up_threshold: 80
+    scale_down_threshold: 20

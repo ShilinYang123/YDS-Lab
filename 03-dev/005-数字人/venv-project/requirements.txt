@@ -1,0 +1,44 @@
+# 数字员工项目 - Python虚拟环境依赖
+# 基础Web框架
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# 数据库相关
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.12.1
+redis==5.0.1
+
+# 文件处理和存储
+aiofiles==23.2.1
+python-multipart==0.0.6
+minio==7.2.0
+
+# AI/ML相关
+torch==2.1.0
+torchvision==0.16.0
+transformers==4.35.0
+numpy==1.24.3
+pillow==10.1.0
+
+# 音频处理
+librosa==0.10.1
+soundfile==0.12.1
+pydub==0.25.1
+
+# 视频处理
+opencv-python==4.8.1.78
+moviepy==1.0.3
+
+# 工具类
+python-dotenv==1.0.0
+click==8.1.7
+tqdm==4.66.1
+loguru==0.7.2
+
+# 开发工具
+pytest==7.4.3
+black==23.11.0
+isort==5.12.0
+mypy==1.7.1

@@ -1,0 +1,22 @@
+uid=69_0 RootWebArea "My Trae Project" url="http://localhost:5173/reset-password?email=test@example.com&token=2e82d617-f262-47a5-8c8f-66c5b0e94fdf"
+  uid=69_1 heading "重置密码" level="2"
+  uid=69_2 StaticText "为 "
+  uid=69_3 StaticText "test@example.com"
+  uid=69_4 StaticText " 设置新密码"
+  uid=69_5 StaticText "新密码"
+  uid=69_6 textbox "新密码" required
+  uid=69_7 button
+  uid=69_8 StaticText "请输入新密码"
+  uid=69_9 StaticText "密码要求："
+  uid=69_10 StaticText "至少8位字符"
+  uid=69_11 StaticText "包含大小写字母"
+  uid=69_12 StaticText "包含数字"
+  uid=69_13 StaticText "包含特殊字符(@$!%*?&)"
+  uid=69_14 StaticText "确认新密码"
+  uid=69_15 textbox "确认新密码" required
+  uid=69_16 button
+  uid=69_17 StaticText "请确认新密码"
+  uid=69_18 button "重置密码"
+  uid=69_19 link "返回登录" url="http://localhost:5173/login"
+    uid=69_20 StaticText "返回登录"
+  uid=69_21 region "Notifications alt+T"

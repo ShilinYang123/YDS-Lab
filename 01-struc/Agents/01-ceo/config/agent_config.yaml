@@ -1,0 +1,26 @@
+agent_info:
+  created_at: '2025-11-14T09:30:01.632065'
+  key: CEO
+  name: CEO
+  platform: Trae
+  version: 1.0.0
+capabilities:
+- 战略制定
+- 决策审批
+- 资源分配
+- 风险管理
+collaboration:
+  collaborates_with:
+  - PlanningDirector
+  - FinanceDirector
+  reporting_to: 董事会
+workspace:
+  documents: S:\YDS-Lab\01-struc\Agents\01-ceo\documents
+  logs: S:\YDS-Lab\01-struc\Agents\01-ceo\logs
+  root: S:\YDS-Lab\01-struc\Agents\01-ceo
+  templates: S:\YDS-Lab\01-struc\Agents\01-ceo\templates
+tools:
+  entries:
+  - S:\YDS-Lab\01-struc\Agents\01-ceo\tools
+  capabilities:
+  - core_scripts

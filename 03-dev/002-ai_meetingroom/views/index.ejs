@@ -1,0 +1,2041 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- 站点图标 -->
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    
+    <!-- CSS 依赖 -->
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 自定义样式（商务风格） -->
+    <style>
+        :root {
+            --primary-color: #1f2937;
+            --secondary-color: #6b7280;
+            --success-color: #16a34a;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+            --dark-color: #0f172a;
+            --light-color: #f5f7fb;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(180deg, #eef2f7 0%, #e6ebf2 100%);
+            color: #111827;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+.meeting-container {
+    display: flex;
+    height: 100vh;
+    gap: 12px;
+    padding: 12px;
+    background: #f7fafc;
+    border: 1px solid #dbe3ea;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(17, 24, 39, 0.06);
+}
+
+        /* 左侧面板 */
+.left-panel {
+    width: 260px;
+    background: #f6f8fb;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #dbe3ea;
+    box-shadow: 0 2px 10px rgba(17,24,39,0.05);
+    height: 90vh;
+    overflow-y: auto;
+}
+.left-panel h5 { font-size: 12px; margin-bottom: 6px; }
+        .settings-panel {
+            margin-top: 10px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px;
+        }
+        .settings-panel .form-group { margin-bottom: 6px; }
+        .settings-panel label, .settings-panel .custom-control-label { font-size: 11px; }
+        .settings-panel .form-control, .settings-panel select { font-size: 11px; padding: 5px 8px; }
+        .settings-panel button { font-size: 11px; padding: 5px 8px; }
+        .presentations-panel { margin-top: 6px; background: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 8px; }
+        .btn, .control-btn, .settings-panel button, .chat-input button { font-size: 11px; }
+        .presentations-panel .chat-header { font-size: 12px; margin-bottom: 6px; }
+        .presentations-panel .form-control, .presentations-panel input { font-size: 11px; padding: 5px 8px; }
+        .presentations-panel button { font-size: 11px; padding: 5px 8px; }
+
+.agent-list {
+    margin-top: 8px;
+}
+
+        .agent-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 8px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: #fff;
+        }
+
+        .agent-item:hover {
+            background: #f9fafb;
+        }
+
+        .agent-item.active {
+            border-color: #cbd5e1;
+            background: #f3f4f6;
+        }
+
+        .agent-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-right: 8px;
+            border: 1px solid var(--border-color);
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .agent-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .agent-name {
+            font-weight: 600;
+            font-size: 12px;
+            margin-bottom: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .agent-role {
+            font-size: 10px;
+            color: var(--secondary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-indicator { display: none; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 主会议室区域 */
+        .meeting-area {
+            flex: none;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #f6f8fb;
+            border: 1px solid #dbe3ea;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(17,24,39,0.05);
+        }
+        .center-board-panel {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            min-height: 260px;
+            position: relative;
+        }
+        .board-tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+        .board-tabs .btn { font-size: 11px; padding: 4px 8px; }
+        .center-board-content { width: 100%; height: 100%; }
+        .subtitle-overlay {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            max-width: 40%;
+            background: rgba(17, 24, 39, 0.75);
+            color: #fff;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 14px;
+        }
+        .controls-divider { display: inline-block; width: 24px; height: 24px; border-left: 1px solid var(--border-color); margin: 0 8px; }
+
+        /* 会议控制栏 */
+        .meeting-controls {
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .meeting-title { font-size: 14px; font-weight: 600; color: var(--dark-color); }
+
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 500; background: #fff; color: #374151; }
+
+        .btn-start { border-color: #16a34a; color: #166534; }
+
+        .btn-start:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-end { border-color: #dc2626; color: #7f1d1d; }
+
+        .btn-end:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-record { border-color: #d97706; color: #7c2d12; }
+
+        .btn-record:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        /* 会议桌区域 */
+        .meeting-table {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-top: 4px;
+        }
+
+.conference-table {
+    flex: 1;
+    background: #f9fafb;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    z-index: 0;
+}
+
+        .table-top {
+            position: absolute;
+            top: 57%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 34%;
+            height: 66%;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            z-index: 0;
+        }
+
+        /* 白板区：在总经理（主持位）身后 */
+        /* .wall-whiteboard 已废弃，统一使用中心上方白板区 */
+
+        /* 主持位（总经理）在桌外上方居中 */
+.seat-host { top: 18%; left: 50%; z-index: 2; }
+
+        /* Agent座位 */
+        .agent-seat {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        /* 演示文稿列表面板（小号紧凑） */
+        .presentations-panel {
+            margin-top: 6px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px;
+            box-shadow: none;
+        }
+        .presentations-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+        .presentation-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+        .presentation-item strong { font-size: 11px; font-weight: 600; }
+        .presentation-item small { font-size: 10px; }
+        .presentation-actions button {
+            margin-left: 6px;
+            font-size: 11px;
+            padding: 4px 8px;
+        }
+
+        .agent-seat:hover { opacity: 0.95; }
+
+        .seat-center { top: 50%; left: 50%; }
+        /* 主持位：上方中央（总经理） */
+        .seat-top { top: 18%; left: 50%; }
+        /* 座位沿桌左右两侧分布 */
+        .seat-left-top { top: 37%; left: 30%; }
+        .seat-right-top { top: 37%; left: 70%; }
+        .seat-left-bottom { top: 63%; left: 30%; }
+        .seat-right-bottom { top: 63%; left: 70%; }
+        /* 下方中央 */
+        .seat-bottom { top: 82%; left: 50%; }
+
+        .seat-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            color: #374151;
+            position: relative;
+            z-index: 2;
+        }
+
+        .seat-name {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .seat-active { outline: 2px solid #94a3b8; }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            }
+            to {
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.3);
+            }
+        }
+
+        /* 右侧面板 */
+.right-panel {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 90vh;
+    align-self: flex-start;
+    min-height: 0;
+    background: #f6f8fb;
+    border: 1px solid #dbe3ea;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(17,24,39,0.05);
+}
+        .right-panel .settings-panel { margin-top: 0; }
+
+        /* 主持人面板与会议记录样式 */
+        .host-panel, .minutes-panel {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+        }
+        .host-panel .form-group {
+            margin-bottom: 10px;
+        }
+        .minutes-list {
+            max-height: 220px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px;
+            background: #fff;
+        }
+        .minute-item {
+            font-size: 13px;
+            border-bottom: 1px dashed #e5e7eb;
+            padding: 6px 2px;
+        }
+        .minute-item:last-child { border-bottom: none; }
+
+        /* 聊天面板 */
+        .chat-panel {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .chat-header {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 3px solid var(--brand-blue);
+            padding-left: 8px;
+        }
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 12px;
+    padding-right: 10px;
+}
+
+        .chat-message {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-incoming {
+            background: #f3f4f6;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-outgoing {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+            margin-left: auto;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .message-sender {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .message-time {
+            color: var(--secondary-color);
+            font-size: 10px;
+        }
+
+        .message-content {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 6px 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .chat-input button {
+            padding: 6px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: #fff;
+            color: #374151;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .chat-input button:hover { background: #f3f4f6; }
+
+        /* 白板面板 */
+        .whiteboard-panel {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            flex: 1;
+        }
+
+        .whiteboard {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            background: white;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .meeting-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .left-panel, .right-panel {
+                width: 100%;
+            }
+
+            .meeting-table {
+                padding: 15px;
+            }
+
+            .table-top {
+                width: 90%;
+                height: 50%;
+            }
+
+            .seat-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .meeting-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .control-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        /* 右侧：资料展示白板 + 发言人文字展示区 */
+        .display-board-panel, .speaker-text-panel {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+
+        .display-board {
+            width: 100%;
+            height: 320px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .display-board-content {
+            width: 100%;
+            height: 100%;
+        }
+
+        .speaker-text-area {
+            width: 100%;
+            height: 180px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 15px;
+            background: white;
+            overflow-y: auto;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* 语音播放指示器 */
+        .voice-indicator { display: none; }
+
+        @keyframes voicePulse {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* 演示文稿区域 */
+        .presentation-area {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 62%;
+            height: 46%;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: none;
+            z-index: 10;
+        }
+
+        .presentation-active {
+            display: block;
+        }
+
+        .presentation-content {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .close-presentation {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #111827;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* 加载动画 */
+        .loading { display: none; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 顶栏样式与亮暗主题切换（最小实现，不影响现有布局） */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topbar .title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        .topbar .actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .topbar .timer {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--secondary-color);
+        }
+        .theme-toggle {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px 8px;
+            background: #fff;
+            color: #374151;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        /* 暗色主题覆盖（最小范围，避免大面积影响既有组件） */
+        body.dark {
+            background: #0b1220;
+            color: #e5e7eb;
+        }
+        body.dark .topbar {
+            background: rgba(17, 24, 39, 0.85);
+            border-bottom-color: #334155;
+        }
+        body.dark .theme-toggle {
+            background: #111827;
+            color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶栏：项目标题 + 主题切换 + 会议计时器 -->
+    <div class="topbar" role="banner" aria-label="页面顶栏">
+        <div class="title">
+            <i class="fa fa-handshake-o" aria-hidden="true"></i>
+            <span><%= title %></span>
+        </div>
+        <div class="actions">
+            <div class="timer">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <span id="meetingTimer">00:00:00</span>
+            </div>
+            <button id="toggleThemeBtn" class="theme-toggle" type="button">
+                <i class="fa fa-adjust" aria-hidden="true"></i>
+                <span id="themeLabel">主题：亮</span>
+            </button>
+        </div>
+    </div>
+    <div class="meeting-container">
+        <!-- 左侧Agent列表 -->
+        <div class="left-panel">
+            <h5 class="mb-3" style="font-weight:600;color:#111827">参会人员</h5>
+            <div class="agent-list">
+                <% agents.forEach(agent => { %>
+                <div class="agent-item" data-agent-id="<%= agent.id %>">
+                    <div class="agent-avatar">
+                        <% if (agent.id === 'frontend-dev') { %>
+                            <i class="fa fa-code"></i>
+                        <% } else if (agent.id === 'backend-dev') { %>
+                            <i class="fa fa-database"></i>
+                        <% } else if (agent.id === 'architect') { %>
+                            <i class="fa fa-sitemap"></i>
+                        <% } else if (agent.id === 'devops') { %>
+                            <i class="fa fa-cogs"></i>
+                        <% } else if (agent.id === 'pm') { %>
+                            <i class="fa fa-briefcase"></i>
+                        <% } else if (agent.id === 'qa') { %>
+                            <i class="fa fa-check-square-o"></i>
+                        <% } else { %>
+                            <i class="fa fa-user"></i>
+                        <% } %>
+                    </div>
+                    <div class="agent-info">
+                        <div class="agent-name"><%= agent.name %></div>
+                        <div class="agent-role"><%= agent.role %></div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            
+            <div class="presentations-panel">
+                <div class="chat-header">
+                    <span><i class="fa fa-file-powerpoint-o mr-2"></i>演示文稿列表</span>
+                </div>
+                <div class="p-2 border-bottom">
+                    <div class="form-group mb-2">
+                        <input type="text" id="presentationTitle" class="form-control form-control-sm" placeholder="输入标题（可选）">
+                    </div>
+                    <div class="form-group mb-2">
+                        <input type="file" id="presentationFile" class="form-control-file" accept=".pdf,.ppt,.pptx,.png,.jpg,.jpeg,.html,.md,.txt">
+                    </div>
+                    <button id="uploadPresentationBtn" class="btn btn-sm btn-success">上传演示文稿</button>
+                    <small class="text-muted ml-2">支持常见格式，上传后自动广播到会议</small>
+                </div>
+                <div id="presentationsList" class="presentations-list"></div>
+            </div>
+
+        </div>
+        <!-- 主会议室区域 -->
+        <div class="meeting-area">
+            <div class="center-board-panel">
+                <div class="board-tabs">
+                    <button id="tabWhiteboard" class="btn btn-outline-secondary btn-sm">白板</button>
+                    <button id="tabVideo" class="btn btn-outline-secondary btn-sm">视频</button>
+                    <button id="tabKanban" class="btn btn-outline-secondary btn-sm">看板</button>
+                </div>
+                <div id="centerBoardContent" class="center-board-content"></div>
+                <div id="subtitleOverlay" class="subtitle-overlay" aria-live="polite"></div>
+            </div>
+
+            <!-- 会议桌区域 -->
+            <div class="meeting-table">
+                
+                <!-- 主持位：总经理在桌外上方居中 -->
+                <div class="agent-seat seat-host" data-agent-id="pm">
+                    <div class="seat-avatar">
+                        <i class="fa fa-briefcase"></i>
+                    </div>
+                    <div class="seat-name"><%= agents.find(a => a.id === 'pm').name %></div>
+                </div>
+
+                <div class="conference-table">
+                    <div class="table-top"></div>
+                    
+                    <!-- Agent座位 -->
+                    <div class="agent-seat seat-center" data-agent-id="architect">
+                        <div class="seat-avatar">
+                            <i class="fa fa-sitemap"></i>
+                        </div>
+                        <div class="seat-name"><%= agents.find(a => a.id === 'architect').name %></div>
+                    </div>
+
+                    <div class="agent-seat seat-left-top" data-agent-id="frontend-dev">
+                        <div class="seat-avatar">
+                            <i class="fa fa-code"></i>
+                        </div>
+                        <div class="seat-name"><%= agents.find(a => a.id === 'frontend-dev').name %></div>
+                    </div>
+
+                    <div class="agent-seat seat-left-bottom" data-agent-id="backend-dev">
+                        <div class="seat-avatar">
+                            <i class="fa fa-database"></i>
+                        </div>
+                        <div class="seat-name"><%= agents.find(a => a.id === 'backend-dev').name %></div>
+                    </div>
+
+                    <div class="agent-seat seat-right-top" data-agent-id="devops">
+                        <div class="seat-avatar">
+                            <i class="fa fa-cogs"></i>
+                        </div>
+                        <div class="seat-name"><%= agents.find(a => a.id === 'devops').name %></div>
+                    </div>
+
+                    <div class="agent-seat seat-right-bottom" data-agent-id="qa">
+                        <div class="seat-avatar">
+                            <i class="fa fa-check-square-o"></i>
+                        </div>
+                        <div class="seat-name"><%= agents.find(a => a.id === 'qa').name %></div>
+                    </div>
+
+                    <!-- 演示文稿区域 -->
+                    <div class="presentation-area" id="presentationArea">
+                        <button class="close-presentation" onclick="closePresentation()">&times;</button>
+                        <div class="presentation-content" id="presentationContent">
+                            演示文稿内容将在这里显示
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-panel" style="margin-top:8px">
+                <div class="d-flex" style="gap:6px;flex-wrap:wrap;justify-content:center;align-items:center">
+                    <select id="queueSelect" class="form-control form-control-sm" style="width:160px" title="选择排队参会人" aria-label="选择排队参会人"></select>
+                    <button id="queueAddBtn" class="btn btn-sm btn-outline-primary" title="排入队列" aria-label="排入队列">排入</button>
+                    <button id="queueNextBtn" class="btn btn-sm btn-outline-secondary" title="下一位" aria-label="下一位">下一位</button>
+                    <span class="controls-divider"></span>
+                    <button class="control-btn btn-start" id="startMeeting" title="开始会议" aria-label="开始会议"><i class="fa fa-play"></i></button>
+                    <button class="control-btn btn-end" id="endMeeting" title="结束会议" aria-label="结束会议" disabled><i class="fa fa-stop"></i></button>
+                    <button class="control-btn" id="toggleVoice" title="语音开关" aria-label="语音开关"><i class="fa fa-microphone"></i></button>
+                    <button class="control-btn btn-record" id="toggleRecord" title="录音开关" aria-label="录音开关"><i class="fa fa-circle"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧面板 -->
+        <div class="right-panel">
+            
+
+            <!-- 发言人文字展示区 -->
+            <div class="settings-panel">
+                <div class="small text-muted mb-2">设置区</div>
+                <div class="form-group d-flex align-items-center" style="gap:6px">
+                    <label class="mb-0 small text-muted">当前发言人</label>
+                    <select id="speakerSelect" class="form-control form-control-sm" style="flex:1"></select>
+                    <button id="nextSpeakerBtn" class="btn btn-sm btn-outline-primary">下一位</button>
+                </div>
+                <div class="form-group">
+                    <textarea id="agendaInput" class="form-control form-control-sm" rows="2" placeholder="议程（每行一项）"></textarea>
+                </div>
+                <div class="form-group d-flex align-items-center" style="gap:12px">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="toggleHostMode">
+                        <label class="custom-control-label" for="toggleHostMode">主持人模式</label>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="toggleAutoNote" checked>
+                        <label class="custom-control-label" for="toggleAutoNote">自动记录</label>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="toggleAutoWhiteboard" checked>
+                        <label class="custom-control-label" for="toggleAutoWhiteboard">写入白板</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input id="minutesPathInput" class="form-control form-control-sm" placeholder="纪要保存路径（默认：minutes）" value="minutes" />
+                </div>
+                <div class="d-flex" style="gap:6px">
+                    <button id="applyAgendaBtn" class="btn btn-sm btn-success">应用并开始</button>
+                    <button id="exportMinutesBtn" class="btn btn-sm btn-secondary">导出纪要</button>
+                </div>
+            </div>
+
+            <!-- 聊天面板 -->
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <span><i class="fa fa-comments mr-2"></i>会议交流</span>
+                    <span class="badge badge-primary" id="messageCount">0</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- 聊天消息将在这里显示 -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="输入消息..." autocomplete="off">
+                    <button id="sendMessage">发送</button>
+                    <button id="generateLLMMessage" class="btn btn-sm btn-success" style="margin-left:8px">AI生成发言</button>
+                </div>
+            </div>
+
+            <!-- 白板面板 -->
+            
+
+            
+
+            
+        </div>
+    </div>
+
+    <!-- JavaScript 依赖 -->
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/socket.io/client-dist/socket.io.min.js"></script>
+
+    <!-- 自定义脚本 -->
+    <script>
+        // 全局变量
+        let socket;
+        let agents = [];
+        let meetingState = {
+            isActive: false,
+            currentSpeaker: null,
+            chatHistory: []
+        };
+        // 主题与计时器状态
+        let currentTheme = (localStorage.getItem('theme') || 'light');
+        let timerInterval = null;
+        let timerStartTs = null;
+
+        function applyTheme(theme) {
+            currentTheme = (theme === 'dark' ? 'dark' : 'light');
+            if (currentTheme === 'dark') {
+                $('body').addClass('dark');
+            } else {
+                $('body').removeClass('dark');
+            }
+            $('#themeLabel').text('主题：' + (currentTheme === 'dark' ? '暗' : '亮'));
+            try { localStorage.setItem('theme', currentTheme); } catch (_) {}
+        }
+
+        function toggleTheme() {
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        function formatDuration(ms) {
+            const s = Math.max(0, Math.floor(ms / 1000));
+            const hh = String(Math.floor(s / 3600)).padStart(2, '0');
+            const mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+            const ss = String(s % 60).padStart(2, '0');
+            return `${hh}:${mm}:${ss}`;
+        }
+
+        function startTimer(ts) {
+            timerStartTs = ts || Date.now();
+            try { localStorage.setItem('meetingStartedAt', String(timerStartTs)); } catch (_) {}
+            if (timerInterval) { try { clearInterval(timerInterval); } catch (_) {} }
+            $('#meetingTimer').text('00:00:00');
+            timerInterval = setInterval(() => {
+                const elapsed = Date.now() - Number(timerStartTs || Date.now());
+                $('#meetingTimer').text(formatDuration(elapsed));
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) { try { clearInterval(timerInterval); } catch (_) {} }
+            timerInterval = null;
+            timerStartTs = null;
+            try { localStorage.removeItem('meetingStartedAt'); } catch (_) {}
+            $('#meetingTimer').text('00:00:00');
+        }
+        // 历史消息加载上限
+        const HISTORY_LIMIT = 200;
+        // 发送与输入限制
+        const SEND_DEBOUNCE_MS = 250;
+        const MAX_MESSAGE_LEN = 2000;
+        let lastSendTs = 0;
+        let isRecording = false;
+        // 主持人模式与会议记录
+        let hostModeEnabled = false;
+        let autoNoteEnabled = true;
+        let autoNoteToWhiteboard = true;
+        let meetingMinutes = [];
+
+        // 初始化
+        $(document).ready(function() {
+            initializeSocket();
+            initializeEventListeners();
+            loadInitialData();
+
+            // 初始化主题与按钮监听
+            applyTheme(currentTheme);
+            $('#toggleThemeBtn').on('click', toggleTheme);
+
+            // 调试面板（无需打开 DevTools）：收集并展示最近日志
+            (function setupDebugPanel() {
+                const panel = $('<div id="debugPanel" style="position:fixed;right:12px;bottom:12px;z-index:9999;background:#111827;color:#e5e7eb;border:1px solid #374151;border-radius:6px;width:380px;display:none;"><div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-bottom:1px solid #374151"><span>调试日志</span><div><button id="clearDebug" class="btn btn-sm" style="background:#374151;color:#fff;margin-right:6px">清空</button><button id="hideDebug" class="btn btn-sm" style="background:#6b7280;color:#fff">隐藏</button></div></div><pre id="debugLogBox" style="margin:0;padding:8px;height:220px;overflow:auto;font-size:12px;white-space:pre-wrap"></pre></div>');
+                const toggleBtn = $('<button id="toggleDebug" class="btn btn-sm" style="position:fixed;right:12px;bottom:12px;z-index:9999;background:#374151;color:#fff">调试日志</button>');
+                $('body').append(panel);
+                $('body').append(toggleBtn);
+                $('#toggleDebug').click(() => { $('#debugPanel').toggle(); });
+                $('#hideDebug').click(() => { $('#debugPanel').hide(); });
+                $('#clearDebug').click(() => { window.__logs = []; $('#debugLogBox').text(''); });
+
+                window.__logs = [];
+                const origLog = console.log;
+                console.log = function() {
+                    try {
+                        const msg = Array.from(arguments).map(a => {
+                            if (typeof a === 'object') {
+                                try { return JSON.stringify(a); } catch(_) { return String(a); }
+                            }
+                            return String(a);
+                        }).join(' ');
+                        window.__logs.push(msg);
+                        const box = document.getElementById('debugLogBox');
+                        if (box) {
+                            box.textContent = window.__logs.slice(-50).join('\n');
+                            box.scrollTop = box.scrollHeight;
+                        }
+                    } catch (e) {}
+                    origLog.apply(console, arguments);
+                };
+            })();
+            console.log('[debug] 页面初始化完成');
+        });
+
+        // 初始化Socket连接
+        function initializeSocket() {
+            socket = io();
+            
+            socket.on('connect', function() {
+                console.log('连接到服务器');
+                socket.emit('joinMeeting', 'user_' + Date.now());
+            });
+
+            socket.on('initialState', function(data) {
+                agents = data.agents;
+                meetingState = data.meetingState;
+                renderChatHistory();
+                updateMeetingUI();
+                // 若进入页面时会议已在进行中，启动自动发言模拟
+                if (meetingState && meetingState.isActive) {
+                    startSimulation();
+                    // 恢复或启动会议计时器
+                    const savedStart = Number(localStorage.getItem('meetingStartedAt') || 0);
+                    startTimer(savedStart || Date.now());
+                } else {
+                    stopTimer();
+                }
+            });
+
+            socket.on('newMessage', function(message) {
+                meetingState.chatHistory.push(message);
+                addMessageToChat(message);
+                playAgentVoice(message.agentId, message.content);
+
+                // 主持人自动记录
+                if (hostModeEnabled && autoNoteEnabled && meetingState.isActive) {
+                    addMinute(message);
+                    if (autoNoteToWhiteboard) {
+                        appendToWhiteboard(message);
+                    }
+                }
+            });
+
+            socket.on('meetingStarted', function(state) {
+                meetingState = state;
+                updateMeetingUI();
+                showNotification('会议已开始', 'success');
+                // 会议开始后启动自动发言模拟
+                startSimulation();
+                // 启动会议计时器
+                startTimer(Date.now());
+            });
+
+            socket.on('meetingEnded', function() {
+                meetingState.isActive = false;
+                meetingState.currentSpeaker = null;
+                updateMeetingUI();
+                showNotification('会议已结束', 'info');
+                // 结束会议时复位模拟状态标志
+                simulationStarted = false;
+                // 停止会议计时器
+                stopTimer();
+            });
+
+            socket.on('speakerChanged', function(agentId) {
+                meetingState.currentSpeaker = agentId;
+                updateSpeakerUI();
+            });
+
+            socket.on('whiteboardUpdated', function(content) {
+                $('#whiteboard').html(content);
+            });
+
+            socket.on('presentationUploaded', function(presentation) {
+                if (!Array.isArray(meetingState.presentations)) {
+                    meetingState.presentations = [];
+                }
+                meetingState.presentations.push(presentation);
+                renderPresentationsList();
+                showNotification('收到新的演示文稿：' + (presentation.title || '未命名'), 'info');
+            });
+            // 连接状态与错误处理
+            socket.on('disconnect', function(reason) {
+                showNotification('与服务器连接已断开：' + reason, 'warning');
+            });
+            socket.on('connect_error', function(err) {
+                console.error('连接错误', err);
+                showNotification('连接服务器失败，请检查网络', 'danger');
+            });
+            socket.on('reconnect', function(attempt) {
+                showNotification('已重新连接到服务器（尝试次数：' + attempt + '）', 'success');
+            });
+            socket.on('reconnect_attempt', function() {
+                console.log('尝试重新连接服务器...');
+            });
+            socket.on('reconnect_error', function(err) {
+                console.error('重新连接出错', err);
+                showNotification('重新连接失败', 'danger');
+            });
+            socket.on('reconnect_failed', function() {
+                showNotification('无法重新连接到服务器', 'danger');
+            });
+        }
+
+        // 初始化事件监听器
+        function initializeEventListeners() {
+            // 会议控制按钮
+            $('#startMeeting').click(startMeeting);
+            $('#endMeeting').click(endMeeting);
+            $('#toggleVoice').click(toggleVoice);
+            $('#toggleRecord').click(toggleRecording);
+
+            // 主持人面板
+            $('#toggleHostMode').change(function() {
+                hostModeEnabled = this.checked;
+                showNotification(hostModeEnabled ? '主持人模式已开启' : '主持人模式已关闭', hostModeEnabled ? 'success' : 'info');
+                renderMinutes();
+            });
+            $('#toggleAutoNote').change(function() { autoNoteEnabled = this.checked; });
+            $('#toggleAutoWhiteboard').change(function() { autoNoteToWhiteboard = this.checked; });
+            $('#nextSpeakerBtn').click(function() {
+                if (!agents || !agents.length) return;
+                const ids = agents.map(a => a.id);
+                const cur = meetingState.currentSpeaker ? ids.indexOf(meetingState.currentSpeaker) : -1;
+                const nextIdx = (cur + 1) % ids.length;
+                socket.emit('changeSpeaker', ids[nextIdx]);
+            });
+            $('#speakerSelect').change(function() {
+                const id = $(this).val();
+                socket.emit('changeSpeaker', id);
+            });
+            $('#applyAgendaBtn').click(function() {
+                const lines = ($('#agendaInput').val() || '').split(/\n+/).map(s => s.trim()).filter(Boolean);
+                const agenda = lines.length ? lines : [ '项目进度汇报', '技术难题讨论', '下周工作计划', '其他事项' ];
+                socket.emit('startMeeting', agenda);
+            });
+            $('#exportMinutesBtn').click(exportMinutesAsMarkdown);
+
+            // 聊天输入：Enter发送、Ctrl/Cmd+Enter发送、Shift+Enter换行、Ctrl/Cmd+K 清空
+            $('#messageInput').on('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    // Ctrl/Cmd + Enter 强制发送
+                    if (e.ctrlKey || e.metaKey) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        sendMessage();
+                        return;
+                    }
+                    if (e.shiftKey) {
+                        // 允许换行
+                        return;
+                    }
+                    e.preventDefault();
+                    sendMessage();
+                    return;
+                }
+                if ((e.ctrlKey || e.metaKey) && (String(e.key).toLowerCase() === 'k')) {
+                    e.preventDefault();
+                    $(this).val('');
+                }
+            });
+            $('#sendMessage').click(sendMessage);
+            $('#generateLLMMessage').click(generateAgentMessageWithLLM);
+
+            // Agent座位点击
+            $('.agent-seat').click(function() {
+                const agentId = $(this).data('agent-id');
+                selectAgent(agentId);
+            });
+
+            // Agent列表点击
+            $('.agent-item').click(function() {
+                const agentId = $(this).data('agent-id');
+                selectAgent(agentId);
+            });
+
+            // 白板内容变化
+            $('#whiteboard').on('input', function() {
+                const content = $(this).html();
+                socket.emit('updateWhiteboard', content);
+            });
+
+            // 键盘快捷键
+            $(document).keydown(function(e) {
+                // Ctrl/Cmd + Enter 发送消息
+                if ((e.ctrlKey || e.metaKey) && e.which === 13) {
+                    sendMessage();
+                }
+                // Ctrl/Cmd + R 开始/结束会议
+                if ((e.ctrlKey || e.metaKey) && e.which === 82) {
+                    e.preventDefault();
+                    if (meetingState.isActive) {
+                        endMeeting();
+                    } else {
+                        startMeeting();
+                    }
+                }
+            });
+            // 上传演示文稿
+            $('#uploadPresentationBtn').click(async function() {
+                const fileInput = document.getElementById('presentationFile');
+                if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+                    showNotification('请选择要上传的文件', 'warning');
+                    return;
+                }
+                const file = fileInput.files[0];
+                const title = $('#presentationTitle').val();
+                try {
+                    const fd = new FormData();
+                    fd.append('file', file);
+                    if (title) fd.append('title', title);
+                    if (meetingState && meetingState.currentSpeaker) {
+                        fd.append('agentId', meetingState.currentSpeaker);
+                    }
+                    const resp = await fetch('/api/presentations/upload', { method: 'POST', body: fd });
+                    const data = await resp.json();
+                    if (data && data.success) {
+                        showNotification('上传成功：' + (data.presentation.title || '未命名'), 'success');
+                        // 列表将通过 socket 的 presentationUploaded 事件自动更新；为稳妥也本地刷新一次
+                        if (!Array.isArray(meetingState.presentations)) meetingState.presentations = [];
+                        meetingState.presentations.push(data.presentation);
+                        renderPresentationsList();
+                        // 清空选择
+                        $('#presentationTitle').val('');
+                        $('#presentationFile').val('');
+                    } else {
+                        showNotification('上传失败：' + (data && data.error ? data.error : '未知错误'), 'danger');
+                    }
+                } catch (err) {
+                    console.error('上传失败', err);
+                    showNotification('上传过程中发生错误', 'danger');
+                }
+            });
+        }
+
+        // 加载初始数据（先加载agents，再加载meeting，再合并历史）
+        function loadInitialData() {
+            $.get('/api/agents', function(data) {
+                agents = data;
+                // 填充主持人面板发言人选择
+                const sel = $('#speakerSelect');
+                sel.empty();
+                agents.forEach(a => {
+                    sel.append(`<option value="${a.id}">${a.name}</option>`);
+                });
+
+                // 在获取到agents后再获取meeting，避免渲染历史时找不到头像/昵称
+                $.get('/api/meeting', function(data) {
+                    meetingState = data || meetingState;
+                    renderChatHistory();
+                    updateMeetingUI();
+                    renderPresentationsList();
+                    // 如果进入页面时会议已在进行中，确保触发自动发言模拟
+                    if (meetingState && meetingState.isActive) {
+                        console.log('[auto-sim] loadInitialData: meeting is active, startSimulation()');
+                        startSimulation();
+                    }
+                    // 合并持久化历史消息（以时间升序渲染，去重）
+                    loadChatHistoryFromAPI(HISTORY_LIMIT).catch(err => {
+                        console.error('加载历史消息失败', err);
+                    });
+                });
+            });
+        }
+
+        // 开始会议
+        function startMeeting() {
+            if (meetingState.isActive) return;
+
+            const agenda = [
+                '项目进度汇报',
+                '技术难题讨论',
+                '下周工作计划',
+                '其他事项'
+            ];
+
+            socket.emit('startMeeting', agenda);
+        }
+
+        // 统一的音频/TTS停止函数
+        function stopAllAudioAndTTS() {
+            // 清理自动发言定时器
+            if (typeof simulationTimer !== 'undefined' && simulationTimer) {
+                try { clearTimeout(simulationTimer); } catch(_) {}
+                simulationTimer = null;
+            }
+            // 取消浏览器语音合成队列
+            if ('speechSynthesis' in window) {
+                try { window.speechSynthesis.cancel(); } catch (e) {}
+            }
+        }
+
+        // 结束会议
+        function endMeeting() {
+            if (!meetingState.isActive) return;
+            socket.emit('endMeeting');
+            // 前端主动复位自动发言触发标志
+            simulationStarted = false;
+            // 统一停止音频与TTS，确保立即静音
+            stopAllAudioAndTTS();
+        }
+
+        // 切换录音状态
+        function toggleRecording() {
+            isRecording = !isRecording;
+            const btn = $('#toggleRecord');
+            
+            if (isRecording) {
+                btn.addClass('recording');
+                btn.html('<i class="fa fa-stop mr-1"></i>停止录音');
+                btn.css('background', '#dc2626');
+                showNotification('开始录音', 'warning');
+            } else {
+                btn.removeClass('recording');
+                btn.html('<i class="fa fa-circle mr-1"></i>录音');
+                btn.css('background', '#F59E0B');
+                showNotification('停止录音', 'info');
+            }
+        }
+
+        // 选择Agent
+        function selectAgent(agentId) {
+            if (!meetingState.isActive) {
+                showNotification('请先开始会议', 'warning');
+                return;
+            }
+
+            socket.emit('changeSpeaker', agentId);
+        }
+
+        // 发送消息
+        function sendMessage() {
+            const input = $('#messageInput');
+            const content = input.val().trim();
+            
+            if (!content) {
+                showNotification('不能发送空消息', 'info');
+                return;
+            }
+            if (!meetingState.isActive) {
+                showNotification('请先开始会议', 'warning');
+                return;
+            }
+
+            // 发送防抖
+            const now = Date.now();
+            if (now - lastSendTs < SEND_DEBOUNCE_MS) {
+                showNotification('发送过于频繁，请稍后', 'warning');
+                return;
+            }
+            lastSendTs = now;
+
+            // 消息长度限制
+            let safeContent = content;
+            if (safeContent.length > MAX_MESSAGE_LEN) {
+                safeContent = safeContent.slice(0, MAX_MESSAGE_LEN);
+                showNotification(`消息过长，已截断至 ${MAX_MESSAGE_LEN} 字符`, 'warning');
+            }
+
+            const message = {
+                agentId: meetingState.currentSpeaker || agents[0].id,
+                content: safeContent,
+                playVoice: true
+            };
+
+            // 使用Ack确认发送状态
+            socket.emit('sendMessage', message, function(ack) {
+                if (ack && ack.ok) {
+                    input.val('');
+                    input.focus();
+                } else {
+                    const err = ack && ack.error ? ack.error : 'unknown_error';
+                    const msgMap = {
+                        empty_content: '不能发送空消息',
+                        meeting_not_active: '会议未开始，无法发送消息',
+                        internal_error: '服务器内部错误，请稍后再试',
+                        unknown_error: '发送失败，请稍后再试'
+                    };
+                    showNotification(msgMap[err] || ('发送失败：' + err), 'danger');
+                }
+            });
+        }
+
+
+        // 使用本地模型生成当前发言人的一句话并发送
+        async function generateAgentMessageWithLLM() {
+            try {
+                if (!meetingState.isActive) {
+                    showNotification('请先开始会议', 'warning');
+                    return;
+                }
+                const agentId = meetingState.currentSpeaker || (agents[0] && agents[0].id) || 'pm';
+                const agendaText = ($('#agendaInput').val() || '').trim();
+                const recent = Array.isArray(meetingState.chatHistory) ? meetingState.chatHistory.slice(-10).map(m => ({
+                    role: 'assistant',
+                    content: ((agents.find(a => a.id === m.agentId)?.name) || m.agentId) + '：' + m.content
+                })) : [];
+                const prompt = '你是会议中的专业角色，请根据议程与最近聊天生成下一句简洁的中文发言，避免重复，并尽量给出具体可执行建议或结论。';
+                const payload = {
+                    agentId,
+                    prompt,
+                    messages: agendaText ? recent.concat([{ role: 'user', content: '议程：' + agendaText }]) : recent,
+                    maxTokens: 256,
+                    temperature: 0.7
+                };
+                const resp = await fetch('/api/llm/complete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await resp.json();
+                if (data && data.success && data.content) {
+                    socket.emit('sendMessage', { agentId, content: data.content, playVoice: true });
+                } else {
+                    showNotification('生成失败：' + (data && data.error ? data.error : '未知错误'), 'danger');
+                }
+            } catch (e) {
+                console.error('LLM生成错误', e);
+                showNotification('LLM生成发言失败', 'danger');
+            }
+        }        // 渲染聊天历史
+        // 统一渲染单条消息的 DOM（兼容未知角色降级、主持人高亮、头像/昵称/时间戳显示）
+        function renderMessageItem(message, { highlightSpeaker = false } = {}) {
+            const agent = agents.find(a => a.id === message.agentId);
+            const safeAgent = agent || { name: (message.agentId || '未知角色'), color: '#374151', voice: 'male-clear', avatar: '👤', role: 'unknown' };
+
+            const highlightClass = highlightSpeaker ? ' message-highlight' : '';
+            const roleClass = ` role-${(safeAgent.role || 'unknown')}`;
+            const $item = $(`
+                <div class="chat-message message-incoming${highlightClass}${roleClass}" data-agent-id="${message.agentId || ''}" data-message-id="${message.id || ''}">
+                    <div class="message-header">
+                        <span class="message-avatar" aria-hidden="true"><i class="fa fa-user"></i></span>
+                        <span class="message-sender" style="color: ${safeAgent.color}">
+                            ${safeAgent.name}
+                        </span>
+                        <span class="message-time">
+                            ${formatTime(message.timestamp)}
+                        </span>
+                    </div>
+                    <div class="message-content">${message.content}</div>
+                </div>
+            `);
+            return $item;
+        }
+        // 渲染聊天历史（使用统一渲染函数）
+        function renderChatHistory() {
+            const chatContainer = $('#chatMessages');
+            chatContainer.empty();
+            
+            meetingState.chatHistory.forEach(message => {
+                const isHighlight = !!meetingState.currentSpeaker && meetingState.currentSpeaker === message.agentId;
+                const $item = renderMessageItem(message, { highlightSpeaker: isHighlight });
+                chatContainer.append($item);
+            });
+            // 渲染完成后滚动到底部
+            chatContainer.scrollTop(chatContainer[0].scrollHeight);
+        }
+async function loadChatHistoryFromAPI(limit = HISTORY_LIMIT) {
+            try {
+                const resp = await fetch(`/api/chat/history?limit=${encodeURIComponent(limit)}`);
+                if (!resp.ok) {
+                    throw new Error(`HTTP ${resp.status}`);
+                }
+                const history = await resp.json();
+                if (!Array.isArray(history)) {
+                    console.warn('历史消息返回非数组，忽略');
+                    return;
+                }
+                const existingIds = new Set(Array.isArray(meetingState.chatHistory) ? meetingState.chatHistory.map(m => m.id) : []);
+                const merged = Array.isArray(meetingState.chatHistory) ? meetingState.chatHistory.slice() : [];
+                history.forEach(msg => {
+                    if (!existingIds.has(msg.id)) {
+                        merged.push(msg);
+                    }
+                });
+                // 时间升序排序
+                merged.sort((a, b) => {
+                    const ta = new Date(a.timestamp || 0).getTime();
+                    const tb = new Date(b.timestamp || 0).getTime();
+                    return ta - tb;
+                });
+                meetingState.chatHistory = merged;
+                renderChatHistory();
+                console.log(`[chat] 历史消息已加载合并：当前共 ${merged.length} 条`);
+                // 更新计数徽标
+                $('#messageCount').text(merged.length);
+            } catch (e) {
+                console.error('历史消息加载错误', e);
+                showNotification('加载历史消息失败', 'warning');
+            }
+        }
+        // 添加消息到聊天（使用统一渲染函数）
+        function addMessageToChat(message) {
+            const chatContainer = $('#chatMessages');
+            const isHighlight = !!meetingState.currentSpeaker && meetingState.currentSpeaker === message.agentId;
+            const $item = renderMessageItem(message, { highlightSpeaker: isHighlight });
+            chatContainer.append($item);
+            chatContainer.scrollTop(chatContainer[0].scrollHeight);
+            
+            // 更新消息计数（以DOM为准，避免状态不同步）
+            $('#messageCount').text(chatContainer.children('.chat-message').length);
+
+            // 同步到发言人文字展示区
+            const agent = agents.find(a => a.id === message.agentId);
+            const safeAgent = agent || { name: (message.agentId || '未知发言人'), color: '#374151', voice: 'male-clear', avatar: '👤' };
+            const speakerName = safeAgent.name || '未知发言人';
+            $('#subtitleOverlay').html(`
+                <strong>${speakerName}</strong>：${message.content}
+            `);
+        }
+
+        // 调试/测试：暴露关键对象与函数到 window 以便开发自检
+        try {
+            window.getMeetingState = () => meetingState;
+            window.getAgents = () => agents;
+            window.renderChatHistory = renderChatHistory;
+            window.addMessageToChat = addMessageToChat;
+        } catch (_) {}
+
+        // 语音开关状态
+        let voiceEnabled = true;
+        // 会议纪要保存路径（本地存储持久化）
+        let minutesPath = (localStorage.getItem('minutesPath') || 'minutes').trim();
+
+        function toggleVoice() {
+            voiceEnabled = !voiceEnabled;
+            const btn = $('#toggleVoice');
+            if (voiceEnabled) {
+                btn.css('background', '#10B981');
+                btn.html('<i class="fa fa-microphone mr-1"></i>语音');
+                showNotification('语音已开启', 'success');
+            } else {
+                btn.css('background', '#64748B');
+                btn.html('<i class="fa fa-microphone-slash mr-1"></i>静音');
+                showNotification('语音已关闭', 'info');
+                // 统一停止当前定时器与语音队列，确保“发言无法停止”立即消失
+                stopAllAudioAndTTS();
+            }
+        }
+
+        // 播放Agent语音
+        function playAgentVoice(agentId, text) {
+            const agent = agents.find(a => a.id === agentId);
+            if (!agent) return;
+
+            // 这里可以集成真实的TTS服务
+            console.log(`播放语音 [${agent.voice}]: ${text}`);
+            
+            // 模拟语音播放指示器
+            showVoiceIndicator(agentId);
+            
+            // 简单的Web Speech API实现
+            if (voiceEnabled && meetingState.isActive && 'speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                
+                // 根据Agent角色设置不同的语音参数
+                switch(agent.voice) {
+                    case 'male-clear':
+                        utterance.pitch = 1;
+                        utterance.rate = 0.9;
+                        break;
+                    case 'female-professional':
+                        utterance.pitch = 1.2;
+                        utterance.rate = 1;
+                        break;
+                    case 'male-deep':
+                        utterance.pitch = 0.8;
+                        utterance.rate = 0.8;
+                        break;
+                    case 'male-technical':
+                        utterance.pitch = 0.9;
+                        utterance.rate = 1.1;
+                        break;
+                    case 'female-managerial':
+                        utterance.pitch = 1.1;
+                        utterance.rate = 0.9;
+                        break;
+                    case 'male-detailed':
+                        utterance.pitch = 0.95;
+                        utterance.rate = 0.85;
+                        break;
+                }
+                // 再次校验，避免在关闭语音或结束会议后被误触发
+                if (voiceEnabled && meetingState.isActive) {
+                    try { speechSynthesis.speak(utterance); } catch(_) {}
+                }
+            }
+        }
+
+        // 显示语音播放指示器
+        function showVoiceIndicator(agentId) {
+            // 移除之前的指示器
+            $('.voice-indicator').remove();
+            
+            const seat = $(`.agent-seat[data-agent-id="${agentId}"] .seat-avatar`);
+            const indicator = $('<div class="voice-indicator"></div>');
+            seat.append(indicator);
+            
+            // 3秒后移除指示器
+            setTimeout(() => {
+                indicator.remove();
+            }, 3000);
+        }
+
+        // 更新会议UI
+        function updateMeetingUI() {
+            const startBtn = $('#startMeeting');
+            const endBtn = $('#endMeeting');
+            
+            if (meetingState.isActive) {
+                startBtn.prop('disabled', true);
+                endBtn.prop('disabled', false);
+                $('.meeting-title').append(' <span class="badge badge-success">进行中</span>');
+            } else {
+                startBtn.prop('disabled', false);
+                endBtn.prop('disabled', true);
+                $('.meeting-title .badge').remove();
+            }
+            
+            updateSpeakerUI();
+        }
+
+        // 更新发言人UI
+        function updateSpeakerUI() {
+            // 移除所有活跃状态
+            $('.agent-seat .seat-avatar').removeClass('seat-active');
+            $('.agent-item').removeClass('active');
+            
+            if (meetingState.currentSpeaker) {
+                // 设置当前发言人活跃状态
+                $(`.agent-seat[data-agent-id="${meetingState.currentSpeaker}"] .seat-avatar`)
+                    .addClass('seat-active');
+                $(`.agent-item[data-agent-id="${meetingState.currentSpeaker}"]`)
+                    .addClass('active');
+                $('#speakerSelect').val(meetingState.currentSpeaker);
+            }
+        }
+
+        // 会议记录：添加、渲染、导出
+        function addMinute(message) {
+            const agent = agents.find(a => a.id === message.agentId);
+            const item = {
+                id: message.id || (Date.now() + '_' + Math.random().toString(36).slice(2)),
+                time: formatTime(message.timestamp || Date.now()),
+                agentName: agent ? agent.name : (message.agentId || '未知发言人'),
+                content: message.content
+            };
+            meetingMinutes.push(item);
+            renderMinutes();
+        }
+
+        function renderMinutes() {
+            const box = $('#minutesList');
+            box.empty();
+            if (!hostModeEnabled) {
+                box.append('<div class="text-muted">主持人模式未开启。</div>');
+                $('#minutesCount').text('0');
+                return;
+            }
+            if (!meetingMinutes.length) {
+                box.append('<div class="text-muted">暂无记录。</div>');
+                $('#minutesCount').text('0');
+                return;
+            }
+            meetingMinutes.forEach(m => {
+                box.append(`<div class="minute-item"><span class="text-muted">${m.time}</span> ｜ <strong>${m.agentName}</strong>：${m.content}</div>`);
+            });
+            $('#minutesCount').text(String(meetingMinutes.length));
+            box.scrollTop(box[0].scrollHeight);
+        }
+
+        function exportMinutesAsMarkdown() {
+            if (!meetingMinutes.length) {
+                showNotification('暂无会议记录可导出', 'info');
+                return;
+            }
+            let md = `# 会议记录（${new Date().toLocaleString('zh-CN')}）\n\n`;
+            const agendaText = ($('#agendaInput').val() || '').trim();
+            if (agendaText) {
+                md += '## 议程\n';
+                agendaText.split(/\n+/).filter(Boolean).forEach((line, idx) => {
+                    md += `- ${line}\n`;
+                });
+                md += '\n';
+            }
+            md += '## 发言记录\n';
+            meetingMinutes.forEach((m, i) => {
+                md += `- ${m.time}｜${m.agentName}：${m.content}\n`;
+            });
+            const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '会议记录.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification('会议记录已导出', 'success');
+
+            // 同步保存到服务端（使用纪要保存路径）
+            const savePath = (minutesPath || 'minutes').trim();
+            fetch('/api/minutes/export', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ path: savePath, content: md })
+            }).then(async resp => {
+                try {
+                    const data = await resp.json();
+                    if (data && data.success) {
+                        showNotification('服务器已保存会议记录到：' + (data.savedPath || savePath), 'success');
+                    } else {
+                        showNotification('服务器保存会议记录失败：' + (data && data.error ? data.error : '未知错误'), 'danger');
+                    }
+                } catch (e) {
+                    showNotification('服务器保存会议记录失败（解析响应异常）', 'danger');
+                }
+            }).catch(err => {
+                console.error('保存会议记录到服务器失败', err);
+                showNotification('保存会议记录到服务器失败', 'danger');
+            });
+        }
+
+        function appendToWhiteboard(message) {
+            const agent = agents.find(a => a.id === message.agentId);
+            const name = agent ? agent.name : (message.agentId || '未知发言人');
+            const time = formatTime(message.timestamp || Date.now());
+            const prev = $('#whiteboard').html();
+            const line = `<div>[${time}] <strong>${name}</strong>：${message.content}</div>`;
+            const next = prev ? (prev + line) : line;
+            $('#whiteboard').html(next);
+            socket.emit('updateWhiteboard', next);
+        }
+
+        function showPresentation(content) {
+            $('#presentationContent').html(content);
+            $('#presentationArea').addClass('presentation-active');
+            $('#centerBoardContent').html(content);
+        }
+
+        function renderWhiteboard() {
+            $('#centerBoardContent').html('<div id="sharedWhiteboard" contenteditable="true" style="width:100%;height:100%;border:1px dashed #e5e7eb;border-radius:6px;padding:8px;font-size:12px"></div>');
+        }
+
+        function renderVideoPlaceholder() {
+            $('#centerBoardContent').html('<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:12px">视频播放区</div>');
+        }
+
+        function renderKanbanPlaceholder() {
+            $('#centerBoardContent').html('<div style="display:flex;gap:8px;width:100%;height:100%"><div style="flex:1;border:1px solid #e5e7eb;border-radius:6px;padding:8px"><div style="font-weight:600;font-size:12px;margin-bottom:6px">待办</div></div><div style="flex:1;border:1px solid #e5e7eb;border-radius:6px;padding:8px"><div style="font-weight:600;font-size:12px;margin-bottom:6px">进行中</div></div><div style="flex:1;border:1px solid #e5e7eb;border-radius:6px;padding:8px"><div style="font-weight:600;font-size:12px;margin-bottom:6px">已完成</div></div></div>');
+        }
+
+        // 关闭演示文稿
+        function closePresentation() {
+            $('#presentationArea').removeClass('presentation-active');
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = $(`
+                <div class="alert alert-${type} alert-dismissible fade show" style="position: fixed; top: 20px; right: 20px; z-index: 10000;">
+                    ${message}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            `);
+            
+            $('body').append(notification);
+            
+            setTimeout(() => {
+                notification.alert('close');
+            }, 3000);
+        }
+
+        // 格式化时间
+        function formatTime(timestamp) {
+            try {
+                const date = new Date(timestamp || Date.now());
+                return date.toLocaleTimeString('zh-CN');
+            } catch (e) {
+                return new Date().toLocaleTimeString('zh-CN');
+            }
+        }
+
+        // 模拟Agent自动发言
+        let simulationTimer = null; // 记录当前定时器，便于结束会议时清理
+        function simulateAgentSpeeches() {
+            if (!meetingState.isActive) return;
+
+            const speeches = [
+                { agentId: 'frontend-dev', content: '前端React组件已经完成，正在进行联调测试。' },
+                { agentId: 'backend-dev', content: 'API接口已经部署到测试环境，可以开始集成测试了。' },
+                { agentId: 'architect', content: '架构评审通过，我们可以按照计划进行开发。' },
+                { agentId: 'devops', content: 'CI/CD流水线已经配置完成，支持自动部署。' },
+                { agentId: 'pm', content: '项目进度符合预期，下周我们需要完成用户验收测试。' },
+                { agentId: 'qa', content: '测试用例已经编写完成，覆盖率达到95%以上。' }
+            ];
+
+            // 随机选择一个发言
+            const randomSpeech = speeches[Math.floor(Math.random() * speeches.length)];
+            const firstGap = Math.random() * 15000 + 5000; // 5-20秒后第一个发言
+
+            simulationTimer = setTimeout(() => {
+                // 在真正发言前再次确认会议仍处于进行中
+                if (!meetingState.isActive) return;
+
+                socket.emit('sendMessage', {
+                    agentId: randomSpeech.agentId,
+                    content: randomSpeech.content,
+                    playVoice: true
+                });
+                
+                // 继续模拟下一个发言
+                if (meetingState.isActive) {
+                    const nextGap = Math.random() * 30000 + 20000; // 20-50秒后下一个发言
+                    simulationTimer = setTimeout(simulateAgentSpeeches, nextGap);
+                }
+            }, firstGap);
+        }
+
+        // 开始会议时启动模拟发言（带重复触发保护）
+        let simulationStarted = false;
+        function startSimulation() {
+            if (simulationStarted) return;
+            simulationStarted = true;
+            // 首条自动发言延迟缩短为 2-5 秒随机
+            const firstDelay = Math.floor(Math.random() * 3000) + 2000;
+            console.log('[auto-sim] startSimulation: schedule first speech in', firstDelay, 'ms');
+            simulationTimer = setTimeout(simulateAgentSpeeches, firstDelay);
+        }
+
+        // 页面加载完成后的初始化
+        $(window).on('load', function() {
+            showNotification('会议室已就绪', 'success');
+        });
+
+        // 渲染演示文稿列表
+        function renderPresentationsList() {
+            const list = $('#presentationsList');
+            list.empty();
+            const items = (meetingState && Array.isArray(meetingState.presentations)) ? meetingState.presentations : [];
+
+            if (!items.length) {
+                list.append('<div class="text-muted">暂无演示文稿</div>');
+                return;
+            }
+
+            items.forEach((p, idx) => {
+                const row = $(`
+                    <div class="presentation-item" data-id="${p.id}" style="cursor: pointer;">
+                        <div>
+                            <strong>${p.title || ('演示文稿 #' + (idx + 1))}</strong>
+                        </div>
+                        <div class="presentation-actions">
+                            <button class="btn btn-sm btn-primary" onclick="event.stopPropagation(); startPresentation('${p.id}');">
+                                <i class="fa fa-play"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" onclick="event.stopPropagation(); deletePresentation('${p.id}');">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `);
+
+                row.click(async () => {
+                    try {
+                        const response = await fetch(`/api/presentations/${p.id}`);
+                        if (!response.ok) {
+                            throw new Error('无法加载演示文稿');
+                        }
+                        const presentation = await response.json();
+                        const contentDiv = $('#presentationContent');
+                        contentDiv.html(presentation.content).show();
+                        contentDiv[0].scrollIntoView({ behavior: 'smooth' });
+                    } catch (error) {
+                        console.error('加载演示文稿失败:', error);
+                        showNotification('加载演示文稿失败', 'danger');
+                    }
+                });
+
+                list.append(row);
+            });
+        }
+
+        function startPresentation(id) {
+            const presentation = meetingState.presentations.find(p => p.id === id);
+            if (!presentation) return;
+
+            // Fetch full content if not available
+            if (!presentation.content) {
+                 fetch(`/api/presentations/${id}`)
+                    .then(response => response.json())
+                    .then(fullPresentation => {
+                        // Update the local state
+                        const index = meetingState.presentations.findIndex(p => p.id === id);
+                        if (index !== -1) {
+                            meetingState.presentations[index] = fullPresentation;
+                        }
+                        displayPresentation(fullPresentation);
+                    })
+                    .catch(error => {
+                        console.error('获取演示文稿内容失败:', error);
+                        showNotification('无法开始演示，内容加载失败', 'danger');
+                    });
+            } else {
+                displayPresentation(presentation);
+            }
+        }
+
+        function displayPresentation(presentation) {
+            let html = '';
+            const url = presentation.url;
+            const content = presentation.content;
+
+            if (url && typeof url === 'string') {
+                const lower = url.toLowerCase();
+                if (lower.endsWith('.png') || lower.endsWith('.jpg') || lower.endsWith('.jpeg')) {
+                    html = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000"><img src="${url}" alt="${presentation.title || ''}" style="max-width:100%;max-height:100%"/></div>`;
+                } else if (lower.endsWith('.pdf')) {
+                    html = `<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>`;
+                } else {
+                    html = content || '<p>不支持的演示文稿格式或无内容。</p>';
+                }
+            } else {
+                html = content || '<p>无内容</p>';
+            }
+
+            showPresentation(html);
+        }
+
+        // 初始化纪要保存路径输入框与事件绑定，以及排麦队列
+        $(function() {
+            const input = $('#minutesPathInput');
+            if (input && input.length) {
+                input.val(minutesPath);
+                input.on('change input', function() {
+                    minutesPath = (this.value || 'minutes').trim();
+                    localStorage.setItem('minutesPath', minutesPath);
+                });
+            }
+            function setActiveTab(btn){ $('#tabWhiteboard, #tabVideo, #tabKanban').removeClass('active'); $(btn).addClass('active'); }
+            $('#tabWhiteboard').on('click', function(){ renderWhiteboard(); setActiveTab(this); });
+            $('#tabVideo').on('click', function(){ renderVideoPlaceholder(); setActiveTab(this); });
+            $('#tabKanban').on('click', function(){ renderKanbanPlaceholder(); setActiveTab(this); });
+            setActiveTab($('#tabWhiteboard')[0]);
+            renderWhiteboard();
+            const sel = $('#queueSelect');
+            sel.empty();
+            agents.forEach(a => sel.append(`<option value="${a.id}">${a.name}</option>`));
+            window.speakingQueue = [];
+            function renderQueue(){
+                const box = $('#queueList');
+                box.empty();
+                if (!window.speakingQueue.length){ box.append('<div class="text-muted">队列空</div>'); return; }
+                window.speakingQueue.forEach((id, idx)=>{
+                    const a = agents.find(x=>x.id===id);
+                    box.append(`<div class="minute-item">${idx+1}. ${(a&&a.name)||id}</div>`);
+                });
+            }
+            $('#queueAddBtn').click(()=>{
+                const id = $('#queueSelect').val();
+                if (id) { window.speakingQueue.push(id); renderQueue(); }
+            });
+            $('#queueNextBtn').click(()=>{
+                if (window.speakingQueue.length){
+                    const next = window.speakingQueue.shift();
+                    socket.emit('changeSpeaker', next);
+                    renderQueue();
+                }
+            });
+            renderQueue();
+        });
+    </script>
+</body>
+</html>

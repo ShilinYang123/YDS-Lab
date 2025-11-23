@@ -1,0 +1,5 @@
+{
+  "hosts_parsing": true,
+  "routing_commands": true,
+  "config_safety": true
+}

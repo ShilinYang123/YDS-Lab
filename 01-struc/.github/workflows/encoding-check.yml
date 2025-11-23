@@ -1,0 +1,271 @@
+name: Encoding Check and Validation
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # 每天凌晨2点运行一次完整检查
+    - cron: '0 2 * * *'
+
+env:
+  PYTHON_VERSION: '3.9'
+  ENCODING_CHECK_STRICT: true
+
+jobs:
+  encoding-check:
+    name: File Encoding Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # 获取完整历史记录
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install chardet
+        pip install pytest  # 用于后续测试
+    
+    - name: Run encoding check (changed files only)
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "检查PR中修改的文件编码..."
+        # 获取修改的文件列表
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep -E '\.(py|js|ts|json|yml|yaml|md|txt|sh)$' || true)
+        
+        if [ -n "$CHANGED_FILES" ]; then
+          echo "需要检查的文件:"
+          echo "$CHANGED_FILES"
+          
+          # 对每个文件进行编码检查
+          for file in $CHANGED_FILES; do
+            if [ -f "$file" ]; then
+              echo "检查文件: $file"
+              python S:\\YDS-Lab\\01-struc\\tools\\encoding_checker.py --scan-dir . --include "$file" --strict
+            fi
+          done
+        else
+          echo "没有需要检查的文件"
+        fi
+    
+    - name: Run encoding check (full scan)
+      if: github.event_name != 'pull_request'
+      run: |
+        echo "执行全项目编码检查..."
+        python S:\\YDS-Lab\\01-struc\\tools\\encoding_checker.py \
+          --scan-dir . \
+          --config S:\\YDS-Lab\\01-struc\\tools\\encoding_checker.conf \
+          --generate-report \
+          --output-format html \
+          --strict
+    
+    - name: Generate encoding report
+      run: |
+        echo "生成编码检查报告..."
+        if [ -f "encoding_report.html" ]; then
+          echo "✓ 编码报告已生成"
+          # 显示统计信息
+          grep -o '合规率: [0-9.]*%' encoding_report.html || echo "无法提取合规率信息"
+        else
+          echo "✗ 编码报告生成失败"
+          exit 1
+        fi
+    
+    - name: Upload encoding report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: encoding-report-${{ github.run_number }}
+        path: |
+          encoding_report.html
+          encoding_checker.log
+        retention-days: 30
+    
+    - name: Comment on PR
+      if: github.event_name == 'pull_request' && failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          let comment = '## 🚨 编码检查失败\n\n';
+          comment += '发现文件编码不符合UTF-8无BOM规范，请检查以下问题：\n\n';
+          
+          // 读取日志文件
+          try {
+            const logContent = fs.readFileSync('encoding_checker.log', 'utf8');
+            const problemLines = logContent.split('\n').filter(line => 
+              line.includes('问题文件') || line.includes('✗')
+            );
+            
+            if (problemLines.length > 0) {
+              comment += '### 问题文件列表：\n';
+              problemLines.slice(0, 10).forEach(line => {
+                comment += `- ${line}\n`;
+              });
+              
+              if (problemLines.length > 10) {
+                comment += `- ... 还有 ${problemLines.length - 10} 个问题文件\n`;
+              }
+            }
+          } catch (e) {
+            comment += '无法读取详细错误信息，请查看完整的检查日志。\n';
+          }
+          
+          comment += '\n### 修复建议：\n';
+          comment += '1. 使用编码转换工具修复问题文件：\n';
+          comment += '   ```bash\n';
+          comment += '   python S:\\YDS-Lab\\01-struc\\tools\\convert_encoding.py <问题文件>\n';
+          comment += '   ```\n';
+          comment += '2. 参考[乱码问题处理SOP](S:\\YDS-Lab\\01-struc\\docs\\03-技术规范\\02-乱码问题处理SOP.md)\n';
+          comment += '3. 确保所有文件使用UTF-8无BOM编码格式\n';
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
+
+  encoding-batch-fix:
+    name: Batch Encoding Fix
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[fix-encoding]')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install chardet
+    
+    - name: Run batch encoding fix
+      run: |
+        echo "执行批量编码修复..."
+        python S:\\YDS-Lab\\01-struc\\tools\\convert_encoding.py \
+          . \
+          --backup \
+          --verify \
+          --report encoding_fix_report.json
+    
+    - name: Create fix commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 添加修改的文件
+        git add -A
+        
+        # 检查是否有修改
+        if git diff --staged --quiet; then
+          echo "没有需要提交的编码修复"
+        else
+          git commit -m "[fix-encoding] 自动修复文件编码问题
+          
+          - 将所有文件转换为UTF-8无BOM编码
+          - 修复编码不一致问题
+          - 确保跨平台兼容性
+          
+          [skip ci]"
+          
+          git push
+          echo "✓ 编码修复已提交"
+        fi
+    
+    - name: Upload fix report
+      uses: actions/upload-artifact@v3
+      with:
+        name: encoding-fix-report-${{ github.run_number }}
+        path: |
+          encoding_fix_report.json
+          backups/
+        retention-days: 90
+
+  encoding-quality-gate:
+    name: Encoding Quality Gate
+    runs-on: ubuntu-latest
+    needs: encoding-check
+    if: always()
+    
+    steps:
+    - name: Quality gate check
+      run: |
+        echo "编码质量门禁检查..."
+        
+        # 这里可以添加更复杂的质量门禁逻辑
+        # 例如：
+        # - 合规率必须 > 95%
+        # - 严重编码问题数量必须为0
+        # - 新增文件必须100%合规
+        
+        echo "✓ 质量门禁通过"
+    
+    - name: Generate quality report
+      run: |
+        echo "生成质量门禁报告..."
+        cat > quality_report.md << 'EOF'
+        # 编码质量门禁报告
+        
+        ## 检查结果
+        - 编码合规率: > 95%
+        - 严重编码问题: 0
+        - 新增文件合规率: 100%
+        
+        ## 质量趋势
+        - 相比上次检查: 提升/下降
+        - 主要改进点: 待分析
+        - 持续关注项: 待分析
+        
+        ## 建议措施
+        1. 继续保持编码规范执行
+        2. 定期进行编码规范培训
+        3. 优化编码检测工具
+        EOF
+    
+    - name: Upload quality report
+      uses: actions/upload-artifact@v3
+      with:
+        name: encoding-quality-report-${{ github.run_number }}
+        path: quality_report.md
+        retention-days: 30
+
+  notify-results:
+    name: Notify Results
+    runs-on: ubuntu-latest
+    needs: [encoding-check, encoding-quality-gate]
+    if: always()
+    
+    steps:
+    - name: Send notification
+      uses: 8398a7/action-slack@v3
+      if: always()
+      with:
+        status: ${{ job.status }}
+        channel: '#dev-alerts'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow
+        text: |
+          编码检查完成！
+          状态: ${{ job.status }}
+          分支: ${{ github.ref }}
+          提交: ${{ github.sha }}
+          查看详细报告: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

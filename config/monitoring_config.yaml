@@ -1,0 +1,43 @@
+alerts:
+  performance_degradation:
+    level: warning
+    notify:
+    - dev-team
+    threshold: 50
+  resource_exhaustion:
+    level: critical
+    notify:
+    - admin
+    - resource-admin
+    threshold: 90
+  system_failure:
+    escalation_time: 15
+    level: critical
+    notify:
+    - admin
+    - dev-team
+reporting:
+  daily_reports: true
+  monthly_reports: true
+  report_format: markdown
+  weekly_reports: true
+system_monitoring:
+  agents_health:
+    alert_threshold: 3
+    check_interval: 300
+    enabled: true
+  mcp_servers_status:
+    check_interval: 60
+    enabled: true
+    timeout: 30
+  performance_metrics:
+    enabled: true
+    track_error_rate: true
+    track_response_time: true
+  resource_usage:
+    alert_threshold: 80
+    enabled: true
+    metrics:
+    - cpu
+    - memory
+    - disk

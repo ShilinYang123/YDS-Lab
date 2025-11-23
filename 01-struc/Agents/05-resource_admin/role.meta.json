@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-05-RESOURCE-ADMIN",
+  "name_cn": "资源管理员",
+  "module_dir": "01-struc/Agents/05-resource_admin",
+  "description_cn": "资源规划与资产管理，支持权限与环境配置。",
+  "responsibilities": ["资源规划", "权限分配", "资产管理"],
+  "interfaces": {
+    "tools": ["tools/check_structure.py", "tools/update_structure.py"],
+    "configs": ["config/structure_config.yaml"],
+    "depends_on": ["01-struc/**", "03-dev/**", "04-prod/**"],
+    "deliverables": ["资源清单", "结构调整记录"]
+  },
+  "inputs": ["结构配置", "资源使用状态"],
+  "outputs": ["资源分配方案", "结构修复建议"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

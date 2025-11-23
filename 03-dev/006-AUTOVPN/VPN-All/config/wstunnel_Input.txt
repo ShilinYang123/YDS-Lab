@@ -1,0 +1,3 @@
+--mtu 1300
+--keepalive 120
+--ws-compression deflate

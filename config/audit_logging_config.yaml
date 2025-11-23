@@ -1,0 +1,461 @@
+# YDS AI公司审计日志系统配置
+# 部署版本: V5.1-架构适配版
+# 部署时间: 2025-11-14
+# 系统版本: 1.0
+
+# 审计日志核心配置
+audit_logging:
+  enabled: true
+  version: "1.0"
+  
+  # 日志级别配置
+  log_levels:
+    critical:
+      enabled: true
+      immediate_alert: true
+      storage: "persistent"
+      
+    high:
+      enabled: true
+      immediate_alert: false
+      storage: "persistent"
+      
+    medium:
+      enabled: true
+      immediate_alert: false
+      storage: "standard"
+      
+    low:
+      enabled: true
+      immediate_alert: false
+      storage: "standard"
+
+  # 日志分类配置
+  categories:
+    # 系统事件
+    system_events:
+      enabled: true
+      description: "系统级别的事件记录"
+      events:
+        - system_startup
+        - system_shutdown
+        - system_error
+        - system_maintenance
+        - configuration_change
+        
+    # 用户访问事件
+    user_access:
+      enabled: true
+      description: "用户访问和认证事件"
+      events:
+        - user_login
+        - user_logout
+        - user_authentication_failure
+        - user_permission_change
+        - user_role_assignment
+        
+    # 智能体操作事件
+    agent_operations:
+      enabled: true
+      description: "智能体操作和协作事件"
+      events:
+        - agent_activation
+        - agent_deactivation
+        - agent_task_assignment
+        - agent_decision_making
+        - agent_communication
+        - agent_error
+        
+    # 文档操作事件
+    document_operations:
+      enabled: true
+      description: "文档相关的操作事件"
+      events:
+        - document_created
+        - document_read
+        - document_updated
+        - document_deleted
+        - document_shared
+        - document_versioned
+        
+    # 会议事件
+    meeting_events:
+      enabled: true
+      description: "会议相关的操作事件"
+      events:
+        - meeting_created
+        - meeting_started
+        - meeting_ended
+        - participant_joined
+        - participant_left
+        - agenda_updated
+        - decision_recorded
+        - vote_conducted
+        
+    # 权限和RBAC事件
+    rbac_events:
+      enabled: true
+      description: "RBAC权限相关的事件"
+      events:
+        - role_created
+        - role_updated
+        - role_deleted
+        - permission_granted
+        - permission_revoked
+        - access_denied
+        - unauthorized_attempt
+        
+    # 安全和合规事件
+    security_compliance:
+      enabled: true
+      description: "安全和合规相关的事件"
+      events:
+        - security_alert
+        - compliance_violation
+        - policy_enforcement
+        - encryption_failure
+        - data_breach_attempt
+        - suspicious_activity
+        
+    # 性能和监控事件
+    performance_monitoring:
+      enabled: true
+      description: "性能和监控相关的事件"
+      events:
+        - performance_degradation
+        - resource_exhaustion
+        - threshold_exceeded
+        - monitoring_alert
+        - system_health_check
+        - backup_completed
+        - recovery_initiated
+
+  # 存储配置
+  storage:
+    # 主存储配置
+    primary_storage:
+      type: "file"
+      path: "s:/YDS-Lab/logs/audit_trails/"
+      format: "jsonl"
+      compression: "gzip"
+      max_file_size: "100MB"
+      rotation_policy: "daily"
+      
+    # 备份存储配置
+    backup_storage:
+      type: "file"
+      path: "s:/YDS-Lab/logs/audit_backup/"
+      format: "jsonl"
+      compression: "gzip"
+      retention_days: 365
+      
+    # 归档存储配置
+    archive_storage:
+      type: "file"
+      path: "s:/YDS-Lab/logs/audit_archive/"
+      format: "jsonl"
+      compression: "bzip2"
+      retention_years: 7
+
+  # 实时分析配置
+  real_time_analysis:
+    enabled: true
+    
+    # 异常检测
+    anomaly_detection:
+      enabled: true
+      sensitivity: "medium"
+      algorithms:
+        - "statistical_analysis"
+        - "machine_learning"
+        - "rule_based"
+        
+    # 模式识别
+    pattern_recognition:
+      enabled: true
+      patterns:
+        - "repeated_failures"
+        - "unusual_access_patterns"
+        - "privilege_escalation"
+        - "data_exfiltration"
+        
+    # 威胁检测
+    threat_detection:
+      enabled: true
+      threat_types:
+        - "brute_force"
+        - "insider_threat"
+        - "advanced_persistent_threat"
+        - "data_breach"
+
+  # 告警配置
+  alerting:
+    enabled: true
+    
+    # 告警规则
+    rules:
+      - name: "多次认证失败"
+        condition: "user_authentication_failure > 5 in 10 minutes"
+        severity: "high"
+        action: "immediate_alert"
+        
+      - name: "权限提升尝试"
+        condition: "privilege_escalation_detected"
+        severity: "critical"
+        action: "immediate_alert"
+        
+      - name: "异常访问模式"
+        condition: "unusual_access_pattern_detected"
+        severity: "medium"
+        action: "log_and_notify"
+        
+      - name: "系统性能下降"
+        condition: "performance_degradation > 30%"
+        severity: "medium"
+        action: "notify_admin"
+        
+      - name: "合规违规"
+        condition: "compliance_violation_detected"
+        severity: "high"
+        action: "immediate_alert"
+
+  # 报告配置
+  reporting:
+    enabled: true
+    
+    # 定期报告
+    scheduled_reports:
+      - name: "每日安全报告"
+        frequency: "daily"
+        time: "08:00"
+        recipients: ["security@yds-ai.com", "admin@yds-ai.com"]
+        
+      - name: "每周合规报告"
+        frequency: "weekly"
+        day: "monday"
+        time: "09:00"
+        recipients: ["compliance@yds-ai.com", "admin@yds-ai.com"]
+        
+      - name: "每月性能报告"
+        frequency: "monthly"
+        day: 1
+        time: "10:00"
+        recipients: ["performance@yds-ai.com", "admin@yds-ai.com"]
+        
+    # 实时报告
+    real_time_reports:
+      - name: "安全事件"
+        trigger: "security_alert"
+        recipients: ["security@yds-ai.com"]
+        
+      - name: "系统故障"
+        trigger: "system_error"
+        recipients: ["admin@yds-ai.com", "devops@yds-ai.com"]
+        
+      - name: "合规问题"
+        trigger: "compliance_violation"
+        recipients: ["compliance@yds-ai.com", "legal@yds-ai.com"]
+
+  # 合规配置
+  compliance:
+    # 数据保留政策
+    data_retention:
+      policy: "tiered"
+      tiers:
+        - name: "hot"
+          duration: "30 days"
+          storage: "fast_ssd"
+          
+        - name: "warm"
+          duration: "90 days"
+          storage: "standard_disk"
+          
+        - name: "cold"
+          duration: "1 year"
+          storage: "slow_disk"
+          
+        - name: "archive"
+          duration: "7 years"
+          storage: "tape_backup"
+    
+    # 隐私保护
+    privacy_protection:
+      enabled: true
+      pii_detection: true
+      data_masking: true
+      encryption_at_rest: true
+      
+    # 法规遵循
+    regulatory_compliance:
+      standards:
+        - "ISO27001"
+        - "SOX"
+        - "GDPR"
+        - "HIPAA"
+        - "PCI-DSS"
+      
+      requirements:
+        - "audit_trail_immutability"
+        - "access_control_logging"
+        - "data_integrity_verification"
+        - "regular_security_assessments"
+
+  # 集成配置
+  integrations:
+    # 外部SIEM集成
+    siem_integration:
+      enabled: true
+      providers:
+        - name: "Splunk"
+          enabled: false
+          config:
+            host: "splunk.yds-ai.com"
+            port: 8089
+            token: "${SPLUNK_TOKEN}"
+            
+        - name: "ELK Stack"
+          enabled: false
+          config:
+            host: "elk.yds-ai.com"
+            port: 9200
+            index: "yds-audit"
+            
+        - name: "IBM QRadar"
+          enabled: false
+          config:
+            host: "qradar.yds-ai.com"
+            port: 514
+            protocol: "syslog"
+    
+    # 通知集成
+    notification_integration:
+      enabled: true
+      providers:
+        - name: "Email"
+          enabled: true
+          config:
+            smtp_server: "smtp.yds-ai.com"
+            port: 587
+            username: "audit@yds-ai.com"
+            
+        - name: "Slack"
+          enabled: false
+          config:
+            webhook_url: "${SLACK_WEBHOOK_URL}"
+            channel: "#security-alerts"
+            
+        - name: "Microsoft Teams"
+          enabled: false
+          config:
+            webhook_url: "${TEAMS_WEBHOOK_URL}"
+
+  # 性能优化
+  performance:
+    # 批量处理
+    batch_processing:
+      enabled: true
+      batch_size: 1000
+      flush_interval: 5
+      
+    # 缓存配置
+    caching:
+      enabled: true
+      cache_size: "1GB"
+      ttl: 3600
+      
+    # 索引优化
+    indexing:
+      enabled: true
+      index_fields:
+        - "timestamp"
+        - "user_id"
+        - "event_type"
+        - "severity"
+        - "category"
+      
+      composite_indexes:
+        - ["user_id", "timestamp"]
+        - ["event_type", "severity"]
+        - ["category", "timestamp"]
+
+# 部署配置
+deployment:
+  version: "V5.1-架构适配版"
+  date: "2025-11-14"
+  environment: "production"
+  status: "active"
+  
+  # 初始化任务
+  initialization_tasks:
+    - name: "创建审计日志目录"
+      action: "create_directories"
+      paths:
+        - "s:/YDS-Lab/logs/audit_trails/"
+        - "s:/YDS-Lab/logs/audit_backup/"
+        - "s:/YDS-Lab/logs/audit_archive/"
+        - "s:/YDS-Lab/logs/compliance/"
+        
+    - name: "初始化日志文件"
+      action: "initialize_log_files"
+      files:
+        - "audit_main.jsonl"
+        - "security_events.jsonl"
+        - "compliance_log.jsonl"
+        
+    - name: "配置权限"
+      action: "set_permissions"
+      permissions:
+        - path: "s:/YDS-Lab/logs/audit_trails/"
+          owner: "audit_service"
+          group: "audit_group"
+          mode: "0750"
+          
+        - path: "s:/YDS-Lab/logs/audit_backup/"
+          owner: "audit_service"
+          group: "audit_group"
+          mode: "0750"
+          
+        - path: "s:/YDS-Lab/logs/audit_archive/"
+          owner: "audit_service"
+          group: "audit_group"
+          mode: "0750"
+
+# 监控和告警
+monitoring:
+  enabled: true
+  
+  # 健康检查
+  health_checks:
+    - name: "磁盘空间"
+      check: "disk_space < 80%"
+      interval: 300
+      
+    - name: "日志文件大小"
+      check: "log_file_size < 100MB"
+      interval: 60
+      
+    - name: "写入性能"
+      check: "write_latency < 100ms"
+      interval: 30
+      
+    - name: "服务可用性"
+      check: "service_status == 'running'"
+      interval: 10
+  
+  # 性能指标
+  metrics:
+    - name: "日志写入速率"
+      type: "counter"
+      unit: "events/second"
+      
+    - name: "存储使用率"
+      type: "gauge"
+      unit: "percentage"
+      
+    - name: "查询响应时间"
+      type: "histogram"
+      unit: "milliseconds"
+      
+    - name: "错误率"
+      type: "counter"
+      unit: "errors/minute"

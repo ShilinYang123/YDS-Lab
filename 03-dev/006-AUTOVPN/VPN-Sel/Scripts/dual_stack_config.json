@@ -1,0 +1,100 @@
+{
+  "smart_dual_stack": {
+    "enabled": true,
+    "auto_switch": true,
+    "quality_threshold_ms": 500,
+    "max_concurrent_tests": 10,
+    "retry_count": 2,
+    "test_ports": [80, 443],
+    "connection_timeout": 5,
+    "update_interval_hours": 24
+  },
+  "routing_rules": {
+    "prefer_ipv6_when_better": true,
+    "ipv6_quality_bonus": 10,
+    "minimum_ipv6_quality": 60,
+    "fallback_to_ipv4": true,
+    "emergency_ipv4_only": false
+  },
+  "test_domains": {
+    "international": [
+      "google.com",
+      "youtube.com", 
+      "facebook.com",
+      "twitter.com",
+      "instagram.com",
+      "linkedin.com",
+      "wikipedia.org",
+      "amazon.com",
+      "github.com",
+      "stackoverflow.com",
+      "reddit.com",
+      "netflix.com",
+      "dropbox.com",
+      "spotify.com",
+      "apple.com"
+    ],
+    "cdn": [
+      "cdnjs.cloudflare.com",
+      "ajax.googleapis.com",
+      "fonts.googleapis.com",
+      "code.jquery.com",
+      "unpkg.com",
+      "cdn.jsdelivr.net"
+    ],
+    "cloud_services": [
+      "aws.amazon.com",
+      "azure.microsoft.com",
+      "cloud.google.com",
+      "digitalocean.com",
+      "linode.com"
+    ]
+  },
+  "quality_weights": {
+    "success_rate": 0.4,
+    "response_time": 0.6,
+    "stability_bonus": 5,
+    "freshness_bonus": 3
+  },
+  "connection_quality": {
+    "excellent": {
+      "max_response_time_ms": 100,
+      "min_success_rate": 95,
+      "score": 90
+    },
+    "good": {
+      "max_response_time_ms": 200,
+      "min_success_rate": 90,
+      "score": 75
+    },
+    "fair": {
+      "max_response_time_ms": 300,
+      "min_success_rate": 80,
+      "score": 60
+    },
+    "poor": {
+      "max_response_time_ms": 500,
+      "min_success_rate": 60,
+      "score": 40
+    },
+    "unusable": {
+      "max_response_time_ms": 1000,
+      "min_success_rate": 0,
+      "score": 0
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "smart_dual_stack.log",
+    "max_size_mb": 10,
+    "backup_count": 3,
+    "console_output": true
+  },
+  "output": {
+    "save_results": true,
+    "results_file": "dual_stack_results.json",
+    "generate_report": true,
+    "report_file": "dual_stack_report.html",
+    "include_raw_data": false
+  }
+}

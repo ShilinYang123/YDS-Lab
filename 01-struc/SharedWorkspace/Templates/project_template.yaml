@@ -1,0 +1,12 @@
+project_structure:
+  config: 配置文件目录
+  docs: 项目文档目录
+  src: 源代码目录
+  tests: 测试文件目录
+workflow_stages:
+- 需求分析
+- 设计阶段
+- 开发实现
+- 测试验证
+- 部署上线
+- 运维监控

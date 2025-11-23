@@ -1,0 +1,40 @@
+IPv6域名验证报告
+==================================================
+
+总计测试域名: 13 个
+支持IPv6的域名: 8 个
+不支持IPv6的域名: 5 个
+
+支持IPv6的域名列表:
+------------------------------
+
+域名: ipv6.google.com
+IPv6地址: 2001::1
+
+域名: cloudflare.com
+IPv6地址: 2606:4700::6810:84e5, 2606:4700::6810:85e5
+
+域名: www.cloudflare.com
+IPv6地址: 2606:4700::6810:7c60, 2606:4700::6810:7b60
+
+域名: ipv6-test.com
+IPv6地址: 2001:41d0:701:1100::29c8
+
+域名: whatismyipv6.com
+IPv6地址: 2001:4870:a24f:2::90
+
+域名: testmyipv6.com
+IPv6地址: 2620:12e:1000::a00:f
+
+域名: wikipedia.org
+IPv6地址: 2001::1
+
+域名: www.wikipedia.org
+IPv6地址: 2001::1
+
+不支持IPv6的域名: 5 个
+  - 1.1.1.1
+  - test-ipv6.com
+  - ipv6-test.nl
+  - github.com
+  - www.github.com

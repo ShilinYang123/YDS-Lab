@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-18-BACKUP-RECOVERY",
+  "name_cn": "备份与恢复",
+  "module_dir": "01-struc/Agents/18-backup_recovery",
+  "description_cn": "关键数据与文档的备份策略与恢复流程。",
+  "responsibilities": ["备份策略", "恢复流程", "演练"],
+  "interfaces": {
+    "tools": ["01-struc/Agents/18-backup_recovery/tools.py"],
+    "configs": ["04-prod/001-memory-system/backups/*", "backups/**"],
+    "depends_on": ["04-prod/**", "backups/**"],
+    "deliverables": ["备份日志", "恢复记录", "改进建议"]
+  },
+  "inputs": ["备份策略", "数据目录"],
+  "outputs": ["备份记录", "恢复报告"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

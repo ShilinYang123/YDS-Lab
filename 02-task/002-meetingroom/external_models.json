@@ -1,0 +1,201 @@
+{
+  "stt": {
+    "default": "shimmy.whisper-small-zh",
+    "providers": {
+      "shimmy": {
+        "host": "http://127.0.0.1:51080",
+        "models": ["whisper-small-zh", "whisper-medium-zh"],
+        "config": {
+          "language": "zh",
+          "sample_rate": 16000,
+          "format": "pcm16",
+          "chunk_size": 32768,
+          "accuracy_threshold": 0.85
+        }
+      }
+    }
+  },
+  "tts": {
+    "default": "shimmy.onnx-zh",
+    "providers": {
+      "shimmy": {
+        "host": "http://127.0.0.1:51080",
+        "voices": [
+          {
+            "id": "zh_female_clear",
+            "name": "中文女声-清晰",
+            "language": "zh-CN",
+            "gender": "female",
+            "quality": "high"
+          },
+          {
+            "id": "zh_male_clear", 
+            "name": "中文男声-清晰",
+            "language": "zh-CN",
+            "gender": "male",
+            "quality": "high"
+          },
+          {
+            "id": "en_female_clear",
+            "name": "English Female-Clear",
+            "language": "en-US",
+            "gender": "female",
+            "quality": "high"
+          },
+          {
+            "id": "en_male_clear",
+            "name": "English Male-Clear", 
+            "language": "en-US",
+            "gender": "male",
+            "quality": "high"
+          }
+        ],
+        "config": {
+          "sample_rate": 16000,
+          "format": "pcm16",
+          "speed": 1.0,
+          "volume": 1.0
+        }
+      }
+    }
+  },
+  "llm": {
+    "default": "ollama.qwen2.5:14b",
+    "providers": {
+      "ollama": {
+        "host": "http://127.0.0.1:11434",
+        "models": [
+          {
+            "id": "qwen2.5:14b",
+            "name": "通义千问2.5-14B",
+            "type": "chat",
+            "language": "zh",
+            "context_length": 32768,
+            "temperature": 0.7,
+            "max_tokens": 4096
+          },
+          {
+            "id": "qwen2.5:7b",
+            "name": "通义千问2.5-7B",
+            "type": "chat", 
+            "language": "zh",
+            "context_length": 16384,
+            "temperature": 0.7,
+            "max_tokens": 2048
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "max_count": 9,
+    "roles": [
+      {
+        "id": "agent.ceo",
+        "name": "CEO智能体",
+        "display_name": "总经理智能体",
+        "role": "CEO",
+        "llm_model": "qwen2.5:14b",
+        "voice": "zh_male_clear",
+        "description": "负责战略决策和整体协调"
+      },
+      {
+        "id": "agent.secretary",
+        "name": "会议秘书智能体",
+        "display_name": "会议秘书智能体",
+        "role": "MeetingSecretary", 
+        "llm_model": "qwen2.5:14b",
+        "voice": "zh_female_clear",
+        "description": "负责会议组织和记录"
+      },
+      {
+        "id": "agent.finance",
+        "name": "财务总监智能体",
+        "display_name": "财务总监智能体",
+        "role": "FinanceDirector",
+        "llm_model": "qwen2.5:14b", 
+        "voice": "zh_male_clear",
+        "description": "负责财务相关决策"
+      },
+      {
+        "id": "agent.tech",
+        "name": "技术代表智能体",
+        "display_name": "技术代表智能体", 
+        "role": "TechRepresentative",
+        "llm_model": "qwen2.5:14b",
+        "voice": "zh_female_clear",
+        "description": "负责技术方案评估"
+      },
+      {
+        "id": "agent.wood",
+        "name": "木部门智能体",
+        "display_name": "木部门智能体",
+        "role": "Observer",
+        "llm_model": "qwen2.5:7b",
+        "voice": "zh_male_clear",
+        "description": "负责创新和发展相关讨论"
+      },
+      {
+        "id": "agent.fire",
+        "name": "火部门智能体", 
+        "display_name": "火部门智能体",
+        "role": "Observer",
+        "llm_model": "qwen2.5:7b",
+        "voice": "zh_female_clear",
+        "description": "负责营销和推广相关讨论"
+      },
+      {
+        "id": "agent.earth",
+        "name": "土部门智能体",
+        "display_name": "土部门智能体", 
+        "role": "Observer",
+        "llm_model": "qwen2.5:7b",
+        "voice": "zh_male_clear",
+        "description": "负责运营和执行相关讨论"
+      },
+      {
+        "id": "agent.metal",
+        "name": "金部门智能体",
+        "display_name": "金部门智能体",
+        "role": "Observer", 
+        "llm_model": "qwen2.5:7b",
+        "voice": "zh_female_clear",
+        "description": "负责财务和控制相关讨论"
+      },
+      {
+        "id": "agent.water",
+        "name": "水部门智能体",
+        "display_name": "水部门智能体",
+        "role": "Observer",
+        "llm_model": "qwen2.5:7b", 
+        "voice": "zh_male_clear",
+        "description": "负责人力和协调相关讨论"
+      }
+    ]
+  },
+  "voting": {
+    "algorithm": "weighted_majority",
+    "quorum": 0.6,
+    "role_weights": {
+      "CEO": 3,
+      "MeetingSecretary": 2,
+      "FinanceDirector": 2,
+      "TechRepresentative": 2,
+      "Observer": 1
+    },
+    "opinion_colors": {
+      "agree": "🟢",
+      "partial_agree": "🟡", 
+      "disagree": "🔴",
+      "need_info": "🔵"
+    }
+  },
+  "performance": {
+    "max_concurrent_meetings": 20,
+    "max_messages_per_second": 100,
+    "max_file_size": 104857600,
+    "supported_file_types": ["pdf", "doc", "docx", "txt", "md", "jpg", "png"],
+    "voice_chunk_size": 32768,
+    "voice_sample_rate": 16000
+  }
+}

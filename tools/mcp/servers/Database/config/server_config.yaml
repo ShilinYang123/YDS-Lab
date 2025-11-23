@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - sqlalchemy>=1.4.0
+  - psycopg2-binary>=2.8.0
+  environment: production
+  python_version: 3.8+
+server_info:
+  capabilities:
+  - 数据存储
+  - 查询优化
+  - 事务管理
+  - 备份恢复
+  name: Database
+  protocol: MCP
+  version: 1.0.0

@@ -1,0 +1,180 @@
+# YDS-Lab项目Git忽略文件
+# 确保备份文件、报告文件、记录文件、临时文件和虚拟环境不被推送到Git仓库
+
+# Python相关
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+.venv/
+venv/
+ENV/
+env/
+venv-tools/
+**/venv/
+**/env/
+**/.venv/
+
+# IDE相关
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志文件
+logs/
+**/logs/
+*.log
+*.out
+auto_push.log
+
+# 备份文件
+bak/
+**/bak/
+**/backup/
+*.bak
+*.backup
+*.old
+01-struc/bak/
+
+# 报告文件
+**/工作记录/
+**/工作完成报告*
+**/工作报告*
+**/报告*
+*.report
+
+# 临时文件
+tmp/
+**/tmp/
+*.tmp
+*.temp
+temp/
+cache/
+.cache/
+
+# 记录文件
+rep/
+**/rep/
+**/记录/
+*.record
+
+# 监控文件
+monitoring/
+**/monitoring/
+
+# 培训文件
+training/
+**/training/
+
+# 配置文件（包含敏感信息）
+config/security/
+*.key
+*.pem
+*.p12
+*.pfx
+.env
+.env.*
+config.local.*
+*secret*
+*password*
+
+# 大文件和归档文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.dmg
+*.iso
+*.exe
+*.msi
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# Node.js相关
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 项目特定目录
+04-prod/
+# 保留03-dev目录但忽略其中的构建产物和临时文件
+03-dev/**/build/
+03-dev/**/dist/
+03-dev/**/node_modules/
+03-dev/**/venv/
+03-dev/**/.venv/
+
+# 忽略YDS-Lab特定的工作文件
+afternoon_batch_creation_report.md
+check_*.py
+*_batch_creation.py
+
+# 测试和检查脚本产生的临时文件
+*_check_*
+*_violation_*
+
+# Git hooks和临时文件
+.git/hooks/*.sample
+.git/index.lock
+
+# 长记忆系统临时文件
+tools/LongMemory/temp/
+tools/LongMemory/cache/
+
+# MCP服务器临时文件
+tools/mcp/servers/temp/
+tools/mcp/servers/cache/
+
+# AI Agent工作临时文件
+01-struc/Agents/**/temp/
+01-struc/Agents/**/cache/
+01-struc/Agents/**/logs/
+
+# 训练相关临时文件
+training/temp/
+training/cache/
+
+# 部署相关临时文件
+deployment/temp/
+deployment/cache/
+
+# 合规检查临时文件
+rep/compliance/temp/
+rep/compliance/cache/
+
+# 审计日志
+audit_*/
+logs/audit_*/
+
+# 自动生成的文档
+docs/generated/
+docs/auto-generated/

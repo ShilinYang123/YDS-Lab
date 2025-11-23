@@ -1,0 +1,17 @@
+{
+  "name": "ai-meetingroom-tests",
+  "version": "1.0.0",
+  "description": "AI会议室系统测试配置",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverage": true,
+    "coverageReporters": ["text", "lcov", "html"]
+  }
+}

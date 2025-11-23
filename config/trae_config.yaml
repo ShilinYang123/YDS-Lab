@@ -1,0 +1,79 @@
+# YDS-Lab Trae平台配置文件
+# 版本: V2.0 - Trae适配版
+# 创建时间: 2025-11-01
+
+platform:
+  name: "YDS-Lab Trae Platform"
+  version: "2.0.0"
+  environment: "development"
+  
+# Trae智能体配置
+agents:
+  ceo:
+    name: "总经理智能体"
+    role: "CEO"
+    capabilities: ["战略决策", "团队协调", "业务规划"]
+    workspace: "01-struc/Agents/01-ceo"
+    
+  planning_director:
+    name: "企划总监智能体"
+    role: "PlanningDirector"
+    capabilities: ["项目规划", "需求分析", "方案设计"]
+    workspace: "01-struc/Agents/03-planning_director"
+    
+  finance_director:
+    name: "财务总监智能体"
+    role: "FinanceDirector"
+    capabilities: ["财务分析", "预算管理", "成本控制"]
+    workspace: "01-struc/Agents/04-finance_director"
+    
+  dev_team_lead:
+    name: "开发团队负责人智能体"
+    role: "DevTeamLead"
+    capabilities: ["技术架构", "开发管理", "质量保证"]
+    workspace: "01-struc/Agents/06-dev_team"
+    
+  marketing_director:
+    name: "市场总监智能体"
+    role: "MarketingDirector"
+    capabilities: ["市场分析", "用户研究", "推广策略"]
+    workspace: "01-struc/Agents/07-marketing_director"
+
+# 系统集成配置
+integration:
+  mcp_servers:
+    enabled: true
+    auto_start: true
+    servers_path: "tools/mcp/servers"
+    
+  memory_system:
+    enabled: true
+    health_check_interval: 300
+    log_retention_days: 30
+    
+  collaboration:
+    max_agents: 20
+    message_timeout: 30
+    retry_attempts: 3
+
+# 监控与告警
+monitoring:
+  health_checks:
+    - name: "agents_status"
+      interval: 60
+      enabled: true
+    - name: "mcp_servers"
+      interval: 120
+      enabled: true
+    - name: "memory_system"
+      interval: 300
+      enabled: true
+      
+  alerts:
+    enabled: true
+    channels:
+      - type: "log"
+        level: "warning"
+      - type: "file"
+        path: "logs/alerts/alerts.json"
+        level: "error"

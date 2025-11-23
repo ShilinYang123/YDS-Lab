@@ -1,0 +1,15 @@
+runtime:
+  dependencies:
+  - openpyxl>=3.0.0
+  - pandas>=1.3.0
+  environment: production
+  python_version: 3.8+
+server_info:
+  capabilities:
+  - 数据处理
+  - 报表生成
+  - 公式计算
+  - 图表制作
+  name: Excel
+  protocol: MCP
+  version: 1.0.0

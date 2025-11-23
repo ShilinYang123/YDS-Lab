@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+*.out
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+cache/
+.cache/
+
+# Sensitive files
+api_keys.json
+*.key
+*.pem
+*.p12
+*.pfx
+.env
+.env.*
+config.local.*
+*secret*
+*password*
+
+# Backups
+Backups/
+*.bak
+*.backup
+
+# Models directory
+models/
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project specific
+01-struc/0B-general-manager/logs/
+Struc/GeneralOffice/bak/
+models/config/api_keys.json
+Documentation/
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.dmg
+*.iso
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Node.js (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+ 
+# Releases (new production directory)
+03-proc/releases/

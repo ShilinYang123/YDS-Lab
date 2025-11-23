@@ -1,0 +1,29 @@
+{
+  "app_name": "TraeMate",
+  "author": "杨世林 3AI",
+  "window": {
+    "width": 420,
+    "height": 32,
+    "bg_color": "#2c3553",
+    "alpha": 0.7,
+    "corner_radius": 12
+  },
+  "indicator": {
+    "color_active": "#00ff00",
+    "color_inactive": "#888888",
+    "blink_interval": 1.0,
+    "size": 14
+  },
+  "monitor": {
+    "interval_seconds": 2.0,
+    "cooldown_seconds": 30,
+    "process_names": ["trae", "cursor"],
+    "skip_process_check": false
+  },
+  "detection": {
+    "scale_factor": 1.0,
+    "threshold_main": 0.6,
+    "threshold_handlers": 0.85
+  },
+  "custom_handlers": []
+}

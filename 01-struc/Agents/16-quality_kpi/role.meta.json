@@ -1,0 +1,19 @@
+{
+  "role_id": "AGENT-16-QUALITY-KPI",
+  "name_cn": "质量指标/KPI",
+  "module_dir": "01-struc/Agents/16-quality_kpi",
+  "description_cn": "质量指标定义、采集与报表，推动质量改进。",
+  "responsibilities": ["指标定义", "数据采集", "报表输出"],
+  "interfaces": {
+    "tools": ["tools/system_test_suite.py"],
+    "configs": ["setup.cfg"],
+    "depends_on": ["04-prod/reports/*"],
+    "deliverables": ["质量报表", "改进建议"]
+  },
+  "inputs": ["测试与验证结果", "运行指标"],
+  "outputs": ["质量KPI", "分析报告"],
+  "status": "initialized",
+  "owner": "TBD",
+  "version": "0.1.0",
+  "last_updated": "2025-11-09"
+}

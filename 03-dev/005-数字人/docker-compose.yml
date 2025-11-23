@@ -1,0 +1,206 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 数据库
+  postgres:
+    image: postgres:15-alpine
+    container_name: digital-employee-postgres
+    environment:
+      POSTGRES_DB: digital_employee
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - digital-employee-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis 缓存服务
+  redis:
+    image: redis:7-alpine
+    container_name: digital-employee-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - digital-employee-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MinIO 对象存储
+  minio:
+    image: minio/minio:latest
+    container_name: digital-employee-minio
+    ports:
+      - "9000:9000"  # API端口
+      - "9001:9001"  # 控制台端口
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - digital-employee-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Supabase 本地开发环境（可选）
+  supabase:
+    image: supabase/supabase:latest
+    container_name: digital-employee-supabase
+    ports:
+      - "54321:5432"  # Supabase PostgreSQL
+      - "8000:8000"   # Supabase API
+    environment:
+      POSTGRES_DB: supabase
+      POSTGRES_USER: supabase
+      POSTGRES_PASSWORD: supabase123
+    volumes:
+      - supabase_data:/var/lib/postgresql/data
+    networks:
+      - digital-employee-network
+    profiles:
+      - supabase
+    restart: unless-stopped
+
+  # Nginx 反向代理（生产环境使用）
+  nginx:
+    image: nginx:alpine
+    container_name: digital-employee-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - digital-employee-network
+    profiles:
+      - production
+    restart: unless-stopped
+
+  # 前端应用
+  frontend:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    container_name: digital-employee-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:3001
+    volumes:
+      - ./src:/app
+      - /app/node_modules
+    networks:
+      - digital-employee-network
+    depends_on:
+      - api
+    profiles:
+      - fullstack
+    restart: unless-stopped
+
+  # 后端API服务
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: digital-employee-api
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/digital_employee
+      - REDIS_URL=redis://redis:6379
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin123
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    networks:
+      - digital-employee-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    profiles:
+      - fullstack
+    restart: unless-stopped
+
+  # 数据库管理工具
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: digital-employee-pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - digital-employee-network
+    profiles:
+      - tools
+    restart: unless-stopped
+
+  # Redis 管理工具
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: digital-employee-redis-commander
+    ports:
+      - "8081:8081"
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    networks:
+      - digital-employee-network
+    profiles:
+      - tools
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+networks:
+  digital-employee-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  minio_data:
+    driver: local
+  supabase_data:
+    driver: local
+  pgadmin_data:
+    driver: local

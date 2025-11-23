@@ -1,0 +1,36 @@
+# 域名解析失败列表
+# 生成时间: 2025-11-21
+# 来源: batch_domain_resolver.log
+
+## 解析失败的域名 (6个)
+1. cdninstagram.com
+2. ggpht.com
+3. instagramstatic.com
+4. playstore.google.com
+5. protonsuite.com
+6. rotten.com
+
+## 详细失败记录
+2025-11-21 12:04:25 - cdninstagram.com
+2025-11-21 12:14:31 - ggpht.com
+2025-11-21 12:18:09 - instagramstatic.com
+2025-11-21 12:56:36 - cdninstagram.com
+2025-11-21 13:07:06 - ggpht.com
+2025-11-21 13:11:13 - instagramstatic.com
+2025-11-21 13:25:05 - playstore.google.com
+2025-11-21 13:25:05 - protonsuite.com
+2025-11-21 13:25:05 - rotten.com
+
+## 失败原因分析
+这些域名解析失败可能有以下原因：
+1. 域名本身不存在或已失效
+2. DNS服务器配置问题
+3. 网络连接问题
+4. 域名被DNS污染或封锁
+5. 所有配置的DNS服务器都无法解析这些域名
+
+## 建议处理方案
+1. 手动验证这些域名是否真实存在
+2. 尝试使用不同的DNS服务器
+3. 检查网络连接状态
+4. 考虑将这些域名从解析列表中移除或替换
